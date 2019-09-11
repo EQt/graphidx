@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "idx/grid.hpp"
+#include "../idx/grid.hpp"
 
 
 TEST(GridIndex, grid_3x2)

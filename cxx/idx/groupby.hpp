@@ -4,7 +4,7 @@
 #include <algorithm>        // std::max_element
 #include <sstream>
 
-#include "utils/viostream.hpp"
+#include "../utils/viostream.hpp"
 
 
 /** Group the elements in `parent`, stored in `value`, group index `index`.

@@ -2,9 +2,9 @@
 #include <stdexcept>
 #include <string>
 
-#include "std/stack.hpp"
-#include "idx/children.hpp"
-#include "../../cxx/utils/timer.hpp"
+#include "../std/stack.hpp"
+#include "../idx/children.hpp"
+#include "../utils/timer.hpp"
 
 
 

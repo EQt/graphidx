@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
-#include "tree/postorder.hpp"
-#include "utils/perm.hpp"
-#include "utils/timer.hpp"
+#include "../tree/postorder.hpp"
+#include "../utils/perm.hpp"
+#include "../utils/timer.hpp"
 
 
 TEST(postorder, size)
