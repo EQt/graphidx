@@ -1,0 +1,16 @@
+platform:
+  - x64
+
+configuration:
+  - Release
+
+image:
+  - Visual Studio 2017
+
+build_script:
+  - echo %APPVEYOR_BUILD_FOLDER%
+  - mkdir build.appveyor && cd build.appveyor && cmake .. -A x64
+  - cmake --build . --target tests --config "%CONFIGURATION%"
+
+test_script:
+  - "%CONFIGURATION%\\tests.exe --gtest_color=yes"

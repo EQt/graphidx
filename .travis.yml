@@ -1,0 +1,23 @@
+language: cpp
+dist: bionic
+
+matrix:
+  include:
+    - os: linux
+      env: cmake_opts="-DASAN=ON"
+    - os: osx
+
+branches:
+  only:
+    - master
+
+install:
+  - uname -a && echo $TRAVIS_OS_NAME && pwd
+  - export CC=${C_COMPILER:-cc} && echo $CC && $CC --version
+  - export CXX=${CXX_COMPILER:-c++} && echo $CXX && $CXX --version
+  - echo | ${CC} -dM -E -x c -
+
+script:
+  - mkdir -p build && cd build
+  - CXX=$CXX CC=$CC cmake .. -DCMAKE_BUILD_TYPE=Debug $cmake_opts
+  - make -j$(nproc) && ./tests

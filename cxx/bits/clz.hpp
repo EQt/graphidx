@@ -1,5 +1,9 @@
 #pragma once
 #include <cstdint>
+#if defined(__WIN32__) || defined(WIN32)
+#  include <intrin.h>
+#  include <windows.h>
+#endif
 #include <immintrin.h>
 
 /**
@@ -15,12 +19,15 @@
    [5]: https://clang.llvm.org/doxygen/lzcntintrin_8h_source.html
    [6]: https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_lzcnt_u64
    [7]: https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_tzcnt_u64
+   [8]: https://docs.microsoft.com/en-us/cpp/intrinsics/lzcnt16-lzcnt-lzcnt64?view=vs-2017
  */
 inline uint64_t
 leading_zeros(uint64_t x)
 {
 #if defined __APPLE__ && defined __clang__
     return x == 0 ? 64 : 63 - _lzcnt_u64(x);
+#elif defined(__WIN32__) || defined(WIN32)
+    return __lzcnt64(x);
 #else
     return x == 0 ? 64 : _lzcnt_u64(x);
 #endif
@@ -39,6 +46,8 @@ leading_zeros(uint32_t x)
 {
 #if defined __APPLE__ && defined __clang__
     return x == 0 ? 32 : 31 - _lzcnt_u32(x);
+#elif defined(__WIN32__) || defined(WIN32)
+    return  __lzcnt(x);
 #else
     return x == 0 ? 32 : _lzcnt_u32(x);
 #endif
