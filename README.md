@@ -3,6 +3,10 @@
 Index-Based Graphs
 ==================
 
+[![Build Status](https://travis-ci.com/EQt/graphidx.svg?branch=master)](https://travis-ci.com/EQt/graphidx)
+[![Build status](https://ci.appveyor.com/api/projects/status/2km8vnder45ws2mx?svg=true)](https://ci.appveyor.com/project/EQt/graphidx)
+
+
 In most graph algorithms, it is convinient to have access to the neighboring nodes for a node.
 The corresponding data structure, adajency lists, however is very inpractical to efficiently store in memory.
 So instead of storing

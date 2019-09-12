@@ -37,6 +37,11 @@ The most important submodules are
 """
 module GraphIdx
 
+include("weights.jl")
+
+include("cluster.jl")
+include("incidence.jl")
+
 module Utils
 
 include("utils/unionfind.jl")
@@ -44,17 +49,16 @@ include("utils/heap.jl")
 
 end
 
-
-include("cluster.jl")
-include("incidence.jl")
 include("tree.jl")
-include("weightedgraph.jl")
+
 include("prim_mst.jl")
 include("kruskal_mst.jl")
-include("lina.jl")
-include("grid.jl")
-include("grididx.jl")
-include("stats.jl")
+include("weightedgraph.jl")
+
 include("bits.jl")
+include("lina.jl")
+# include("grid.jl")
+# include("grididx.jl")
+include("stats.jl")
 
 end

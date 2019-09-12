@@ -1,4 +1,4 @@
-# import GraphIdx.Tree: ChildrenIndex, root_node
+import .Tree: ChildrenIndex, root_node
 
 function _hierarchy(
     io::IO,
@@ -25,6 +25,8 @@ Print a tree given by a `ChildrenIndex` hierarchically onto `io` (default `stdou
 # Example
 
 ```jldoctest
+julia> import GraphIdx.Tree: ChildrenIndex, hierarchy
+
 julia> hierarchy(ChildrenIndex([1, 1, 1, 3]))
 1
 ├─2
@@ -75,6 +77,8 @@ Per default output on `stdout`.
 # Example
 
 ```jldoctest
+julia> import GraphIdx.Tree: ChildrenIndex, parenthesis
+
 julia> parenthesis(ChildrenIndex([1, 1, 1, 3]))
 1(2()3(4()))
 

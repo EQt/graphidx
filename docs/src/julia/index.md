@@ -6,6 +6,9 @@ Some parts are also implemented in
 - [C++ headers](../cxx/index.html), or
 - a [Rust crate](../rust/graphidx/index.html).
 
+```@meta
+CurrentModule = GraphIdx
+```
 The main module is
 ```@docs
 GraphIdx

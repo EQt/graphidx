@@ -15,11 +15,6 @@ Weights
 Often, nodes or edges might have an associated weight.
 To give the optimizer the possibility to distinguish constant weights (all weights the same) from individual weights we provide the following structs:
 
-```@meta
-DocTestSetup  = quote
-    import GraphIdx
-end
-```
 ```@docs
 GraphIdx.ConstantWeights
 GraphIdx.ArrayWeights
@@ -36,11 +31,6 @@ Modules = [GraphIdx.Cluster]
 Tree Graphs
 ----------
 
-```@meta
-DocTestSetup  = quote
-    import GraphIdx.Tree: ChildrenIndex
-end
-```
 ```@docs
 GraphIdx.Tree.ChildrenIndex
 GraphIdx.Tree.root_node(::GraphIdx.Tree.ChildrenIndex)

@@ -2,11 +2,11 @@ Bit Manipulations
 ================
 
 ```@meta
-DocTestSetup  = quote
-    import GraphIdx.Bits.hyperfloor
-end
+CurrentModule = GraphIdx.Bits
 ```
-
 ```@docs
 GraphIdx.Bits.hyperfloor
+```
+```@meta
+CurrentModule = GraphIdx
 ```

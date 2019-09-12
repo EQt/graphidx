@@ -1,3 +1,5 @@
+import .ChildrenIndex
+
 """
     dfs_walk(f, tree [,stack])
 
@@ -13,6 +15,8 @@ To avoid allocation, you can pass a `stack` Vector.
 # Example
 
 ```jldoctest
+julia> import GraphIdx.Tree: ChildrenIndex, hierarchy, dfs_walk
+
 julia> tree = ChildrenIndex([1, 1, 1, 3, 1]); hierarchy(tree)
 1
 ├─2
@@ -68,6 +72,8 @@ Like [`dfs_walk`](@ref) but process the children in reversed order!
 # Example
 
 ```jldoctest
+julia> import GraphIdx.Tree: ChildrenIndex, hierarchy, dfs_walk_rev
+
 julia> tree = ChildrenIndex([1, 1, 1, 3, 1]); hierarchy(tree)
 1
 ├─2
@@ -116,6 +122,8 @@ end
 For each node, compute the DFS finish time (without computing a ChildrenIndex).
 
 ```jldoctest
+julia> import GraphIdx.Tree: ChildrenIndex, hierarchy, dfs_finish
+
 julia> pi = [1, 1, 2, 1, 2, 3]; hierarchy(ChildrenIndex(pi))
 1
 ├─2

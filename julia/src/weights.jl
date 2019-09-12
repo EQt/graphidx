@@ -33,11 +33,11 @@ The actual value of a node can be accessed via call - or index syntax.
 ```jldoctest
 julia> w = GraphIdx.ArrayWeights([0.1, 0.2, 0.3]);
 
-julia> w(1)
-0.1
-
-julia> w[3]
+julia> w(3)
 0.3
+
+julia> w[1]
+0.1
 ```
 """
 struct ArrayWeights{F<:Real}

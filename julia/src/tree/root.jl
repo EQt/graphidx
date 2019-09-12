@@ -7,7 +7,7 @@ Report an error if non such exist.
 # Example
 
 ```jldoctest
-julia> find_root([2, 1, 3, 2])
+julia> GraphIdx.Tree.find_root([2, 1, 3, 2])
 3
 
 ```

@@ -33,7 +33,3 @@ function enumerate_edges(f::Function, t::Tree.WeightedTree{W}) where {W}
         f(u, u, v, t.lam(u))
     end
 end
-
-
-
-include("weights.jl")

@@ -1,13 +1,12 @@
 #!/usr/bin/env julia
 
-push!(LOAD_PATH, "../src/")
-
 using Documenter
 import GraphIdx
 
 const build = get(ENV, "HTML_DIR", "html/julia")
 
-
+DocMeta.setdocmeta!(GraphIdx, :DocTestSetup, :(import GraphIdx);
+                    recursive=true, warn=true)
 makedocs(
     modules=[GraphIdx],
     sitename="GraphIdx",

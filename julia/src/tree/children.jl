@@ -9,7 +9,10 @@ Provide constant time access to children of a node by index operator.
 # Example
 
 ```jldoctest
-julia> cidx = ChildrenIndex([1, 1, 2, 1]);
+julia> cidx = GraphIdx.Tree.ChildrenIndex([1, 1, 2, 1]);
+
+julia> GraphIdx.Tree.root_node(cidx)
+1
 
 julia> collect(cidx[1])  # root node 1 has children 2 and 4
 2-element Array{Int64,1}:

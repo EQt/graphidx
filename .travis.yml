@@ -1,23 +1,41 @@
-language: cpp
 dist: bionic
-
-matrix:
-  include:
-    - os: linux
-      env: cmake_opts="-DASAN=ON"
-    - os: osx
 
 branches:
   only:
     - master
 
-install:
-  - uname -a && echo $TRAVIS_OS_NAME && pwd
-  - export CC=${C_COMPILER:-cc} && echo $CC && $CC --version
-  - export CXX=${CXX_COMPILER:-c++} && echo $CXX && $CXX --version
-  - echo | ${CC} -dM -E -x c -
+notifications:
+  email:
+    on_failure: change
 
-script:
-  - mkdir -p build && cd build
-  - CXX=$CXX CC=$CC cmake .. -DCMAKE_BUILD_TYPE=Debug $cmake_opts
-  - make -j$(nproc) && ./tests
+matrix:
+  include:
+    - language: cpp
+      os: linux
+      script:
+        - mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DASAN=ON
+        - make -j$(nproc) && ./tests
+
+    - language: cpp
+      os: osx
+      script:
+        - mkdir -p build && cd build &&  cmake .. -DCMAKE_BUILD_TYPE=Debug
+        - make -j$(nproc) && ./tests
+
+    - language: julia
+      os: linux  # don't need it specifically for osx
+      julia: 1.2
+      script:
+        - julia -e 'import Pkg; Pkg.develop(Pkg.PackageSpec(path="julia"))'
+        - julia -e 'import Pkg; Pkg.instantiate()'
+        - julia -e 'import Pkg; Pkg.build("GraphIdx")'
+        - julia --color=yes -e 'import Pkg; Pkg.test("GraphIdx)'
+        - julia --project=docs/ -e 'import Pkg; Pkg.add("Documenter")'
+        - julia --project=docs/ --color=yes docs/make.jl
+ 
+    - language: rust
+      os: linux
+      rust: stable
+      script:
+        - cargo --version
+        - cargo test
