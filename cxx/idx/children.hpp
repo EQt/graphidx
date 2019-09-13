@@ -53,4 +53,11 @@ struct ChildrenIndex : public AdjacencyIndex<int>
 
     /** @return the index of the root node */
     int root_node() const { return this->value[0]; }
+
+    void degrees(int *deg) const {
+        AdjacencyIndex<int>::degrees(deg);
+        for (size_t i = 0; i < size(); i++)
+            deg[i] += 1;
+        deg[root_node()] -= 1;
+    }
 };

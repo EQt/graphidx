@@ -97,6 +97,21 @@ reg_idx(py::module &m)
                      std::to_string(cidx.size()) + " ]";
              })
         .def_property_readonly("root", &ChildrenIndex::root_node)
+        .def("degrees",
+             [](const ChildrenIndex &b, py::array_i32 &d) -> py::array_t<int>
+             {
+                 const auto n = b.size();
+                 if (is_empty(d))
+                     d = py::array_t<int32_t>({n}, {sizeof(int32_t)});
+                 check_len(n, d, "d");
+                 b.degrees(d.mutable_data());
+                 return d;
+             },
+             R"pbdoc(
+                The number of neighbors in each node
+             )pbdoc",
+             py::arg("d") = py::array_i32()
+            )
         ;
 
     py::class_<PartitionIndex_int> (m, "PartitionIndex", PyAdjacencyIndex_int)
