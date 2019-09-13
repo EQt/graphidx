@@ -57,8 +57,8 @@ include("weightedgraph.jl")
 
 include("bits.jl")
 include("lina.jl")
-# include("grid.jl")
-# include("grididx.jl")
+include("grid.jl")
+include("grididx.jl")
 include("stats.jl")
 
 end

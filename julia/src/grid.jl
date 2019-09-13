@@ -52,6 +52,8 @@ less or equal `i` in the following diagram as neighbors of `[*]`.
 # Example
 
 ```jldoctest
+julia> import GraphIdx.Grid: compute_dirs, Pixel
+
 julia> compute_dirs(2)
 2-element Array{Pixel,1}:
  Pixel(1, 0)
@@ -156,6 +158,8 @@ Same as `iter_edges_pixel(::Function, ::Int, ::Int, ::Vector{Pixel}).
 # Example
 
 ```jldoctest
+julia> import GraphIdx.Grid: GridGraph, iter_edges_pixel
+
 julia> iter_edges_pixel(GridGraph(2, 3)) do i1, j1, i2, j2, len
            println("(\$i1,\$j1) -- (\$i2,\$j2): \$len")
        end
@@ -267,7 +271,9 @@ Is equivalent to `incmat(1, n, 1)`.
 # Example
 
 ```jldoctest
-julia> Grid.line_D(3)
+julia> import GraphIdx.Grid: line_D
+
+julia> line_D(3)
 2×3 SparseArrays.SparseMatrixCSC{Float64,Int64} with 4 stored entries:
   [1, 1]  =  1.0
   [1, 2]  =  -1.0
