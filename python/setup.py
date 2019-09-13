@@ -8,6 +8,10 @@ sources = [
 ]
 
 
+includes = [
+    path.join(path.dirname(__file__), "..", "deps", "pybind", "cxx"),
+]
+
 if __name__ == '__main__':
     setup(
         name="graphidx",
