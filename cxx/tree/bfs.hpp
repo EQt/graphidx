@@ -4,7 +4,7 @@
 */
 #pragma once
 #ifndef STD_QUEUE
-#   define STD_QUEUE 0
+#  define STD_QUEUE 0
 #endif
 
 #include <vector>
@@ -12,10 +12,10 @@
 #if STD_QUEUE
 #  include <queue>
 #else
-#  include "std/queue.hpp"
+#  include "../std/queue.hpp"
 #endif
 
-#include "idx/children.hpp"
+#include "../idx/children.hpp"
 
 
 inline std::vector<int>
