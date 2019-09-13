@@ -25,12 +25,21 @@ matrix:
         - make -j$(nproc) && ./tests
 
     - language: python
-      os:
-        - linux
-        - osx
+      os: linux
       python: "3.7"
       install:
         - cd python && python setup.py install
+      script: pytest
+
+    - language: minimal
+      os: osx
+      osx_image: xcode10.2
+      name: "Python 3.7"
+      install:
+        - python --version
+        - python3 --version
+        - pip3 install pytest
+        - cd python && python3 setup.py install
       script: pytest
 
     - language: julia

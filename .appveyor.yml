@@ -1,20 +1,37 @@
-platform:
-  - x64
-
 branches:
   only:
     - master
 
-configuration:
-  - Release
+platform: x64
+configuration: Release
+image: Visual Studio 2017
 
-image:
-  - Visual Studio 2017
+environment:
+  matrix:
+    - lang: Python3.7
+    - lang: c++
 
-build_script:
-  - echo %APPVEYOR_BUILD_FOLDER%
-  - mkdir build.appveyor && cd build.appveyor && cmake .. -A x64
-  - cmake --build . --target tests --config "%CONFIGURATION%"
+for:
+  -
+    matrix:
+      only:
+        - lang: c++
+    build_script:
+      - echo %APPVEYOR_BUILD_FOLDER%
+      - mkdir build.appveyor && cd build.appveyor && cmake .. -A x64
+      - cmake --build . --target tests --config "%CONFIGURATION%"
 
-test_script:
-  - "%CONFIGURATION%\\tests.exe --gtest_color=yes"
+    test_script:
+      - "%CONFIGURATION%\\tests.exe --gtest_color=yes"
+
+  -
+    matrix:
+      only:
+        - lang: Python3.7
+    build_script:
+      - SET PATH=C:\Python37-x64;C:\Python37-x64\Scripts;%PATH%
+      - python --version
+      - git submodule update --init deps/pybind11
+      - pip install pytest -r python/requirements.txt
+      - cd python && python setup.py install
+    test_script: pytest
