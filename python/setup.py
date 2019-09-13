@@ -1,4 +1,6 @@
+from os import path
 from setuptools import setup
+from setuptools.extension import Extension
 
 
 sources = [
@@ -9,10 +11,13 @@ sources = [
 
 
 includes = [
-    path.join(path.dirname(__file__), "..", "deps", "pybind", "cxx"),
+    path.join(path.dirname(__file__), "..", "deps", "pybind11", "include"),
 ]
 
 if __name__ == '__main__':
+    _graphidx = Extension("graphidx._graphidx", sources, language='c++',
+                     include_dirs=includes)
+
     setup(
         name="graphidx",
         version="0.1.0",
@@ -20,4 +25,5 @@ if __name__ == '__main__':
         author_email="elias.kuthe@tu-dortmund.de",
         license="MIT",
         packages=['graphidx'],
+        ext_modules=[_graphidx],
     )
