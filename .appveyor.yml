@@ -40,7 +40,7 @@ for:
       - SET PATH=C:\Python37-x64;C:\Python37-x64\Scripts;%PATH%
       - python --version
       - git submodule update --init deps/pybind11
-      - pip install pytest -r python/requirements.txt
+      - pip install -r python/requirements.txt -r python/test/requirements.txt
       - cd python && python setup.py install
     test_script: pytest
 
