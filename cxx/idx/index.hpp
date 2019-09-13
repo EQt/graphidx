@@ -54,4 +54,9 @@ struct AdjacencyIndex
     }
 
     size_t size() const { return index.size() -1; }
+
+    void degrees(int_ *deg) const {
+        for (size_t i = 0; i < size(); i++)
+            deg[i] = index[i+1] - index[i];
+    }
 };

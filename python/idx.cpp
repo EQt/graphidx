@@ -1,7 +1,6 @@
 #include <string>
 #include <stdexcept>
 #include <pybind11/pybind11.h>
-
 #include "py_np.hpp"
 
 #include "../cxx/idx/biadjacent.hpp"
@@ -9,7 +8,6 @@
 #include "../cxx/idx/children.hpp"
 #include "../cxx/idx/partition.hpp"
 #include "../cxx/tree/root.hpp"
-
 
 namespace py = pybind11;
 
@@ -33,7 +31,21 @@ reg_idx(py::module &m)
              {
                  return self.size();
              })
-
+        .def("degrees",
+             [](const AdjacencyIndex_int &b, py::array_i32 &d) -> py::array_t<int>
+             {
+                 const auto n = b.size();
+                 if (is_empty(d))
+                     d = py::array_t<int32_t>({n}, {sizeof(int32_t)});
+                 check_len(n, d, "d");
+                 b.degrees(d.mutable_data());
+                 return d;
+             },
+             R"pbdoc(
+                The number of neighbors in each node
+             )pbdoc",
+             py::arg("d") = py::array_i32()
+            )
         ;
 
     py::class_<BiAdjacent> (m, "BiAdjacent", PyAdjacencyIndex_int)
@@ -62,17 +74,6 @@ reg_idx(py::module &m)
              [](const BiAdjacent &b) -> std::size_t
              {
                  return b.num_edges();
-             })
-        .def("degrees",
-             [](const BiAdjacent &b) -> py::array_t<int>
-             {
-                 const auto n = b.num_nodes();
-                 py::array_t<int> deg_ (n);
-                 int *deg = deg_.mutable_data();
-                 for (size_t i = 0; i < n; i++) {
-                     deg[i] = b.index[i+1] - b.index[i];
-                 }
-                 return deg_;
              })
         ;
 

@@ -6,7 +6,7 @@ from .graphviz import show_tree
 from ._graphidx import prufer2parent
 from ._graphidx import find_root as c_find_root
 from .prufer import prufer_from_children_spec
-from .children import PyChildrenIndex as ChildrenIndex
+from .idx import ChildrenIndex
 
 
 @njit(cache=True)
@@ -34,14 +34,12 @@ class Tree:
     @property
     def children(self):
         if self.childidx is None:
-            self.childidx = ChildrenIndex.compute(self.parent, self.root)
+            self.childidx = ChildrenIndex(self.parent, self.root)
         return self.childidx
 
     @property
     def degree(self):
-        degs = np.diff(self.children.idx) + 1
-        degs[-1] -= 1
-        return degs
+        return self.children.degrees()
 
     @property
     def n(self):
