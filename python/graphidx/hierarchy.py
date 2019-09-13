@@ -1,6 +1,6 @@
 import sys
 import io
-from treelas.idx import ChildrenIndex
+from .idx import ChildrenIndex
 
 
 def _hierarchy(cidx: ChildrenIndex, v: int, indent: str, last: bool,
