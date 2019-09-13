@@ -9,4 +9,5 @@ from ._graphidx import (
     __author__,
     random_spanning_tree,
     post_order,
+    find_root
 )
