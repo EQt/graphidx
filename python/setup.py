@@ -16,8 +16,14 @@ includes = [
 ]
 
 if __name__ == '__main__':
-    _graphidx = Extension("graphidx._graphidx", sources, language='c++',
-                     include_dirs=includes)
+    _graphidx = Extension(
+        "graphidx._graphidx",
+        sources=sources,
+        include_dirs=includes,
+        language='c++',
+        extra_compile_args=['-std=c++14', '-fvisibility=hidden'],
+    )
+
 
     setup(
         name="graphidx",
