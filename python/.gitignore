@@ -1,0 +1,7 @@
+graphidx/_graphidx*.so
+build*/
+dist/
+__pycache__/
+.cache/
+*.egg-info/
+*.pyc

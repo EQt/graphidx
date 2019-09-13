@@ -1,8 +1,8 @@
 #include <algorithm>                // for std::sort
 #include <pybind11/pybind11.h>
-
-#include "utils/compiler.hpp"
 #include "py_np.hpp"
+
+#include "../cxx/utils/compiler.hpp"
 
 namespace py = pybind11;
 
@@ -26,7 +26,7 @@ _test_create_array()
 }
 
 
-PYBIND11_MODULE(_treelas, m)
+PYBIND11_MODULE(_graphidx, m)
 {
     m.doc() = R"pbdoc(
         Access the C++ implementation of GraphIdx

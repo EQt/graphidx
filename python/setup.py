@@ -4,6 +4,7 @@ from setuptools.extension import Extension
 
 
 sources = [
+    "_graphidx.cpp",
     "idx.cpp",
     "order.cpp",
     "spanning.cpp",
