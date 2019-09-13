@@ -29,7 +29,7 @@ matrix:
         - julia -e 'import Pkg; Pkg.develop(Pkg.PackageSpec(path="julia"))'
         - julia -e 'import Pkg; Pkg.instantiate()'
         - julia -e 'import Pkg; Pkg.build("GraphIdx")'
-        - julia --color=yes -e 'import Pkg; Pkg.test("GraphIdx)'
+        - julia --color=yes -e 'import Pkg; Pkg.test("GraphIdx")'
         - julia --project=docs/ -e 'import Pkg; Pkg.add("Documenter")'
         - julia --project=docs/ --color=yes docs/make.jl
  
