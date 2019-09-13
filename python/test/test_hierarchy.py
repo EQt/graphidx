@@ -1,4 +1,4 @@
-from hierarchy import hierarchy
+from graphidx.hierarchy import hierarchy
 from treelas.idx import ChildrenIndex
 from io import StringIO
 
