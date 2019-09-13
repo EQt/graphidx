@@ -2,20 +2,28 @@ branches:
   only:
     - master
 
+notifications:
+  - provider: Email
+    on_build_success: false
+    on_build_failure: false
+    on_build_status_changed: true
+
 platform: x64
 configuration: Release
 image: Visual Studio 2017
 
 environment:
   matrix:
+    - lang: Rust
     - lang: Python3.7
-    - lang: c++
+    - lang: Julia 1.2
+    - lang: C++
 
 for:
   -
     matrix:
       only:
-        - lang: c++
+        - lang: C++
     build_script:
       - echo %APPVEYOR_BUILD_FOLDER%
       - mkdir build.appveyor && cd build.appveyor && cmake .. -A x64
@@ -35,3 +43,38 @@ for:
       - pip install pytest -r python/requirements.txt
       - cd python && python setup.py install
     test_script: pytest
+
+  -
+    matrix:
+      only:
+        - lang: Julia 1.2
+    environment:
+      julia_version: 1.2
+      hub: "https://raw.githubusercontent.com/JuliaCI/Appveyor.jl"
+      url: "version-1/bin/install.ps1"
+    install:
+      - ps: iex ((new-object net.webclient).DownloadString("$env:hub/$env:url"))
+      - SET PATH=C:\julia\bin;%PATH%
+      - julia --version
+    build_script:
+      - julia --project=julia -e "using Pkg; Pkg.instantiate(); Pkg.build()"
+    test_script:
+      - julia --project=julia -e "using Pkg; Pkg.test()"
+
+  -
+    matrix:
+      only:
+        - lang: Rust
+    environment:
+      target: x86_64-pc-windows-msvc
+      channel: stable
+    install:
+      - curl -sSf -o rustup-init.exe https://win.rustup.rs
+      - rustup-init.exe --default-host %TARGET% --default-toolchain %CHANNEL% -y  
+      - set PATH=%HOMEPATH%\.cargo\bin;%PATH%
+      - rustc -Vv
+      - cargo -V
+    build_script:
+      - cargo build --verbose
+    test_script:
+      - cargo test
