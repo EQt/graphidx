@@ -1,6 +1,6 @@
 module TestIncMat
 include("../src/lina.jl")
-include("../../../julia/test/square.jl")
+include("square.jl")
 
 using Test
 import SparseArrays: nnz
