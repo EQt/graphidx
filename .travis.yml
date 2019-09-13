@@ -4,6 +4,8 @@ branches:
   only:
     - master
 
+sudo: false
+
 notifications:
   email:
     on_failure: change
