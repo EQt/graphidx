@@ -25,6 +25,9 @@ matrix:
         - make -j$(nproc) && ./tests
 
     - language: python
+      os:
+        - linux
+        - osx
       python: "3.7"
       install:
         - cd python && python setup.py install
