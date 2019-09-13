@@ -36,6 +36,17 @@ class BuildExt(build_ext):
 
 
 if __name__ == '__main__':
+    if not path.exists(path.join(includes[0], "pybind11", "pybind11.hy")):
+        import subprocess as sp
+
+        deps = path.join(path.dirname(__file__), '..', 'deps')
+        cmd = 'git submodule update --init pybind11'
+        try:
+            sp.check_call(cmd.split(), cwd=deps)
+        except:
+            print("cd", deps, "&&", cmd)
+            raise
+
     _graphidx = Extension(
         "graphidx._graphidx",
         sources=sources,
