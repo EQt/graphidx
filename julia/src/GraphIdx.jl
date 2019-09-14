@@ -41,15 +41,8 @@ include("weights.jl")
 
 include("cluster.jl")
 include("incidence.jl")
-
-module Utils
-
-include("utils/unionfind.jl")
-include("utils/heap.jl")
-
-end
-
-include("tree.jl")
+include("Utils.jl")
+include("Tree.jl")
 
 include("prim_mst.jl")
 include("kruskal_mst.jl")
@@ -60,5 +53,5 @@ include("lina.jl")
 include("grid.jl")
 include("grididx.jl")
 include("stats.jl")
-
+include("Io.jl")
 end
