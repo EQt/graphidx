@@ -42,8 +42,7 @@ include("weights.jl")
 include("cluster.jl")
 include("incidence.jl")
 include("Utils.jl")
-
-include("tree.jl")
+include("Tree.jl")
 
 include("prim_mst.jl")
 include("kruskal_mst.jl")
