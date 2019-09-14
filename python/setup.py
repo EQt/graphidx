@@ -60,7 +60,7 @@ if __name__ == '__main__':
         author="Elias Kuthe",
         author_email="elias.kuthe@tu-dortmund.de",
         license="MIT",
-        packages=['graphidx'],
+        packages=['graphidx', 'graphidx.py'],
         ext_modules=[_graphidx],
         cmdclass={'build_ext': BuildExt},
     )
