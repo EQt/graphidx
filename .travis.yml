@@ -44,14 +44,13 @@ matrix:
       script: pytest
 
     - language: julia
-      os: linux  # don't need it specifically for osx
+      os: linux
       julia: 1.2
       script:
-        - julia -e 'import Pkg; Pkg.develop(Pkg.PackageSpec(path="julia"))'
-        - julia -e 'import Pkg; Pkg.instantiate()'
-        - julia -e 'import Pkg; Pkg.build("GraphIdx")'
-        - julia --color=yes -e 'import Pkg; Pkg.test("GraphIdx")'
-        - julia --project=docs/ -e 'import Pkg; Pkg.add("Documenter")'
+        - julia --project=julia --color=yes -e "using Pkg; Pkg.instantiate();"
+        - julia --project=julia --color=yes -e "using Pkg; Pkg.build();"
+        - julia --project=julia --color=yes -e "using Pkg; Pkg.test()"
+        - julia --project=docs/ -e 'using Pkg; Pkg.add("Documenter")'
         - julia --project=docs/ --color=yes docs/make.jl
  
     - language: rust
