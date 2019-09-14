@@ -1,9 +1,6 @@
 Tree Graphs
 ==========
 
-```@meta
-CurrentModule = GraphIdx.Tree
-```
 ```@docs
 GraphIdx.Tree
 ```
