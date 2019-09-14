@@ -1,9 +1,10 @@
 Bit Manipulations
 ================
 
-```@docs
-GraphIdx.Bits.hyperfloor
+```@autodocs
+Modules = [GraphIdx.Bits, GraphIdx.Io, GraphIdx.Io.Dimacs]
 ```
+
 ```@meta
 CurrentModule = GraphIdx
 ```
