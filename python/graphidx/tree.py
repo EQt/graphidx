@@ -4,8 +4,8 @@ import numpy as np
 from .graphviz import show_tree
 from ._graphidx import prufer2parent
 from ._graphidx import find_root as c_find_root
-from .prufer import prufer_from_children_spec
 from .idx import ChildrenIndex
+from .py.prufer import prufer_from_children_spec
 
 
 class Tree:
