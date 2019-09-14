@@ -4,8 +4,8 @@ branches:
 
 notifications:
   - provider: Email
-    on_build_success: false
-    on_build_failure: false
+    to:
+      - '{{commitAuthorEmail}}'
     on_build_status_changed: true
 
 platform: x64
