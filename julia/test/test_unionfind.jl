@@ -1,4 +1,4 @@
-include("../src/utils/unionfind.jl")
+include("../src/Utils/unionfind.jl")
 
 using Test
 import Base.==
