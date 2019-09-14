@@ -50,8 +50,8 @@ matrix:
         - julia --project=julia --color=yes -e "using Pkg; Pkg.instantiate();"
         - julia --project=julia --color=yes -e "using Pkg; Pkg.build();"
         - julia --project=julia --color=yes -e "using Pkg; Pkg.test()"
+        - julia  -e 'using Pkg; Pkg.develop(Pkg.PackageSpec(path="julia")); Pkg.instantiate()'
         - julia --project=docs/ -e 'using Pkg; Pkg.add("Documenter")'
-        - julia --project=docs/ -e 'using Pkg; Pkg.develop(Pkg.PackageSpec(path="julia")); Pkg.build("GraphIdx"); Pkg.instantiate()'
         - julia --project=docs/ --color=yes docs/make.jl
  
     - language: rust
