@@ -1,5 +1,5 @@
 import numpy as np
-from graphidx.children import PyChildrenIndex as ChildrenIndex
+from graphidx.py.children import PyChildrenIndex as ChildrenIndex
 
 
 def test_children_root1():

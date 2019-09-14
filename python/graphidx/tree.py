@@ -1,20 +1,11 @@
 from __future__ import annotations
 import numpy as np
-from numba import njit
 
 from .graphviz import show_tree
 from ._graphidx import prufer2parent
 from ._graphidx import find_root as c_find_root
 from .prufer import prufer_from_children_spec
 from .idx import ChildrenIndex
-
-
-@njit(cache=True)
-def find_root(parent):
-    """Return the smallest i with parent[i] == i"""
-    for i, p in enumerate(parent):
-        if i == p:
-            return i
 
 
 class Tree:
