@@ -1,2 +1,3 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+GraphIdx = "6f20e514-06e4-11e9-04c5-39592f74a46d"
