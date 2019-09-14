@@ -1,7 +1,7 @@
 from __future__ import annotations
 import numpy as np
 
-from .graphviz import show_tree
+from . import show_tree
 from ._graphidx import prufer2parent
 from ._graphidx import find_root as c_find_root
 from .idx import ChildrenIndex
