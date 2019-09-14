@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.11)
 project(graphidx)
 
+option(BUILD_PYEXT "Build python extension module"     ON)
+option(PYBIND_DIR  "Directory where pybind is located"
+    "${CMAKE_CURRENT_SOURCE_DIR}/deps/pybind11")
 
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
-endif()
+
 set(CMAKE_CXX_STANDARD 14)
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
+endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
     add_executable(tests
@@ -46,3 +50,7 @@ if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
     target_compile_definitions(tests PUBLIC _STACK_DEBUG=1)
     target_link_libraries(tests gtest_main "${CMAKE_THREAD_LIBS_INIT}")
 endif()
+
+# Local Variables:
+# cmake-tab-width: 4
+# End:
