@@ -41,13 +41,7 @@ include("weights.jl")
 
 include("cluster.jl")
 include("incidence.jl")
-
-module Utils
-
-include("utils/unionfind.jl")
-include("utils/heap.jl")
-
-end
+include("Utils.jl")
 
 include("tree.jl")
 
