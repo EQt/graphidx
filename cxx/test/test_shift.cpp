@@ -30,7 +30,7 @@ TEST_CASE("shift: shift_u64")
         CHECK(0 == (0x8000000000000000ULL >> (n-1)) >> 1);
         CHECK(0 == (0x8000000000000000ULL >> 63) >> 1);
         // undefined behavior: depends on the compiler
-        CHECK(0ULL == (0x8000000000000000ULL >> (64)) >> 1);
+        CHECK(0ULL == (0x8000000000000000ULL >> (63)) >> 1);
     }
 
     CHECK(uint64_t(0) == shift1u64(63 - (int)64));

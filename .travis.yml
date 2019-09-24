@@ -15,7 +15,7 @@ matrix:
     - language: cpp
       os: linux
       script:
-        - mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DASAN=ON
+        - mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DASAN=ON -DPYTHON_EXECUTABLE:FILEPATH=$(which python3)
         - make -j$(nproc) && ./doctests -s
 
     - language: cpp
