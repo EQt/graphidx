@@ -37,6 +37,16 @@ if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
         cxx/test/test_deque.cpp
     )
 
+    if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest/CMakeLists.txt")
+        message("git submodule update")
+        execute_process(COMMAND git submodule update --init deps/doctest
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endif()
+    add_subdirectory(deps/doctest)
+    add_executable(doctests
+        cxx/test/doctests.cpp
+    )
+    target_link_libraries(doctests PRIVATE doctest::doctest)
     if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/deps/googletest/CMakeLists.txt")
         message("git submodule update")
         execute_process(COMMAND git submodule update --init deps/googletest
