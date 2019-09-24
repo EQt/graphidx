@@ -42,7 +42,7 @@ for:
       - git submodule update --init deps/pybind11
       - pip install -r python/requirements.txt -r python/test/requirements.txt
       - cd python && python setup.py install
-    test_script: pytest
+    test_script: pytest test
 
   -
     matrix:

@@ -30,7 +30,7 @@ matrix:
       install:
         - pip install -r python/requirements.txt -r python/test/requirements.txt
         - cd python && python setup.py install
-      script: pytest
+      script: pytest test
 
     - language: minimal
       os: osx
@@ -41,7 +41,7 @@ matrix:
         - python3 --version
         - pip3 install -r python/requirements.txt -r python/test/requirements.txt
         - cd python && python3 setup.py install
-      script: pytest
+      script: pytest test
 
     - language: julia
       os: linux
