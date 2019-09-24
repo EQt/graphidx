@@ -29,8 +29,8 @@ for:
       verbosity: detailed
     only_commits:
       files:
-        - CMakeLists.txt
         - .appveyor.yml
+        - CMakeLists.txt
         - cxx/
     build_script:
       - echo %APPVEYOR_BUILD_FOLDER%
@@ -44,6 +44,11 @@ for:
     matrix:
       only:
         - lang: Python3.7
+    only_commits:
+      files:
+        - .appveyor.yml
+        - cxx/
+        - python/
     build_script:
       - SET PATH=C:\Python37-x64;C:\Python37-x64\Scripts;%PATH%
       - python --version
@@ -56,6 +61,11 @@ for:
     matrix:
       only:
         - lang: Julia 1.2
+    only_commits:
+      files:
+        - .appveyor.yml
+        - julia/
+        - docs/src/julia/
     environment:
       julia_version: 1.2
       hub: "https://raw.githubusercontent.com/JuliaCI/Appveyor.jl"
@@ -73,6 +83,11 @@ for:
     matrix:
       only:
         - lang: Rust
+    only_commits:
+      files:
+        - .appveyor.yml
+        - Cargo.toml
+        - rust/
     environment:
       target: x86_64-pc-windows-msvc
       channel: stable
