@@ -1,8 +1,8 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../spanning/kruskal_mst.hpp"
 
 
-TEST(KruskalMST, square1)
+TEST_CASE("KruskalMST: square1")
 {
     const std::vector<int>
         head {0, 0, 1, 2},
@@ -14,18 +14,18 @@ TEST(KruskalMST, square1)
         const std::vector<double> weights = {0, 0, 0, 1};
 
         const auto included = minimum_spanning_tree(n, head, tail, weights);
-        ASSERT_EQ(included, std::vector<bool>({true, true, true, false}));
+        REQUIRE(std::vector<bool>({true, true, true, false}) == included);
     }
     {
         const std::vector<double> weights = {0, 0, 1, 0};
 
         const auto included = minimum_spanning_tree(n, head, tail, weights);
-        ASSERT_EQ(included, std::vector<bool>({true, true, false, true}));
+        REQUIRE(std::vector<bool>({true, true, false, true}) == included);
     }
     {
         const std::vector<double> weights = {1, 0, 0, 0};
 
         const auto included = minimum_spanning_tree(n, head, tail, weights);
-        ASSERT_EQ(included, std::vector<bool>({false, true, true, true}));
+        REQUIRE(std::vector<bool>({false, true, true, true}) == included);
     }
 }

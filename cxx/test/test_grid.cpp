@@ -1,26 +1,26 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 
 #include "../idx/grid.hpp"
 
 
-TEST(GridIndex, grid_3x2)
+TEST_CASE("GridIndex: grid_3x2")
 {
     GridIndex g(3, 2);
 }
 
 
-TEST(GridIndex, binnotation)
+TEST_CASE("GridIndex: binnotation")
 {
-    ASSERT_EQ(0b1001, 9);
-    ASSERT_EQ(0b1000, 8);
-    ASSERT_EQ(0b0000, 0);
+    REQUIRE(9 == 0b1001);
+    REQUIRE(8 == 0b1000);
+    REQUIRE(0 == 0b0000);
 }
 
 
-TEST(GridIndex, kinds)
+TEST_CASE("GridIndex: kinds")
 {
-    ASSERT_EQ(ML, 2);
-    ASSERT_EQ(LR, 9);
+    REQUIRE(2 == ML);
+    REQUIRE(9 == LR);
 }
 
 
@@ -30,33 +30,33 @@ TEST(GridIndex, kinds)
          [1, 4],
          [2, 5]])
 */
-TEST(GridIndex, kind_3x2)
+TEST_CASE("GridIndex: kind_3x2")
 {
     GridIndex g {3, 2};
-    ASSERT_EQ(g.kind(0 + 0*3), LL);
-    ASSERT_EQ(g.kind(0 + 1*3), LR);
-    ASSERT_EQ(g.kind(1 + 1*3), MR);
-    ASSERT_EQ(g.kind(2 + 1*3), RR);
+    REQUIRE(LL == g.kind(0 + 0*3));
+    REQUIRE(LR == g.kind(0 + 1*3));
+    REQUIRE(MR == g.kind(1 + 1*3));
+    REQUIRE(RR == g.kind(2 + 1*3));
 }
 
 
-TEST(GridIndex, num_neighbors)
+TEST_CASE("GridIndex: num_neighbors")
 {
-    ASSERT_EQ(num_neighbors(MM), 4);
+    REQUIRE(4 == num_neighbors(MM));
     {
         const int k1 = 0b10;
         {
             const int k2 = 0;
-            ASSERT_EQ(num_neighbors(GridPointKind(k1 << 2 | k2)), 3);
-            ASSERT_EQ(num_neighbors(GridPointKind(k2 << 2 | k1)), 3);
+            REQUIRE(3 == num_neighbors(GridPointKind(k1 << 2 | k2)));
+            REQUIRE(3 == num_neighbors(GridPointKind(k2 << 2 | k1)));
         }
     }
     {
         const int k1 = 0b01;
         {
             const int k2 = 0;
-            ASSERT_EQ(num_neighbors(GridPointKind(k1 << 2 | k2)), 3);
-            ASSERT_EQ(num_neighbors(GridPointKind(k2 << 2 | k1)), 3);
+            REQUIRE(3 == num_neighbors(GridPointKind(k1 << 2 | k2)));
+            REQUIRE(3 == num_neighbors(GridPointKind(k2 << 2 | k1)));
         }
     }
 }

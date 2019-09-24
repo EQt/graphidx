@@ -16,13 +16,13 @@ matrix:
       os: linux
       script:
         - mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Debug -DASAN=ON
-        - make -j$(nproc) && ./tests
+        - make -j$(nproc) && ./doctests -s
 
     - language: cpp
       os: osx
       script:
         - mkdir -p build && cd build &&  cmake .. -DCMAKE_BUILD_TYPE=Debug
-        - make -j$(nproc) && ./tests
+        - make -j$(nproc) && ./doctests -s
 
     - language: python
       os: linux

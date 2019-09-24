@@ -11,43 +11,40 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
 endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
-    add_executable(tests
-        cxx/test/tests.cpp
-        cxx/test/test_clz.cpp
+    if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest/CMakeLists.txt")
+        message("git submodule update")
+        execute_process(COMMAND git submodule update --init deps/doctest
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+    endif()
+    add_subdirectory(deps/doctest)
+    add_executable(doctests
+        cxx/test/doctests.cpp
+        cxx/test/test_neg.cpp
+        cxx/test/test_bitstring.cpp
+        cxx/test/test_csc.cpp
         cxx/test/test_children.cpp
-        cxx/test/test_partition.cpp
+        cxx/test/test_clz.cpp
         cxx/test/test_biadjacent.cpp
+        cxx/test/test_partition.cpp
         cxx/test/test_grid.cpp
         cxx/test/test_timer.cpp
         cxx/test/test_stack.cpp
+        cxx/test/test_inorder.cpp
         cxx/test/test_queue.cpp
-        cxx/test/test_unionfind.cpp
-        cxx/test/test_kruskal_mst.cpp
-        cxx/test/test_postorder.cpp
-        cxx/test/test_prufer.cpp
-        cxx/test/test_hex.cpp
-        cxx/test/test_bitstring.cpp
+        cxx/test/test_van_emde_boas.cpp
         cxx/test/test_shift.cpp
         cxx/test/test_vecalloc.cpp
-        cxx/test/test_inorder.cpp
-        cxx/test/test_van_emde_boas.cpp
-        cxx/test/test_csc.cpp
-        cxx/test/test_neg.cpp
-        cxx/test/test_weights.cpp
+        cxx/test/test_hex.cpp
         cxx/test/test_deque.cpp
+        cxx/test/test_unionfind.cpp
+        cxx/test/test_weights.cpp
+        cxx/test/test_postorder.cpp
+        cxx/test/test_kruskal_mst.cpp
+        cxx/test/test_prufer.cpp
     )
-
-    if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/deps/googletest/CMakeLists.txt")
-        message("git submodule update")
-        execute_process(COMMAND git submodule update --init deps/googletest
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-    endif()
-    set(gtest_force_shared_crt ON CACHE BOOL "Always use msvcrt.dll")
-    set(GTEST_LANG_CXX11 ON CACHE BOOL "turn on c++11 for gtest")
-    add_subdirectory(deps/googletest)
-    target_include_directories(tests PUBLIC deps/googletest/googletest/include)
-    target_compile_definitions(tests PUBLIC _STACK_DEBUG=1)
-    target_link_libraries(tests gtest_main "${CMAKE_THREAD_LIBS_INIT}")
+    target_link_libraries(doctests PRIVATE doctest::doctest)
+    target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
+    # target_compile_features(doctests PRIVATE cxx_std_14)
 endif()
 
 

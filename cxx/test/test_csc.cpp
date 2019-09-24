@@ -1,7 +1,7 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../sparse/csc.hpp"
 
 
-TEST(csc, eye2)
+TEST_CASE("csc: eye2")
 {
 }

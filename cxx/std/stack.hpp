@@ -20,13 +20,15 @@
 template<typename T = int>
 class stack
 {
+#if _STACK_DEBUG
+public:
+#endif
     size_t n = 0;
     size_t pos = 0;     // points to the next element
-
     T *e = nullptr;
 
 public:
-    inline static bool debug_mode() {
+    static constexpr bool debug_mode() {
         #if _STACK_DEBUG
         return true;
         #else

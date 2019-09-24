@@ -1,17 +1,17 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../idx/biadjacent.hpp"
 
 
-TEST(biadj, unequal_len)
+TEST_CASE("biadj: unequal_len")
 {
     const std::vector<int>
         head {0, 1, 2, 3},
         tail {1, 2, 3, 0, 5};
-    ASSERT_THROW(BiAdjacent(head, tail), std::invalid_argument);
+    REQUIRE_THROWS_AS(BiAdjacent(head, tail), std::invalid_argument);
 }
 
 
-TEST(biadj, cell4)
+TEST_CASE("biadj: cell4")
 {
     const std::vector<int>
         head {0, 1, 2, 3},
@@ -19,11 +19,12 @@ TEST(biadj, cell4)
 
     const int n = 4;
     BiAdjacent b (head, tail);
-    for (int i = 0; i < n; i++)
-        EXPECT_EQ(std::set<int>(b[i]),
-                  std::set<int>({(i+n-1)%n, (i+n+1)%n})) << i;
+    for (int i = 0; i < n; i++) {
+        INFO("i = " << i);
+        CHECK(std::set<int>(b[i]) == std::set<int>({(i+n-1)%n, (i+n+1)%n}));
+    }
 }
 
 // Local Variables:
-// compile-command: "cd ../build && make tests && ./tests --gtest_filter='biadj*'"
+// compile-command: "cd ../../build && make doctests && ./doctests -nc -tc='biadj*'"
 // End:

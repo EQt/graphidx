@@ -1,38 +1,38 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../std/deque.hpp"
 
 
-TEST(DeQue, empty_bool)
+TEST_CASE("DeQue: empty_bool")
 {
     DeQue<int> q;
-    ASSERT_FALSE(q);
-    ASSERT_EQ(q.size(), 0);
+    REQUIRE(!q);
+    REQUIRE(0 == q.size());
 }
 
 
-TEST(DeQue, one_push)
+TEST_CASE("DeQue: one_push")
 {
     DeQue<int> q (1);
-    ASSERT_FALSE(q);
-    ASSERT_EQ(q.size(), 0);
+    REQUIRE(!q);
+    REQUIRE(0 == q.size());
 
     q.push<false>(42);
-    ASSERT_TRUE(q);
-    ASSERT_EQ(q.size(), 1);
-    ASSERT_EQ(q.peek<true>(), 42);
-    ASSERT_EQ(q.peek<false>(), 42);
+    REQUIRE(q);
+    REQUIRE(1 == q.size());
+    REQUIRE(42 == q.peek<true>());
+    REQUIRE(42 == q.peek<false>());
 }
 
 
-TEST(DeQue, fbf)
+TEST_CASE("DeQue: fbf")
 {
     DeQue<int> q (2);
     q.push<true>(1);
     q.push<false>(5);
     q.push(2);
 
-    ASSERT_TRUE(q);
-    ASSERT_EQ(q.size(), 3);
-    ASSERT_EQ(q.peek<true>(), 2);
-    ASSERT_EQ(q.peek<false>(), 5);
+    REQUIRE(q);
+    REQUIRE(3 == q.size());
+    REQUIRE(2 == q.peek<true>());
+    REQUIRE(5 == q.peek<false>());
 }

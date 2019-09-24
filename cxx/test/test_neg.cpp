@@ -1,42 +1,42 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include <cstdint>
 #include <limits>
 #include "../bits/neg.hpp"
 
 
-TEST(neg, negneg)
+TEST_CASE("neg: negneg")
 {
-    ASSERT_EQ(neg(neg(int64_t(123))), int64_t(123));
-    ASSERT_EQ(neg(neg(int8_t(123))), int8_t(123));
-    ASSERT_EQ(neg(neg(int32_t(123))), int32_t(123));
-    ASSERT_EQ(neg(neg(int32_t(0))), int32_t(0));
+    REQUIRE(int64_t(123) == neg(neg(int64_t(123))));
+    REQUIRE(int8_t(123) == neg(neg(int8_t(123))));
+    REQUIRE(int32_t(123) == neg(neg(int32_t(123))));
+    REQUIRE(int32_t(0) == neg(neg(int32_t(0))));
 }
 
 
-TEST(neg, not_same)
+TEST_CASE("neg: not_same")
 {
-    ASSERT_NE(neg(int64_t(123)), int64_t(123));
-    ASSERT_NE(neg(int8_t(123)), int8_t(123));
-    ASSERT_NE(neg(int32_t(123)), int32_t(123));
-    ASSERT_NE(neg(int64_t(0)), int64_t(0));
+    REQUIRE(int64_t(123) != neg(int64_t(123)));
+    REQUIRE(int8_t(123) != neg(int8_t(123)));
+    REQUIRE(int32_t(123) != neg(int32_t(123)));
+    REQUIRE(int64_t(0) != neg(int64_t(0)));
 
 }
 
 
-TEST(neg, digits)
+TEST_CASE("neg: digits")
 {
-    ASSERT_EQ(std::numeric_limits<uint8_t>::digits, 8);
-    ASSERT_EQ(std::numeric_limits<int8_t>::digits,  7);
-    ASSERT_EQ(std::numeric_limits<int16_t>::digits, 15);
-    ASSERT_EQ(std::numeric_limits<int32_t>::digits, 31);
-    ASSERT_EQ(std::numeric_limits<int64_t>::digits, 63);
+    REQUIRE(8 == std::numeric_limits<uint8_t>::digits);
+    REQUIRE(7 == std::numeric_limits<int8_t>::digits);
+    REQUIRE(15 == std::numeric_limits<int16_t>::digits);
+    REQUIRE(31 == std::numeric_limits<int32_t>::digits);
+    REQUIRE(63 == std::numeric_limits<int64_t>::digits);
 }
 
 
-TEST(neg, is_pos)
+TEST_CASE("neg: is_pos")
 {
-    ASSERT_TRUE(is_pos(int32_t(34)));
-    ASSERT_TRUE(is_pos(int32_t(0)));
-    ASSERT_FALSE(is_pos(neg(int32_t(0))));
-    ASSERT_FALSE(is_pos(neg(int64_t(34))));
+    REQUIRE(is_pos(int32_t(34)));
+    REQUIRE(is_pos(int32_t(0)));
+    REQUIRE(!is_pos(neg(int32_t(0))));
+    REQUIRE(!is_pos(neg(int64_t(34))));
 }

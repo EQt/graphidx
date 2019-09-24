@@ -13,6 +13,7 @@ class UnionFind
     std::vector<int_> p;
     std::vector<int_> rank;
 
+public:
     /** Represantant of a partition */
     struct Rep
     {
@@ -23,7 +24,6 @@ class UnionFind
         bool operator==(const int_ &other) const { return i == other; }
     };
 
-public:
     /** Initialize as n singleton sets. */
     UnionFind(const size_t n);
 

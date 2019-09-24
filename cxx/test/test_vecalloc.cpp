@@ -1,25 +1,26 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
+#include <vector>
 #include "../utils/vecalloc.hpp"
 
 
-TEST(vecalloc, null)
+TEST_CASE("vecalloc: null")
 {
-    ASSERT_THROW(VecAlloc<int>(nullptr, 5), std::invalid_argument);
+    REQUIRE_THROWS_AS(VecAlloc<int>(nullptr, 5), std::invalid_argument);
 }
 
 
-TEST(vecalloc, with_null)
+TEST_CASE("vecalloc: with_null")
 {
     const int *p = nullptr;
     {
         VecAlloc<const int> _ (&p, 5);
-        ASSERT_NE(p, nullptr);
+        REQUIRE(nullptr != p);
     }
-    ASSERT_EQ(p, nullptr);
+    REQUIRE(nullptr == p);
 }
 
 
-TEST(std_remove_point, const_int)
+TEST_CASE("std_remove_point: const_int")
 {
     const int *p = nullptr;
     using T = typename std::remove_pointer<decltype(p)>::type;
@@ -29,16 +30,16 @@ TEST(std_remove_point, const_int)
 }
 
 
-TEST(vecalloc, with_allocated)
+TEST_CASE("vecalloc: with_allocated")
 {
     std::vector<int> hidden (5);
     const int *p = hidden.data();
-    ASSERT_EQ(p, hidden.data());
+    REQUIRE(hidden.data() == p);
     {
         using T = typename std::remove_pointer<decltype(p)>::type;
         VecAlloc<T> _ (&p, 5);
-        ASSERT_EQ(p, hidden.data());
+        REQUIRE(hidden.data() == p);
     }
-    ASSERT_EQ(p, hidden.data());
+    REQUIRE(hidden.data() == p);
 }    
             

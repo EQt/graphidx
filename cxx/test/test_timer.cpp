@@ -1,13 +1,13 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../utils/timer.hpp"
 
 
-TEST(Timer, endsnewline)
+TEST_CASE("Timer: endsnewline")
 {
-    ASSERT_FALSE(endsnewline(""));
-    ASSERT_FALSE(endsnewline("asdf"));
-    ASSERT_FALSE(endsnewline("a"));
-    ASSERT_TRUE(endsnewline("a\n"));
-    ASSERT_FALSE(endsnewline("a\na"));
-    ASSERT_TRUE(endsnewline("a\na\n"));
+    REQUIRE(!endsnewline(""));
+    REQUIRE(!endsnewline("asdf"));
+    REQUIRE(!endsnewline("a"));
+    REQUIRE(endsnewline("a\n"));
+    REQUIRE(!endsnewline("a\na"));
+    REQUIRE(endsnewline("a\na\n"));
 }

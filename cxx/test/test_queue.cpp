@@ -1,74 +1,74 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../std/queue.hpp"
 
-TEST(queue, nothing)
+TEST_CASE("queue: nothing")
 {
     queue<int> queue;
-    ASSERT_EQ(queue.capacity(), 0);
-    ASSERT_EQ(queue.size(), 0);
+    REQUIRE(0 == queue.capacity());
+    REQUIRE(0 == queue.size());
 }
 
 
-TEST(queue, just_allocate)
+TEST_CASE("queue: just_allocate")
 {
     queue<int> queue;
-    ASSERT_TRUE(queue.empty());
-    ASSERT_EQ(queue.size(), 0);
+    REQUIRE(queue.empty());
+    REQUIRE(0 == queue.size());
     queue.reserve(1);
-    ASSERT_EQ(queue.size(), 0);
-    ASSERT_EQ(queue.capacity(), 1);
+    REQUIRE(0 == queue.size());
+    REQUIRE(1 == queue.capacity());
 }
 
 
-TEST(queue, push1)
+TEST_CASE("queue: push1")
 {
     queue<int> queue;
-    ASSERT_TRUE(queue.empty());
-    ASSERT_EQ(queue.size(), 0);
+    REQUIRE(queue.empty());
+    REQUIRE(0 == queue.size());
 
     queue.reserve(1);
-    ASSERT_EQ(queue.size(), 0);
-    ASSERT_EQ(queue.capacity(), 1);
+    REQUIRE(0 == queue.size());
+    REQUIRE(1 == queue.capacity());
 
-    ASSERT_EQ(queue.head, 0);
-    ASSERT_EQ(queue.tail, 0);
+    REQUIRE(0 == queue.head);
+    REQUIRE(0 == queue.tail);
     queue.push(-42);
-    ASSERT_EQ(queue.tail, 1);
-    ASSERT_EQ(queue.head, 0);
-    ASSERT_EQ(queue.size(), 1);
-    ASSERT_EQ(queue.front(), -42);
+    REQUIRE(1 == queue.tail);
+    REQUIRE(0 == queue.head);
+    REQUIRE(1 == queue.size());
+    REQUIRE(-42 == queue.front());
 }
 
 
-TEST(queue, push2)
+TEST_CASE("queue: push2")
 {
     queue<int> queue;
-    ASSERT_TRUE(queue.empty());
-    ASSERT_EQ(queue.size(), 0);
-    ASSERT_EQ(queue.capacity(), 0);
+    REQUIRE(queue.empty());
+    REQUIRE(0 == queue.size());
+    REQUIRE(0 == queue.capacity());
 
     queue.reserve(2);
-    ASSERT_EQ(queue.capacity(), 2);
-    ASSERT_EQ(queue.size(), 0);
+    REQUIRE(2 == queue.capacity());
+    REQUIRE(0 == queue.size());
 
     queue.push(1);
-    ASSERT_EQ(queue.size(), 1);
-    ASSERT_EQ(queue.tail, 1);
-    ASSERT_EQ(queue.head, 0);
+    REQUIRE(1 == queue.size());
+    REQUIRE(1 == queue.tail);
+    REQUIRE(0 == queue.head);
     queue.push(2);
-    ASSERT_EQ(queue.size(), 2);
-    ASSERT_EQ(queue.capacity(), 2);
+    REQUIRE(2 == queue.size());
+    REQUIRE(2 == queue.capacity());
 
-    ASSERT_EQ(queue.front(), 1);
+    REQUIRE(1 == queue.front());
     queue.pop();
-    ASSERT_EQ(queue.size(), 1);
-    ASSERT_EQ(queue.front(), 2);
+    REQUIRE(1 == queue.size());
+    REQUIRE(2 == queue.front());
 
     queue.push(3);
-    ASSERT_EQ(queue.size(), 2);
+    REQUIRE(2 == queue.size());
     queue.pop();
-    ASSERT_EQ(queue.size(), 1);
+    REQUIRE(1 == queue.size());
     queue.pop();
-    ASSERT_EQ(queue.size(), 0);
-    ASSERT_TRUE(queue.empty());
+    REQUIRE(0 == queue.size());
+    REQUIRE(queue.empty());
 }

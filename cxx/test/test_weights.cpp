@@ -1,20 +1,20 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../bits/weights.hpp"
 
 
-TEST(weights, constant13)
+TEST_CASE("weights: constant13")
 {
     auto w = create_weight(13.5);
-    ASSERT_EQ(w[5], 13.5);
-    ASSERT_EQ(w[0], 13.5);
+    REQUIRE(13.5 == w[5]);
+    REQUIRE(13.5 == w[0]);
 }
 
 
-TEST(weights, array123)
+TEST_CASE("weights: array123")
 {
     const int a[] = {1, 2, 5};
     auto w = create_weight(a);
-    ASSERT_EQ(w[2], 5);
-    ASSERT_EQ(w[0], 1);
-    ASSERT_EQ(w[1], 2);
+    REQUIRE(5 == w[2]);
+    REQUIRE(1 == w[0]);
+    REQUIRE(2 == w[1]);
 }

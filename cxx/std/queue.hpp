@@ -1,4 +1,7 @@
 #pragma once
+#include <cstddef>      // size_t
+#include <string>       // std::to_string
+#include <stdexcept>    // std::invalid_argument
 
 /** LIFO (last in first out) data structure.
 
@@ -9,6 +12,10 @@
 template<typename T = int>
 class queue
 {
+#ifdef DOCTEST_REQUIRE
+public:
+#endif
+
     size_t
         max = 0,        // maximum number of elements
         n = 0;          // number of inserted elements

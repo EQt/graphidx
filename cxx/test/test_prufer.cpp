@@ -1,12 +1,12 @@
-#include <gtest/gtest.h>
-#include <unordered_set>
+#include <doctest/doctest.h>
+#include <set>
 #include <utility>
 
 #include "../utils/viostream.hpp"
 #include "../tree/prufer.hpp"
 
 
-TEST(prufer, networkx_example_parent)
+TEST_CASE("prufer: networkx_example_parent")
 {
     const std::vector<int> pruf {3, 3, 3, 4};
     const int n = int(pruf.size() + 2);
@@ -14,11 +14,11 @@ TEST(prufer, networkx_example_parent)
     prufer2parent(n, pruf.data(), parent.data());
 
     const std::vector<int> parent_x {3, 3, 3, 4, 5, 5};
-    ASSERT_EQ(parent, parent_x);
+    REQUIRE(parent_x == parent);
 }
 
 
-TEST(prufer, networkx_example_edges)
+TEST_CASE("prufer: networkx_example_edges")
 {
     const std::vector<int> pruf {3, 3, 3, 4};
     const int n = int(pruf.size() + 2);
@@ -35,11 +35,11 @@ TEST(prufer, networkx_example_edges)
     const std::set<std::set<int>>
         expected {{0, 3}, {1, 3}, {2, 3}, {3, 4}, {4, 5}};
 
-    ASSERT_EQ(edges, expected);
+    REQUIRE(expected == edges);
 }
 
 
-TEST(prufer, paper)
+TEST_CASE("prufer: paper")
 {
     const std::vector<int> c {2, 4, 0, 1, 3, 3};
     const int n = int(c.size() + 2);
@@ -55,5 +55,5 @@ TEST(prufer, paper)
     const std::set<std::set<int>>
         expected {{0,1}, {0,4}, {1,3}, {4,2}, {3,6}, {3,7}, {2,5}};
 
-    ASSERT_EQ(edges, expected);
+    REQUIRE(expected == edges);
 }

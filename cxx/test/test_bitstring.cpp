@@ -1,66 +1,66 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../bits/bitstring.hpp"
 
 
-TEST(bitstring, std_bitset1)
+TEST_CASE("bitstring: std_bitset1")
 {
     std::bitset<8> bits {0x81};
-    ASSERT_EQ(bits.to_string(), "10000001");
+    REQUIRE("10000001" == bits.to_string());
 }
 
 
-TEST(bitstring, std_bitset2)
+TEST_CASE("bitstring: std_bitset2")
 {
     std::bitset<8> bits {std::string("10101111")};
-    ASSERT_EQ(bits.to_string(), "10101111");
+    REQUIRE("10101111" == bits.to_string());
 }
 
 
-TEST(bitstring, bitset_u8)
+TEST_CASE("bitstring: bitset_u8")
 {
-    ASSERT_EQ(bitstring(uint8_t(0x81)), "10000001");
+    REQUIRE("10000001" == bitstring(uint8_t(0x81)));
 }
 
 
-TEST(bitstring, bitset_i8)
+TEST_CASE("bitstring: bitset_i8")
 {
-    ASSERT_EQ(bitstring(int8_t(-1)), "11111111");
+    REQUIRE("11111111" == bitstring(int8_t(-1)));
 }
 
 
-TEST(bitstring, bitset_i32_neg)
+TEST_CASE("bitstring: bitset_i32_neg")
 {
-    ASSERT_EQ(bitstring(int32_t(-1)), "11111111111111111111111111111111");
+    REQUIRE("11111111111111111111111111111111" == bitstring(int32_t(-1)));
 }
 
 
-TEST(bitstring, bitset_i32_long)
+TEST_CASE("bitstring: bitset_i32_long")
 {
-    ASSERT_EQ(bitstring(int32_t(0x11223344)), "00010001001000100011001101000100");
+    REQUIRE("00010001001000100011001101000100" == bitstring(int32_t(0x11223344)));
 }
 
 
-TEST(bitstring, bitset_f32_1)
+TEST_CASE("bitstring: bitset_f32_1")
 {
-    ASSERT_EQ(bitstring(1.0f), "00111111100000000000000000000000");
+    REQUIRE("00111111100000000000000000000000" == bitstring(1.0f));
 }
 
 
-TEST(bitstring, bitset_f32_2)
+TEST_CASE("bitstring: bitset_f32_2")
 {
-    ASSERT_EQ(bitstring(2.0f), "01000000000000000000000000000000");
+    REQUIRE("01000000000000000000000000000000" == bitstring(2.0f));
 }
 
 
-TEST(bitstring, bitset_f64_1)
+TEST_CASE("bitstring: bitset_f64_1")
 {
-    ASSERT_EQ(bitstring(1.0),
-              "0011111111110000000000000000000000000000000000000000000000000000");
+    REQUIRE(bitstring(1.0) ==
+            "0011111111110000000000000000000000000000000000000000000000000000");
 }
 
 
-TEST(bitstring, bitset_f64_2)
+TEST_CASE("bitstring: bitset_f64_2")
 {
-    ASSERT_EQ(bitstring(2.0),
-              "0100000000000000000000000000000000000000000000000000000000000000");
+    REQUIRE(bitstring(2.0) ==
+            "0100000000000000000000000000000000000000000000000000000000000000");
 }

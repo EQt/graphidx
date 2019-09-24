@@ -2,7 +2,7 @@
 #include <set>
 #include <iostream>
 
-#include "../utils/viostream.hpp"
+#include "../utils/viostream.hpp"   // for print_it
 
 
 template<typename int_ = int>
@@ -28,6 +28,14 @@ struct IndexIter
         return std::set<int_>(*this) == o;
     }
 };
+
+
+namespace std {
+    template<typename int_ = int>
+    bool operator==(const std::set<int_> &a, const IndexIter<int_> &b) {
+        return b == a;
+    }
+}
 
 
 template<typename int_ = int>

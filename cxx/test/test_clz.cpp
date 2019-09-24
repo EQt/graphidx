@@ -1,10 +1,10 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../bits/clz.hpp"
 #include "../bits/hex.hpp"
 #include "../bits/bitstring.hpp"
 
 
-TEST(clz, clz_u32)
+TEST_CASE("clz: clz_u32")
 {
     const auto n = 8;
     uint32_t nums[n] = {
@@ -18,28 +18,30 @@ TEST(clz, clz_u32)
         0x00000001, // 6 0b00000000'00000000'00000000'00000001
         0xffffffff  //   0b11111111'11111111'11111111'11111111
     };
-    ASSERT_EQ(nums[0],  0b110010001'00011011'01111100'1000000)
-        << "nums[0]" << nums[0];
+    INFO("nums[0]" << nums[0]);
+    REQUIRE(nums[0] == 0b110010001'00011011'01111100'1000000);
 
     size_t expect[n] = {0, 1, 6, 15, 28, 32, 31, 0};
-    for (int i = 0; i < n; i++)
-        EXPECT_EQ(leading_zeros(nums[i]), expect[i])
-            << "nums[" << i << "] = " << bitstring(nums[i]);
+    for (int i = 0; i < n; i++) {
+        INFO("nums[" << i << "] = " << bitstring(nums[i]));
+        CHECK(leading_zeros(nums[i]) == expect[i]);
+    }
 }
 
 
-TEST(clz, clz_i32)
+TEST_CASE("clz: clz_i32")
 {
     const int n = 8;
     int32_t nums[n] = {-930234816, 1173689281, 38134286, 127284, 13, 0, 1, -1};
     size_t expect[n] = {0, 1, 6, 15, 28, 32, 31, 0};
-    for (int i = 0; i < n; i++)
-        EXPECT_EQ(leading_zeros(nums[i]), expect[i])
-            << "nums[" << i << "] = " << bitstring(nums[i]);
+    for (int i = 0; i < n; i++) {
+        INFO("nums[" << i << "] = " << bitstring(nums[i]));
+        CHECK(leading_zeros(nums[i]) == expect[i]);
+    }
 }
 
 
-TEST(clz, clz_u64)
+TEST_CASE("clz: clz_u64")
 {
     const auto n = 9;
     uint64_t nums[n] = {
@@ -63,13 +65,14 @@ TEST(clz, clz_u64)
                         63,
                         0,
                         64};
-    for (int i = 0; i < n; i++)
-        EXPECT_EQ(leading_zeros(nums[i]), expect[i])
-            << "nums[" << i << "] = " << bitstring(nums[i]);
+    for (int i = 0; i < n; i++) {
+        INFO("nums[" << i << "] = " << bitstring(nums[i]));
+        CHECK(leading_zeros(nums[i]) == expect[i]);
+    }
 }
 
 
-TEST(clz, clz_i64)
+TEST_CASE("clz: clz_i64")
 {
     const auto n = 8;
     int64_t nums[n] = {
@@ -83,13 +86,14 @@ TEST(clz, clz_i64)
     };
 
     size_t expect[n] = {1, 6, 15, 28, 45, 63, 0, 64};
-    for (int i = 0; i < n; i++)
-        EXPECT_EQ(leading_zeros(nums[i]), expect[i])
-            << "nums[" << i << "] = " << bitstring(nums[i]);
+    for (int i = 0; i < n; i++) {
+        INFO("nums[" << i << "] = " << bitstring(nums[i]));
+        CHECK(leading_zeros(nums[i]) == expect[i]);
+    }
 }
 
 
-TEST(clz, hyperfloor_u64)
+TEST_CASE("clz: hyperfloor_u64")
 {
     const auto n = 8;
     const uint64_t nums[n] = {
@@ -114,23 +118,25 @@ TEST(clz, hyperfloor_u64)
         0x8000000000000000
     };
 
-    for (int i = 0; i < n; i++)
-        EXPECT_EQ(hyperfloor(nums[i]), expect[i])
-            << "nums[" << i << "] = " << bitstring(nums[i])
-            << "\nexpect[" << i << "] = " << bitstring(expect[i])
-            << "\nhyperfloor = " << bitstring(hyperfloor(nums[i]))
-            << "\nclz = " << leading_zeros(nums[i]);
+    for (int i = 0; i < n; i++) {
+        INFO("nums[" << i << "] = " << bitstring(nums[i])
+             << "\nexpect[" << i << "] = " << bitstring(expect[i])
+             << "\nhyperfloor = " << bitstring(hyperfloor(nums[i]))
+             << "\nclz = " << leading_zeros(nums[i]));
+        CHECK(hyperfloor(nums[i]) == expect[i]);
+    }
 }
 
 
-TEST(clz, hyperfloor_u64_0)
+TEST_CASE("clz: hyperfloor_u64_0")
 {
-    EXPECT_EQ(hyperfloor(uint64_t(0)), uint64_t(0));
+    CHECK(uint64_t(0) == hyperfloor(uint64_t(0)));
     const uint64_t nums[] = {1, 0};
-    EXPECT_EQ(nums[0], uint64_t(1));
-    EXPECT_EQ(nums[1], uint64_t(0));
-    EXPECT_EQ(leading_zeros(nums[1]), 64);
-    EXPECT_EQ(hyperfloor(nums[1]), uint64_t(0))
-        << hex(hyperfloor(nums[1]))
-        << " leading_zeros = " << leading_zeros(nums[1]);
+    CHECK(uint64_t(1) == nums[0]);
+    CHECK(uint64_t(0) == nums[1]);
+    CHECK(64 == leading_zeros(nums[1]));
+    INFO(hex(hyperfloor(nums[1]))
+         << " leading_zeros = " << leading_zeros(nums[1]));
+    CHECK(hyperfloor(nums[1]) == uint64_t(0));
 }
+

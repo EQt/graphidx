@@ -1,85 +1,91 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include "../spanning/unionfind.hpp"
 
+bool
+operator==(const int a, const UnionFind<int>::Rep b)
+{
+    return a == b.i;
+}
 
-TEST(UnionFind, mini_test_2)
+
+TEST_CASE("UnionFind: mini_test_2")
 {
     UnionFind<int> u (2);
-    ASSERT_EQ(u.find(1), 1);
-    ASSERT_EQ(u.find(0), 0);
+    REQUIRE(1 == u.find(1));
+    REQUIRE(0 == u.find(0));
 
     u.unite(u.find(1), u.find(0));
-    ASSERT_EQ(u.find(0), u.find(1));
-    ASSERT_EQ(u.find(1), u.find(0));
+    REQUIRE(u.find(1) == u.find(0));
+    REQUIRE(u.find(0) == u.find(1));
 }
 
 
-TEST(UnionFind, mini_test_3)
+TEST_CASE("UnionFind: mini_test_3")
 {
     UnionFind<int> u (3);
-    ASSERT_EQ(u.find(2), 2);
-    ASSERT_EQ(u.find(1), 1);
-    ASSERT_EQ(u.find(0), 0);
+    REQUIRE(2 == u.find(2));
+    REQUIRE(1 == u.find(1));
+    REQUIRE(0 == u.find(0));
 
     u.unite(u.find(2), u.find(0));
-    EXPECT_EQ(u.find(0), u.find(2));
-    EXPECT_EQ(u.find(2), u.find(0));
+    CHECK(u.find(2) == u.find(0));
+    CHECK(u.find(0) == u.find(2));
 
-    EXPECT_NE(u.find(2), u.find(1));
-    EXPECT_NE(u.find(1), u.find(0));
+    CHECK(u.find(1) != u.find(2));
+    CHECK(u.find(0) != u.find(1));
 
     u.unite(u.find(1), u.find(0));
-    EXPECT_EQ(u.find(2), u.find(1));
-    EXPECT_EQ(u.find(1), u.find(0));
-    EXPECT_EQ(u.find(0), u.find(1));
+    CHECK(u.find(1) == u.find(2));
+    CHECK(u.find(0) == u.find(1));
+    CHECK(u.find(1) == u.find(0));
 }
 
 
-TEST(UnionFind, mini_test_4)
+TEST_CASE("UnionFind: mini_test_4")
 {
     UnionFind<int> u (4);
-    ASSERT_EQ(u.find(3), 3);
-    ASSERT_EQ(u.find(2), 2);
-    ASSERT_EQ(u.find(1), 1);
-    ASSERT_EQ(u.find(0), 0);
+    REQUIRE(3 == u.find(3));
+    REQUIRE(2 == u.find(2));
+    REQUIRE(1 == u.find(1));
+    REQUIRE(0 == u.find(0));
 
     u.unite(u.find(3), u.find(0));
-    EXPECT_EQ(u.find(3), u.find(0));
-    EXPECT_EQ(u.find(3), u.find(0));
-    EXPECT_EQ(u.find(0), u.find(0));
-    EXPECT_EQ(u.find(0), u.find(3));
+    CHECK(u.find(0) == u.find(3));
+    CHECK(u.find(0) == u.find(3));
+    CHECK(u.find(0) == u.find(0));
+    CHECK(u.find(3) == u.find(0));
 
-    EXPECT_NE(u.find(3), u.find(2));
-    EXPECT_NE(u.find(2), u.find(3));
-    EXPECT_NE(u.find(2), u.find(0));
-    EXPECT_NE(u.find(2), u.find(0));
+    CHECK(u.find(2) != u.find(3));
+    CHECK(u.find(3) != u.find(2));
+    CHECK(u.find(0) != u.find(2));
+    CHECK(u.find(0) != u.find(2));
 
     u.unite(u.find(3), u.find(2));
-    EXPECT_EQ(u.find(3), u.find(2));
-    EXPECT_EQ(u.find(2), u.find(3));
-    EXPECT_EQ(u.find(2), u.find(0));
-    EXPECT_EQ(u.find(2), u.find(0));
-    EXPECT_EQ(u.find(0), u.find(2));
+    CHECK(u.find(2) == u.find(3));
+    CHECK(u.find(3) == u.find(2));
+    CHECK(u.find(0) == u.find(2));
+    CHECK(u.find(0) == u.find(2));
+    CHECK(u.find(2) == u.find(0));
 }
 
 
-TEST(UnionFind, mini_test_4a)
+TEST_CASE("UnionFind: mini_test_4a")
 {
     UnionFind<int> u (4);
     u.unite(u.find(3), u.find(0));
 
-    EXPECT_NE(u.find(2), u.find(3));
+    CHECK(u.find(3) != u.find(2));
 
     u.unite(u.find(2), u.find(0));
 
-    EXPECT_EQ(u.find(2), u.find(3));
-    EXPECT_NE(u.find(2), u.find(1));
-    EXPECT_NE(u.find(3), u.find(1));
+    CHECK(u.find(3) == u.find(2));
+    CHECK(u.find(1) != u.find(2));
+    CHECK(u.find(1) != u.find(3));
 
     u.unite(u.find(0), u.find(1));
 
-    EXPECT_EQ(u.find(2), u.find(1));
-    EXPECT_EQ(u.find(3), u.find(1));
-    EXPECT_EQ(u.find(2), u.find(0));
-    EXPECT_EQ(u.find(3), u.find(0));
+    CHECK(u.find(1) == u.find(2));
+    CHECK(u.find(1) == u.find(3));
+    CHECK(u.find(0) == u.find(2));
+    CHECK(u.find(0) == u.find(3));
 }

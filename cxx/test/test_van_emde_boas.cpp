@@ -1,10 +1,10 @@
-#include <gtest/gtest.h>
+#include <doctest/doctest.h>
 #include <vector>
 #include "../tree/inorder.hpp"
 #include "../tree/van_emde_boas.hpp"
 
 
-TEST(veb, tree_h2)
+TEST_CASE("veb: tree_h2")
 {
     const int height = 2;
     const int n = (1 << height) - 1;
@@ -12,32 +12,32 @@ TEST(veb, tree_h2)
     std::vector<int> out (n, -1);
 
     binveb_from_inord(out.data(), in.data(), height);
-    ASSERT_EQ(out, std::vector<int>({0, 1, 2}));
+    REQUIRE(std::vector<int>({0, 1, 2}) == out);
 }
 
 
-TEST(veb, tree_h3)
+TEST_CASE("veb: tree_h3")
 {
     const int height = 3;
     const int n = (1 << height) - 1;
     const std::vector<int> in = binary_inorder(height);
     std::vector<int> out (n, -1);
-    ASSERT_EQ(in.size(), n);
+    REQUIRE(n == in.size());
     binveb_from_inord(out.data(), in.data(), height, 1);
-    ASSERT_EQ(out, std::vector<int>({0, 1, 3, 4, 2, 5, 6}));
+    REQUIRE(std::vector<int>({0, 1, 3, 4, 2, 5, 6}) == out);
 }
 
 
-TEST(veb, tree_h4)
+TEST_CASE("veb: tree_h4")
 {
     const int height = 4;
     const int n = (1 << height) - 1;
     const std::vector<int> in = binary_inorder(height);
     std::vector<int> out (n, -1);
 
-    ASSERT_EQ(in.size(), n);
+    REQUIRE(n == in.size());
     binveb_from_inord(out.data(), in.data(), height);
-    ASSERT_EQ(out, std::vector<int>({0,
+    REQUIRE(out == std::vector<int>({0,
                                      1,2,
                                      3, 
                                      7, 8,
