@@ -2,12 +2,13 @@
 GraphIdx
 ========
 
-See https://github.com/eqt/graphidx
+Graph algorithms using an efficient indexed based array representation.
 """
 from ._graphidx import (
     __compiler__,
     __author__,
     random_spanning_tree,
     post_order,
-    find_root
+    find_root,
+    prufer2parent,
 )

@@ -3,9 +3,9 @@ import numpy as np
 
 
 @njit(cache=True)
-def find_root(parent):
+def find_root(parent: np.ndarray) -> int:
     """
-    Return the smallest i with parent[i] == i, or -1 if none exists
+    Return the smallest i with `parent[i] == i`, or `-1` if none exists
 
     >>> find_root(np.array([1, 2, 0, 3]))
     3

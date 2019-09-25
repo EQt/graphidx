@@ -2,13 +2,11 @@
 Classical Union-Find data structure with path compression as described
 e.g. in CLRS in Chapter 21 "Disjooint Sets" (3rd edition).
 
+>>> from graphidx.py.unionfind import UnionFind
 >>> u = UnionFind(3)
-
 >>> u.find(1) == u.find(2)
 False
-
 >>> u.unite(u.find(1), u.find(2))
-
 >>> u.find(1) == u.find(2)
 True
 """
