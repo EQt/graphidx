@@ -6,12 +6,17 @@ e.g. in CLRS in Chapter 21 "Disjooint Sets" (3rd edition).
 
 >>> u.find(1) == u.find(2)
 False
+
+>>> u.unite(u.find(1), u.find(2))
+
+>>> u.find(1) == u.find(2)
+True
 """
 import numpy as np
 import numba
 
 
-@numba.njit(cache=True)
+@numba.njit(cache=False)
 def _uf_find(pi, x):
     if pi[x] != x:
         pi[x] = _uf_find(pi, pi[x])
@@ -35,4 +40,13 @@ class UnionFind:
     def find(self, x: int):
         return _uf_find(self.p, x)
 
+    def unite(self, fx: int, fy: int):
+        if self.rank[fx] > self.rank[fy]:
+            self.p[fy] = fx
+        else:
+            self.p[fx] = fy
+            if self.rank[fx] == self.rank[fy]:
+                self.rank[fy] += 1
 
+    def __getitem__(self, i: int):
+        return self.find(i)
