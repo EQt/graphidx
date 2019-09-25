@@ -18,10 +18,11 @@ endif()
 
 
 if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
-    if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest/CMakeLists.txt")
-        execute_process(COMMAND git submodule update --init deps/doctest)
+    set(DOCTEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest")
+    if (NOT EXISTS "${DOCTEST_DIR}/CMakeLists.txt")
+        execute_process(COMMAND git submodule update --init ${DOCTEST_DIR})
     endif()
-    add_subdirectory(deps/doctest)
+    add_subdirectory(${DOCTEST_DIR})
     add_executable(doctests
         cxx/test/doctests.cpp
         cxx/test/test_neg.cpp
