@@ -1,0 +1,252 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Graph Indexes &mdash; GraphIdx  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tree Algorithms" href="tree.html" />
+    <link rel="prev" title="GraphIdx" href="index.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GraphIdx
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Graph Indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#neighbor-index">Neighbor Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#partition-index">Partition Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#children-index">Children Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="py.html">Numba Implementations</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GraphIdx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Graph Indexes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/idx.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="graph-indexes">
+<h1>Graph Indexes<a class="headerlink" href="#graph-indexes" title="Permalink to this headline">¶</a></h1>
+<p>The unique feature of this graph framework is to compute indices to be able to access certain elements in constant time.
+The index computation is always based on counting sort to group certain elements together by an index.</p>
+<div class="section" id="neighbor-index">
+<h2>Neighbor Index<a class="headerlink" href="#neighbor-index" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="graphidx.idx.BiAdjacent">
+<em class="property">class </em><code class="descclassname">graphidx.idx.</code><code class="descname">BiAdjacent</code><a class="headerlink" href="#graphidx.idx.BiAdjacent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="partition-index">
+<h2>Partition Index<a class="headerlink" href="#partition-index" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="graphidx.idx.cluster">
+<code class="descclassname">graphidx.idx.</code><code class="descname">cluster</code><span class="sig-paren">(</span><em>x: numpy.ndarray[float64], neighidx: graphidx._graphidx.BiAdjacent, eps: float = 1e-05, seed: int = 42</em><span class="sig-paren">)</span> &#x2192; graphidx._graphidx.PartitionIndex<a class="headerlink" href="#graphidx.idx.cluster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a partition of x such that TO BE CONTINUED</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="graphidx.idx.PartitionIndex">
+<em class="property">class </em><code class="descclassname">graphidx.idx.</code><code class="descname">PartitionIndex</code><a class="headerlink" href="#graphidx.idx.PartitionIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="children-index">
+<h2>Children Index<a class="headerlink" href="#children-index" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="graphidx.idx.ChildrenIndex">
+<em class="property">class </em><code class="descclassname">graphidx.idx.</code><code class="descname">ChildrenIndex</code><a class="headerlink" href="#graphidx.idx.ChildrenIndex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tree.html" class="btn btn-neutral float-right" title="Tree Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="GraphIdx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Elias Kuthe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
