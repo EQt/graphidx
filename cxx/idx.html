@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Graph Indexes &mdash; GraphIdx  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Utilities" href="utils.html" />
+    <link rel="prev" title="Tree Graphs" href="tree.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GraphIdx
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree Graphs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Graph Indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#neighbor-index">Neighbor Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#partition-index">Partition Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GraphIdx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Graph Indexes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/idx.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="graph-indexes">
+<h1>Graph Indexes<a class="headerlink" href="#graph-indexes" title="Permalink to this headline">¶</a></h1>
+<p>The unique feature of this graph framework is to compute indices to be able to access certain elements in constant time.
+The index computation is always based on counting sort to group certain elements together by an index:</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0E7groupbyvRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_">
+<span id="_CPPv3I0E7groupbyRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_"></span><span id="_CPPv2I0E7groupbyRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_"></span><span class="target" id="groupby_8hpp_1a1b1c5e7f5326bafe0b8e5ab423ff6378"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br />void <code class="descname">groupby</code><span class="sig-paren">(</span>std::vector&lt;<a class="reference internal" href="#_CPPv4I0E7groupbyvRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_" title="groupby::int_">int_</a>&gt; &amp;<em>value</em>, std::vector&lt;<a class="reference internal" href="#_CPPv4I0E7groupbyvRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_" title="groupby::int_">int_</a>&gt; &amp;<em>index</em>, <em class="property">const</em> size_t <em>n</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E7groupbyvRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_" title="groupby::int_">int_</a> *<em>parent</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E7groupbyvRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_" title="groupby::int_">int_</a> <em>root</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E7groupbyvRNSt6vectorI4int_EERNSt6vectorI4int_EEK6size_tPK4int_K4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Group the elements in <code class="docutils literal notranslate"><span class="pre">parent</span></code>, stored in <code class="docutils literal notranslate"><span class="pre">value</span></code>, group index <code class="docutils literal notranslate"><span class="pre">index</span></code>. </p>
+<p>If <code class="docutils literal notranslate"><span class="pre">root</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> treat it as the root of the tree given by <code class="docutils literal notranslate"><span class="pre">parent</span></code>. The <code class="docutils literal notranslate"><span class="pre">root</span></code> node if <code class="docutils literal notranslate"><span class="pre">&gt;=</span> <span class="pre">0</span></code> will be stored at <code class="docutils literal notranslate"><span class="pre">index[0]</span></code>.</p>
+<p>Algorithm: <a class="reference external" href="https://en.wikipedia.org/wiki/Counting_sort">Counting Sort</a> (linear runtime) </p>
+</dd></dl>
+
+</div>
+<div class="section" id="neighbor-index">
+<h2>Neighbor Index<a class="headerlink" href="#neighbor-index" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv410BiAdjacent">
+<span id="_CPPv310BiAdjacent"></span><span id="_CPPv210BiAdjacent"></span><span id="BiAdjacent"></span><span class="target" id="struct_bi_adjacent"></span><em class="property">struct </em><code class="descname">BiAdjacent</code> : <em class="property">public</em> AdjacencyIndex&lt;int&gt;<a class="headerlink" href="#_CPPv410BiAdjacent" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;biadjacent.hpp&gt;</em><p>Bidirected adjacency vectors. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N10BiAdjacent10BiAdjacentEKiPKiPKii">
+<span id="_CPPv3N10BiAdjacent10BiAdjacentEKiPKiPKii"></span><span id="_CPPv2N10BiAdjacent10BiAdjacentEKiPKiPKii"></span><span id="BiAdjacent::BiAdjacent__iC.iCP.iCP.i"></span><span class="target" id="struct_bi_adjacent_1a800cd2a7ff1093e67dee568d971ac9c7"></span><code class="descname">BiAdjacent</code><span class="sig-paren">(</span><em class="property">const</em> int <em>m</em>, <em class="property">const</em> int *<em>head</em>, <em class="property">const</em> int *<em>tail</em>, int <em>n</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10BiAdjacent10BiAdjacentEKiPKiPKii" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N10BiAdjacent10BiAdjacentERKNSt6vectorIiEERKNSt6vectorIiEEi">
+<span id="_CPPv3N10BiAdjacent10BiAdjacentERKNSt6vectorIiEERKNSt6vectorIiEEi"></span><span id="_CPPv2N10BiAdjacent10BiAdjacentERKNSt6vectorIiEERKNSt6vectorIiEEi"></span><span id="BiAdjacent::BiAdjacent__std::vector:i:CR.std::vector:i:CR.i"></span><span class="target" id="struct_bi_adjacent_1afd8655ae38b23bc14249c3910ef3b364"></span><code class="descname">BiAdjacent</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;int&gt; &amp;<em>head</em>, <em class="property">const</em> std::vector&lt;int&gt; &amp;<em>tail</em>, int <em>n</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10BiAdjacent10BiAdjacentERKNSt6vectorIiEERKNSt6vectorIiEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK10BiAdjacent9num_edgesEv">
+<span id="_CPPv3NK10BiAdjacent9num_edgesEv"></span><span id="_CPPv2NK10BiAdjacent9num_edgesEv"></span><span id="BiAdjacent::num_edgesC"></span><span class="target" id="struct_bi_adjacent_1ad33e72b38d254ad5de892b619014f97c"></span>size_t <code class="descname">num_edges</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10BiAdjacent9num_edgesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK10BiAdjacent9num_nodesEv">
+<span id="_CPPv3NK10BiAdjacent9num_nodesEv"></span><span id="_CPPv2NK10BiAdjacent9num_nodesEv"></span><span id="BiAdjacent::num_nodesC"></span><span class="target" id="struct_bi_adjacent_1abbc270e17fecaedfe3a30aeb035140cc"></span>size_t <code class="descname">num_nodes</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK10BiAdjacent9num_nodesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="partition-index">
+<h2>Partition Index<a class="headerlink" href="#partition-index" title="Permalink to this headline">¶</a></h2>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I00E7cluster14PartitionIndexI4int_EK6size_tPKdRK10BiAdjacentKdKi">
+<span id="_CPPv3I00E7clusterK6size_tPKdRK10BiAdjacentKdKi"></span><span id="_CPPv2I00E7clusterK6size_tPKdRK10BiAdjacentKdKi"></span><span class="target" id="cluster_8hpp_1a1b17858e616d55902d0947412b71ceea"></span>template&lt;typename <code class="descname">int_</code>, typename <code class="descname">Idx</code>&gt;<br /><a class="reference internal" href="#_CPPv4I0E14PartitionIndex" title="PartitionIndex">PartitionIndex</a>&lt;<a class="reference internal" href="#_CPPv4I00E7cluster14PartitionIndexI4int_EK6size_tPKdRK10BiAdjacentKdKi" title="cluster::int_">int_</a>&gt; <code class="descname">cluster</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em>, <em class="property">const</em> double *<em>x</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv410BiAdjacent" title="BiAdjacent">BiAdjacent</a> &amp;<em>neighidx</em>, <em class="property">const</em> double <em>eps</em>, <em class="property">const</em> int <em>seed</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I00E7cluster14PartitionIndexI4int_EK6size_tPKdRK10BiAdjacentKdKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="class">
+<dt id="_CPPv4I0E14PartitionIndex">
+<span id="_CPPv3I0E14PartitionIndex"></span><span id="_CPPv2I0E14PartitionIndex"></span><span class="target" id="class_partition_index"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br /><em class="property">class </em><code class="descname">PartitionIndex</code> : <em class="property">public</em> AdjacencyIndex&lt;<a class="reference internal" href="#_CPPv4I0E14PartitionIndex" title="PartitionIndex::int_">int_</a>&gt;<a class="headerlink" href="#_CPPv4I0E14PartitionIndex" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tree.html" class="btn btn-neutral float-left" title="Tree Graphs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Elias Kuthe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

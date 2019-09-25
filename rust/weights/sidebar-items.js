@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["ArrayWeights","Weights stored in an array."],["ConstantWeights","Same weight for every element."]],"trait":[["Weights",""]]});

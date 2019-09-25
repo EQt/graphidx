@@ -1,0 +1,452 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tree Graphs &mdash; GraphIdx  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Graph Indexes" href="idx.html" />
+    <link rel="prev" title="GraphIdx" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GraphIdx
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tree Graphs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#rooted-trees">Rooted Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#children-index">Children Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prufer-sequence">Prüfer Sequence</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#traversal">Traversal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#layout">Layout</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="idx.html">Graph Indexes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GraphIdx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Tree Graphs</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tree.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tree-graphs">
+<h1>Tree Graphs<a class="headerlink" href="#tree-graphs" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="rooted-trees">
+<h2>Rooted Trees<a class="headerlink" href="#rooted-trees" title="Permalink to this headline">¶</a></h2>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0E9find_root4int_K6size_tPK4int_">
+<span id="_CPPv3I0E9find_rootK6size_tPK4int_"></span><span id="_CPPv2I0E9find_rootK6size_tPK4int_"></span><span class="target" id="root_8hpp_1a081d2e2e077f241f46a02c1b255f4896"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br /><a class="reference internal" href="#_CPPv4I0E9find_root4int_K6size_tPK4int_" title="find_root::int_">int_</a> <code class="descname">find_root</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E9find_root4int_K6size_tPK4int_" title="find_root::int_">int_</a> *<em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E9find_root4int_K6size_tPK4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Find the root node of a tree given its parent vector. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a root node or <code class="docutils literal notranslate"><span class="pre">-1</span></code> if none is found. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0E9find_root4int_RKNSt6vectorI4int_EE">
+<span id="_CPPv3I0E9find_rootRKNSt6vectorI4int_EE"></span><span id="_CPPv2I0E9find_rootRKNSt6vectorI4int_EE"></span><span class="target" id="root_8hpp_1a17706c43fcf3a0ce6d22f3ebcfc21a31"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br /><a class="reference internal" href="#_CPPv4I0E9find_root4int_K6size_tPK4int_" title="find_root::int_">int_</a> <code class="descname">find_root</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;<a class="reference internal" href="#_CPPv4I0E9find_root4int_K6size_tPK4int_" title="find_root::int_">int_</a>&gt; &amp;<em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E9find_root4int_RKNSt6vectorI4int_EE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="children-index">
+<h2>Children Index<a class="headerlink" href="#children-index" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv413ChildrenIndex">
+<span id="_CPPv313ChildrenIndex"></span><span id="_CPPv213ChildrenIndex"></span><span id="ChildrenIndex"></span><span class="target" id="struct_children_index"></span><em class="property">struct </em><code class="descname">ChildrenIndex</code> : <em class="property">public</em> AdjacencyIndex&lt;int&gt;<a class="headerlink" href="#_CPPv413ChildrenIndex" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;children.hpp&gt;</em><p>Access the children of each node of the tree. </p>
+<p>By convention, the root node is stored at <code class="docutils literal notranslate"><span class="pre">ChildrenIndex::value[0]</span></code>; it can be accessed via <code class="docutils literal notranslate"><a class="reference internal" href="#struct_children_index_1a9715fb38d2a557e991dca06d5d1f3964"><span class="std std-ref"><span class="pre">ChildrenIndex::root_node()</span></span></a></code>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N13ChildrenIndex13ChildrenIndexEv">
+<span id="_CPPv3N13ChildrenIndex13ChildrenIndexEv"></span><span id="_CPPv2N13ChildrenIndex13ChildrenIndexEv"></span><span id="ChildrenIndex::ChildrenIndex"></span><span class="target" id="struct_children_index_1a716a43e34be9dca3295fea9cc5e9645f"></span><code class="descname">ChildrenIndex</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13ChildrenIndex13ChildrenIndexEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N13ChildrenIndex13ChildrenIndexEK6size_t">
+<span id="_CPPv3N13ChildrenIndex13ChildrenIndexEK6size_t"></span><span id="_CPPv2N13ChildrenIndex13ChildrenIndexEK6size_t"></span><span id="ChildrenIndex::ChildrenIndex__sC"></span><span class="target" id="struct_children_index_1a058c2b23161eba09c321ae5d0d6f059a"></span><code class="descname">ChildrenIndex</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13ChildrenIndex13ChildrenIndexEK6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Allocate enough space for a tree with <code class="docutils literal notranslate"><span class="pre">n</span></code> nodes. </p>
+<p>Before it is usable you need to call <code class="docutils literal notranslate"><a class="reference internal" href="#struct_children_index_1ac1c93cd0d815c3c8390b806486ea1fa3"><span class="std std-ref"><span class="pre">ChildrenIndex::reset</span></span></a></code>! </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N13ChildrenIndex13ChildrenIndexEK6size_tPKiKi">
+<span id="_CPPv3N13ChildrenIndex13ChildrenIndexEK6size_tPKiKi"></span><span id="_CPPv2N13ChildrenIndex13ChildrenIndexEK6size_tPKiKi"></span><span id="ChildrenIndex::ChildrenIndex__sC.iCP.iC"></span><span class="target" id="struct_children_index_1aeb191ed16d8f5fa0c9548dd9c355373d"></span><code class="descname">ChildrenIndex</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em>, <em class="property">const</em> int *<em>parent</em>, <em class="property">const</em> int <em>root</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13ChildrenIndex13ChildrenIndexEK6size_tPKiKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N13ChildrenIndex13ChildrenIndexERKNSt6vectorIiEEKi">
+<span id="_CPPv3N13ChildrenIndex13ChildrenIndexERKNSt6vectorIiEEKi"></span><span id="_CPPv2N13ChildrenIndex13ChildrenIndexERKNSt6vectorIiEEKi"></span><span id="ChildrenIndex::ChildrenIndex__std::vector:i:CR.iC"></span><span class="target" id="struct_children_index_1a3235411c2d35129683ffbe663312e687"></span><code class="descname">ChildrenIndex</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;int&gt; &amp;<em>parent</em>, <em class="property">const</em> int <em>root</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13ChildrenIndex13ChildrenIndexERKNSt6vectorIiEEKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N13ChildrenIndex5resetEK6size_tPKii">
+<span id="_CPPv3N13ChildrenIndex5resetEK6size_tPKii"></span><span id="_CPPv2N13ChildrenIndex5resetEK6size_tPKii"></span><span id="ChildrenIndex::reset__sC.iCP.i"></span><span class="target" id="struct_children_index_1ac1c93cd0d815c3c8390b806486ea1fa3"></span>void <code class="descname">reset</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em>, <em class="property">const</em> int *<em>parent</em>, int <em>root</em> = -1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N13ChildrenIndex5resetEK6size_tPKii" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Update the index values to the tree given by <code class="docutils literal notranslate"><span class="pre">parent</span></code>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK13ChildrenIndex9root_nodeEv">
+<span id="_CPPv3NK13ChildrenIndex9root_nodeEv"></span><span id="_CPPv2NK13ChildrenIndex9root_nodeEv"></span><span id="ChildrenIndex::root_nodeC"></span><span class="target" id="struct_children_index_1a9715fb38d2a557e991dca06d5d1f3964"></span>int <code class="descname">root_node</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK13ChildrenIndex9root_nodeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>the index of the root node </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK13ChildrenIndex7degreesEPi">
+<span id="_CPPv3NK13ChildrenIndex7degreesEPi"></span><span id="_CPPv2NK13ChildrenIndex7degreesEPi"></span><span id="ChildrenIndex::degrees__iPC"></span><span class="target" id="struct_children_index_1afb9638238bb4280795b5286870e8e0bc"></span>void <code class="descname">degrees</code><span class="sig-paren">(</span>int *<em>deg</em><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK13ChildrenIndex7degreesEPi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="prufer-sequence">
+<h2>Prüfer Sequence<a class="headerlink" href="#prufer-sequence" title="Permalink to this headline">¶</a></h2>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0E13prufer2parent4int_K4int_PK4int_P4int_">
+<span id="_CPPv3I0E13prufer2parentK4int_PK4int_P4int_"></span><span id="_CPPv2I0E13prufer2parentK4int_PK4int_P4int_"></span><span class="target" id="prufer_8hpp_1afe6f868e227dd8871a76359dc8f35617"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br /><a class="reference internal" href="#_CPPv4I0E13prufer2parent4int_K4int_PK4int_P4int_" title="prufer2parent::int_">int_</a> <code class="descname">prufer2parent</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E13prufer2parent4int_K4int_PK4int_P4int_" title="prufer2parent::int_">int_</a> <em>n</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E13prufer2parent4int_K4int_PK4int_P4int_" title="prufer2parent::int_">int_</a> *<em>prufer</em>, <a class="reference internal" href="#_CPPv4I0E13prufer2parent4int_K4int_PK4int_P4int_" title="prufer2parent::int_">int_</a> *<em>parent</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E13prufer2parent4int_K4int_PK4int_P4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>See <code class="docutils literal notranslate"><span class="pre">prufer2edges</span></code> for details. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a root node (there are two possibilities) </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">n</span></code>: Number of nodes </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">prufer</span></code>: Prüfer sequence (i.e. <code class="docutils literal notranslate"><span class="pre">len(prufer)</span> <span class="pre">==</span> <span class="pre">n-2</span></code>) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">parent</span></code>: Make sure that <code class="docutils literal notranslate"><span class="pre">len(parent)</span> <span class="pre">==</span> <span class="pre">n</span></code> </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0E12prufer2edgesvKiPK4int_P4int_P4int_">
+<span id="_CPPv3I0E12prufer2edgesKiPK4int_P4int_P4int_"></span><span id="_CPPv2I0E12prufer2edgesKiPK4int_P4int_P4int_"></span><span class="target" id="prufer_8hpp_1a73c911287f1b3e34aff42319c3c9eef8"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br />void <code class="descname">prufer2edges</code><span class="sig-paren">(</span><em class="property">const</em> int <em>n</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E12prufer2edgesvKiPK4int_P4int_P4int_" title="prufer2edges::int_">int_</a> *<em>prufer</em>, <a class="reference internal" href="#_CPPv4I0E12prufer2edgesvKiPK4int_P4int_P4int_" title="prufer2edges::int_">int_</a> *<em>head</em>, <a class="reference internal" href="#_CPPv4I0E12prufer2edgesvKiPK4int_P4int_P4int_" title="prufer2edges::int_">int_</a> *<em>tail</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E12prufer2edgesvKiPK4int_P4int_P4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Calculate the tree edges from a Prüfer sequence. </p>
+<p><p>Runtime: O(n).</p>
+<dl class="simple">
+<dt><strong>Warning</strong></dt><dd><p>Need the following pre-conditions<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">len(prufer)</span> <span class="pre">==</span> <span class="pre">n-2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len(head)</span> <span class="pre">&gt;=</span> <span class="pre">n-1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">len(tail)</span> <span class="pre">&gt;=</span> <span class="pre">n-1</span></code></p></li>
+</ul>
+</p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">n</span></code>: Number of nodes in the tree </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">prufer</span></code>: Prüfer sequence; </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">head</span></code>: Output edges’ head </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">tail</span></code>: Output edges’ tail</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p><em>References </em></p>
+<p>Wang, Xiaodong, Lei Wang, and Yingjie Wu. “An optimal algorithm for Prufer codes.” Journal of Software Engineering and Applications* 2.02 (2009): 111. <a class="reference external" href="https://doi.org/10.4236/jsea.2009.22016">https://doi.org/10.4236/jsea.2009.22016</a> </p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="traversal">
+<h2>Traversal<a class="headerlink" href="#traversal" title="Permalink to this headline">¶</a></h2>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_">
+<span id="_CPPv3I0E10post_orderK6size_tPK4int_K4int_P4int_"></span><span id="_CPPv2I0E10post_orderK6size_tPK4int_K4int_P4int_"></span><span class="target" id="postorder_8hpp_1a65460e1f4f0d5f009dc51c062f6a4e63"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br /><a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a> *<code class="descname">post_order</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a> *<em>parent</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a> <em>root</em> = 0, <a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a> *<em>postord</em> = nullptr<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Compute a post_order, i.e. </p>
+<p>parent come after its children; more specific the DFS finish time.</p>
+<p>If postord is preallocated, it must have a length &gt;= n. If postord == nullptr, it will be allocated (giving the responsible of <code class="docutils literal notranslate"><span class="pre">delete[]</span></code> to the caller). </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4I0E10post_ordervK4int_RK13ChildrenIndexR5stackI4int_EP4int_">
+<span id="_CPPv3I0E10post_orderK4int_RK13ChildrenIndexR5stackI4int_EP4int_"></span><span id="_CPPv2I0E10post_orderK4int_RK13ChildrenIndexR5stackI4int_EP4int_"></span><span class="target" id="postorder_8hpp_1af91617adaff2f48356a059d586f48cce"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br />void <code class="descname">post_order</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a> <em>root</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv413ChildrenIndex" title="ChildrenIndex">ChildrenIndex</a> &amp;<em>childs</em>, <a class="reference internal" href="utils.html#_CPPv4I0E5stack" title="stack">stack</a>&lt;<a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a>&gt; &amp;<em>stack</em>, <a class="reference internal" href="#_CPPv4I0E10post_orderP4int_K6size_tPK4int_K4int_P4int_" title="post_order::int_">int_</a> *<em>postord</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E10post_ordervK4int_RK13ChildrenIndexR5stackI4int_EP4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<dl class="class">
+<dt id="_CPPv49PostOrder">
+<span id="_CPPv39PostOrder"></span><span id="_CPPv29PostOrder"></span><span id="PostOrder"></span><span class="target" id="class_post_order"></span><em class="property">class </em><code class="descname">PostOrder</code><a class="headerlink" href="#_CPPv49PostOrder" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;postorder.hpp&gt;</em><p>Compute a post_order (if called with nullptr). </p>
+<p>The array is released when this is destructed. Additionally, the iterator interface (std::begin, std::end) is provided. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N9PostOrder9PostOrderERKNSt6vectorIiEEPKiKiKb">
+<span id="_CPPv3N9PostOrder9PostOrderERKNSt6vectorIiEEPKiKiKb"></span><span id="_CPPv2N9PostOrder9PostOrderERKNSt6vectorIiEEPKiKiKb"></span><span id="PostOrder::PostOrder__std::vector:i:CR.iCP.iC.bC"></span><span class="target" id="class_post_order_1af84a684ac758f2a5eb672cc348af63d9"></span><code class="descname">PostOrder</code><span class="sig-paren">(</span><em class="property">const</em> std::vector&lt;int&gt; &amp;<em>parent</em>, <em class="property">const</em> int *<em>postord</em> = nullptr, <em class="property">const</em> int <em>root</em> = 0, <em class="property">const</em> bool <em>include_root</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9PostOrder9PostOrderERKNSt6vectorIiEEPKiKiKb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N9PostOrder9PostOrderE6size_tPKiPKiKiKb">
+<span id="_CPPv3N9PostOrder9PostOrderE6size_tPKiPKiKiKb"></span><span id="_CPPv2N9PostOrder9PostOrderE6size_tPKiPKiKiKb"></span><span id="PostOrder::PostOrder__s.iCP.iCP.iC.bC"></span><span class="target" id="class_post_order_1a9101833e1ed055ad3ab3fa2b54df3498"></span><code class="descname">PostOrder</code><span class="sig-paren">(</span>size_t <em>n</em>, <em class="property">const</em> int *<em>parent</em>, <em class="property">const</em> int *<em>postord</em> = nullptr, <em class="property">const</em> int <em>root</em> = 0, <em class="property">const</em> bool <em>include_root</em> = false<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9PostOrder9PostOrderE6size_tPKiPKiKiKb" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK9PostOrder5beginEv">
+<span id="_CPPv3NK9PostOrder5beginEv"></span><span id="_CPPv2NK9PostOrder5beginEv"></span><span id="PostOrder::beginC"></span><span class="target" id="class_post_order_1ab4d54a1cab007e54e6f2e5bc794d0b48"></span><em class="property">const</em> int *<code class="descname">begin</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK9PostOrder5beginEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK9PostOrder3endEv">
+<span id="_CPPv3NK9PostOrder3endEv"></span><span id="_CPPv2NK9PostOrder3endEv"></span><span id="PostOrder::endC"></span><span class="target" id="class_post_order_1a20538233c7ef0d4ea38e65cc05722425"></span><em class="property">const</em> int *<code class="descname">end</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK9PostOrder3endEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK9PostOrder4sizeEv">
+<span id="_CPPv3NK9PostOrder4sizeEv"></span><span id="_CPPv2NK9PostOrder4sizeEv"></span><span id="PostOrder::sizeC"></span><span class="target" id="class_post_order_1a6ec90815f685e23598487f609277c389"></span>size_t <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK9PostOrder4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt id="_CPPv4N9PostOrder7postordE">
+<span id="_CPPv3N9PostOrder7postordE"></span><span id="_CPPv2N9PostOrder7postordE"></span><span id="PostOrder::postord__iCP"></span><span class="target" id="class_post_order_1a9ce28fcc6675c464c1892d7b8331201f"></span><em class="property">const</em> int *<code class="descname">postord</code><a class="headerlink" href="#_CPPv4N9PostOrder7postordE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N9PostOrder1nE">
+<span id="_CPPv3N9PostOrder1nE"></span><span id="_CPPv2N9PostOrder1nE"></span><span id="PostOrder::n__sC"></span><span class="target" id="class_post_order_1aa93ababfe3bb15fdfb606dc9c62846f9"></span><em class="property">const</em> size_t <code class="descname">n</code><a class="headerlink" href="#_CPPv4N9PostOrder1nE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N9PostOrder12include_rootE">
+<span id="_CPPv3N9PostOrder12include_rootE"></span><span id="_CPPv2N9PostOrder12include_rootE"></span><span id="PostOrder::include_root__bC"></span><span class="target" id="class_post_order_1adb6863ce1b95330b89f4f3c76a2a6dd0"></span><em class="property">const</em> bool <code class="descname">include_root</code><a class="headerlink" href="#_CPPv4N9PostOrder12include_rootE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv4N9PostOrder12_postord_bufE">
+<span id="_CPPv3N9PostOrder12_postord_bufE"></span><span id="_CPPv2N9PostOrder12_postord_bufE"></span><span id="PostOrder::_postord_buf__std::vector:i:"></span><span class="target" id="class_post_order_1a378354cf98d7498c582d0532282536a6"></span>std::vector&lt;int&gt; <code class="descname">_postord_buf</code><a class="headerlink" href="#_CPPv4N9PostOrder12_postord_bufE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<p>For binary trees, there is also the <em>inorder</em>:</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0E14binary_inorderNSt6vectorI1IEEK6size_t">
+<span id="_CPPv3I0E14binary_inorderK6size_t"></span><span id="_CPPv2I0E14binary_inorderK6size_t"></span><span class="target" id="inorder_8hpp_1ad2649dab73a8ce3919b8e80599f9e878"></span>template&lt;typename <code class="descname">I</code> = int&gt;<br />std::vector&lt;<a class="reference internal" href="#_CPPv4I0E14binary_inorderNSt6vectorI1IEEK6size_t" title="binary_inorder::I">I</a>&gt; <code class="descname">binary_inorder</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>height</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E14binary_inorderNSt6vectorI1IEEK6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+<div class="section" id="layout">
+<h2>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv4I0E17binveb_from_inordvP1TPK1TKiKi">
+<span id="_CPPv3I0E17binveb_from_inordP1TPK1TKiKi"></span><span id="_CPPv2I0E17binveb_from_inordP1TPK1TKiKi"></span><span class="target" id="van__emde__boas_8hpp_1adf89cf5aa81f86cbb25c0e6d79fb1ca9"></span>template&lt;typename <code class="descname">T</code>&gt;<br />void <code class="descname">binveb_from_inord</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E17binveb_from_inordvP1TPK1TKiKi" title="binveb_from_inord::T">T</a> *<em>a_out</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv4I0E17binveb_from_inordvP1TPK1TKiKi" title="binveb_from_inord::T">T</a> *<em>a_in</em>, <em class="property">const</em> int <em>height</em>, <em class="property">const</em> int <em>step</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0E17binveb_from_inordvP1TPK1TKiKi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Binary van Emde Boas Layout from an Inorder traverse (sorted nodes). </p>
+<p><p>Copied and adapted from Frederik Rønn: “Cache-Oblivious Searching and Sorting”, Master’s Thesis, Department of Computer Science University of Copenhagen, 2003. (Page 76)</p>
+<dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">a_out</span></code>: Array to store the output. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">a_in</span></code>: Binary inorder (as produced by <code class="docutils literal notranslate"><span class="pre">binary_inorder</span></code>) </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">height</span></code>: Height of the <strong>complete binary</strong> tree. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">step</span></code>: Distance between siblings on the lowest level. Start with <code class="docutils literal notranslate"><span class="pre">step</span> <span class="pre">==</span> <span class="pre">1</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+<p>See also: <a class="reference external" href="https://github.com/sriravic/FAST-Van-Emde-Boas/blob/master/van-emde-boas.cpp">github.com:sriravic/FAST-Van-Emde-Boas</a> </p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="idx.html" class="btn btn-neutral float-right" title="Graph Indexes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="GraphIdx" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Elias Kuthe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

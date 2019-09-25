@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Utilities &mdash; GraphIdx  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Graph Indexes" href="idx.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GraphIdx
+          
+
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tree.html">Tree Graphs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="idx.html">Graph Indexes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#unionfind">UnionFind</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stack">Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#queue">Queue</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GraphIdx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Utilities</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="unionfind">
+<h2>UnionFind<a class="headerlink" href="#unionfind" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4I0E9UnionFind">
+<span id="_CPPv3I0E9UnionFind"></span><span id="_CPPv2I0E9UnionFind"></span><span class="target" id="class_union_find"></span>template&lt;typename <code class="descname">int_</code> = int&gt;<br /><em class="property">class </em><code class="descname">UnionFind</code><a class="headerlink" href="#_CPPv4I0E9UnionFind" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Union-Find data structure over ints from range 0..n with path compression. </p>
+<p>See Cormen, Leiserson, Rivest und Stein: “Introduction to Algorithms”, Section 21.3, in particular pseudocode on page 571. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv4N9UnionFind9UnionFindEK6size_t">
+<span id="_CPPv3N9UnionFind9UnionFindEK6size_t"></span><span id="_CPPv2N9UnionFind9UnionFindEK6size_t"></span><span id="UnionFind::UnionFind__sC"></span><span class="target" id="class_union_find_1a92877c84f2f92741e91f4545e057fe2b"></span><code class="descname">UnionFind</code><span class="sig-paren">(</span><em class="property">const</em> size_t <em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UnionFind9UnionFindEK6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Initialize as n singleton sets. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N9UnionFind4findE4int_">
+<span id="_CPPv3N9UnionFind4findE4int_"></span><span id="_CPPv2N9UnionFind4findE4int_"></span><span id="UnionFind::find__int_"></span><span class="target" id="class_union_find_1a4045559d3d77bf167cf69f37acd7acd9"></span>UnionFind&lt;int_&gt;::Rep <code class="descname">find</code><span class="sig-paren">(</span>int_ <em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UnionFind4findE4int_" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Find representant for x. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N9UnionFind5uniteEN9UnionFindI4int_E3RepEN9UnionFindI4int_E3RepE">
+<span id="_CPPv3N9UnionFind5uniteEN9UnionFindI4int_E3RepEN9UnionFindI4int_E3RepE"></span><span id="_CPPv2N9UnionFind5uniteEN9UnionFindI4int_E3RepEN9UnionFindI4int_E3RepE"></span><span id="UnionFind::unite__UnionFind:int_:::Rep.UnionFind:int_:::Rep"></span><span class="target" id="class_union_find_1a26485d460447c7639a90a35b84fe7077"></span>void <code class="descname">unite</code><span class="sig-paren">(</span>UnionFind&lt;int_&gt;::Rep <em>fx</em>, UnionFind&lt;int_&gt;::Rep <em>fy</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UnionFind5uniteEN9UnionFindI4int_E3RepEN9UnionFindI4int_E3RepE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unit the sets with representants fx und fy. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4N9UnionFind5resetEv">
+<span id="_CPPv3N9UnionFind5resetEv"></span><span id="_CPPv2N9UnionFind5resetEv"></span><span id="UnionFind::reset"></span><span class="target" id="class_union_find_1adf85241c3785777514703ad3bf443970"></span>void <code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N9UnionFind5resetEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Reset such that every element is separated, again. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv4NK9UnionFind4sizeEv">
+<span id="_CPPv3NK9UnionFind4sizeEv"></span><span id="_CPPv2NK9UnionFind4sizeEv"></span><span id="UnionFind::sizeC"></span><span class="target" id="class_union_find_1ac621edd25f6cc279a442aad555dbd726"></span>size_t <code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv4NK9UnionFind4sizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of elements. </p>
+</dd></dl>
+
+</div>
+<dl class="class">
+<dt id="_CPPv4N9UnionFind3RepE">
+<span id="_CPPv3N9UnionFind3RepE"></span><span id="_CPPv2N9UnionFind3RepE"></span><span id="UnionFind::Rep"></span><span class="target" id="struct_union_find_1_1_rep"></span><em class="property">struct </em><code class="descname">Rep</code><a class="headerlink" href="#_CPPv4N9UnionFind3RepE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Represantant of a partition. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="stack">
+<h2>Stack<a class="headerlink" href="#stack" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4I0E5stack">
+<span id="_CPPv3I0E5stack"></span><span id="_CPPv2I0E5stack"></span><span class="target" id="classstack"></span>template&lt;typename <code class="descname">T</code> = int&gt;<br /><em class="property">class </em><code class="descname">stack</code><a class="headerlink" href="#_CPPv4I0E5stack" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>FIFO: first in first out. </p>
+<p>In some experiments, this implementation was faster than <a class="reference external" href="http://www.cplusplus.com/reference/stack/stack/">std::stack</a> due to pre-allocated memory. </p>
+</dd></dl>
+
+</div>
+<div class="section" id="queue">
+<h2>Queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="_CPPv4I0E5queue">
+<span id="_CPPv3I0E5queue"></span><span id="_CPPv2I0E5queue"></span><span class="target" id="classqueue"></span>template&lt;typename <code class="descname">T</code> = int&gt;<br /><em class="property">class </em><code class="descname">queue</code><a class="headerlink" href="#_CPPv4I0E5queue" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>LIFO (last in first out) data structure. </p>
+<p>Similar to <a class="reference external" href="http://www.cplusplus.com/reference/queue/queue">std::queue</a> but with pre-allocated memory. </p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="idx.html" class="btn btn-neutral float-left" title="Graph Indexes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Elias Kuthe
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
