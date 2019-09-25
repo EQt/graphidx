@@ -3,4 +3,4 @@
 	url = https://github.com/pybind/pybind11.git
 [submodule "deps/doctest"]
 	path = deps/doctest
-	url = git@github.com:onqtam/doctest.git
+	url = https://github.com/onqtam/doctest.git

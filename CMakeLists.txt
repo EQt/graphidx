@@ -2,19 +2,24 @@ cmake_minimum_required(VERSION 3.11)
 project(graphidx)
 
 option(BUILD_PYEXT "Build python extension module"     ON)
-set(PYBIND_DIR "${CMAKE_CURRENT_SOURCE_DIR}/deps/pybind11" CACHE STRING
-    "Which pybind to be used")
+option(ASAN        "Use Address SANitizer"             OFF)
+set(PYBIND_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/deps/pybind11"
+    CACHE STRING "Which pybind to be used")
 
 set(CMAKE_CXX_STANDARD 14)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    add_definitions(-pedantic -ansi -g)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
+    if (ASAN)
+        message("-- Enable Address Sanitizer")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize=leak")
+    endif()
 endif()
+
 
 if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
     if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest/CMakeLists.txt")
-        message("git submodule update")
-        execute_process(COMMAND git submodule update --init deps/doctest
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        execute_process(COMMAND git submodule update --init deps/doctest)
     endif()
     add_subdirectory(deps/doctest)
     add_executable(doctests
@@ -44,12 +49,10 @@ if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
     )
     target_link_libraries(doctests PRIVATE doctest::doctest)
     target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
-    # target_compile_features(doctests PRIVATE cxx_std_14)
 endif()
 
 
 if (BUILD_PYEXT)
-    # download as submodule?
     if (NOT EXISTS "${PYBIND_DIR}/CMakeLists.txt")
         execute_process(COMMAND git submodule update --init ${PYBIND_DIR})
     endif()
@@ -65,7 +68,6 @@ if (BUILD_PYEXT)
         $<TARGET_FILE_NAME:_graphidx> ${CMAKE_SOURCE_DIR}/python/graphidx)
     add_custom_target(pytest DEPENDS pysetup
         COMMAND py.test ${CMAKE_SOURCE_DIR}/python/test VERBATIM)
-
 endif()
 
 
