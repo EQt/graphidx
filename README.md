@@ -41,17 +41,16 @@ This library will never be as extensive as e.g.
 [Julia's LightGraphs](https://github.com/JuliaGraphs/LightGraphs.jl).
 
 
-Integers
--------
-
-All nodes have to be integer numbers.
-Because often we store extra information in the first bit, we require signed integers (typically `int32_t` or `int64_t`).
-
-
 Programming Languages
----------------------
+-------------------
 
-This is a multilanguage project.
-We support bindings to Python.
-Parts are rewritten in Rust.
+This is a multilanguage project:
+It started in
+[C++](https://eqt.github.io/graphidx/cxx) and
+[Julia](https://eqt.github.io/graphidx/julia).
 
+We support bindings to
+[Python](https://eqt.github.io/graphidx/python).
+
+Parts are rewritten in
+[Rust Crate](https://eqt.github.io/graphidx/rust).
