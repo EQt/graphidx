@@ -3,7 +3,7 @@ import numpy as np
 
 from .graphviz import show_tree
 from ._graphidx import prufer2parent
-from ._graphidx import find_root as c_find_root
+from ._graphidx import find_root
 from .idx import ChildrenIndex
 from .py.prufer import prufer_from_children_spec
 
@@ -15,7 +15,7 @@ class Tree:
         if isinstance(n, int):
             assert len(self.parent) == n
         if root < 0:
-            root = c_find_root(parent)
+            root = find_root(parent)
             assert root >= 0
             assert root < len(parent)
         self.root = np.int32(root)
@@ -71,5 +71,5 @@ Tree(n={self.n},
 
         with h5py.File(fname) as io:
             parent = io['parent'][:]
-            root = io['root'][:] if 'root' in io else c_find_root(parent)
+            root = io['root'][:] if 'root' in io else find_root(parent)
         return Tree(parent=parent, root=root)

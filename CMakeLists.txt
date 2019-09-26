@@ -1,14 +1,22 @@
 cmake_minimum_required(VERSION 3.11)
 project(graphidx)
 
+set(_MASTER_PROJECT OFF)
+if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
+    set(_MASTER_PROJECT ON)
+endif()
+
 option(BUILD_PYEXT "Build python extension module"     ON)
+option(BUILD_TEST  "Compile unit tests"                ${_MASTER_PROJECT})
 option(ASAN        "Use Address SANitizer"             OFF)
 set(PYBIND_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/deps/pybind11"
     CACHE STRING "Which pybind to be used")
+set(DOCTEST_DIR    "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest"
+    CACHE STRING "Which doctest to be used")
 
 set(CMAKE_CXX_STANDARD 14)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    add_definitions(-pedantic -ansi -g)
+    add_definitions(-pedantic -ansi -Wall)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
     if (ASAN)
         message("-- Enable Address Sanitizer")
@@ -17,8 +25,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
 endif()
 
 
-if(CMAKE_PROJECT_NAME STREQUAL "graphidx")
-    set(DOCTEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest")
+if (BUILD_TEST)
     if (NOT EXISTS "${DOCTEST_DIR}/CMakeLists.txt")
         execute_process(COMMAND git submodule update --init ${DOCTEST_DIR})
     endif()
@@ -64,11 +71,17 @@ if (BUILD_PYEXT)
         python/idx.cpp
         python/spanning.cpp
     )
-    add_custom_target(pysetup  DEPENDS _graphidx
+    if (_MASTER_PROJECT)
+        set(_P "")
+    else()
+        set(_P "graphidx_")
+    endif()
+    add_custom_target(${_P}pysetup DEPENDS _graphidx
         COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE_NAME:_graphidx> ${CMAKE_SOURCE_DIR}/python/graphidx)
-    add_custom_target(pytest DEPENDS pysetup
+        $<TARGET_FILE_NAME:_graphidx> ${CMAKE_CURRENT_SOURCE_DIR}/python/graphidx)
+    add_custom_target(${_P}pytest DEPENDS pysetup
         COMMAND py.test ${CMAKE_SOURCE_DIR}/python/test VERBATIM)
+    export(TARGETS _graphidx NAMESPACE graphidx:: FILE graphidxConfig.cmake)
 endif()
 
 
