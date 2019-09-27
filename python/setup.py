@@ -17,6 +17,9 @@ includes = [
 ]
 
 
+packages = ['graphidx', 'graphidx.py']
+
+
 class BuildExt(build_ext):
     """A custom build extension for adding compiler-specific options."""
     def build_extensions(self):
@@ -60,7 +63,7 @@ if __name__ == '__main__':
         author="Elias Kuthe",
         author_email="elias.kuthe@tu-dortmund.de",
         license="MIT",
-        packages=['graphidx', 'graphidx.py'],
+        packages=packages,
         ext_modules=[_graphidx],
         cmdclass={'build_ext': BuildExt},
     )
