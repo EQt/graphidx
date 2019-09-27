@@ -26,6 +26,7 @@ endif()
 
 
 if (BUILD_TEST)
+    message("-- Enable unit tests")
     if (NOT EXISTS "${DOCTEST_DIR}/CMakeLists.txt")
         execute_process(
             COMMAND git submodule update --init ${DOCTEST_DIR}
@@ -64,8 +65,12 @@ endif()
 
 
 if (BUILD_PYEXT)
+    message("-- Enable python extension")
     if (NOT EXISTS "${PYBIND_DIR}/CMakeLists.txt")
-        execute_process(COMMAND git submodule update --init ${PYBIND_DIR})
+        execute_process(
+            COMMAND git submodule update --init ${PYBIND_DIR}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
     endif()
     add_subdirectory(${PYBIND_DIR})
     pybind11_add_module(_graphidx
