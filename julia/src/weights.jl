@@ -48,3 +48,7 @@ end
 (c::ArrayWeights{F})(i::Integer) where {F} = c.a[i]
 
 Base.getindex(c::ArrayWeights{F}, i::Integer) where {F} = c.a[i]
+
+
+create_weights(w::F) where {F<:Real} = ConstantWeights(w)
+create_weights(w::Vector{F}) where {F<:Real} = ArrayWeights(w)
