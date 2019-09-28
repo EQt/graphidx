@@ -89,11 +89,12 @@ if (BUILD_PYEXT)
     else()
         set(_P "graphidx_")
     endif()
+    set(PYDIR ${CMAKE_SOURCE_DIR}/python)
     add_custom_target(${_P}pysetup DEPENDS _graphidx
         COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE_NAME:_graphidx> ${CMAKE_CURRENT_SOURCE_DIR}/python/graphidx)
+        $<TARGET_FILE_NAME:_graphidx> ${PYDIR}/graphidx)
     add_custom_target(${_P}pytest DEPENDS pysetup
-        COMMAND py.test ${CMAKE_SOURCE_DIR}/python/test VERBATIM)
+        COMMAND py.test ${PYDIR}/test VERBATIM)
     export(TARGETS _graphidx NAMESPACE graphidx:: FILE graphidxConfig.cmake)
 endif()
 
