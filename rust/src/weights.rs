@@ -12,7 +12,7 @@
 //! [`ArrayWeights`]: struct.ConstantWeights.html
 use std::ops::Index;
 
-pub trait Weights<T>: Index<usize, Output = T> {
+pub trait Weighted<T>: Index<usize, Output = T> {
     fn len(&self) -> usize;
 }
 
@@ -29,7 +29,7 @@ impl<T> Index<usize> for ConstantWeights<T> {
     }
 }
 
-impl<T> Weights<T> for ConstantWeights<T> {
+impl<T> Weighted<T> for ConstantWeights<T> {
     fn len(&self) -> usize {
         std::usize::MAX
     }
@@ -56,7 +56,7 @@ impl<T> Index<usize> for ArrayWeights<T> {
     }
 }
 
-impl<T> Weights<T> for ArrayWeights<T> {
+impl<T> Weighted<T> for ArrayWeights<T> {
     fn len(&self) -> usize {
         self.a.len()
     }
