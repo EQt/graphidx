@@ -89,7 +89,7 @@ if (BUILD_PYEXT)
     else()
         set(_P "graphidx_")
     endif()
-    set(PYDIR ${CMAKE_SOURCE_DIR}/python)
+    set(PYDIR ${CMAKE_CURRENT_SOURCE_DIR}/python)
     add_custom_target(${_P}pysetup DEPENDS _graphidx
         COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE_NAME:_graphidx> ${PYDIR}/graphidx)
