@@ -19,8 +19,10 @@ TEST_CASE("DeQue: one_push")
     q.push<false>(42);
     REQUIRE(q);
     REQUIRE(1 == q.size());
-    REQUIRE(42 == q.peek<true>());
-    REQUIRE(42 == q.peek<false>());
+    REQUIRE(42 == q.front<true>());
+    REQUIRE(42 == q.front<false>());
+    REQUIRE(42 == q.back<true>());
+    REQUIRE(42 == q.back<false>());
 }
 
 
@@ -33,6 +35,8 @@ TEST_CASE("DeQue: fbf")
 
     REQUIRE(q);
     REQUIRE(3 == q.size());
-    REQUIRE(2 == q.peek<true>());
-    REQUIRE(5 == q.peek<false>());
+    REQUIRE(2 == q.front<true>());
+    REQUIRE(5 == q.front<false>());
+    REQUIRE(5 == q.back<true>());
+    REQUIRE(2 == q.back<false>());
 }
