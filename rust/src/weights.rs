@@ -68,7 +68,7 @@ impl<T> ArrayWeights<T> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use super::{ConstantWeights, ArrayWeights};
 
     #[test]
     fn constant_weights_13() {
@@ -80,7 +80,7 @@ mod tests {
 
     #[test]
     fn array_weights_123() {
-        let w = ArrayWeights { a: vec![1, 2, 5] };
+        let w = ArrayWeights::new(vec![1, 2, 5]);
         assert_eq!(w[2], 5);
         assert_eq!(w[0], 1);
         assert_eq!(w[1], 2);
