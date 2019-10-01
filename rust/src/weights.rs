@@ -37,9 +37,7 @@ impl<T> Weighted<T> for ConstantWeights<T> {
 
 impl<T> ConstantWeights<T> {
     pub fn new(c: T) -> Self {
-        ConstantWeights {
-            c: c,
-        }
+        ConstantWeights { c: c }
     }
 }
 
@@ -64,10 +62,8 @@ impl<T> Weighted<T> for ArrayWeights<T> {
 
 impl<T> ArrayWeights<T> {
     pub fn new(a: Vec<T>) -> Self {
-        ArrayWeights {
-            a: a,
-        }
-    }       
+        ArrayWeights { a: a }
+    }
 }
 
 #[cfg(test)]
@@ -84,9 +80,7 @@ mod tests {
 
     #[test]
     fn array_weights_123() {
-        let w = ArrayWeights {
-            a: vec![1, 2, 5],
-        };
+        let w = ArrayWeights { a: vec![1, 2, 5] };
         assert_eq!(w[2], 5);
         assert_eq!(w[0], 1);
         assert_eq!(w[1], 2);
