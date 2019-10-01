@@ -62,6 +62,14 @@ impl<T> Weighted<T> for ArrayWeights<T> {
     }
 }
 
+impl<T> ArrayWeights<T> {
+    pub fn new(a: Vec<T>) -> Self {
+        ArrayWeights {
+            a: a,
+        }
+    }       
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
