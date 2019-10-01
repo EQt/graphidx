@@ -40,3 +40,13 @@ TEST_CASE("DeQue: fbf")
     REQUIRE(5 == q.back<true>());
     REQUIRE(2 == q.back<false>());
 }
+
+
+TEST_CASE("DeQue: initializer list")
+{
+    DeQue<int> q {1, 2, 3, 4, 5};
+    REQUIRE(q);
+    REQUIRE(q.size() == 5);
+    REQUIRE(q.front() == 1);
+    REQUIRE(q.back() == 5);
+}

@@ -14,6 +14,7 @@ private:
 
 public:
     DeQue() {}
+    DeQue(std::initializer_list<E> l) : _e(l), _front(0), _back(l.size()-1) { }
     DeQue(size_t n) { reserve(n); }
 
     /// allocate space for 2*n elements; resetting to the middle
