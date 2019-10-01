@@ -2,6 +2,7 @@
 #include <vector>
 
 #include "../std/deque.hpp"
+#include "../utils/viostream.hpp"
 
 
 TEST_CASE("DeQue: empty_bool")
@@ -63,4 +64,20 @@ TEST_CASE("DeQue: initializer list")
         INFO(i);
         REQUIRE(qi == p[i++]);
     }
+}
+
+
+TEST_CASE("DeQue: empty printer")
+{
+    DeQue<int> q {};
+    INFO(printer(q));
+    REQUIRE(std::to_string(printer(q)) == "[]");
+}
+
+
+TEST_CASE("DeQue: printer")
+{
+    DeQue<int> q {1, 2, 3, 4, 5};
+    INFO(printer(q));
+    REQUIRE(std::to_string(printer(q)) == "[1, 2, 3, 4, 5]");
 }

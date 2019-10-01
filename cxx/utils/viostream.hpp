@@ -10,10 +10,10 @@ inline std::ostream&
 print_it(std::ostream &o, const B &begin, const E &end)
 {
     bool first = true;
+    o << "[";
     for (auto it = begin; it != end; it++) {
         auto x = *it;
         if (first) {
-            o << "[";
             first = false;
         } else
             o << ", ";
@@ -24,8 +24,11 @@ print_it(std::ostream &o, const B &begin, const E &end)
 
 
 template<typename Container> void
-print(const Container &x, const int prec = 4, FILE *out = stdout,
-      const char * fmt = "%.*f")
+print(
+    const Container &x,
+    const int prec = 4,
+    FILE *out = stdout,
+    const char * fmt = "%.*f")
 {
     fprintf(out, "[");
     bool first = true;
@@ -35,6 +38,21 @@ print(const Container &x, const int prec = 4, FILE *out = stdout,
         fprintf(out, fmt, prec, xi);
     }
     fprintf(out, "]\n");
+}
+
+
+template <typename T>
+struct Printer
+{
+    T &c;
+    Printer(T &c) : c(c) { }
+};
+
+template <typename T>
+Printer<T>
+printer(T &c)
+{
+    return Printer<T>(c);
 }
 
 
@@ -48,6 +66,14 @@ operator<<(ostream &o, const vector<E> &v)
 }
 
 
+template <typename E>
+inline ostream&
+operator<<(ostream &o, const Printer<E> &v)
+{
+    return ::print_it(o, std::begin(v.c), std::end(v.c));
+}
+
+
 template<typename E>
 std::string
 to_string(const vector<E> &v) {
@@ -55,5 +81,14 @@ to_string(const vector<E> &v) {
     s << v;
     return s.str();
 }
+
+template<typename E>
+std::string
+to_string(const Printer<E> &v) {
+    ostringstream s;
+    s << v;
+    return s.str();
+}
+
 
 }   // namespace std::
