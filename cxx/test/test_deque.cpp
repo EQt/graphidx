@@ -1,4 +1,6 @@
 #include <doctest/doctest.h>
+#include <vector>
+
 #include "../std/deque.hpp"
 
 
@@ -49,4 +51,16 @@ TEST_CASE("DeQue: initializer list")
     REQUIRE(q.size() == 5);
     REQUIRE(q.front() == 1);
     REQUIRE(q.back() == 5);
+}
+
+
+TEST_CASE("DeQue: initializer list")
+{
+    DeQue<int> q {1, 2, 3, 4, 5};
+    std::vector<int> p {1, 2, 3, 4, 5};
+    auto i = 0;
+    for (const auto qi : q) {
+        INFO(i);
+        REQUIRE(qi == p[i++]);
+    }
 }

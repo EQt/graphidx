@@ -35,6 +35,10 @@ public:
     template <bool forward = true>
     const E& back() const { return forward ? _e[_back] : _e[_front]; }
 
+    const E* begin() const { return &this->front(); }
+
+    const E* end() const { return &this->back() + 1; }
+
     /// remove first/last element
     template <bool forward = true>
     E pop() { return forward ? _e[_front++] : _e[_back--]; }
@@ -52,3 +56,5 @@ public:
     /// number of elements that could fit in
     size_t capacity() const { return _e.capacity(); }
 };
+
+    
