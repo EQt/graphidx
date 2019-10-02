@@ -41,28 +41,28 @@ if (BUILD_TEST)
     add_subdirectory(${DOCTEST_DIR})
     add_executable(doctests
         cxx/test/doctests.cpp
-        cxx/test/test_neg.cpp
+        cxx/test/test_biadjacent.cpp
         cxx/test/test_bitstring.cpp
-        cxx/test/test_csc.cpp
         cxx/test/test_children.cpp
         cxx/test/test_clz.cpp
-        cxx/test/test_biadjacent.cpp
-        cxx/test/test_partition.cpp
-        cxx/test/test_grid.cpp
-        cxx/test/test_timer.cpp
-        cxx/test/test_stack.cpp
-        cxx/test/test_inorder.cpp
-        cxx/test/test_queue.cpp
-        cxx/test/test_van_emde_boas.cpp
-        cxx/test/test_shift.cpp
-        cxx/test/test_vecalloc.cpp
-        cxx/test/test_hex.cpp
+        cxx/test/test_csc.cpp
         cxx/test/test_deque.cpp
-        cxx/test/test_unionfind.cpp
-        cxx/test/test_weights.cpp
-        cxx/test/test_postorder.cpp
+        cxx/test/test_grid.cpp
+        cxx/test/test_hex.cpp
+        cxx/test/test_inorder.cpp
         cxx/test/test_kruskal_mst.cpp
+        cxx/test/test_neg.cpp
+        cxx/test/test_partition.cpp
+        cxx/test/test_postorder.cpp
         cxx/test/test_prufer.cpp
+        cxx/test/test_queue.cpp
+        cxx/test/test_shift.cpp
+        cxx/test/test_stack.cpp
+        cxx/test/test_timer.cpp
+        cxx/test/test_unionfind.cpp
+        cxx/test/test_van_emde_boas.cpp
+        cxx/test/test_vecalloc.cpp
+        cxx/test/test_weights.cpp
     )
     target_link_libraries(doctests PRIVATE doctest::doctest)
     target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
