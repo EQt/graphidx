@@ -39,6 +39,8 @@ public:
 
     const E* end() const { return &this->back() + 1; }
 
+    E* data() { return _e.data(); }
+
     /// remove first/last element
     template <bool forward = true>
     E pop() { return forward ? _e[_front++] : _e[_back--]; }
