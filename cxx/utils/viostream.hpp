@@ -1,13 +1,19 @@
+/**
+   Input/output in the style of `iostream` / `cstdio` on containers.
+   As long as a container `C` has support of `std::begin(&C)` and `std::end(&C)`
+   the functions `std::cout << printer(c)` and `std::to_string(printer(c))`
+   should produce a sensible list format.
+*/
 #pragma once
-#include <vector>
+#include <cstdio>
 #include <iostream>
 #include <sstream>
-#include <cstdio>
+#include <vector>
 
 
 template <typename B, typename E>
 inline std::ostream&
-print_it(std::ostream &o, const B &begin, const E &end)
+_print_list(std::ostream &o, const B &begin, const E &end)
 {
     bool first = true;
     o << "[";
@@ -23,8 +29,9 @@ print_it(std::ostream &o, const B &begin, const E &end)
 }
 
 
-template<typename Container> void
-print(
+template<typename Container>
+inline void
+print_double_list(
     const Container &x,
     const int prec = 4,
     FILE *out = stdout,
@@ -42,17 +49,18 @@ print(
 
 
 template <typename T>
-struct Printer
+struct _Printer
 {
     T &c;
-    Printer(T &c) : c(c) { }
+    _Printer(T &c) : c(c) { }
 };
 
+
 template <typename T>
-Printer<T>
+_Printer<T>
 printer(T &c)
 {
-    return Printer<T>(c);
+    return _Printer<T>(c);
 }
 
 
@@ -60,17 +68,17 @@ namespace std {
 
 template <typename E>
 inline ostream&
-operator<<(ostream &o, const vector<E> &v)
+operator<<(ostream &o, const _Printer<E> &v)
 {
-    return ::print_it(o, v.begin(), v.end());
+    return ::_print_list(o, begin(v.c), end(v.c));
 }
 
 
 template <typename E>
 inline ostream&
-operator<<(ostream &o, const Printer<E> &v)
+operator<<(ostream &o, const vector<E> &v)
 {
-    return ::print_it(o, std::begin(v.c), std::end(v.c));
+    return o << ::printer(v);
 }
 
 
@@ -84,7 +92,7 @@ to_string(const vector<E> &v) {
 
 template<typename E>
 std::string
-to_string(const Printer<E> &v) {
+to_string(const _Printer<E> &v) {
     ostringstream s;
     s << v;
     return s.str();

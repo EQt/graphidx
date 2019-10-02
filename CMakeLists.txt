@@ -62,6 +62,7 @@ if (BUILD_TEST)
         cxx/test/test_unionfind.cpp
         cxx/test/test_van_emde_boas.cpp
         cxx/test/test_vecalloc.cpp
+        cxx/test/test_viostream.cpp
         cxx/test/test_weights.cpp
     )
     target_link_libraries(doctests PRIVATE doctest::doctest)

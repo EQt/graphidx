@@ -42,7 +42,7 @@ template<typename int_ = int>
 inline std::ostream&
 operator<<(std::ostream &o, const IndexIter<int_> &it)
 {
-    return print_it(o, it.begin(), it.end());
+    return o << printer(it);
 }
 
 
