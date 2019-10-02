@@ -51,6 +51,7 @@ if (BUILD_TEST)
         cxx/test/test_hex.cpp
         cxx/test/test_inorder.cpp
         cxx/test/test_kruskal_mst.cpp
+        cxx/test/test_lina.cpp
         cxx/test/test_neg.cpp
         cxx/test/test_partition.cpp
         cxx/test/test_postorder.cpp

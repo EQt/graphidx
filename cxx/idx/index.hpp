@@ -2,7 +2,7 @@
 #include <set>
 #include <iostream>
 
-#include "../utils/viostream.hpp"   // for print_it
+#include "../utils/viostream.hpp"   // for printer
 
 
 template<typename int_ = int>
