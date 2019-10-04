@@ -2,20 +2,8 @@
 #include <algorithm>        // for std::min_element
 
 
-template <typename float_ = double>
-inline float_
-min(float_ a, float_ b)
-{
-    return a < b ? a : b;
-}
-
-
-template <typename float_ = double>
-inline float_
-max(float_ a, float_ b)
-{
-    return a > b ? a : b;
-}
+using std::max;
+using std::min;
 
 
 template<typename float_ = float,
