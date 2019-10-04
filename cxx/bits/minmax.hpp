@@ -19,6 +19,7 @@ find_minmax(const float_ *y,
 
 
 template<typename float_ = float>
+[[deprecated]]
 inline float_
 clip(float_ x, float_ a, float_ b)
 {
