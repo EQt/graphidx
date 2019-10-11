@@ -14,55 +14,58 @@ matrix:
   include:
     - language: cpp
       os: linux
+      sudo: true
       script:
+        - sudo apt-get install -y doxygen
         - mkdir -p build && cd build && cmake ..
             -DCMAKE_BUILD_TYPE=Debug
             -DASAN=ON
             -DPYTHON_EXECUTABLE:FILEPATH=$(which python3)
         - make -j$(nproc) && ./doctests -s
+        - cd $TRAVIS_BUILD_DIR && make -C docs cxx
 
-    - language: cpp
-      os: osx
-      script:
-        - mkdir -p build && cd build &&  cmake .. -DCMAKE_BUILD_TYPE=Debug
-        - make -j$(nproc) && ./doctests -s
+    # - language: cpp
+    #   os: osx
+    #   script:
+    #     - mkdir -p build && cd build &&  cmake .. -DCMAKE_BUILD_TYPE=Debug
+    #     - make -j$(nproc) && ./doctests -s
 
-    - language: python
-      os: linux
-      python: "3.7"
-      install:
-        - pip install
-            -r python/requirements.txt 
-            -r python/test/requirements.txt
-        - cd python && python setup.py install
-      script: pytest test
+    # - language: python
+    #   os: linux
+    #   python: "3.7"
+    #   install:
+    #     - pip install
+    #         -r python/requirements.txt 
+    #         -r python/test/requirements.txt
+    #     - cd python && python setup.py install
+    #   script: pytest test
 
-    - language: minimal
-      os: osx
-      osx_image: xcode10.2
-      name: "Python 3.7"
-      install:
-        - python --version
-        - python3 --version
-        - pip3 install
-            -r python/requirements.txt
-            -r python/test/requirements.txt
-        - cd python && python3 setup.py install
-      script: pytest test
+    # - language: minimal
+    #   os: osx
+    #   osx_image: xcode10.2
+    #   name: "Python 3.7"
+    #   install:
+    #     - python --version
+    #     - python3 --version
+    #     - pip3 install
+    #         -r python/requirements.txt
+    #         -r python/test/requirements.txt
+    #     - cd python && python3 setup.py install
+    #   script: pytest test
 
-    - language: julia
-      os: linux
-      julia: 1.2
-      script:
-        - julia --project=julia --color=yes -e "using Pkg; Pkg.instantiate();"
-        - julia --project=julia --color=yes -e "using Pkg; Pkg.build();"
-        - julia --project=julia --color=yes -e "using Pkg; Pkg.test()"
-        - julia --project=docs -e "using Pkg; Pkg.instantiate();"
-        - julia --project=docs/ --color=yes docs/make.jl
+    # - language: julia
+    #   os: linux
+    #   julia: 1.2
+    #   script:
+    #     - julia --project=julia --color=yes -e "using Pkg; Pkg.instantiate();"
+    #     - julia --project=julia --color=yes -e "using Pkg; Pkg.build();"
+    #     - julia --project=julia --color=yes -e "using Pkg; Pkg.test()"
+    #     - julia --project=docs -e "using Pkg; Pkg.instantiate();"
+    #     - julia --project=docs/ --color=yes docs/make.jl
  
-    - language: rust
-      os: linux
-      rust: stable
-      script:
-        - cargo --version
-        - cargo test
+    # - language: rust
+    #   os: linux
+    #   rust: stable
+    #   script:
+    #     - cargo --version
+    #     - cargo test
