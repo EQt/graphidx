@@ -8,7 +8,7 @@ The library is header only, so setting the include path apropriately suffices.
 
 
 Integers
--------
+--------
 
 All nodes have to be integer numbers.
 Because often we store extra information in the first bit, we require signed integers (typically `int32_t` or `int64_t`).
