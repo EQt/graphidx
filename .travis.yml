@@ -12,17 +12,23 @@ notifications:
 
 matrix:
   include:
-    - language: cpp
+    - language: python
+      name: "Doxygen"
       os: linux
       sudo: true
       script:
         - sudo apt-get install -y doxygen
-        - mkdir -p build && cd build && cmake ..
-            -DCMAKE_BUILD_TYPE=Debug
-            -DASAN=ON
-            -DPYTHON_EXECUTABLE:FILEPATH=$(which python3)
-        - make -j$(nproc) && ./doctests -s
+        - pip install -r docs/requirements.txt
         - cd $TRAVIS_BUILD_DIR && make -C docs cxx
+
+    # - language: cpp
+    #   os: linux
+    #   script:
+    #     - mkdir -p build && cd build && cmake ..
+    #         -DCMAKE_BUILD_TYPE=Debug
+    #         -DASAN=ON
+    #         -DPYTHON_EXECUTABLE:FILEPATH=$(which python3)
+    #     - make -j$(nproc) && ./doctests -s
 
     # - language: cpp
     #   os: osx
