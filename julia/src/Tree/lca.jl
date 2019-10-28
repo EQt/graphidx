@@ -54,3 +54,5 @@ end
 lowest_common_ancestors(tree, parent, pairs::Vector{Tuple{Int, Int}}) =
     lowest_common_ancestors(tree, parent, IncidenceIndex(length(tree), pairs))
 
+lowest_common_ancestors(tree, parent, pairs::Vector{Pair{Int, Int}}) =
+    lowest_common_ancestors(tree, parent, IncidenceIndex(length(tree), pairs))
