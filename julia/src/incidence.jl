@@ -45,8 +45,12 @@ end
 
 Same but for edges like `[(1, 2), (2, 3)]`
 """
-IncidenceIndex(n::Int, edges::Vector{Union{Tuple{Int, Int},Pair{Int, Int}}}) =
+IncidenceIndex(n::Int, edges::Vector{Tuple{Int, Int}}) =
     IncidenceIndex(n, () -> edges)
+
+IncidenceIndex(n::Int, edges::Vector{Pair{Int, Int}}) =
+    IncidenceIndex(n, () -> edges)
+
 
 """
     IncidenceIndex(n, m, iter::Function)
