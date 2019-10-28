@@ -5,7 +5,7 @@ module Grid
 using SparseArrays
 import LinearAlgebra
 import LinearAlgebra: norm
-import ..GraphIdx: enumerate_edges
+import ..GraphIdx: enumerate_edges, num_nodes, num_edges
 
 
 """

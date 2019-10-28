@@ -3,7 +3,8 @@ module TestGrid
 using Test
 import LinearAlgebra: norm, norm2
 import GraphIdx.Grid: Pixel, line_D, incmat
-import GraphIdx.Grid: GridGraph, iter_edges, iter_edges_pixel, num_edges, num_nodes
+import GraphIdx.Grid: GridGraph, iter_edges, iter_edges_pixel
+import GraphIdx: num_edges, num_nodes
 
 
 @testset "Pixel                          " begin
