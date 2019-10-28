@@ -6,6 +6,7 @@
 #include <chrono>
 #include <cstdio>
 #include <cstring>      // std::strlen
+// #include <iostream>
 
 
 inline bool
@@ -129,25 +130,28 @@ private:
 /** As long as this object exists, shut off the Timer */
 struct TimerQuiet
 {
+    const bool verbose;
     bool old_state;
 
-    TimerQuiet(bool verbose = false) : old_state(Timer::get_disable()) {
-        enter(verbose);
-    }
+    TimerQuiet(bool verbose = false)
+        : verbose(verbose),
+          old_state(Timer::get_disable())
+        {
+            enter();
+        }
 
-    void enter(bool verbose) {
+    void enter() {
+        // std::cerr << "set_disable(" << !verbose << ")" << std::endl;
         Timer::set_disable(!verbose);
     }
 
     void exit() {
         if (Timer::get_disable() && Timer::_default().running) {
             Timer::stopit();
-            // std::cout << "stopit" << std::endl;
         }
         Timer::set_disable(old_state);
+        // std::cerr << "set_disable(" << old_state << ")" << std::endl;
     }
 
-    ~TimerQuiet() {
-        exit();
-    }
+    ~TimerQuiet() { exit(); }
 };
