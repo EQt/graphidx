@@ -38,7 +38,7 @@ class BuildExt(build_ext):
         build_ext.build_extensions(self)
 
 
-if __name__ == '__main__':
+def git_submodule():
     if not path.exists(path.join(includes[0], "pybind11", "pybind11.hy")):
         import subprocess as sp
 
@@ -50,6 +50,24 @@ if __name__ == '__main__':
             print("cd", deps, "&&", cmd)
             raise
 
+
+def graphidx_setup(_graphidx, root='.'):
+    setup(
+        name="graphidx",
+        version="0.1.0",
+        author="Elias Kuthe",
+        author_email="elias.kuthe@tu-dortmund.de",
+        license="MIT",
+        package_dir={'': root},
+        packages=packages,
+        ext_modules=[_graphidx],
+        cmdclass={'build_ext': BuildExt},
+    )
+
+
+if __name__ == '__main__':
+    git_submodule()
+
     _graphidx = Extension(
         "graphidx._graphidx",
         sources=sources,
@@ -57,13 +75,4 @@ if __name__ == '__main__':
         language='c++',
     )
 
-    setup(
-        name="graphidx",
-        version="0.1.0",
-        author="Elias Kuthe",
-        author_email="elias.kuthe@tu-dortmund.de",
-        license="MIT",
-        packages=packages,
-        ext_modules=[_graphidx],
-        cmdclass={'build_ext': BuildExt},
-    )
+    graphidx_setup(_graphidx)
