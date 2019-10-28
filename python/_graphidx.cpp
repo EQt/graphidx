@@ -7,6 +7,7 @@
 namespace py = pybind11;
 
 
+void reg_timer(py::module &m);
 void reg_order(py::module &m);
 void reg_idx(py::module &m);
 void reg_spanning(py::module &m);
@@ -50,6 +51,7 @@ PYBIND11_MODULE(_graphidx, m)
         std::sort from libstdc++ (to be compared against numpy.sort)
       )pbdoc");
 
+    reg_timer(m);
     reg_order(m);
     reg_idx(m);
     reg_spanning(m);

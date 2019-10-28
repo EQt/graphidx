@@ -132,14 +132,22 @@ struct TimerQuiet
     bool old_state;
 
     TimerQuiet(bool verbose = false) : old_state(Timer::get_disable()) {
+        enter(verbose);
+    }
+
+    void enter(bool verbose) {
         Timer::set_disable(!verbose);
     }
 
-    ~TimerQuiet() {
+    void exit() {
         if (Timer::get_disable() && Timer::_default().running) {
             Timer::stopit();
             // std::cout << "stopit" << std::endl;
         }
         Timer::set_disable(old_state);
+    }
+
+    ~TimerQuiet() {
+        exit();
     }
 };

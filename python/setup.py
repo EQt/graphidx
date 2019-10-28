@@ -9,6 +9,7 @@ sources = [
     "idx.cpp",
     "order.cpp",
     "spanning.cpp",
+    "timer.cpp",
 ]
 
 

@@ -85,6 +85,7 @@ if (BUILD_PYEXT)
         python/order.cpp
         python/idx.cpp
         python/spanning.cpp
+        python/timer.cpp
     )
     if (_MASTER_PROJECT)
         set(_P "")
