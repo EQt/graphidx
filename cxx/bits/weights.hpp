@@ -6,7 +6,7 @@
 template <typename T = double>
 struct UnitWeights
 {
-    T operator[](size_t) const { return T(1); }
+    constexpr T operator[](size_t) const { return T(1); }
 };
 
 
