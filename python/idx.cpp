@@ -19,7 +19,7 @@ reg_idx(py::module &m)
     using AdjacencyIndex_int = AdjacencyIndex<int>;
     using PartitionIndex_int = PartitionIndex<int>;
 
-    py::class_<AdjacencyIndex_int> PyAdjacencyIndex_int (m, "AdjacencyIndex_int");
+    py::class_<AdjacencyIndex_int> PyAdjacencyIndex_int (m, "AdjacencyIndex_int", py::module_local());
     PyAdjacencyIndex_int
         .def("__getitem__",
              [](const AdjacencyIndex_int &b, const int i) -> IndexIter_int
@@ -48,7 +48,7 @@ reg_idx(py::module &m)
             )
         ;
 
-    py::class_<BiAdjacent> (m, "BiAdjacent", PyAdjacencyIndex_int)
+    py::class_<BiAdjacent> (m, "BiAdjacent", PyAdjacencyIndex_int, py::module_local())
         .def(py::init([](const py::array_i32 &head,
                          const py::array_i32 &tail)
                       {
@@ -77,7 +77,7 @@ reg_idx(py::module &m)
              })
         ;
 
-    py::class_<ChildrenIndex> (m, "ChildrenIndex", PyAdjacencyIndex_int)
+    py::class_<ChildrenIndex> (m, "ChildrenIndex", PyAdjacencyIndex_int, py::module_local())
         .def(py::init([](const py::array_i32 &parent,
                          const int root_)
                       {
@@ -114,7 +114,7 @@ reg_idx(py::module &m)
             )
         ;
 
-    py::class_<PartitionIndex_int> (m, "PartitionIndex", PyAdjacencyIndex_int)
+    py::class_<PartitionIndex_int> (m, "PartitionIndex", PyAdjacencyIndex_int, py::module_local())
         .def(py::init([](const py::array_i32 &ungrouped) {
                           const size_t n = check_1d_len(ungrouped);
                           return PartitionIndex_int(n, ungrouped.data());
@@ -132,7 +132,7 @@ reg_idx(py::module &m)
              })
         ;
 
-    py::class_<IndexIter_int>(m, "IndexIter_int")
+    py::class_<IndexIter_int>(m, "IndexIter_int", py::module_local())
         .def("__repr__",
              [](const IndexIter_int &self) -> std::string
              {
