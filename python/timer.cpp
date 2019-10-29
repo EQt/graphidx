@@ -8,7 +8,7 @@ namespace py = pybind11;
 void
 reg_timer(py::module &m)
 {
-    py::class_<TimerQuiet>(m, "TimerQuiet")
+    py::class_<TimerQuiet>(m, "TimerQuiet", py::module_local())
         .def(py::init([](const bool verbose)
              {
                  return TimerQuiet(verbose);
