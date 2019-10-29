@@ -1,5 +1,13 @@
 #pragma once
-#include <cstddef>
+#include <cstddef>      // for size_t
+
+
+/** Provide a uniform weighting of one */
+template <typename T = double>
+struct UnitWeights
+{
+    T operator[](size_t) const { return T(1); }
+};
 
 
 template <typename T = double>
