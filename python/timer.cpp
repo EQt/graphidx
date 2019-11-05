@@ -18,4 +18,12 @@ reg_timer(py::module &m)
         .def("__enter__", &TimerQuiet::enter)
         .def("__exit__", [](TimerQuiet &self_, py::args) { self_.exit(); })
         ;
+
+    py::class_<Timer>(m, "Timer", py::module_local())
+        .def(py::init([]() -> Timer { return Timer(); }))
+        .def("__float__",
+             [](const Timer &self) -> double {
+                 return double(self);
+             })
+        ;
 }

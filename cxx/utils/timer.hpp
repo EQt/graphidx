@@ -61,14 +61,18 @@ public:
         return d;
     }
 
+    operator double() const {
+        return std::chrono::duration_cast<std::chrono::duration<double>>
+            (time1 - time0).count();
+    }
+
     void stop() {
         if (!_Timer_disable() && running) {
-            auto time1 = std::chrono::high_resolution_clock::now();
-            auto sec = std::chrono::duration_cast<std::chrono::duration<double>>
-                (time1 - time0);
+            time1 = std::chrono::high_resolution_clock::now();
+            const double sec = double(*this);
             if (newline)
                 fprintf(Timer::stream(), "%-*s", indent, " --> ");
-            fprintf(Timer::stream(), fmt, sec.count() * 1000.0);
+            fprintf(Timer::stream(), fmt, sec * 1000.0);
             fflush(Timer::stream());
         }
         running = false;
@@ -121,7 +125,7 @@ private:
     int indent = 20;
     bool newline = false;
     bool running = false;
-    std::chrono::high_resolution_clock::time_point time0;
+    std::chrono::high_resolution_clock::time_point time0, time1;
     friend struct TimerQuiet;
     friend void _timer_disable();
 };
