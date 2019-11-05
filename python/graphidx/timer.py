@@ -2,7 +2,7 @@
 Time a piece of code and print the result (formatted).
 """
 import sys
-from time import process_time as now
+from time import perf_counter_ns as now
 from math import isnan, isinf
 
 from ._graphidx.timer import TimerQuiet
@@ -38,7 +38,7 @@ class Timer:
             return float("nan")
         if not hasattr(self, "time1"):
             return float("-inf")
-        return self.time1 - self.time0
+        return float(self.time1 - self.time0) * 1e-9
 
     def __enter__(self):
         if type(self).verbose:
