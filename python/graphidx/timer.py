@@ -5,7 +5,7 @@ import sys
 from time import process_time as now
 from math import isnan, isinf
 
-from ._graphidx import TimerQuiet
+from ._graphidx.timer import TimerQuiet
 
 
 class Timer:

@@ -8,7 +8,12 @@ namespace py = pybind11;
 void
 reg_timer(py::module &m)
 {
-    py::class_<TimerQuiet>(m, "TimerQuiet", py::module_local())
+    py::module mt = m.def_submodule("timer",
+            R"pbdoc(
+            Access the C++ timer functionality, e.g. `Timer` and `TimerQuiet`.
+            )pbdoc");
+
+    py::class_<TimerQuiet>(mt, "TimerQuiet", py::module_local())
         .def(py::init([](const bool verbose)
              {
                  return TimerQuiet(verbose);
@@ -19,7 +24,7 @@ reg_timer(py::module &m)
         .def("__exit__", [](TimerQuiet &self_, py::args) { self_.exit(); })
         ;
 
-    py::class_<Timer>(m, "Timer", py::module_local())
+    py::class_<Timer>(mt, "Timer", py::module_local())
         .def(py::init([]() -> Timer { return Timer(); }))
         .def("__float__",
              [](const Timer &self) -> double {
