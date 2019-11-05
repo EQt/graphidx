@@ -1,6 +1,7 @@
 #include <pybind11/pybind11.h>
 
 #include "../cxx/utils/timer.hpp"
+#include "../cxx/utils/perftimer.hpp"
 
 namespace py = pybind11;
 
@@ -28,6 +29,14 @@ reg_timer(py::module &m)
         .def(py::init([]() -> Timer { return Timer(); }))
         .def("__float__",
              [](const Timer &self) -> double {
+                 return double(self);
+             })
+        ;
+
+    py::class_<PerfTimer>(mt, "PerfTimer", py::module_local())
+        .def(py::init([]() -> PerfTimer { return PerfTimer(); }))
+        .def("__float__",
+             [](const PerfTimer &self) -> double {
                  return double(self);
              })
         ;
