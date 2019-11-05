@@ -50,5 +50,12 @@ end
 Base.getindex(c::ArrayWeights{F}, i::Integer) where {F} = c.a[i]
 
 
+struct UnitWeights{F<:Real} end
+
+@inline Base.getindex(::UnitWeights{F}, ::Integer) where {F} = one(F)
+
+@inline (u::UnitWeights{F})(::Integer) where {F} = u[1]
+
+create_weights(::Type{F}) where {F<:Real} = UnitWeights{F}()
 create_weights(w::F) where {F<:Real} = ConstantWeights(w)
 create_weights(w::Vector{F}) where {F<:Real} = ArrayWeights(w)
