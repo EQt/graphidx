@@ -39,8 +39,9 @@ module GraphIdx
 
 include("weights.jl")
 
-include("cluster.jl")
 include("incidence.jl")
+include("biadjacent.jl")
+include("cluster.jl")
 include("Utils.jl")
 include("Tree.jl")
 
