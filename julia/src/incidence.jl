@@ -1,9 +1,11 @@
 """
-In a graph with numbered edges, provide access to neighbors and edge numbers for a specified node.
+In a graph with numbered edges, provide access to neighbors *and edge numbers*
+for a specified node.
 
 !!! note
 
-    [`IncidenceIndex`](@ref) always includes both directions, i.e. for an edge `(u, v)` with edge index `ei`, it is
+    [`IncidenceIndex`](@ref) always includes both directions, i.e.
+    for an edge `(u, v)` with edge index `ei`, it is
     `(u, ei) ∈ neighbors[v]` and `(v, ei) ∈ neighbors[u]`.
 """
 struct IncidenceIndex
