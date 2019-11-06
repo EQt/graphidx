@@ -1,3 +1,5 @@
+abstract type Weights{F<:Real} end
+
 """
 Represent weighting that is indexable and callable where each index has the same value.
 
@@ -14,7 +16,7 @@ julia> w[3]
 5.4
 ```
 """
-struct ConstantWeights{F<:Real}
+struct ConstantWeights{F<:Real} <: Weights{F}
     w::F
 end
 
@@ -40,7 +42,7 @@ julia> w[1]
 0.1
 ```
 """
-struct ArrayWeights{F<:Real}
+struct ArrayWeights{F<:Real} <: Weights{F}
     a::Vector{F}
 end
 
@@ -50,7 +52,7 @@ end
 Base.getindex(c::ArrayWeights{F}, i::Integer) where {F} = c.a[i]
 
 
-struct UnitWeights{F<:Real} end
+struct UnitWeights{F<:Real} <: Weights{F} end
 
 @inline Base.getindex(::UnitWeights{F}, ::Integer) where {F} = one(F)
 
