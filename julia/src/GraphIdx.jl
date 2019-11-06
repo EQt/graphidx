@@ -44,9 +44,10 @@ include("incidence.jl")
 include("Utils.jl")
 include("Tree.jl")
 
+include("weightedgraph.jl")
+include("edgegraph.jl")
 include("prim_mst.jl")
 include("kruskal_mst.jl")
-include("weightedgraph.jl")
 
 include("bits.jl")
 include("lina.jl")
