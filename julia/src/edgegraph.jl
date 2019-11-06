@@ -2,7 +2,7 @@
 """
 Graph represanted by an explicit vector of edges
 """
-struct EdgeGraph
+struct EdgeGraph <: Graph
     n::UInt
     edges::Vector{Pair{Int,Int}}
 end

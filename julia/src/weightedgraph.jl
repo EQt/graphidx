@@ -1,7 +1,7 @@
 import .Tree
 
 
-struct WeightedGraph
+struct WeightedGraph <: Graph
     idx::IncidenceIndex
     lam::Vector{Float64}
 end
