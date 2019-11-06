@@ -14,8 +14,12 @@ Find a partition of x such that
 for all edges `j in neighidx[i]` where `i` and `j` are in the same
 partition.
 """
-function cluster(x, neighidx::N;
-                 eps::Float64=1e-5, seed=42)::PartitionIndex where N
+function cluster(
+    x::Array,
+    neighidx::N;
+    eps::Float64=1e-5,
+    seed::Int=42,
+)::PartitionIndex where {N}
     n = length(x)
     s = Vector{Int}()
     sizehint!(s, n)
