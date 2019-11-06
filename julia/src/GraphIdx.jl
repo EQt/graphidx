@@ -45,6 +45,8 @@ include("Utils.jl")
 include("Tree.jl")
 
 abstract type Graph end
+const Edge{I<:Integer} = Tuple{I, I}
+
 include("weightedgraph.jl")
 include("edgegraph.jl")
 include("prim_mst.jl")

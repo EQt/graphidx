@@ -3,8 +3,8 @@
 Graph represanted by an explicit vector of edges
 """
 struct EdgeGraph <: Graph
-    n::UInt
-    edges::Vector{Pair{Int,Int}}
+    n::Int
+    edges::Vector{Edge{Int}}
 end
 
 
