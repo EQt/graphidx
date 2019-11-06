@@ -96,3 +96,10 @@ import Base.==
 
 ==(a::BiAdjacentIndex, b::BiAdjacentIndex) =
     a.pi == b.pi && a.idx == b.idx
+
+
+node_degrees(b::BiAdjacentIndex) =
+    diff(b.idx)
+
+max_degree(neighs::BiAdjacentIndex)::Int =
+    maximum((neighs.idx[i+1] - neighs.idx[i] for i in 1:length(neighs.idx)-1))
