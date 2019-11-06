@@ -14,9 +14,9 @@ public:
     }
 
     operator double() const {
-        using nsec = std::chrono::nanoseconds;
-        return 1e-9 * double(
-            std::chrono::duration_cast<nsec>(time1 - time0).count());
+        using nsec = std::chrono::duration<double, std::nano>;
+        return double(std::nano::num) / std::nano::den * 
+            std::chrono::duration_cast<nsec>(time1 - time0).count();
     }
 
 private:
