@@ -57,7 +57,8 @@ IncidenceIndex(n::Int, edges::Vector{Pair{Int, Int}}) =
 """
     IncidenceIndex(n, m, iter::Function)
 
-Provide an iterator over the edges
+Provide an iterator over the edges.
+If the first node of an edge is zero, skip that edge.
 """
 function IncidenceIndex(n::Int, iter::Function)
     local m::Int = 0
