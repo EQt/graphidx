@@ -32,6 +32,9 @@ struct PrimMstMem
     selected::Vector{Int}
     pq::PriorityQueue{Int, Float64}
 
+    PrimMstMem(g::EdgeGraph) =
+        PrimMstMem(IncidenceIndex(num_nodes(g), g.edges))
+
     PrimMstMem(edges::Vector{E}, n::Integer) where {E} =
         PrimMstMem(IncidenceIndex(n, edges))
 
