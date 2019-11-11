@@ -5,7 +5,7 @@ module Grid
 using SparseArrays
 import LinearAlgebra
 import LinearAlgebra: norm
-import ..GraphIdx: enumerate_edges, num_nodes, num_edges
+import ..GraphIdx: enumerate_edges, num_nodes, num_edges, Graph
 
 
 """
@@ -78,7 +78,7 @@ end
 """
 Capture all we need to know about a grid graph.
 """
-struct GridGraph
+struct GridGraph <: Graph
     """Number of rows"""
     n1::Int
 
