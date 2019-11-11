@@ -351,15 +351,15 @@ end
 
 """How is a node within the grid?"""
 @enum BorderType begin
-    NorthWest
+    Middle      = 0b000
+    North       = 0b100
+    NorthWest   = 0b101
     NorthEast
     SouthWest
     SouthEast
-    North
     South
     West
     East
-    Middle
 end
 
 
@@ -374,7 +374,7 @@ end
 end
 
 
-function border_type(g::Grid.GridGraph, v::Int)::BorderType
+function BorderType(g::Grid.GridGraph, v::Int)::BorderType
     i, j = coordinates(g, v)
     if (i, j) == (1, 1)
         NorthWest
@@ -403,15 +403,75 @@ Idea: Do not store the graph explicitly but compute the neighbors as needed.
 For avoiding too many allocations, return just a view to the buffer
 """
 struct ImplicitGridGraph <: Graph
-    n1::Int
-    n2::Int
-    dirs::Vector{Pixel}
+    grid::GridGraph
     _buffer::Vector{Tuple{Int,Int}}
 end
 
-ImplicitGridGraph(n1, n2, dn::Int = Int(1)) =
-    ImplicitGridGraph(n1, n2, compute_dirs(dn), [])
 
+ImplicitGridGraph(n1, n2, dn::Int = Int(1)) =
+    ImplicitGridGraph(GridGraph(n1, n2, dn), [])
+
+
+
+struct GridNeighbors
+    p::Complex{Int}
+    bt::BorderType
+    graph::GridGraph
+end
+
+
+Base.Complex(p::Pixel)::Complex{Int} =
+    Complex{Int}(p.x, p.y)
+
+Pixel(p::Complex{Int}) =
+    Pixel(real(p), imag(p))
+
+
+num_edges(bt::BorderType) = 
+    if bt == Middle
+        4
+    elseif bt == South || bt == North || bt == West || bt == East
+        2
+    else
+        1
+    end
+
+
+Base.length(gn::GridNeighbors) =
+    num_edges(gn.bt) * length(gn.graph.dirs)
+
+
+function Base.iterate(gn::GridNeighbors, state::Tuple{Int,Int} = (1, 1))
+    pix2ind(p::Pixel) = pix2ind(p...)
+    pix2ind(p::Complex{Int}) = pix2ind(Pixel(p))
+    pix2ind(px::Int, py::Int) = px + (py-1) * gn.graph.n1
+    let (di, ii) = state
+        if di > length(gn.graph.dirs)
+            return nothing
+        end
+        local dir::Complex{Int} = gn.graph.dirs[di]
+        if gn.bt == Middle
+            if ii > 4
+                return iterate(gn, (di+1, 1))
+            else
+                return (pix2ind(gn.p + (1im^ii) .* Complex(dir)), (di, ii+1))
+            end
+        elseif gn.bt == North
+            if ii > 3
+                return iterate(gn, (di+1, 1))
+            else
+                return (pix2ind(gn.p + (1im^ii) .* Complex(dir)), (di, ii+1))
+            end
+            notimplemented("todo")
+        end
+    end
+end
+
+
+function Base.getindex(graph::GridGraph, v::Int = 2)
+    bt = BorderType(graph, v)
+    return GridNeighbors(Complex(coordinates(graph, v)...), bt, graph)
+end
 
 
 """
