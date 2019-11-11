@@ -354,10 +354,16 @@ end
 end
 
 
-function Base.getindex(g::Grid.GridGraph, v::Int)::BorderType
+@inline function coordinates(g::Grid.GridGraph, v::Int)::Tuple{Int,Int}
     i, j = divrem(v-1, g.n1)
     i += 1
     j += 1
+    (i, j)
+end
+
+
+function Base.border_type(g::Grid.GridGraph, v::Int)::BorderType
+    i, j = coordinates(g, v)
     if (i, j) == (1, 1)
         NorthWest
     elseif (i, j) == (1, g.n2)
