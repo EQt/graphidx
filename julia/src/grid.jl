@@ -20,13 +20,22 @@ Base.convert(::Type{Pixel}, p::Tuple{Int,Int}) = Pixel(p...)
 
 Base.convert(::Type{Tuple{Int,Int}}, p::Pixel) = (p.x, p.y)
 
-Base.getindex(p::Pixel, i::Int) =
+@inline Base.getindex(p::Pixel, i::Int) =
     if i == 1
         p.x
     elseif i == 2
         p.y
     else
         throw(ArgumentErrow("i = $i"))
+    end
+
+@inline Base.iterate(p::Pixel, i::Int = 1) =
+    if i == 1
+        (p.x, 2)
+    elseif i == 2
+        (p.y, 3)
+    else
+        nothing
     end
 
 LinearAlgebra.norm2(p::Pixel) = p.x^2 + p.y^2
@@ -401,7 +410,7 @@ struct ImplicitGridGraph <: Graph
 end
 
 ImplicitGridGraph(n1, n2, dn::Int = Int(1)) =
-    GridGraph(n1, n2, compute_dirs(dn))
+    ImplicitGridGraph(n1, n2, compute_dirs(dn), [])
 
 
 
