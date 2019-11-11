@@ -340,29 +340,42 @@ function neighboridx_lambda(g::Grid.GridGraph)
     return idx, pi, lam
 end
 
+"""How is a node within the grid?"""
+@enum BorderType begin
+    NorthWest
+    NorthEast
+    SouthWest
+    SouthEast
+    North
+    South
+    West
+    East
+    Middle
+end
 
-function Base.getindex(g::Grid.GridGraph, v::Int)
+
+function Base.getindex(g::Grid.GridGraph, v::Int)::BorderType
     i, j = divrem(v-1, g.n1)
     i += 1
     j += 1
     if (i, j) == (1, 1)
-        :nw
+        NorthWest
     elseif (i, j) == (1, g.n2)
-        :ne
+        NorthEast
     elseif (i, j) == (g.n1, 1)
-        :sw
+        SouthWest
     elseif (i, j) == (g.n1, g.n2)
-        :se
+        SouthEast
     elseif i == 1
-        :n
+        North
     elseif i == g.n1
-        :s
+        South
     elseif j == 1
-        :w
+        West
     elseif j == g.n2
-        :e
+        East
     else
-        :m
+        Middle
     end
 end
 
