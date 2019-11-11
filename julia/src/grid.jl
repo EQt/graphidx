@@ -354,15 +354,18 @@ end
 end
 
 
-@inline function coordinates(g::Grid.GridGraph, v::Int)::Tuple{Int,Int}
-    i, j = divrem(v-1, g.n1)
+@inline coordinates(g::Grid.GridGraph, v::Int)::Tuple{Int,Int} =
+    coordinates(g.n1, v)
+
+@inline function coordinates(n1::Int, v::Int)::Tuple{Int,Int}
+    i, j = divrem(v-1, n1)
     i += 1
     j += 1
     (i, j)
 end
 
 
-function Base.border_type(g::Grid.GridGraph, v::Int)::BorderType
+function border_type(g::Grid.GridGraph, v::Int)::BorderType
     i, j = coordinates(g, v)
     if (i, j) == (1, 1)
         NorthWest
@@ -390,12 +393,16 @@ end
 Idea: Do not store the graph explicitly but compute the neighbors as needed.
 For avoiding too many allocations, return just a view to the buffer
 """
-struct ImplicitGridGraph
+struct ImplicitGridGraph <: Graph
     n1::Int
     n2::Int
     dirs::Vector{Pixel}
-    buffer::Vector{Tuple{Int,Int}}
+    _buffer::Vector{Tuple{Int,Int}}
 end
+
+ImplicitGridGraph(n1, n2, dn::Int = Int(1)) =
+    GridGraph(n1, n2, compute_dirs(dn))
+
 
 
 """
