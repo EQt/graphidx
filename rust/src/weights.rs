@@ -1,15 +1,16 @@
 //! Weight parameters associated to a collection, e.g. nodes or edges.
 //!
-//! There are mainly to different kinds of weights:
+//! There are different kinds of weights:
+//! 0. [`Ones`] provide weight `1.0` for every element.
 //!
-//! 1. [`ConstantWeights`] provides the same weight for every element.
+//! 1. [`Const`] provides the same, i.e. constant weight for every element.
 //!
-//! 2. [`ArrayWeights`] provides access to a weight stored in a vector.
+//! 2. [`Array`] provides access to a weight stored in a vector.
 //!
 //! Both classes provide access by index notation.
 //!
-//! [`ConstantWeights`]: struct.ConstantWeights.html
-//! [`ArrayWeights`]: struct.ConstantWeights.html
+//! [`Const`]: struct.Const.html
+//! [`Array`]: struct.Array.html
 use std::ops::Index;
 // use num_traits::identities::{One, one};
 
@@ -19,39 +20,39 @@ pub trait Weighted<T>: Index<usize, Output = T> {
 
 /// Weight 1.0 for every element
 #[derive(PartialEq, Debug)]
-pub struct UnitWeights<T> {
+pub struct Ones<T> {
     _c: std::marker::PhantomData<T>,
 }
 
-impl Weighted<f64> for UnitWeights<f64> {
+impl Weighted<f64> for Ones<f64> {
     fn len(&self) -> usize {
         std::usize::MAX
     }
 }
 
-impl Index<usize> for UnitWeights<f64> {
+impl Index<usize> for Ones<f64> {
     type Output = f64;
     fn index(&self, _i: usize) -> &Self::Output {
         &1f64
     }
 }
 
-impl Weighted<f32> for UnitWeights<f32> {
+impl Weighted<f32> for Ones<f32> {
     fn len(&self) -> usize {
         std::usize::MAX
     }
 }
 
-impl Index<usize> for UnitWeights<f32> {
+impl Index<usize> for Ones<f32> {
     type Output = f32;
     fn index(&self, _i: usize) -> &Self::Output {
         &1f32
     }
 }
 
-impl<T> UnitWeights<T> {
+impl<T> Ones<T> {
     pub fn new() -> Self {
-        UnitWeights {
+        Ones {
             _c: Default::default(),
         }
     }
@@ -59,61 +60,61 @@ impl<T> UnitWeights<T> {
 
 /// Same weight for every element.
 #[derive(PartialEq, Debug)]
-pub struct ConstantWeights<T> {
+pub struct Const<T> {
     c: T,
 }
 
-impl<T> Index<usize> for ConstantWeights<T> {
+impl<T> Index<usize> for Const<T> {
     type Output = T;
     fn index(&self, _i: usize) -> &Self::Output {
         &self.c
     }
 }
 
-impl<T> Weighted<T> for ConstantWeights<T> {
+impl<T> Weighted<T> for Const<T> {
     fn len(&self) -> usize {
         std::usize::MAX
     }
 }
 
-impl<T> ConstantWeights<T> {
+impl<T> Const<T> {
     pub fn new(c: T) -> Self {
-        ConstantWeights { c: c }
+        Const { c: c }
     }
 }
 
 /// Weights stored in an array.
 #[derive(PartialEq, Debug)]
-pub struct ArrayWeights<T> {
+pub struct Array<T> {
     a: Vec<T>,
 }
 
-impl<T> Index<usize> for ArrayWeights<T> {
+impl<T> Index<usize> for Array<T> {
     type Output = T;
     fn index(&self, i: usize) -> &Self::Output {
         &self.a[i]
     }
 }
 
-impl<T> Weighted<T> for ArrayWeights<T> {
+impl<T> Weighted<T> for Array<T> {
     fn len(&self) -> usize {
         self.a.len()
     }
 }
 
-impl<T> ArrayWeights<T> {
+impl<T> Array<T> {
     pub fn new(a: Vec<T>) -> Self {
-        ArrayWeights { a: a }
+        Array { a: a }
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{ArrayWeights, ConstantWeights, UnitWeights};
+    use super::{Array, Const, Ones};
 
     #[test]
     fn constant_weights_13() {
-        let w = ConstantWeights::new(13.5);
+        let w = Const::new(13.5);
         assert_eq!(w[5], 13.5);
         assert_eq!(w[0], 13.5);
         assert_eq!(w[13], 13.5);
@@ -121,7 +122,7 @@ mod tests {
 
     #[test]
     fn unit_weights_13() {
-        let w = UnitWeights::<f64>::new();
+        let w = Ones::<f64>::new();
         assert_eq!(w[5], 1.0);
         assert_eq!(w[0], 1.0);
         assert_eq!(w[13], 1.0);
@@ -129,7 +130,7 @@ mod tests {
 
     #[test]
     fn array_weights_123() {
-        let w = ArrayWeights::new(vec![1, 2, 5]);
+        let w = Array::new(vec![1, 2, 5]);
         assert_eq!(w[2], 5);
         assert_eq!(w[0], 1);
         assert_eq!(w[1], 2);
