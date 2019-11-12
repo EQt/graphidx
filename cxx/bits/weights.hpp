@@ -21,9 +21,16 @@ operator==(const T b, const Ignore<T> a)
 }
 
 
+
+template <typename T = double>
+struct Weights
+{
+};
+
+
 /** Provide a uniform weighting of one */
 template <typename T = double>
-struct Ones
+struct Ones : public Weights<T>
 {
     constexpr T operator[](size_t) const { return T(1); }
     constexpr Ignore<T> operator[](size_t) { return Ignore<T>{T(1)}; }
@@ -31,7 +38,7 @@ struct Ones
 
 
 template <typename T = double>
-struct Const
+struct Const : public Weights<T>
 {
     const T c;
 
@@ -43,7 +50,7 @@ struct Const
 
 
 template <typename T = double>
-struct Array
+struct Array : public Weights<T>
 {
     T *a;
 
