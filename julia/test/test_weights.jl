@@ -4,9 +4,9 @@ using Test
 import GraphIdx
 
 @testset "Weights                        " begin
-    @test GraphIdx.UnitWeights <: GraphIdx.Weights
-    @test GraphIdx.ConstantWeights <: GraphIdx.Weights
-    @test GraphIdx.ArrayWeights <: GraphIdx.Weights
+    @test GraphIdx.Ones <: GraphIdx.Weights
+    @test GraphIdx.Const <: GraphIdx.Weights
+    @test GraphIdx.Vec <: GraphIdx.Weights
 end
 
 end

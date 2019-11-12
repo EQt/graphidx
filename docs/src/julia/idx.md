@@ -16,8 +16,9 @@ Often, nodes or edges might have an associated weight.
 To give the optimizer the possibility to distinguish constant weights (all weights the same) from individual weights we provide the following structs:
 
 ```@docs
-GraphIdx.ConstantWeights
-GraphIdx.ArrayWeights
+GraphIdx.Ones
+GraphIdx.Const
+GraphIdx.Vec
 ```
 
 Graph Partition

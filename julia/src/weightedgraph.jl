@@ -30,6 +30,6 @@ function enumerate_edges(f::Function, t::Tree.WeightedTree{W}) where {W}
         if u == t.tree.root
             continue
         end
-        f(u, u, v, t.lam(u))
+        f(u, u, v, t.lam[u])
     end
 end

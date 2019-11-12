@@ -3,7 +3,7 @@ Some statistical functions, mainly related to (weighted) median computations.
 """
 module Stats
 
-import ..GraphIdx: ConstantWeights, ArrayWeights
+import ..GraphIdx: Const, Vec, Ones
 
 
 """
@@ -17,12 +17,15 @@ function permcumsum(w::Array{W}, pi::Vector{I}) where {W, I<:Integer}
         acc += w[j]
         w[j] = acc
     end
-    return ArrayWeights(w)
+    return w
 end
 
 
-permcumsum(w::ConstantWeights{W}, pi::Vector{I}) where {W, I<:Integer} =
-    ArrayWeights(pi)
+permcumsum(w::Const{W}, pi::Vector{I}) where {W, I<:Integer} =
+    pi
+
+permcumsum(w::Ones{W}, pi::Vector{I}) where {W, I<:Integer} =
+    pi
 
 
 """
@@ -46,7 +49,7 @@ Return the interval ``[a, b]`` containing the minimizer (if unique ``a = b``).
 
 """
 weighted_median(x::Vector{X}) where {X} =
-    weighted_median(x, ConstantWeights(1))
+    weighted_median(x, Ones{X}())
 
 
 function weighted_median(
