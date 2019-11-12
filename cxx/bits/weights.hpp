@@ -4,29 +4,29 @@
 
 /** Provide a uniform weighting of one */
 template <typename T = double>
-struct UnitWeights
+struct Ones
 {
     constexpr T operator[](size_t) const { return T(1); }
 };
 
 
 template <typename T = double>
-struct ConstantWeights
+struct Const
 {
     const T c;
 
-    ConstantWeights(const T &c) : c(c) { }
+    Const(const T &c) : c(c) { }
 
     T operator[](size_t) const { return c; }
 };
 
 
 template <typename T = double>
-struct ArrayWeights
+struct Array
 {
     const T *a;
 
-    ArrayWeights(const T *a) : a(a) { }
+    Array(const T *a) : a(a) { }
 
     T operator[](size_t i) const { return a[i]; }
 };
@@ -38,16 +38,24 @@ create_weight(S);
 
 
 template <typename T>
-ConstantWeights<T>
-create_weight(T c)
+Ones<T>
+create_weight()
 {
-    return ConstantWeights<T>(c);
+    return Ones<T>();
 }
 
 
 template <typename T>
-ArrayWeights<T>
+Const<T>
+create_weight(T c)
+{
+    return Const<T>(c);
+}
+
+
+template <typename T>
+Array<T>
 create_weight(const T *a)
 {
-    return ArrayWeights<T>(a);
+    return Array<T>(a);
 }

@@ -2,7 +2,15 @@
 #include "../bits/weights.hpp"
 
 
-TEST_CASE("weights: constant13")
+TEST_CASE("weights: ones")
+{
+    auto w = create_weight<double>();
+    REQUIRE(w[5] == 1.0);
+    REQUIRE(w[42] == 1.0);
+}
+
+
+TEST_CASE("weights: const13")
 {
     auto w = create_weight(13.5);
     REQUIRE(13.5 == w[5]);
