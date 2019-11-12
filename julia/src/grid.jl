@@ -405,12 +405,10 @@ For avoiding too many allocations, return just a view to the buffer
 struct ImplicitGridGraph <: Graph
     grid::GridGraph
     _buffer::Vector{Tuple{Int,Int}}
+
+    ImplicitGridGraph(n1::Int, n2::Int, dn::Int = Int(1)) =
+        new(GridGraph(n1, n2, dn), [])
 end
-
-
-ImplicitGridGraph(n1, n2, dn::Int = Int(1)) =
-    ImplicitGridGraph(GridGraph(n1, n2, dn), [])
-
 
 
 struct GridNeighbors
