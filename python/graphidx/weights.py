@@ -5,8 +5,8 @@ class Weights:
     @staticmethod
     def new(x) -> Weights:
         """
-        Depending on the type of x, construct `ConstantWeights`
-        or `ArrayWeights`
+        Depending on the type of x, construct
+        `Const`, `Array` or `Ones`
         """
         if isinstance(x, Weights):
             return x
@@ -27,7 +27,7 @@ class Ones(Weights):
         self.dtype = dtype
 
     def __getitem__(self, _):
-        return dtype(1)
+        return self.dtype(1)
 
 
 class Const(Weights):
