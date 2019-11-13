@@ -2,6 +2,9 @@
 #include <chrono>
 
 
+/**
+   Measure the time, no matter of TimerQuiet
+*/
 class PerfTimer
 {
 public:
@@ -21,4 +24,14 @@ public:
 
 private:
     std::chrono::high_resolution_clock::time_point time0, time1;
+};
+
+
+/**
+   As we cannot parse a pointer via pybind11, we create a wrapper class for it
+*/
+struct Seconds
+{
+    double d;
+    Seconds() : d(std::nan("")) { }
 };

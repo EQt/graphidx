@@ -40,4 +40,25 @@ reg_timer(py::module &m)
                  return double(self);
              })
         ;
+
+    py::class_<Seconds>(mt, "Seconds", py::module_local(),
+            "Represent a time intervall in seconds."
+        )
+        .def(py::init([]() { return Seconds(); }))
+        .def("__float__", [](const Seconds d) { return d.d; })
+        .def_readwrite("value", &Seconds::d)
+        ;
+
+    m.def("_pass_double_pointer",
+          [](Seconds *ptr) -> bool
+          {
+              if (ptr) {
+                  ptr->d = 123.4;
+                  return true;
+              }
+              return false;
+          },
+          "For tessting purposes only!: Receive a double pointer",
+          py::arg("ptr") = nullptr)
+        ;
 }
