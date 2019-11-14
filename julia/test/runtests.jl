@@ -6,6 +6,7 @@ exec julia --color=yes --startup-file=no "${BASH_SOURCE[0]}" "$@"
 using Test
 
 
+include("test_parse.jl")
 include("test_weights.jl")
 include("test_children.jl")
 include("test_inorder.jl")

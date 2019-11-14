@@ -15,6 +15,7 @@ function prettyarr(a::Array)::String
 end
 
 
+include("Io/parse.jl")
 include("Io/dimacs.jl")
 
 end
