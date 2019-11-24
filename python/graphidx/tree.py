@@ -73,3 +73,15 @@ Tree(n={self.n},
             parent = io['parent'][:]
             root = io['root'][:] if 'root' in io else find_root(parent)
         return Tree(parent=parent, root=root)
+
+    def save(self, fname:str):
+        if fname.endswith("h5") or fname.endswith("hdf5"):
+            import h5py
+
+            with h5py.File(fname, "w") as io:
+                if "parent" in io:
+                    del io["parent"]
+                io.create_dataset("parent", data=self.parent, compression=1)
+        else:
+            raise NotImplementedError("Only HDF5 output supported yet")
+
