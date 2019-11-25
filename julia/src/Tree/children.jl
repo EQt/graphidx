@@ -83,6 +83,7 @@ function reset!(cidx::ChildrenIndex, parent::Vector{Int}, root::Int = 0)
     value = cidx.value
     idx = cidx.idx
 
+    @assert 0 < root <= length(parent) "$root: $(length(parent))"
     @assert parent[root] == root "value[$root] == $(value[root])"
     @assert length(value) == n
     @assert length(idx) == n+1
