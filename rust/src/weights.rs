@@ -83,7 +83,7 @@ impl<T> Const<T> {
     }
 }
 
-/// Weights stored in an array.
+/// Weights stored in a `Vec`tor.
 #[derive(PartialEq, Debug)]
 pub struct Array<T> {
     a: Vec<T>,
@@ -108,9 +108,35 @@ impl<T> Array<T> {
     }
 }
 
+
+/// Weights stored in a referenced `Vec`tor.
+#[derive(PartialEq, Debug)]
+pub struct ArrayRef<'a, T> {
+    a: &'a Vec<T>,
+}
+
+impl<'a, T> Index<usize> for ArrayRef<'a, T> {
+    type Output = T;
+    fn index(&self, i: usize) -> &Self::Output {
+        &self.a[i]
+    }
+}
+
+impl<'a, T> Weighted<T> for ArrayRef<'a, T> {
+    fn len(&self) -> usize {
+        self.a.len()
+    }
+}
+
+impl<'a, T> ArrayRef<'a, T> {
+    pub fn new(a: &'a Vec<T>) -> Self {
+        ArrayRef { a: a }
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::{Array, Const, Ones};
+    use super::{Array, ArrayRef, Const, Ones};
 
     #[test]
     fn constant_weights_13() {
@@ -137,4 +163,16 @@ mod tests {
         let result = std::panic::catch_unwind(|| w[3]);
         assert!(result.is_err());
     }
+
+    #[test]
+    fn arrayref_weights_123() {
+        let v = vec![1, 2, 5];
+        let w = ArrayRef::new(&v);
+        assert_eq!(w[2], 5);
+        assert_eq!(w[0], 1);
+        assert_eq!(w[1], 2);
+        let result = std::panic::catch_unwind(|| w[3]);
+        assert!(result.is_err());
+    }
+
 }
