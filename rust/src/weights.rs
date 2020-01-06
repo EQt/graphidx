@@ -108,7 +108,6 @@ impl<T> Array<T> {
     }
 }
 
-
 /// Weights stored in a referenced `Vec`tor.
 #[derive(PartialEq, Debug)]
 pub struct ArrayRef<'a, T> {
@@ -174,5 +173,4 @@ mod tests {
         let result = std::panic::catch_unwind(|| w[3]);
         assert!(result.is_err());
     }
-
 }
