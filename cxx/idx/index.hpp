@@ -1,6 +1,7 @@
 #pragma once
-#include <set>
+#include <algorithm>
 #include <iostream>
+#include <set>
 
 #include "../utils/viostream.hpp"   // for printer
 
@@ -24,8 +25,18 @@ struct IndexIter
         return std::set<int_>(this->begin(), this->end());
     }
 
+    operator std::vector<int_>() const {
+        return std::vector<int_>(this->begin(), this->end());
+    }
+
     bool operator==(const std::set<int_> &o) const {
         return std::set<int_>(*this) == o;
+    }
+
+    std::vector<int_> sorted() const {
+        std::vector<int_> v(*this);
+        std::sort(v.begin(), v.end());
+        return v;
     }
 };
 

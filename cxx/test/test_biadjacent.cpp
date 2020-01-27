@@ -25,6 +25,23 @@ TEST_CASE("biadj: cell4")
     }
 }
 
+
+TEST_CASE("biadj: cell4-induced subgraph")
+{
+    const std::vector<int>
+        head {0, 1, 2, 3},
+        tail {1, 2, 3, 0},
+        sub {0, 1, 3};
+
+    BiAdjacent b (head, tail);
+    b.induced_subgraph(sub);
+    CHECK(b.num_nodes() == sub.size());
+    CHECK(b[0] == std::set<int>({1, 2}));
+    CHECK(b[1] == std::set<int>({1}));
+    CHECK(b[2] == std::set<int>({1}));
+}
+
+
 // Local Variables:
 // compile-command: "cd ../../build && make doctests && ./doctests -nc -tc='biadj*'"
 // End:

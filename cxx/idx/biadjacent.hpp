@@ -67,6 +67,24 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
 
     size_t num_edges() const { return this->value.size() / 2; }
     size_t num_nodes() const { return this->index.size() - 1; }
+
+    template <typename Idx>
+    BiAdjacentIndex<int_>& induced_subgraph(const Idx &idx) {
+        // inverse index:
+        //   inv[i] = j iff idx[j] = i or
+        //   inv[i] = -1 iff j not in idx
+        std::vector<int_> inv (num_nodes(), -1);
+        size_t i = 0;
+        for (const auto v : idx)
+            inv[v] = i++;
+        /*
+        decltype(this->value) val = this->value;
+        for (const auto v : idx) {
+            
+        }
+        */
+        return *this;
+    }
 };
 
 
