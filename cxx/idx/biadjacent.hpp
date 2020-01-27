@@ -18,8 +18,6 @@ struct BiAdjacent : public AdjacencyIndex<int>
             n = std::max(n, *std::max_element(tail, tail + m));
             n++;
         }
-        // auto value = this->value;
-        // auto index = this->index;
         value.resize(2*m);
         index.assign(n+1, 0);
         for (int i = 0; i < m; i++) {   // compute degree
@@ -71,5 +69,5 @@ struct BiAdjacent : public AdjacencyIndex<int>
 
 
 // Local Variables:
-// compile-command: "cd ../build && make tests && ./tests --gtest_filter='biadj*'"
+// compile-command: "cd ../../build && make -j3 doctests && ./doctests -nc"
 // End:
