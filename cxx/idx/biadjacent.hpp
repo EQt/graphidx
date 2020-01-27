@@ -9,10 +9,10 @@
 /**
    Bidirected adjacency vectors
  **/
-// template <typename int_ = int>
-struct BiAdjacent : public AdjacencyIndex<int>
+template <typename int_ = int>
+struct BiAdjacentIndex : public AdjacencyIndex<int>
 {
-    BiAdjacent(const int m, const int *head, const int *tail, int n = -1) {
+    BiAdjacentIndex(const int m, const int *head, const int *tail, int n = -1) {
         if (n <= 0) {                   // number of nodes
             n = *std::max_element(head, head + m);
             n = std::max(n, *std::max_element(tail, tail + m));
@@ -51,12 +51,12 @@ struct BiAdjacent : public AdjacencyIndex<int>
         }
     }
 
-    BiAdjacent(const std::vector<int> &head,
-               const std::vector<int> &tail,
-               int n = -1) : BiAdjacent(int(head.size()),
-                                        head.data(),
-                                        tail.data(),
-                                        n) {
+    BiAdjacentIndex(const std::vector<int> &head,
+                    const std::vector<int> &tail,
+                    int n = -1) : BiAdjacentIndex(int(head.size()),
+                                                  head.data(),
+                                                  tail.data(),
+                                                  n) {
         if (head.size() != tail.size()) {
             throw std::invalid_argument(std::string("len(head) = ") +
                                         std::to_string(head.size()) + " != " +
@@ -69,6 +69,8 @@ struct BiAdjacent : public AdjacencyIndex<int>
     size_t num_nodes() const { return this->index.size() - 1; }
 };
 
+
+using BiAdjacent = BiAdjacentIndex<int>;
 
 // Local Variables:
 // compile-command: "cd ../../build && make -j3 doctests && ./doctests -nc"
