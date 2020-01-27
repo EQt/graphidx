@@ -37,8 +37,8 @@ TEST_CASE("biadj: cell4-induced subgraph")
     b.induced_subgraph(sub);
     CHECK(b.num_nodes() == sub.size());
     CHECK(b[0] == std::set<int>({1, 2}));
-    CHECK(b[1] == std::set<int>({1}));
-    CHECK(b[2] == std::set<int>({1}));
+    CHECK(b[1] == std::set<int>({0}));
+    CHECK(b[2] == std::set<int>({0}));
 }
 
 

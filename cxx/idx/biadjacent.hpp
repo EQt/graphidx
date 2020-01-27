@@ -13,6 +13,11 @@ template <typename int_ = int>
 struct BiAdjacentIndex : public AdjacencyIndex<int>
 {
     BiAdjacentIndex(const int m, const int *head, const int *tail, int n = -1) {
+        reset(m, head, tail, n);
+    }
+
+    BiAdjacentIndex<int_>&
+    reset(const int m, const int *head, const int *tail, int n = -1) {
         if (n <= 0) {                   // number of nodes
             n = *std::max_element(head, head + m);
             n = std::max(n, *std::max_element(tail, tail + m));
@@ -49,6 +54,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
                                      std::to_string(index[n]) + " != " +
                                      std::to_string(2*m) + " = 2*m   ");
         }
+        return *this;
     }
 
     BiAdjacentIndex(const std::vector<int> &head,
@@ -69,21 +75,38 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
     size_t num_nodes() const { return this->index.size() - 1; }
 
     template <typename Idx>
-    BiAdjacentIndex<int_>& induced_subgraph(const Idx &idx) {
+    BiAdjacentIndex<int_>& induced_subgraph(const Idx &sub) {
+        if (sub.size() >= num_nodes())
+            throw std::invalid_argument(
+                std::string("induced_subgraph(..): ") +
+                std::to_string(sub.size()) + " vs " +
+                std::to_string(num_nodes()));
         // inverse index:
-        //   inv[i] = j iff idx[j] = i or
-        //   inv[i] = -1 iff j not in idx
-        std::vector<int_> inv (num_nodes(), -1);
-        size_t i = 0;
-        for (const auto v : idx)
-            inv[v] = i++;
-        /*
-        decltype(this->value) val = this->value;
-        for (const auto v : idx) {
-            
+        //   inv[i] = j iff sub[j] = i or
+        //   inv[i] = -1 iff j not in sub
+        std::vector<int_>
+            head, tail, inv (num_nodes(), -1);
+        {
+            size_t i = 0;
+            for (const auto v : sub)
+                inv[v] = i++;
         }
-        */
-        return *this;
+        head.reserve(num_edges());
+        tail.reserve(num_edges());
+        auto &self = *this;
+        for (int_ v = 0; v < int_(num_nodes()); v++) {
+            if (inv[v] < 0)
+                continue;
+            for (int_ u : self[v]) {
+                if (v > u)
+                    continue;
+                if (inv[u] >= 0) {
+                    head.push_back(inv[v]);
+                    tail.push_back(inv[u]);
+                }
+            }
+        }
+        return reset(head.size(), head.data(), tail.data(), sub.size());
     }
 };
 
