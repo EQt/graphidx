@@ -43,13 +43,28 @@ TEST_CASE("Connected: 4-2b")
         tail ({3});
     BiAdjacent idx (head, tail, n);
     CHECK(idx.num_nodes() == n);
-    CHECK(idx.num_edges() == 1);
-    CHECK(idx.value == std::vector<int>({3, 2}));
-    CHECK(idx.index == std::vector<int>({0, 0, 0, 1, 2}));
+    CHECK(idx.num_edges() == head.size());
+    const std::vector<int>
+        idx_value ({3, 2}),
+        idx_index ({0, 0, 0, 1, 2});
+    CHECK(idx.value == idx_value);
+    CHECK(idx.index == idx_index);
+    {
+        std::vector<int> degs (idx.num_nodes());
+        idx.degrees(degs.data());
+        CHECK(degs == std::vector<int>({0, 0, 1, 1}));
+    }
+    {
+        AdjacencyIndex<int> aidx {idx_value, idx_index};
+        CHECK(aidx[2].size() == 1);
+    }
     CHECK(idx[0] == std::set<int>({}));
     CHECK(idx[1] == std::set<int>({}));
-    CHECK(idx[2] == std::set<int>({3}));
-    CHECK(idx[3] == std::set<int>({2}));
+    {
+        AdjacencyIndex<int> &idX = idx;
+        CHECK(idX[2] == std::set<int>({3}));
+        CHECK(idX[3] == std::set<int>({2}));
+    }
 
     CHECK(united(idx).mps() == std::vector<int>({0, 1, 2, 2}));
 
