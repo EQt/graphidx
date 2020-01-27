@@ -29,6 +29,27 @@ TEST_CASE("Connected: 4-2")
 
     CHECK(cc.size() == 3);
     CHECK(std::set<int>({0, 1}) == cc[0]);
+    CHECK(cc.largest() == cc[0]);
     CHECK(std::set<int>({2}) == cc[1]);
     CHECK(std::set<int>({3}) == cc[2]);
+}
+
+
+TEST_CASE("Connected: 4-2b")
+{
+    const int n = 4;
+    const std::vector<int>
+        head ({2}),
+        tail ({3});
+    BiAdjacent idx (head, tail, n);
+    CHECK(idx.num_nodes() == n);
+    CHECK(idx.num_edges() == 1);
+    CHECK(idx[3] == std::set<int>({2}));
+    CHECK(idx[2] == std::set<int>({3}));
+
+    CHECK(united(idx).mps() == std::vector<int>({0, 1, 2, 2}));
+
+    auto cc = connected_components(idx);
+    CHECK(cc.size() == 3);
+    CHECK(cc.largest() == std::set<int>({3, 2}));
 }

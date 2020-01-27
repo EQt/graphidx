@@ -39,6 +39,22 @@ public:
         return *this;
     }
 
+    /** Return iterator to the partition with largest number of elements */
+    IndexIter<int_> largest() const {
+        const auto &index = this->index;
+        size_t max_i = 0;
+        size_t max_size = 0;
+        for (size_t i = 0; i < this->size(); i++) {
+            const size_t i_size = index[i+1] - index[i];
+            if (i_size > max_size) {
+                max_i = i;
+                max_size = i_size;
+            }
+        }
+        auto d = this->value.data();
+        return {d + index[max_i+0], d + index[max_i+1]};
+    }
+
     PartitionIter<int_> begin() const {
         return {this, 0};
     }

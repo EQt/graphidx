@@ -5,8 +5,8 @@
 #include "../idx/biadjacent.hpp"
 
 
-PartitionIndex<int>
-connected_components(const BiAdjacent &neigh)
+inline UnionFind<int>
+united(const BiAdjacent &neigh)
 {
     const size_t n = neigh.num_nodes();
     UnionFind<int> uf (n);
@@ -17,5 +17,12 @@ connected_components(const BiAdjacent &neigh)
             if (fv != fu)
                 uf.unite(fv, fu);
         }
-    return uf.partitions();
+    return uf;
+}
+
+
+PartitionIndex<int>
+connected_components(const BiAdjacent &neigh)
+{
+    return united(neigh).partitions();
 }

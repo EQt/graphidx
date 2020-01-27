@@ -101,6 +101,7 @@ TEST_CASE("UnionFind: Partitions 4-3")
     CHECK(std::set<int>({0, 3}) == parts[0]);
     CHECK(std::set<int>({1}) == parts[1]);
     CHECK(std::set<int>({2}) == parts[2]);
+    CHECK(parts.largest() == parts[0]);
 }
 
 
@@ -117,4 +118,5 @@ TEST_CASE("UnionFind: Partitions 4-2")
     CHECK(parts.size() == 2);
     CHECK(std::set<int>({0, 1, 3}) == parts[0]);
     CHECK(std::set<int>({2}) == parts[1]);
+    CHECK(parts.largest() == parts[0]);
 }
