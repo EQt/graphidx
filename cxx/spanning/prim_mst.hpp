@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include <stdexcept>
 
 #include "../std/stack.hpp"
 
@@ -20,9 +21,11 @@ random_spanning_tree(const BiAdjacent &index,
     int root = int(rng() % n);
     parent[root] = -root -2;
     stack.push_back(root);
+    size_t num_nodes = 0;
     while (!stack.empty()) {
         const int v = stack.pop_back();
         parent[v] = -parent[v] - 2;
+        num_nodes++;
         for (const int u : index[v]) {
             if (u == v || parent[u] >= 0)
                 continue;
@@ -36,6 +39,12 @@ random_spanning_tree(const BiAdjacent &index,
                 stack.swap(rng() % stack.size(), stack.size()-1);
         }
     }
+    if (num_nodes != n)
+        throw std::runtime_error(
+            std::string("random_spanning_tree(..): ") +
+            "Graph is not connected: " +
+            "Found " + std::to_string(num_nodes) +
+            " expected " + std::to_string(n));
 }
 
 
