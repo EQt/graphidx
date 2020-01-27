@@ -41,7 +41,7 @@ TEST_CASE("Connected: 4-2b")
     const std::vector<int>
         head ({2}),
         tail ({3});
-    BiAdjacent idx (head, tail, n);
+    BiAdjacent idx (head, tail);
     CHECK(idx.num_nodes() == n);
     CHECK(idx.num_edges() == head.size());
     const std::vector<int>
@@ -56,6 +56,12 @@ TEST_CASE("Connected: 4-2b")
     }
     {
         AdjacencyIndex<int> aidx {idx_value, idx_index};
+        bool found = false;
+        for (int v : aidx[2]) {
+            CHECK(v == 3);
+            found = true;
+        }
+        CHECK(found);
         CHECK(aidx[2].size() == 1);
     }
     CHECK(idx[0] == std::set<int>({}));
@@ -66,7 +72,7 @@ TEST_CASE("Connected: 4-2b")
         CHECK(idX[3] == std::set<int>({2}));
     }
 
-    CHECK(united(idx).mps() == std::vector<int>({0, 1, 2, 2}));
+    CHECK(united(idx).mps() == std::vector<int>({0, 1, 3, 3}));
 
     auto cc = connected_components(idx);
     CHECK(cc.size() == 3);

@@ -53,7 +53,7 @@ struct AdjacencyIndex
     std::vector<int_> index;
 
     IndexIter<int_> operator[](int i) const {
-        if (i < 0 || i >= int(value.size()))
+        if (i < 0 || i >= int(index.size()))
             return {nullptr, nullptr};
         const int_
             *start = value.data() + index[i+0],
