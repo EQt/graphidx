@@ -44,8 +44,12 @@ TEST_CASE("Connected: 4-2b")
     BiAdjacent idx (head, tail, n);
     CHECK(idx.num_nodes() == n);
     CHECK(idx.num_edges() == 1);
-    CHECK(idx[3] == std::set<int>({2}));
+    CHECK(idx.value == std::vector<int>({3, 2}));
+    CHECK(idx.index == std::vector<int>({0, 0, 0, 1, 2}));
+    CHECK(idx[0] == std::set<int>({}));
+    CHECK(idx[1] == std::set<int>({}));
     CHECK(idx[2] == std::set<int>({3}));
+    CHECK(idx[3] == std::set<int>({2}));
 
     CHECK(united(idx).mps() == std::vector<int>({0, 1, 2, 2}));
 
