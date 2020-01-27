@@ -25,6 +25,20 @@ public:
                 int_(-1));
     }
 
+    /** Remove empty partitions */
+    PartitionIndex<int_>& unique() {
+        auto &index = this->index;
+        size_t j = 1;
+        for (size_t i = 0; i < this->size(); i++) {
+            if (index[i] == index[i+1])
+                continue;
+            index[j] = index[i+1];
+            j++;
+        }
+        index.resize(j);
+        return *this;
+    }
+
     PartitionIter<int_> begin() const {
         return {this, 0};
     }

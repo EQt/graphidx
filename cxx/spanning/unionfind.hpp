@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "../idx/partition.hpp"
 
 /**
  * Union-Find data structure over ints from range 0..n with path compression.
@@ -38,6 +39,12 @@ public:
 
     /** Number of elements */
     size_t size() const { return p.size(); }
+
+    /** Represantatives */
+    std::vector<int_> mps();
+
+    /** Partitions */
+    PartitionIndex<int_> partitions();
 };
 
 
@@ -84,3 +91,24 @@ UnionFind<int_>::find(int_ x)
     return Rep {p[x]};
 }
 
+
+template <typename int_>
+std::vector<int_>
+UnionFind<int_>::mps()
+{
+    const auto n = this->size();
+    std::vector<int> reps;
+    reps.resize(n);
+    for (int_ v = 0; v < int_(n); v++)
+        reps[v] = find(v).i;
+    return reps;
+}
+
+
+template <typename int_>
+PartitionIndex<int_>
+UnionFind<int_>::partitions()
+{
+    auto parts = PartitionIndex<int_> (this->mps());
+    return parts.unique();
+}
