@@ -12,12 +12,12 @@
 template <typename int_ = int>
 struct BiAdjacentIndex : public AdjacencyIndex<int>
 {
-    BiAdjacentIndex(const int m, const int *head, const int *tail, int n = -1) {
+    BiAdjacentIndex(const size_t m, const int *head, const int *tail, int n = -1) {
         reset(m, head, tail, n);
     }
 
     BiAdjacentIndex<int_>&
-    reset(const int m, const int *head, const int *tail, int n = -1) {
+    reset(const size_t m, const int *head, const int *tail, int n = -1) {
         if (n <= 0) {                   // number of nodes
             n = *std::max_element(head, head + m);
             n = std::max(n, *std::max_element(tail, tail + m));
@@ -25,7 +25,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
         }
         value.resize(2*m);
         index.assign(n+1, 0);
-        for (int i = 0; i < m; i++) {   // compute degree
+        for (size_t i = 0; i < m; i++) {   // compute degree
             index[head[i]+1]++;
             index[tail[i]+1]++;
         }
@@ -39,14 +39,14 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
             }
             index[n] = acc;
         }
-        for (int i = 0; i < m; i++) {
+        for (size_t i = 0; i < m; i++) {
             const auto
                 u = head[i],
                 v = tail[i];
             value[index[u+1]++] = v;
             value[index[v+1]++] = u;
         }
-        if (index[n] != 2*m) {
+        if (index[n] != int_(2*m)) {
             std::cerr << index << std::endl;
             throw std::runtime_error(std::string("\n" __FILE__) + ":" +
                                      std::to_string(__LINE__) +
@@ -87,7 +87,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
         std::vector<int_>
             head, tail, inv (num_nodes(), -1);
         {
-            size_t i = 0;
+            int_ i = 0;
             for (const auto v : sub)
                 inv[v] = i++;
         }
@@ -106,7 +106,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
                 }
             }
         }
-        return reset(head.size(), head.data(), tail.data(), sub.size());
+        return reset(head.size(), head.data(), tail.data(), int_(sub.size()));
     }
 };
 
