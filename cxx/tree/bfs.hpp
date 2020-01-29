@@ -39,6 +39,15 @@ compute_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx, queue<int_> &q)
 
 
 template <typename int_ = int>
+void
+compute_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx)
+{
+    queue<int_> q;
+    compute_bfs(bfs, cidx, q);
+}
+
+
+template <typename int_ = int>
 inline std::vector<int_>
 compute_bfs(const std::vector<int_> &parent, const int_ root)
 {
