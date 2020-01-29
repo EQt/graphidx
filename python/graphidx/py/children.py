@@ -24,7 +24,7 @@ class PyChildrenIndex:
         return len(self.pi)
 
     @staticmethod
-    def compute(parent, root=0):
+    def compute(parent, root=-1):
         @njit(cache=True)
         def _compute(n, parent, root, idx, pi):
             for p in parent:
@@ -47,6 +47,9 @@ class PyChildrenIndex:
                 pi[idx[p+1]] = v
                 idx[p+1] += 1
 
+        if root < 0:
+            from .root import find_root
+            root = find_root(parent)
         assert parent[root] == root
         n = len(parent)
         parent = np.array(parent)
