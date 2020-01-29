@@ -29,6 +29,24 @@ _print_list(std::ostream &o, const B &begin, const E &end)
 }
 
 
+template <typename T>
+struct _Vec
+{
+    const T *start;
+    const size_t n;
+    const T* begin() const { return start; }
+    const T* end() const   { return start + n; }
+};
+
+
+template <typename T>
+inline _Vec<T>
+Vec(const T* start, size_t n)
+{
+    return _Vec<T> {start, n};
+}
+
+
 template<typename Container>
 inline void
 print_double_list(
