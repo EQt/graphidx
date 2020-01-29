@@ -35,6 +35,9 @@ class Tree:
     @property
     def n(self):
         """Number of nodes"""
+        return len(self)
+
+    def __len__(self):
         return len(self.parent)
 
     def __repr__(self):
