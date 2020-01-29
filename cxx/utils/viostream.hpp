@@ -49,6 +49,25 @@ Vec(const T* start, size_t n)
 
 template<typename Container>
 inline void
+print_int_list(
+    const Container &x,
+    const char *sep = " ",
+    FILE *out = stdout,
+    const char * fmt = "%ld")
+{
+    fprintf(out, "[");
+    bool first = true;
+    for (auto xi : x) {
+        if (first) { first = false; }
+        else { fprintf(out, "%s", sep); }
+        fprintf(out, fmt, (long int)xi);
+    }
+    fprintf(out, "]\n");
+}
+
+
+template<typename Container>
+inline void
 print_double_list(
     const Container &x,
     const int prec = 4,
