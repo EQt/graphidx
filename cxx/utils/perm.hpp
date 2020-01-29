@@ -32,6 +32,14 @@ invperm(const size_t n, int_ *q, const int_ *p)
 }
 
 
+template<typename int_ = int>
+inline void
+invperm(std::vector<int_> &q, const std::vector<int_> &p)
+{
+    invperm(q.size(), q.data(), p.data());
+}
+
+
 /** Return inverse permutation `invp`, it is `invp[p[i]] == i` */
 template<typename int_ = int>
 inline std::vector<int_>
