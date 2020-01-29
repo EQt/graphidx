@@ -40,6 +40,33 @@ compute_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx, queue<int_> &q)
 
 template <typename int_ = int>
 void
+reversed_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx, queue<int_> &q)
+{
+    const auto n = cidx.size();
+    q.reserve(n);
+    bfs.resize(n);
+    int_ b = int_(1);
+    q.push(cidx.root_node());
+    while (!q.empty()) {
+        auto u = q.front(); q.pop();
+        bfs[n - b++] = u;
+        for (auto v : cidx[u])
+            q.push(v);
+    }
+}
+
+
+template <typename int_ = int>
+void
+reversed_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx)
+{
+    queue<int_> q;
+    reversed_bfs(bfs, cidx, q);
+}
+
+
+template <typename int_ = int>
+void
 compute_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx)
 {
     queue<int_> q;
