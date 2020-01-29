@@ -41,8 +41,7 @@ class Tree:
         return len(self.parent)
 
     def __repr__(self):
-        return f"""
-Tree(n={self.n},
+        return f"""Tree(n={self.n},
      root={self.root},
      parent={repr(self.parent)})""".strip()
 
