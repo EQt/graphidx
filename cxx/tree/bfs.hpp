@@ -11,31 +11,41 @@
 #include <stdexcept>
 #if STD_QUEUE
 #  include <queue>
+   using std::queue;
 #else
 #  include "../std/queue.hpp"
-   using std::queue;
 #endif
 
+#include "root.hpp"
 #include "../idx/children.hpp"
 
 
+template <typename int_ = int>
 inline std::vector<int>
-compute_bfs(const std::vector<int> &parent, const int root)
+compute_bfs(const std::vector<int_> &parent, const int_ root)
 {
     const auto n = parent.size();
     ChildrenIndex children (parent, root);
-    std::vector<int> bfs (n, -1);
-    int b = 0;
-    queue<int> q (n);
+    std::vector<int_> bfs (n, -1);
+    int_ b = int_(0);
+    queue<int_> q (n);
 
     q.push(root);
     while (!q.empty()) {
         auto u = q.front(); q.pop();
-        bfs[u] = b++;
+        bfs[b++] = u;
         for (auto v : children[u])
             q.push(v);
     }
     return bfs;
+}
+
+
+template <typename int_ = int>
+inline std::vector<int>
+compute_bfs(const std::vector<int_> &parent)
+{
+    return compute_bfs(parent, find_root(parent));
 }
 
 
