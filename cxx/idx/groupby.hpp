@@ -17,7 +17,7 @@
     [c]: https://en.wikipedia.org/wiki/Counting_sort
 */
 template <typename int_ = int>
-void
+inline void 
 groupby(std::vector<int_> &value,
         std::vector<int_> &index,
         const size_t n,
@@ -29,7 +29,7 @@ groupby(std::vector<int_> &value,
         size_t(*std::max_element(parent, parent + n) + 1);
 
     index.assign(k+1, 0);           // compute histogram, i.e. number of children
-    for (int i = 0; i < int(n); i++)
+    for (size_t i = 0; i < n; i++)
         index[parent[i]]++;
 
     if (root >= 0) {
@@ -41,7 +41,7 @@ groupby(std::vector<int_> &value,
         int_ acc = root >= 0 ? 1 : 0,
              deg_i = 0,
              deg_ii = index[0];
-        for (int i = 0; i < int(k); i++) {
+        for (size_t i = 0; i < k; i++) {
             index[i] = acc;
             acc += deg_i;
             deg_i = deg_ii;
