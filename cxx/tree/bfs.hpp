@@ -21,22 +21,32 @@
 
 
 template <typename int_ = int>
-inline std::vector<int>
-compute_bfs(const std::vector<int_> &parent, const int_ root)
+void
+compute_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx, queue<int_> &q)
 {
-    const auto n = parent.size();
-    ChildrenIndex children (parent, root);
-    std::vector<int_> bfs (n, -1);
+    const auto n = cidx.size();
+    q.reserve(n);
+    bfs.resize(n);
     int_ b = int_(0);
-    queue<int_> q (n);
-
-    q.push(root);
+    q.push(cidx.root_node());
     while (!q.empty()) {
         auto u = q.front(); q.pop();
         bfs[b++] = u;
-        for (auto v : children[u])
+        for (auto v : cidx[u])
             q.push(v);
     }
+}
+
+
+template <typename int_ = int>
+inline std::vector<int_>
+compute_bfs(const std::vector<int_> &parent, const int_ root)
+{
+    ChildrenIndex cidx (parent, root);
+    queue<int_> q;
+    std::vector<int_> bfs;
+
+    compute_bfs(bfs, cidx, q);
     return bfs;
 }
 
