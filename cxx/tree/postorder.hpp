@@ -1,11 +1,11 @@
 #pragma once
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 #include "../std/stack.hpp"
 #include "../idx/children.hpp"
 #include "../utils/timer.hpp"
-
 
 
 /**
@@ -30,16 +30,16 @@ post_order(const size_t n,
     ChildrenIndex childs (n, parent, root);
     tim.stop();
     stack<int_> stack;
-    post_order(childs, stack, postord);
+    post_order(postord, childs, stack);
     return postord;
 }
 
 
 template <typename int_ = int>
 void
-post_order(const ChildrenIndex &childs,
-           stack<int_> &stack,
-           int_ *postord)
+post_order(int_ *postord,
+           const ChildrenIndex &childs,
+           stack<int_> &stack)
 {
     {   Timer _ ("alloc stack");
         stack.reserve(2*childs.size());
