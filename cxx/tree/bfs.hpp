@@ -13,6 +13,7 @@
 #  include <queue>
 #else
 #  include "../std/queue.hpp"
+   using std::queue;
 #endif
 
 #include "../idx/children.hpp"
@@ -25,20 +26,14 @@ compute_bfs(const std::vector<int> &parent, const int root)
     ChildrenIndex children (parent, root);
     std::vector<int> bfs (n, -1);
     int b = 0;
-#if STD_QUEUE
-    std::queue<int> q;
-#else
     queue<int> q (n);
-#endif
 
     q.push(root);
     while (!q.empty()) {
         auto u = q.front(); q.pop();
         bfs[u] = b++;
-        for (auto v : children[u]) {
-            if (v != root)
-                q.push(v);
-        }
+        for (auto v : children[u])
+            q.push(v);
     }
     return bfs;
 }
