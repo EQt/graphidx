@@ -6,6 +6,7 @@
 #include <algorithm>    // std::max
 #include <limits>       // numeric_limits<...>::infinity
 #include <type_traits>  // std::is_arithmetic
+#include <stdexcept>
 #include <vector>
 
 
