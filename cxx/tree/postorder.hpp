@@ -30,21 +30,20 @@ post_order(const size_t n,
     ChildrenIndex childs (n, parent, root);
     tim.stop();
     stack<int_> stack;
-    post_order(root, childs, stack, postord);
+    post_order(childs, stack, postord);
     return postord;
 }
 
 
 template <typename int_ = int>
 void
-post_order(const int_ root,
-           const ChildrenIndex &childs,
+post_order(const ChildrenIndex &childs,
            stack<int_> &stack,
            int_ *postord)
 {
     {   Timer _ ("alloc stack");
         stack.reserve(2*childs.size());
-        stack.push_back(root);
+        stack.push_back(childs.root_node());
     }
     Timer _ ("dfs walk");
     size_t pos = 0;
