@@ -76,7 +76,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
 
     template <typename Idx>
     BiAdjacentIndex<int_>& induced_subgraph(const Idx &sub) {
-        if (sub.size() >= num_nodes())
+        if (sub.size() > num_nodes())
             throw std::invalid_argument(
                 std::string("induced_subgraph(..): ") +
                 std::to_string(sub.size()) + " vs " +
