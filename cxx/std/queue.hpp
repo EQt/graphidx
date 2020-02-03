@@ -3,6 +3,10 @@
 #include <string>       // std::to_string
 #include <stdexcept>    // std::invalid_argument
 
+#ifndef RING_BUFFER
+#  define RING_BUFFER 0
+#endif
+
 /** LIFO (last in first out) data structure.
 
     Similar to
@@ -30,10 +34,7 @@ public:
 
     ~queue() { free(); }
 
-    void free() {
-        if (e) delete[] e;
-        e = nullptr;
-    }
+    void free() { if (e) delete[] e; e = nullptr; }
 
     inline void clear() { head = tail = n = 0; }
 
@@ -50,24 +51,26 @@ public:
     }
 
     inline void push(T x) {
-        e[tail++ % max] = x;
+        e[tail++
+#if RING_BUFFER
+          % max
+#endif
+         ] = x;
         n++;
     }
 
     inline T front() const { return e[head]; }
 
-    inline void pop() { head = (head + 1) % max; n--; }
+    inline void pop() { head = (head + 1)
+#if RING_BUFFER
+            % max
+#endif
+            ; n--; }
 
     inline bool empty() const { return n == 0; }
 
     inline size_t size() const { return n; }
 
     inline size_t capacity() const { return max; }
-
-#ifdef GTEST_INCLUDE_GTEST_GTEST_PROD_H_
-    FRIEND_TEST(queue, push1);
-    FRIEND_TEST(queue, push2);
-#endif
-
 };
 
