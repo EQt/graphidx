@@ -47,8 +47,8 @@ TEST_CASE("queue: push2")
     REQUIRE(0 == queue.size());
     REQUIRE(0 == queue.capacity());
 
-    queue.reserve(2);
-    REQUIRE(2 == queue.capacity());
+    queue.reserve(3);
+    REQUIRE(3 == queue.capacity());
     REQUIRE(0 == queue.size());
 
     queue.push(1);
@@ -57,7 +57,7 @@ TEST_CASE("queue: push2")
     REQUIRE(0 == queue.head);
     queue.push(2);
     REQUIRE(2 == queue.size());
-    REQUIRE(2 == queue.capacity());
+    REQUIRE(3 == queue.capacity());
 
     REQUIRE(1 == queue.front());
     queue.pop();
