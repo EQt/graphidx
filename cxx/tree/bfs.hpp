@@ -4,7 +4,7 @@
 */
 #pragma once
 #ifndef STD_QUEUE
-#  define STD_QUEUE 0
+#  define STD_QUEUE 1
 #endif
 
 #include <vector>
@@ -24,7 +24,9 @@ template <typename int_ = int>
 void
 compute_bfs(int_ *bfs, const ChildrenIndex &cidx, queue<int_> &q)
 {
+#if !STD_QUEUE    
     q.reserve(cidx.size());
+#endif
     int_ b = int_(0);
     q.push(cidx.root_node());
     while (!q.empty()) {
@@ -50,7 +52,9 @@ void
 reversed_bfs(int_ *bfs, const ChildrenIndex &cidx, queue<int_> &q)
 {
     const size_t n = cidx.size();
+#if !STD_QUEUE
     q.reserve(n);
+#endif
     int_ b = int_(1);
     q.push(cidx.root_node());
     while (!q.empty()) {
