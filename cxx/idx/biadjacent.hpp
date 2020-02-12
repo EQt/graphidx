@@ -12,18 +12,18 @@
 template <typename int_ = int>
 struct BiAdjacentIndex : public AdjacencyIndex<int_>
 {
-    BiAdjacentIndex(const size_t m, const int *head, const int *tail, int n = -1) {
+    BiAdjacentIndex(const size_t m, const int *head, const int *tail, size_t n = 0) {
         reset(m, head, tail, n);
     }
 
     BiAdjacentIndex<int_>&
-    reset(const size_t m, const int *head, const int *tail, int n = -1) {
+    reset(const size_t m, const int *head, const int *tail, size_t n = 0) {
         auto &value = this->value;
         auto &index = this->index;
 
         if (n <= 0) {                   // number of nodes
             n = *std::max_element(head, head + m);
-            n = std::max(n, *std::max_element(tail, tail + m));
+            n = std::max(n, size_t(*std::max_element(tail, tail + m)));
             n++;
         }
         value.resize(2*m);
@@ -35,7 +35,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
         {                               // shift, accumulate
             int acc = 0,
                 deg_i = 0;
-            for (int i = 0; i < n; i++) {
+            for (size_t i = 0; i < n; i++) {
                 index[i] = acc;
                 acc += deg_i;
                 deg_i = index[i+1];
@@ -62,10 +62,8 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
 
     BiAdjacentIndex(const std::vector<int> &head,
                     const std::vector<int> &tail,
-                    int n = -1) : BiAdjacentIndex(int(head.size()),
-                                                  head.data(),
-                                                  tail.data(),
-                                                  n) {
+                    const size_t n = 0)
+        : BiAdjacentIndex(int(head.size()), head.data(), tail.data(), n) {
         if (head.size() != tail.size()) {
             throw std::invalid_argument(std::string("len(head) = ") +
                                         std::to_string(head.size()) + " != " +
