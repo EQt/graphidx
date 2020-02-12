@@ -17,5 +17,6 @@ end
 
 include("Io/parse.jl")
 include("Io/dimacs.jl")
+include("Io/dimacs10.jl")
 
 end
