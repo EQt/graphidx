@@ -12,12 +12,11 @@
 template <typename int_ = int>
 struct BiAdjacentIndex : public AdjacencyIndex<int_>
 {
-    BiAdjacentIndex(const size_t m, const int *head, const int *tail, size_t n = 0) {
-        reset(m, head, tail, n);
-    }
+    BiAdjacentIndex(const size_t m, const int_ *head, const int_ *tail, size_t n = 0)
+        { reset(m, head, tail, n); }
 
     BiAdjacentIndex<int_>&
-    reset(const size_t m, const int *head, const int *tail, size_t n = 0) {
+    reset(const size_t m, const int_ *head, const int_ *tail, size_t n = 0) {
         auto &value = this->value;
         auto &index = this->index;
 
