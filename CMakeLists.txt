@@ -42,6 +42,7 @@ if (BUILD_TEST)
     add_executable(doctests
         cxx/test/doctests.cpp
         cxx/test/test_perm.cpp
+        cxx/test/test_parse.cpp
         cxx/test/test_biadjacent.cpp
         cxx/test/test_bitstring.cpp
         cxx/test/test_children.cpp
