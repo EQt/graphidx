@@ -10,7 +10,7 @@
    Bidirected adjacency vectors
  **/
 template <typename int_ = int>
-struct BiAdjacentIndex : public AdjacencyIndex<int>
+struct BiAdjacentIndex : public AdjacencyIndex<int_>
 {
     BiAdjacentIndex(const size_t m, const int *head, const int *tail, int n = -1) {
         reset(m, head, tail, n);
@@ -18,6 +18,9 @@ struct BiAdjacentIndex : public AdjacencyIndex<int>
 
     BiAdjacentIndex<int_>&
     reset(const size_t m, const int *head, const int *tail, int n = -1) {
+        auto &value = this->value;
+        auto &index = this->index;
+
         if (n <= 0) {                   // number of nodes
             n = *std::max_element(head, head + m);
             n = std::max(n, *std::max_element(tail, tail + m));
