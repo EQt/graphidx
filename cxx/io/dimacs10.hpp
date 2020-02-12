@@ -29,15 +29,16 @@ parse_dimacs10_header(std::istream &io, size_t &n, size_t &m)
 
 
 template <typename int_ = int>
-BiAdjacentIndex<int_>
-parse_dimacs10_idx(std::istream &io)
+size_t
+parse_dimacs10_edges(std::istream &io,
+                     std::vector<int_> &head,
+                     std::vector<int_> &tail)
 {
     size_t n = 0, m = 0;
     parse_dimacs10_header(io, n, m);
-
-    std::vector<int_> head, tail;
     head.reserve(m);
     tail.reserve(m);
+
     size_t vi = 0;
     parse_uints(io, [&](uint64_t u, bool last) {
                         u--;
@@ -53,5 +54,15 @@ parse_dimacs10_idx(std::istream &io)
                         if (last)
                             vi++;
                     });
+    return vi;
+}
+
+
+template <typename int_ = int>
+BiAdjacentIndex<int_>
+parse_dimacs10_idx(std::istream &io)
+{
+    std::vector<int_> head, tail;
+    parse_dimacs10_edges(io, head, tail);
     return {head, tail};
 }
