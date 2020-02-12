@@ -110,5 +110,5 @@ PartitionIndex<int_>
 UnionFind<int_>::partitions()
 {
     auto parts = PartitionIndex<int_> (this->mps());
-    return parts.unique();
+    return std::move(parts.unique());
 }

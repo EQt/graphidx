@@ -10,6 +10,7 @@ template <typename int_ = int>
 class PartitionIndex : public AdjacencyIndex<int_>
 {
 public:
+    PartitionIndex(PartitionIndex &&) = default;
     PartitionIndex(const std::vector<int_> &ungrouped) :
         PartitionIndex(ungrouped.size(), ungrouped.data()) { }
 

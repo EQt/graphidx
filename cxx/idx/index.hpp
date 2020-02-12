@@ -3,6 +3,7 @@
 #include <iostream>
 #include <set>
 
+#include "../std/uvector.hpp"
 #include "../utils/viostream.hpp"   // for printer
 
 
@@ -60,7 +61,7 @@ operator<<(std::ostream &o, const IndexIter<int_> &it)
 template<typename int_ = int>
 struct AdjacencyIndex
 {
-    std::vector<int_> value;
+    uvector<int_> value;
     std::vector<int_> index;
 
     IndexIter<int_> operator[](int i) const {

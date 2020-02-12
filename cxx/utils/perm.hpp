@@ -4,6 +4,7 @@
 #pragma once
 #include <vector>
 #include <algorithm>        // for std::sort
+#include "../std/uvector.hpp"
 
 
 /** Concatenate two permutations */
@@ -117,6 +118,16 @@ is_perm(const Iter &begin, const Iter &end)
 template <typename int_ = int>
 inline bool
 is_perm(const std::vector<int_> &a)
+{
+    static_assert(std::is_integral<int_>::value, "expected int type");
+    return is_perm(a.begin(), a.end());
+}
+
+
+/** Check that a is a permutation */
+template <typename int_ = int>
+inline bool
+is_perm(const uvector<int_> &a)
 {
     static_assert(std::is_integral<int_>::value, "expected int type");
     return is_perm(a.begin(), a.end());
