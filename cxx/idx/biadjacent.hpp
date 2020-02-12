@@ -12,8 +12,15 @@
 template <typename int_ = int>
 struct BiAdjacentIndex : public AdjacencyIndex<int_>
 {
+    BiAdjacentIndex(uvector<int_> &&value, std::vector<int_> &&index)
+        : AdjacencyIndex<int_> {std::forward<uvector<int_>>(value),
+                                std::forward<std::vector<int_>>(index) } { }
+
     BiAdjacentIndex(const size_t m, const int_ *head, const int_ *tail, size_t n = 0)
         { reset(m, head, tail, n); }
+
+    bool operator==(const BiAdjacentIndex<int_> &other) const
+        { return this->value == other.value && this->index == other.index; }
 
     BiAdjacentIndex<int_>&
     reset(const size_t m, const int_ *head, const int_ *tail, size_t n = 0) {
