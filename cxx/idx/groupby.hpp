@@ -16,17 +16,16 @@
 
     [c]: https://en.wikipedia.org/wiki/Counting_sort
 */
-template <typename int_ = int>
+template <typename int_ = int, typename vector_t = std::vector<int_>>
 inline void 
-groupby(std::vector<int_> &value,
+groupby(vector_t &value,
         std::vector<int_> &index,
         const size_t n,
         const int_ *parent,
         const int_ root = -1)
 {
     value.resize(n);
-    size_t k = root >= 0 ? n :
-        size_t(*std::max_element(parent, parent + n) + 1);
+    size_t k = root >= 0 ? n : size_t(*std::max_element(parent, parent + n) + 1);
 
     index.assign(k+1, 0);           // compute histogram, i.e. number of children
     for (size_t i = 0; i < n; i++)

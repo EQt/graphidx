@@ -4,6 +4,7 @@
 #pragma once
 #include <vector>
 #include <algorithm>        // for std::sort
+#include "../std/uvector.hpp"
 
 
 /** Concatenate two permutations */
@@ -96,29 +97,38 @@ argsort(const std::vector<int> &a)
 }
 
 
-/** Same as `is_perm` but the content of `a` will be changed */
-template<typename int_ = int>
+template <typename Iter>
 inline bool
-is_perm_mut(std::vector<int_> &a)
+is_perm(const Iter &begin, const Iter &end)
 {
-    static_assert(std::is_integral<int_>::value, "expected int type");
-    std::sort(a.begin(), a.end());
-    const int_ n = int_(a.size());
-    for (int_ i = 0; i < n; i++) {
-        if (a[i] != i) {
+    const size_t n = size_t(end - begin);
+    std::vector<bool> b (n, false);
+    for (auto i = begin; i != end; i++) {
+        const auto j = *i;
+        if (j < 0 || j >= decltype(j)(n) || b[j])
             return false;
-        }
+        b[j] = true;
     }
     return true;
 }
 
 
+
 /** Check that a is a permutation */
-template<typename int_ = int>
+template <typename int_ = int>
 inline bool
 is_perm(const std::vector<int_> &a)
 {
     static_assert(std::is_integral<int_>::value, "expected int type");
-    std::vector<int_> b (a);
-    return is_perm_mut(b);
+    return is_perm(a.begin(), a.end());
+}
+
+
+/** Check that a is a permutation */
+template <typename int_ = int>
+inline bool
+is_perm(const uvector<int_> &a)
+{
+    static_assert(std::is_integral<int_>::value, "expected int type");
+    return is_perm(a.begin(), a.end());
 }

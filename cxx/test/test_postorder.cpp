@@ -36,7 +36,7 @@ TEST_CASE("postorder: is_perm")
     const bool include_root = true;
     PostOrder pord (parent, postord, root, include_root);
     std::vector<int> vpord (pord.begin(), pord.end());
-    REQUIRE(is_perm_mut(vpord));
+    REQUIRE(is_perm(vpord));
 }
 
 
