@@ -23,6 +23,10 @@ struct uvector
     /** Avoid implicit copy */
     uvector(const uvector<T> &other) = delete;
 
+    operator std::vector<T>() const {
+        return std::vector<T>(this->begin(), this->end());
+    }
+
     /** Avoid implicit copy */
     uvector& operator=(const uvector<T> &other) = delete;
 
