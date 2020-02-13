@@ -86,9 +86,10 @@ function parse_dimacs10_edges(io::IO)
     sizehint!(tail, m)
     local i::Ref{Int32} = Ref{Int32}(0)
     parse_uints(io) do u::UInt, last::Bool
+        u -= 1
         if i[] < u
             push!(head, Int32(i[]))
-            push!(tail, Int32(u) - 1)
+            push!(tail, Int32(u))
         end
         if last
             i[] += 1
