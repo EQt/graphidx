@@ -32,29 +32,28 @@ template <typename int_ = int>
 size_t
 parse_dimacs10_edges(std::istream &io,
                      std::vector<int_> &head,
-                     std::vector<int_> &tail)
+                     std::vector<int_> &tail,
+                     const bool both_directions = false)
 {
     size_t n = 0, m = 0;
     parse_dimacs10_header(io, n, m);
     head.reserve(m);
     tail.reserve(m);
 
-    size_t vi = 0;
+    size_t v = 0;
     parse_uints(io, [&](uint64_t u, bool last) {
                         u--;
-                        if (vi != u) {
-                            if (vi < u) {
-                                head.push_back(vi);
-                                tail.push_back(u);
-                            } else {
-                                head.push_back(u);
-                                tail.push_back(vi);
-                            }
+                        if (v < u) {
+                            head.push_back(v);
+                            tail.push_back(u);
+                        } else if (both_directions && v > u) {
+                            head.push_back(v);
+                            tail.push_back(u);
                         }
                         if (last)
-                            vi++;
+                            v++;
                     });
-    return vi;
+    return v;
 }
 
 
