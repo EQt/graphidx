@@ -45,9 +45,9 @@ class Tree:
      root={self.root},
      parent={repr(self.parent)})""".strip()
 
-    def show(self, wait=True):
+    def show(self, wait=True, **kwargs):
         """Show the tree using graphviz' dot"""
-        show_tree(self.parent, wait=wait)
+        show_tree(self.parent, wait=wait, **kwargs)
         return self
 
     @staticmethod

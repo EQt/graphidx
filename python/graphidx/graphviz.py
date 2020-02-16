@@ -7,10 +7,22 @@ import sys
 import subprocess as sp
 from io import StringIO
 
+def print_node_attrs(node_attrs, indent, out=sys.stdout):
+    if node_attrs is not None:
+        if isinstance(node_attrs, list):
+            print(indent, "{", file=out)
+            for na in node_attrs:
+                print(indent, indent, na, file=out)
+            print(indent, "}", file=out)
+        else:
+            print(node_attrs, file=out)
 
-def print_tree(parent, root_loop=False, indent="  ", out=sys.stdout, o=0):
+
+def print_tree(parent, root_loop=False, indent="  ", out=sys.stdout, o=0,
+               node_attrs=None):
     """Print a tree given by the `parent` array in dot format to `out`"""
     print("digraph tree {", file=out)
+    print_node_attrs(node_attrs, indent=indent, out=out)
     print(indent, "rankdir = BT", file=out)
     for i, p in enumerate(parent):
         if not root_loop and i == p:
@@ -19,13 +31,16 @@ def print_tree(parent, root_loop=False, indent="  ", out=sys.stdout, o=0):
     print("}", file=out)
 
 
-def print_dot(head, tail=None, indent="   ", out=sys.stdout,
-              edge_attr=None, header=None, footer=None):
+def print_dot(head, tail=None, indent=3, out=sys.stdout,
+              edge_attr=None, header=None, footer=None, node_attrs=None):
     """
     Print the graph given by the edges (`head` --> `tail`) in
     dot graph format
     """
+    if isinstance(indent, int):
+        indent = " " * indent
     print("graph g {", file=out)
+    print_node_attrs(node_attrs, indent=indent, out=out)
     edges = head if tail is None else zip(head, tail)
     if header is not None:
         print(header, file=out)
@@ -41,6 +56,7 @@ def print_dot(head, tail=None, indent="   ", out=sys.stdout,
 
 def show_dot(graph, prg="dot -Tx11", wait=True, out=sp.DEVNULL):
     """Start dot program on string `graph`"""
+    print(graph, file=out)
     dot = sp.Popen(prg.split(), stdin=sp.PIPE)
     dot.stdin.write(graph.encode())
     dot.stdin.close()
@@ -48,9 +64,9 @@ def show_dot(graph, prg="dot -Tx11", wait=True, out=sp.DEVNULL):
         dot.wait()
 
 
-def show_tree(parent, prg="dot -Tx11", wait=True, out=sp.DEVNULL):
+def show_tree(parent, prg="dot -Tx11", wait=True, out=sp.DEVNULL, **kwargs):
     buf = StringIO()
-    print_tree(parent, out=buf)
+    print_tree(parent, out=buf, **kwargs)
     show_dot(buf.getvalue(), prg=prg, wait=wait, out=out)
 
 
