@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 #include <sstream>
-#include "../io/dimacs10.hpp"
+#include "../graphidx/io/dimacs10.hpp"
 
 
 const auto GRAPH = R"(% some comments

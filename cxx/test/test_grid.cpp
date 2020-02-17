@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 
-#include "../idx/grid.hpp"
+#include "../graphidx/idx/grid.hpp"
 
 
 TEST_CASE("GridIndex: grid_3x2")

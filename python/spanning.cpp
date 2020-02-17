@@ -1,8 +1,8 @@
 #include <pybind11/pybind11.h>
 #include "py_np.hpp"
 
-#include "../cxx/idx/biadjacent.hpp"
-#include "../cxx/spanning/prim_mst.hpp"
+#include "../cxx/graphidx/idx/biadjacent.hpp"
+#include "../cxx/graphidx/spanning/prim_mst.hpp"
 
 
 void

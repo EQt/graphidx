@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 #include <vector>
-#include "../tree/inorder.hpp"
+#include "../graphidx/tree/inorder.hpp"
 
 
 TEST_CASE("inorder: t0")

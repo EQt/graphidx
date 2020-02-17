@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../spanning/kruskal_mst.hpp"
+#include "../graphidx/spanning/kruskal_mst.hpp"
 
 
 TEST_CASE("KruskalMST: square1")

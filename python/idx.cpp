@@ -3,11 +3,11 @@
 #include <pybind11/pybind11.h>
 #include "py_np.hpp"
 
-#include "../cxx/idx/biadjacent.hpp"
-#include "../cxx/idx/cluster.hpp"
-#include "../cxx/idx/children.hpp"
-#include "../cxx/idx/partition.hpp"
-#include "../cxx/tree/root.hpp"
+#include "../cxx/graphidx/idx/biadjacent.hpp"
+#include "../cxx/graphidx/idx/cluster.hpp"
+#include "../cxx/graphidx/idx/children.hpp"
+#include "../cxx/graphidx/idx/partition.hpp"
+#include "../cxx/graphidx/tree/root.hpp"
 
 namespace py = pybind11;
 

@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../bits/bitstring.hpp"
+#include "../graphidx/bits/bitstring.hpp"
 
 
 TEST_CASE("bitstring: std_bitset1")

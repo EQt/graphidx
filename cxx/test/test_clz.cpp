@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
-#include "../bits/clz.hpp"
-#include "../bits/hex.hpp"
-#include "../bits/bitstring.hpp"
+#include "../graphidx/bits/clz.hpp"
+#include "../graphidx/bits/hex.hpp"
+#include "../graphidx/bits/bitstring.hpp"
 
 
 TEST_CASE("clz: clz_u32")

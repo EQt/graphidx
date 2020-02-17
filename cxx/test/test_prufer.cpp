@@ -2,8 +2,8 @@
 #include <set>
 #include <utility>
 
-#include "../utils/viostream.hpp"
-#include "../tree/prufer.hpp"
+#include "../graphidx/utils/viostream.hpp"
+#include "../graphidx/tree/prufer.hpp"
 
 
 TEST_CASE("prufer: networkx_example_parent")

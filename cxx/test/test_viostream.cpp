@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 
-#include "../utils/viostream.hpp"
+#include "../graphidx/utils/viostream.hpp"
 
 
 TEST_CASE("viostream: vector")

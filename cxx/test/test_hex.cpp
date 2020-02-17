@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../bits/hex.hpp"
+#include "../graphidx/bits/hex.hpp"
 
 
 TEST_CASE("hex: hex_u32")

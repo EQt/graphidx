@@ -1,11 +1,11 @@
 #include <pybind11/pybind11.h>
 #include "py_np.hpp"
 
-#include "../cxx/tree/bfs.hpp"
-#include "../cxx/tree/prufer.hpp"
-#include "../cxx/tree/postorder.hpp"
-#include "../cxx/tree/root.hpp"
-#include "../cxx/utils/timer.hpp"
+#include "../cxx/graphidx/tree/bfs.hpp"
+#include "../cxx/graphidx/tree/prufer.hpp"
+#include "../cxx/graphidx/tree/postorder.hpp"
+#include "../cxx/graphidx/tree/root.hpp"
+#include "../cxx/graphidx/utils/timer.hpp"
 
 
 namespace py = pybind11;

@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
 #include <vector>
 #include <sstream>
-#include "../io/parse.hpp"
+#include "../graphidx/io/parse.hpp"
 
 
 using Records = std::vector<std::tuple<uint64_t, bool>>;

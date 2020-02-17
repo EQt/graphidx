@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../bits/bitstring.hpp"
+#include "../graphidx/bits/bitstring.hpp"
 
 
 /** Shift 0b1 to the left. */

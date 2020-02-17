@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
 #include <vector>
-#include "../tree/inorder.hpp"
-#include "../tree/van_emde_boas.hpp"
+#include "../graphidx/tree/inorder.hpp"
+#include "../graphidx/tree/van_emde_boas.hpp"
 
 
 TEST_CASE("veb: tree_h2")

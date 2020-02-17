@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 
-#include "../cxx/utils/timer.hpp"
-#include "../cxx/utils/perftimer.hpp"
+#include "../cxx/graphidx/utils/timer.hpp"
+#include "../cxx/graphidx/utils/perftimer.hpp"
 
 namespace py = pybind11;
 

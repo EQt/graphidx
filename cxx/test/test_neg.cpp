@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
 #include <cstdint>
 #include <limits>
-#include "../bits/neg.hpp"
+#include "../graphidx/bits/neg.hpp"
 
 
 TEST_CASE("neg: negneg")

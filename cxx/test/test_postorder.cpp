@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
-#include "../tree/postorder.hpp"
-#include "../utils/perm.hpp"
-#include "../utils/timer.hpp"
+#include "../graphidx/tree/postorder.hpp"
+#include "../graphidx/utils/perm.hpp"
+#include "../graphidx/utils/timer.hpp"
 
 
 TEST_CASE("postorder: size")

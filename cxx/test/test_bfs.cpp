@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../tree/bfs.hpp"
+#include "../graphidx/tree/bfs.hpp"
 
 
 TEST_CASE("bfs: tree.mini")

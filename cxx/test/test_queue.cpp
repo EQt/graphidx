@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../std/queue.hpp"
+#include "../graphidx/std/queue.hpp"
 
 TEST_CASE("queue: nothing")
 {

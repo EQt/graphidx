@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../spanning/unionfind.hpp"
+#include "../graphidx/spanning/unionfind.hpp"
 
 bool
 operator==(const int a, const UnionFind<int>::Rep b)

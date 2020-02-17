@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 
-#include "../lina.hpp"
+#include "../graphidx/lina.hpp"
 
 
 TEST_CASE("lina: l1_diff")

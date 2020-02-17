@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 #include <set>
-#include "../idx/partition.hpp"
+#include "../graphidx/idx/partition.hpp"
 
 
 TEST_CASE("partition: num5")

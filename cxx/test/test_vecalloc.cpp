@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 #include <vector>
-#include "../utils/vecalloc.hpp"
+#include "../graphidx/utils/vecalloc.hpp"
 
 
 TEST_CASE("vecalloc: null")

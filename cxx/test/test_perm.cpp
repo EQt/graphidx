@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../utils/perm.hpp"
+#include "../graphidx/utils/perm.hpp"
 
 
 TEST_CASE("perm")

@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../utils/timer.hpp"
+#include "../graphidx/utils/timer.hpp"
 
 
 TEST_CASE("Timer: endsnewline")

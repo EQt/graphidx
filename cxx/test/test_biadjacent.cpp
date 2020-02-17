@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../idx/biadjacent.hpp"
+#include "../graphidx/idx/biadjacent.hpp"
 
 
 TEST_CASE("biadj: unequal_len")

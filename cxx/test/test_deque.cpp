@@ -1,8 +1,8 @@
 #include <doctest/doctest.h>
 #include <vector>
 
-#include "../std/deque.hpp"
-#include "../utils/viostream.hpp"
+#include "../graphidx/std/deque.hpp"
+#include "../graphidx/utils/viostream.hpp"
 
 
 TEST_CASE("DeQue: empty_bool")

@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
 #include <vector>
-#include "../idx/biadjacent.hpp"
-#include "../spanning/connected.hpp"
+#include "../graphidx/idx/biadjacent.hpp"
+#include "../graphidx/spanning/connected.hpp"
 
 
 TEST_CASE("Connected: 4-3")

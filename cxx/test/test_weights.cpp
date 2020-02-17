@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../bits/weights.hpp"
+#include "../graphidx/bits/weights.hpp"
 
 
 TEST_CASE("weights: ones")

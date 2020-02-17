@@ -2,7 +2,7 @@
 #include <pybind11/pybind11.h>
 #include "py_np.hpp"
 
-#include "../cxx/utils/compiler.hpp"
+#include "../cxx/graphidx/utils/compiler.hpp"
 
 namespace py = pybind11;
 

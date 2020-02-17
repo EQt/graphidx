@@ -1,7 +1,7 @@
 #include <doctest/doctest.h>
 #include <set>
-#include "../idx/children.hpp"
-#include "../utils/perm.hpp"
+#include "../graphidx/idx/children.hpp"
+#include "../graphidx/utils/perm.hpp"
 
 
 TEST_CASE("children: generate5")
