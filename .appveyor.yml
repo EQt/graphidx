@@ -18,7 +18,7 @@ environment:
   matrix:
     - lang: Rust
     - lang: Python3.7
-    - lang: Julia 1.2
+    - lang: Julia 1.3
     - lang: C++
 
 for:
@@ -64,14 +64,14 @@ for:
   -
     matrix:
       only:
-        - lang: Julia 1.2
+        - lang: Julia 1.3
     only_commits:
       files:
         - .appveyor.yml
         - julia/
         - docs/src/julia/
     environment:
-      julia_version: 1.2
+      julia_version: 1.3
       hub: "https://raw.githubusercontent.com/JuliaCI/Appveyor.jl"
       url: "version-1/bin/install.ps1"
     install:
