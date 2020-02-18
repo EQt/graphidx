@@ -49,6 +49,26 @@ compute_bfs(std::vector<int_> &bfs, const ChildrenIndex &cidx, queue<int_> &q)
 
 template <typename int_ = int>
 inline void
+reversed_bfs_pi(int_ *bfs, const ChildrenIndex &cidx, int_ *pi)
+{
+    const size_t n = cidx.size();
+    size_t p = 1, q = 1;                  // next to read, to write
+    bfs[n - p] = cidx.root_node();
+    pi[n - p] = n - p;
+    while (q < n) {
+        auto u = bfs[n - p];
+        for (auto v : cidx[u]) {
+            ++q;
+            bfs[n - q] = v;
+            pi[n - q] = n - p;
+        }
+        p++;
+    }
+}
+
+
+template <typename int_ = int>
+inline void
 reversed_bfs(int_ *bfs, const ChildrenIndex &cidx)
 {
     const size_t n = cidx.size();
