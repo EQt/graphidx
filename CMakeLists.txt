@@ -34,6 +34,14 @@ target_include_directories(graphidx
 target_compile_features(graphidx INTERFACE cxx_std_14)
 
 
+find_package(BZip2)
+if (BZIP2_FOUND)
+    add_library(bz2io INTERFACE)
+    target_include_directories(bz2io INTERFACE ${BZIP2_INCLUDE_DIR})
+    target_link_libraries(bz2io INTERFACE ${BZIP2_LIBRARIES} graphidx)
+endif()
+
+
 if (BUILD_TEST)
     message("-- Enable unit tests")
     if (NOT EXISTS "${DOCTEST_DIR}/CMakeLists.txt")
