@@ -18,7 +18,8 @@ option(ASAN        "Use Address SANitizer"             OFF)
 
 set(CMAKE_CXX_STANDARD 14)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    add_definitions(-pedantic -ansi -Wall)
+    add_definitions(-pedantic -ansi -Wall -Wextra -Wconversion)
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
     if (ASAN)
         message("-- Enable Address Sanitizer")
