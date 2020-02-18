@@ -44,11 +44,11 @@ parse_dimacs10_edges(std::istream &io,
     parse_uints(io, [&](uint64_t u, bool last) {
                         u--;
                         if (v < u) {
-                            head.push_back(v);
-                            tail.push_back(u);
+                            head.push_back(int_(v));
+                            tail.push_back(int_(u));
                         } else if (both_directions && v > u) {
-                            head.push_back(v);
-                            tail.push_back(u);
+                            head.push_back(int_(v));
+                            tail.push_back(int_(u));
                         }
                         if (last)
                             v++;
