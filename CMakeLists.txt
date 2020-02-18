@@ -1,18 +1,20 @@
 cmake_minimum_required(VERSION 3.11)
-project(graphidx)
+project(graphidx
+    DESCRIPTION   "Simple Algorithms on Indexed Graphs"
+    HOMEPAGE_URL  "https://github.com/EQt/graphidx")
 
 set(_MASTER_PROJECT OFF)
 if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
     set(_MASTER_PROJECT ON)
 endif()
 
+set(PYBIND_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/deps/pybind11"
+    CACHE PATH     "Which PyBind11 to be used")
+set(DOCTEST_DIR    "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest"
+    CACHE PATH     "Which DOCTEST to be used")
 option(BUILD_PYEXT "Build python extension module"     ON)
 option(BUILD_TEST  "Compile unit tests"                ${_MASTER_PROJECT})
 option(ASAN        "Use Address SANitizer"             OFF)
-set(PYBIND_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/deps/pybind11"
-    CACHE STRING "Which pybind to be used")
-set(DOCTEST_DIR    "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest"
-    CACHE STRING "Which doctest to be used")
 
 set(CMAKE_CXX_STANDARD 14)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
@@ -27,7 +29,9 @@ endif()
 
 
 add_library(graphidx INTERFACE)
-target_include_directories(graphidx INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cxx/include)
+target_include_directories(graphidx
+    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cxx)
+target_compile_features(graphidx INTERFACE cxx_std_14)
 
 
 if (BUILD_TEST)
