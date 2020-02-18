@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <cstdint>
 #include <iostream>
 #include <set>
 
@@ -64,13 +65,25 @@ struct AdjacencyIndex
     uvector<int_> value;
     std::vector<int_> index;
 
-    IndexIter<int_> operator[](int i) const {
-        if (i < 0 || i >= int(index.size()))
+    inline IndexIter<int_> operator[](size_t i) const {
+        if (i >= index.size())
             return {nullptr, nullptr};
         const int_
             *start = value.data() + index[i+0],
             *stop  = value.data() + index[i+1];
         return {start, stop};
+    }
+
+    inline IndexIter<int_> operator[](int i) const {
+        if (i < 0)
+            return {nullptr, nullptr};
+        return (*this)[size_t(i)];
+    }
+
+    inline IndexIter<int_> operator[](int64_t i) const {
+        if (i < 0)
+            return {nullptr, nullptr};
+        return (*this)[size_t(i)];
     }
 
     size_t size() const { return index.size() -1; }
