@@ -7,11 +7,13 @@
    https://www.codeproject.com/KB/stl/zipstream/bzip2stream_src.zip
 */
 #pragma once
-#include <bzlib.h>
+#include <algorithm>    // std::min
+#include <cstring>      // memcpy
 #include <streambuf>
 #include <istream>
 #include <vector>
-#include <cstring>     // memcpy
+
+#include <bzlib.h>
 
 
 class BZ2IStreamBuf : public std::streambuf
