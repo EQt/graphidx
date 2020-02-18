@@ -52,18 +52,14 @@ inline void
 reversed_bfs_pi(int_ *bfs, const ChildrenIndex &cidx, int_ *pi)
 {
     const size_t n = cidx.size();
-    size_t p = 1, q = 1;                  // next to read, to write
-    bfs[n - p] = cidx.root_node();
-    pi[n - p] = n - p;
-    while (q < n) {
-        auto u = bfs[n - p];
-        for (auto v : cidx[u]) {
+    bfs[n - 1] = cidx.root_node();
+    pi[n - 1] = int_(n - 1);
+    for (size_t p = 1, q = 1; q < n; p++)
+        for (auto v : cidx[bfs[n - p]]) {
             ++q;
-            bfs[n - q] = v;
-            pi[n - q] = n - p;
+            bfs[n - q] = int_(v);
+            pi[n - q] = int_(n - p);
         }
-        p++;
-    }
 }
 
 
@@ -72,13 +68,10 @@ inline void
 reversed_bfs(int_ *bfs, const ChildrenIndex &cidx)
 {
     const size_t n = cidx.size();
-    size_t p = 1, q = 1;                  // next to read, to write
-    bfs[n - p] = cidx.root_node();
-    while (q < n) {
-        auto u = bfs[n - p++];
-        for (auto v : cidx[u])
-            bfs[n - ++q] = v;
-    }
+    bfs[n - 1] = cidx.root_node();
+    for (size_t p = 1, q = 1; q < n; p++)
+        for (auto v : cidx[bfs[n - p]])
+            bfs[n - ++q] = int_(v);
 }
 
 
