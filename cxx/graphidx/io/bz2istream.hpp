@@ -25,7 +25,7 @@ public:
     BZ2IStreamBuf& open(const char *fname) {
         bzfile = BZ2_bzopen(fname, "rb");
         if (!bzfile)
-            throw std::runtime_error(std::string("bz_open file \"") + fname + "\"");
+            throw std::runtime_error(std::string("bz_open \"") + fname + "\"");
         return *this;
     }
 
@@ -45,7 +45,8 @@ public:
         }
 
         int bzerror;
-        int num = BZ2_bzRead(&bzerror, bzfile, buf.data() + 4, buf.size() - 4);
+        int num = BZ2_bzRead(&bzerror, bzfile, buf.data() + 4,
+                             int(buf.size() - 4));
         if (!(bzerror == BZ_OK || (bzerror == BZ_STREAM_END && num > 0)))
             return EOF;
 
