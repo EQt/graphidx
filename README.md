@@ -3,8 +3,13 @@
 Index-Based Graphs
 ==================
 
-[![Build Status](https://travis-ci.com/EQt/graphidx.svg?branch=master)](https://travis-ci.com/EQt/graphidx)
-[![Build status](https://ci.appveyor.com/api/projects/status/2km8vnder45ws2mx?svg=true)](https://ci.appveyor.com/project/EQt/graphidx)
+[![Build Status][travis]](https://travis-ci.com/EQt/graphidx)
+[![Build status][appveyor]](https://ci.appveyor.com/project/EQt/graphidx)
+[![License: MIT][license-img]](LICENSE.md)
+      
+[![Documentation: c++][docs-cxx]](https://eqt.github.io/graphidx/cxx)
+[![Documentation: python][docs-python]](https://eqt.github.io/graphidx/python)
+[![Documentation: Julia][docs-julia]](https://eqt.github.io/graphidx/julia)
 
 
 In most graph algorithms, it is convinient to have access to the neighboring nodes for a node.
@@ -54,3 +59,11 @@ We support bindings to
 
 Parts are rewritten in
 [Rust Crate](https://eqt.github.io/graphidx/rust).
+
+
+[travis]: https://travis-ci.com/EQt/graphidx.svg?branch=master
+[appveyor]: https://ci.appveyor.com/api/projects/status/2km8vnder45ws2mx?svg=true
+[docs-julia]: https://img.shields.io/badge/docs-julia-blue.svg
+[docs-cxx]: https://img.shields.io/badge/docs-cxx-0298c3.svg
+[docs-python]: https://img.shields.io/badge/docs-python-0298c3.svg
+[license-img]: https://img.shields.io/badge/license-MIT-brightgreen.svg
