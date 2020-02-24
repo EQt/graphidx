@@ -10,6 +10,7 @@ sources = [
     "order.cpp",
     "spanning.cpp",
     "timer.cpp",
+    "io.cpp",
 ]
 
 
@@ -26,9 +27,11 @@ class BuildExt(build_ext):
     def build_extensions(self):
         ct = self.compiler.compiler_type
         opts = list()
+        links = list()
         if ct == 'unix':
             opts.append('-std=c++14')
             opts.append('-fvisibility=hidden')
+            links.append('-lbz2')
         elif ct == 'msvc':
             opts.append('/EHsc')
             opts.append('/std:c++14')
@@ -36,6 +39,7 @@ class BuildExt(build_ext):
             print('Unknown compiler type:', ct)
         for ext in self.extensions:
             ext.extra_compile_args = opts
+            ext.extra_link_args = links
         build_ext.build_extensions(self)
 
 
@@ -68,12 +72,10 @@ def graphidx_setup(_graphidx, root='.'):
 
 if __name__ == '__main__':
     git_submodule()
-
     _graphidx = Extension(
         "graphidx._graphidx",
         sources=sources,
         include_dirs=includes,
         language='c++',
     )
-
     graphidx_setup(_graphidx)

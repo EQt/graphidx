@@ -98,13 +98,16 @@ if (BUILD_PYEXT)
         )
     endif()
     add_subdirectory(${PYBIND_DIR})
+
     pybind11_add_module(_graphidx
         python/_graphidx.cpp
         python/order.cpp
         python/idx.cpp
         python/spanning.cpp
         python/timer.cpp
+        python/io.cpp
     )
+    target_link_libraries(_graphidx PRIVATE bz2)
     if (_MASTER_PROJECT)
         set(_P "")
     else()

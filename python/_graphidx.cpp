@@ -11,6 +11,7 @@ void reg_timer(py::module &m);
 void reg_order(py::module &m);
 void reg_idx(py::module &m);
 void reg_spanning(py::module &m);
+void reg_io(py::module &m);
 
 
 /**
