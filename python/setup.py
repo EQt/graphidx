@@ -40,7 +40,7 @@ class BuildExt(build_ext):
 
 
 def git_submodule():
-    if not path.exists(path.join(includes[0], "pybind11", "pybind11.hy")):
+    if not path.exists(path.join(includes[0], "pybind11", "pybind11.h")):
         import subprocess as sp
 
         deps = path.join(path.dirname(__file__), '..', 'deps')
