@@ -4,20 +4,30 @@
 #include "py_np.hpp"
 
 #include "../cxx/graphidx/io/dimacs10.hpp"
-#include "../cxx/graphidx/io/bz2istream.hpp"
+#if __has_include(<bzlib.h>)
+#  define HAVE_BZIP2 1
+#  include "../cxx/graphidx/io/bz2istream.hpp"
+#else
+#  define HAVE_BZIP2 0
+#endif
 
 
 void
 reg_io(py::module &m)
 {
     m.def("parse_dimacs10",
-          [](const char *fname) -> BiAdjacentIndex<int>
+          [](const char *fname, const bool is_bz2) -> BiAdjacentIndex<int>
           {
               const int buf_size = 8192;
-              const bool is_bz2 = true;
               if (is_bz2) {
+#if HAVE_BZIP2
                   BZ2IStream io (fname, buf_size);
                   return parse_dimacs10_idx(io);
+#else
+                  throw std::runtime_error(
+                      "BZIP2 is not supported. Please install bzip2 (via conda)"
+                      );
+#endif
               }
               std::ifstream io (fname);
               if (io) {
@@ -28,6 +38,7 @@ reg_io(py::module &m)
           R"pbdoc(
               Load a DIMACS'10 instance
           )pbdoc",
-          py::arg("fname")
+          py::arg("fname"),
+          py::arg("is_bz2") = true
         );
 }

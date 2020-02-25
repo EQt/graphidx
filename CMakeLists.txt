@@ -16,7 +16,7 @@ option(BUILD_PYEXT "Build python extension module"     ON)
 option(BUILD_TEST  "Compile unit tests"                ${_MASTER_PROJECT})
 option(ASAN        "Use Address SANitizer"             OFF)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     add_definitions(-pedantic -ansi -Wall -Wextra -Wconversion)
 
@@ -32,7 +32,7 @@ endif()
 add_library(graphidx INTERFACE)
 target_include_directories(graphidx
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cxx)
-target_compile_features(graphidx INTERFACE cxx_std_14)
+target_compile_features(graphidx INTERFACE cxx_std_17)
 
 
 find_package(BZip2)

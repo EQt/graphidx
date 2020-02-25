@@ -31,12 +31,12 @@ class BuildExt(build_ext):
         opts = list()
         links = list()
         if ct == 'unix':
-            opts.append('-std=c++14')
+            opts.append('-std=c++17')
             opts.append('-fvisibility=hidden')
             links.append('-lbz2')
         elif ct == 'msvc':
             opts.append('/EHsc')
-            opts.append('/std:c++14')
+            opts.append('/std:c++17')
             links.append(path.join(
                 sc.get_config_var('INCLUDEPY'), "..", "Library", "lib", "libbz2.lib"))
         else:
