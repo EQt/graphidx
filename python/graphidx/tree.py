@@ -5,7 +5,6 @@ from .graphviz import show_tree
 from ._graphidx import prufer2parent
 from ._graphidx import find_root
 from .idx import ChildrenIndex
-from .py.prufer import prufer_from_children_spec
 
 
 class Tree:
@@ -58,6 +57,7 @@ class Tree:
 
     @classmethod
     def generate(cls, degrees, seed=42):
+        from .py.prufer import prufer_from_children_spec
         return cls.from_prufer(prufer_from_children_spec(degrees, seed=seed))
 
     @staticmethod
