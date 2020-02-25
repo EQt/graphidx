@@ -37,8 +37,10 @@ class BuildExt(build_ext):
         elif ct == 'msvc':
             opts.append('/EHsc')
             opts.append('/std:c++17')
-            links.append(path.join(
-                sc.get_config_var('INCLUDEPY'), "..", "Library", "lib", "libbz2.lib"))
+            libbz2 = path.join(sc.get_config_var('INCLUDEPY'),
+                               "..", "Library", "lib", "libbz2.lib")
+            if path.exists(libbz2):
+                links.append(libbz2)
         else:
             print('Unknown compiler type:', ct)
         for ext in self.extensions:

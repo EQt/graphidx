@@ -18,7 +18,6 @@ reg_io(py::module &m)
     m.def("parse_dimacs10",
           [](const char *fname, const bool is_bz2, const int buf_size) -> BiAdjacentIndex<int>
           {
-              const int buf_size = 8192;
               if (is_bz2) {
 #if HAVE_BZIP2
                   BZ2IStream io (fname, buf_size);
