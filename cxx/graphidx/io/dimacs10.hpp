@@ -21,7 +21,7 @@ ignore_comments(std::istream &io)
 inline std::istream&
 parse_dimacs10_header(std::istream &io, size_t &n, size_t &m)
 {
-    ignore_comments(io) >> n >> m;
+    ignore_comments(io) >> check_uint(n) >> check_uint(m);
     if (io.get() != '\n')
         io.unget();
     return io;

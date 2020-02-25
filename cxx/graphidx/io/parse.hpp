@@ -1,7 +1,34 @@
 #pragma once
+#include <cctype>
 #include <cstdint>
 #include <istream>
 #include <functional>
+
+
+/**
+   Check that the first character is a digit and parse it as number
+*/
+template <typename int_ = size_t>
+struct check_uint
+{
+    int_ &n;
+    check_uint(int_ &n) : n(n) {}
+};
+
+
+template <typename int_ = size_t>
+std::istream& operator>>(std::istream &io, check_uint<int_> c)
+{
+    char ch = (char) io.get();
+    if (isspace(ch))
+        return io >> c;
+    if (!isdigit(ch))
+        throw std::runtime_error(
+            std::string("Expected number, but got '") + ch + "'");
+    io.unget();
+    return io >> c.n;
+}
+
 
 /**
    Call function `f(uint64_t i, bool nl)` for every number `i` in the stream `io`

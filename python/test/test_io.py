@@ -23,7 +23,6 @@ def wheel5(tmpdir):
     os.remove(fn)
 
 
-@if_bz2
 @pytest.fixture
 def wheel5_bz2(tmpdir):
     origin = path.join(path.dirname(__file__), "wheel5.dimacs10")
@@ -32,6 +31,19 @@ def wheel5_bz2(tmpdir):
     with open(origin, "rb") as io:
         w5 = io.read()
     with bz2.open(fn, "wb") as io:
+        io.write(w5)
+    yield str(fn)
+    os.remove(fn)
+
+
+@pytest.fixture
+def wheel5_err(tmpdir):
+    origin = path.join(path.dirname(__file__), "wheel5.dimacs10")
+    assert path.exists(origin)
+    fn = str(tmpdir / "w5.dimacs10" + ".err")
+    with open(origin, "rb") as io:
+        w5 = io.read().replace(b"%", b"#")
+    with open(fn, "wb") as io:
         io.write(w5)
     yield str(fn)
     os.remove(fn)
@@ -46,6 +58,16 @@ def test_not_existing():
 def test_not_existing_bz2():
     with pytest.raises(RuntimeError):
         gio.parse_dimacs10("doesnotexist", is_bz2=True)
+
+
+def test_parse_err(wheel5_err):
+    with pytest.raises(RuntimeError):
+        gio.parse_dimacs10(wheel5_err, is_bz2=False)
+
+
+def test_parse_err_edges(wheel5_err):
+    with pytest.raises(RuntimeError):
+        gio.parse_dimacs10_edges(wheel5_err, is_bz2=False)
 
 
 def test_wheel5_edges(wheel5):
