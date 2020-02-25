@@ -2,6 +2,7 @@ from os import path
 from setuptools import setup
 from setuptools.extension import Extension
 from setuptools.command.build_ext import build_ext
+from distutils import sysconfig as sc
 
 
 sources = [
@@ -16,6 +17,7 @@ sources = [
 
 includes = [
     path.join(path.dirname(__file__), "..", "deps", "pybind11", "include"),
+    path.join(sc.get_config_var('INCLUDEPY'), "..", "Library", "include"),
 ]
 
 
@@ -35,6 +37,8 @@ class BuildExt(build_ext):
         elif ct == 'msvc':
             opts.append('/EHsc')
             opts.append('/std:c++14')
+            links.append(path.join(
+                sc.get_config_var('INCLUDEPY'), "..", "Library", "lib", "libbz2.lib"))
         else:
             print('Unknown compiler type:', ct)
         for ext in self.extensions:
