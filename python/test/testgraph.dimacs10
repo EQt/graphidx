@@ -1,0 +1,6 @@
+# This is a test graph: a wheel with 5 outer nodes plus a center node
+2 3 4 5 6
+3 6
+4
+5
+6

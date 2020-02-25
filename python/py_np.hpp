@@ -16,6 +16,15 @@ typedef array_t<int32_t, array::c_style | array::forcecast> array_i32;
 
 namespace py = pybind11;
 
+/**
+   Create an array by coping the values
+*/
+template <typename T>
+inline py::array_t<T>
+create_ndarray(const std::vector<T> &arr)
+{
+    return py::array_t<T>({arr.size()}, {sizeof(T)}, arr.data());
+}
 
 /**
    Check whether the array is empty (i.e. size() == 0)

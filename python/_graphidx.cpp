@@ -28,6 +28,14 @@ _test_create_array()
 }
 
 
+py::array_t<double>
+_test_create_ndarray()
+{
+    std::vector<double> x {13.0, -1.0, 42.0};
+    return create_ndarray<double>(x);
+}
+
+
 PYBIND11_MODULE(_graphidx, m)
 {
     m.doc() = R"pbdoc(
@@ -56,4 +64,5 @@ PYBIND11_MODULE(_graphidx, m)
     reg_order(m);
     reg_idx(m);
     reg_spanning(m);
+    reg_io(m);
 }

@@ -4,7 +4,6 @@ import CodecBzip2
 using ..Io: parse_uints
 using ...GraphIdx: BiAdjacentIndex
 
-
 """
     open_dimacs10(f, fname; as_process = false)
 
