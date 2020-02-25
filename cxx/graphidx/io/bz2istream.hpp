@@ -62,11 +62,13 @@ public:
     }
 
     void close() {
-        if (bzfile) BZ2_bzclose(bzfile);
-        int errnum;
-        auto msg = BZ2_bzerror(bzfile, &errnum);
-        if (errnum != BZ_OK)
-            throw std::runtime_error(std::string("bzclose: ") + msg);
+        if (bzfile) {
+            int errnum;
+            BZ2_bzclose(bzfile);
+            auto msg = BZ2_bzerror(bzfile, &errnum);
+            if (errnum != BZ_OK)
+                throw std::runtime_error(std::string("bzclose: ") + msg);
+        }
     }
 
     ~BZ2IStreamBuf() { close(); }
