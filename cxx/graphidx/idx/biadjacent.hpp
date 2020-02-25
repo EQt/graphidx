@@ -24,6 +24,10 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
 
     BiAdjacentIndex<int_>&
     reset(const size_t m, const int_ *head, const int_ *tail, size_t n = 0) {
+        if (head == nullptr)
+            throw std::runtime_error("head == nullptr");
+        if (tail == nullptr)
+            throw std::runtime_error("tail == nullptr");
         auto &value = this->value;
         auto &index = this->index;
 
