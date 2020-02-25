@@ -1,4 +1,4 @@
-from numba import njit
+from ._numba import njit
 import numpy as np
 
 

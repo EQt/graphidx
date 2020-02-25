@@ -10,7 +10,7 @@ CURRENT PROBLEMS
    --> for seed=42 root as 4 children
 """
 import numpy as np
-from numba import njit
+from ._numba import njit
 
 
 @njit(cache=True)

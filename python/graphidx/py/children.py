@@ -1,15 +1,5 @@
 import numpy as np
-try:
-    from numba import njit
-except ImportError:
-    import warnings
-
-    warnings.warn("Please install `numba` for fast computation")
-
-    def njit(f):
-        """Fake just-in-time compilation"""
-        return f
-
+from ._numba import njit
 
 class PyChildrenIndex:
     """Similar to the C++ code"""
