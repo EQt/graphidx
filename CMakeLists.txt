@@ -107,7 +107,12 @@ if (BUILD_PYEXT)
         python/timer.cpp
         python/io.cpp
     )
-    target_link_libraries(_graphidx PRIVATE bz2)
+    target_include_directories(_graphidx PRIVATE "${PYTHON_INCLUDE_DIRS}/../Library/include")
+    if (MSVC)
+	target_link_libraries(_graphidx PRIVATE "${PYTHON_INCLUDE_DIRS}/../Library/lib/libbz2.lib")
+    else()
+	target_link_libraries(_graphidx PRIVATE bz2)
+    endif()
     if (_MASTER_PROJECT)
         set(_P "")
     else()
