@@ -16,7 +16,7 @@ void
 reg_io(py::module &m)
 {
     m.def("parse_dimacs10",
-          [](const char *fname, const bool is_bz2) -> BiAdjacentIndex<int>
+          [](const char *fname, const bool is_bz2, const int buf_size) -> BiAdjacentIndex<int>
           {
               const int buf_size = 8192;
               if (is_bz2) {
@@ -39,6 +39,7 @@ reg_io(py::module &m)
               Load a DIMACS'10 instance
           )pbdoc",
           py::arg("fname"),
-          py::arg("is_bz2") = true
+          py::arg("is_bz2") = true,
+          py::arg("buf_size") = 8192
         );
 }
