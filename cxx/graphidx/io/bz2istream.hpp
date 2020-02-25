@@ -41,7 +41,7 @@ public:
         // Josuttis' implementation of inbuf
         auto n_putback = 0l;
         if (gptr() != nullptr) {
-            n_putback = std::min(long(gptr() - eback()), 4l);
+            n_putback = (std::min)(long(gptr() - eback()), 4l);
             memcpy(buf.data() + (4 - n_putback), gptr() - n_putback,
                    static_cast<std::size_t>(n_putback));
         }
