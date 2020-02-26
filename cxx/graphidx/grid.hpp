@@ -1,4 +1,7 @@
 #pragma once
+#include <functional>   // std::function
+#include <vector>
+
 #include "./idx/biadjacent.hpp"
 
 
