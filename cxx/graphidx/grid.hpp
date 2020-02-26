@@ -39,16 +39,18 @@ class GridGraph
 public:
     GridGraph(size_t n1, size_t n2) : n1(n1), n2(n2) { }
 
+    size_t num_nodes() const { return n1 * n2; }
+
     template <typename int_ = int>
     operator BiAdjacentIndex<int_>() const {
         std::vector<int_> head, tail;
-        head.reserve(n1*n2);
-        tail.reserve(n1*n2);
+        head.reserve(2*num_nodes());
+        tail.reserve(2*num_nodes());
         iter_grid_edges<int_>(int_(n1), int_(n2),
                               [&](int_ u, int_ v) {
                                   head.push_back(u);
                                   tail.push_back(v);
                               });
-        return {std::move(head), std::move(tail), n1*n2};
+        return {std::move(head), std::move(tail), num_nodes()};
     }
 };
