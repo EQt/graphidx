@@ -4,6 +4,9 @@ from graphidx import io as gio
 from graphidx.tree import ChildrenIndex
 import graphidx
 
+if not gio.__have_bzip2__:
+    exit(0)
+
 
 def test_belgium():
     url = "https://www.cc.gatech.edu/dimacs10/archive/data/streets/" + \
