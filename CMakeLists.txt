@@ -63,7 +63,7 @@ if (BUILD_TEST)
         cxx/test/test_clz.cpp
         cxx/test/test_csc.cpp
         cxx/test/test_deque.cpp
-        cxx/test/test_grid.cpp
+        cxx/test/test_grididx.cpp
         cxx/test/test_hex.cpp
         cxx/test/test_inorder.cpp
         cxx/test/test_kruskal_mst.cpp
