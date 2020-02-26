@@ -3,6 +3,7 @@
 Load edges/{head,tail} and show the graph structure
 using the `dot` (https://www.graphviz.org/) program 
 """
+import os
 import sys
 import subprocess as sp
 from io import StringIO
@@ -54,7 +55,7 @@ def print_dot(head, tail=None, indent=3, out=sys.stdout,
     print("}", file=out)
 
 
-def show_dot(graph, prg="dot -Tx11", wait=True, out=sp.DEVNULL):
+def show_dot(graph, prg="dot -Tx11", wait=True, out=os.devnull):
     """Start dot program on string `graph`"""
     print(graph, file=out)
     dot = sp.Popen(prg.split(), stdin=sp.PIPE)
@@ -64,7 +65,7 @@ def show_dot(graph, prg="dot -Tx11", wait=True, out=sp.DEVNULL):
         dot.wait()
 
 
-def show_tree(parent, prg="dot -Tx11", wait=True, out=sp.DEVNULL, **kwargs):
+def show_tree(parent, prg="dot -Tx11", wait=True, out=os.devnull, **kwargs):
     buf = StringIO()
     print_tree(parent, out=buf, **kwargs)
     show_dot(buf.getvalue(), prg=prg, wait=wait, out=out)
