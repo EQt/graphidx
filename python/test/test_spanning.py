@@ -23,7 +23,7 @@ def test_clique5():
 
 def test_grid_5x3():
     graph = BiAdjacent(GridGraph(5, 3))
-    assert graph.shape == (5, 3)
+    assert graph.num_nodes() == 5 * 3
     pi = random_spanning_tree(graph, seed=0)
     assert all(pi == [1, 2, 3, 8, 9, 6, 1, 8, 9, 9, 5, 6, 7, 14, 9])
     t = Tree(pi)
