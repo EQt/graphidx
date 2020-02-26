@@ -33,10 +33,10 @@ iter_grid_edges(const int_ n1,
 }
 
 
-class GridGraph
+struct GridGraph
 {
-    size_t n1, n2;
-public:
+    const size_t n1, n2;
+
     GridGraph(size_t n1, size_t n2) : n1(n1), n2(n2) { }
 
     size_t num_nodes() const { return n1 * n2; }

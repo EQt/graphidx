@@ -11,4 +11,5 @@ from ._graphidx import (
     post_order,
     find_root,
     prufer2parent,
+    GridGraph,
 )

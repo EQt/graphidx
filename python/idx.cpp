@@ -8,6 +8,7 @@
 #include "../cxx/graphidx/idx/children.hpp"
 #include "../cxx/graphidx/idx/partition.hpp"
 #include "../cxx/graphidx/tree/root.hpp"
+#include "../cxx/graphidx/grid.hpp"
 
 namespace py = pybind11;
 
@@ -48,6 +49,17 @@ reg_idx(py::module &m)
             )
         ;
 
+    py::class_<GridGraph> (m, "GridGraph", py::module_local())
+        .def(py::init([](size_t n1, size_t n2){ return GridGraph(n1, n2); }))
+        .def("num_nodes", &GridGraph::num_nodes)
+        .def_property_readonly("n1", [](const GridGraph &grid){ return grid.n1; })
+        .def_property_readonly("n2", [](const GridGraph &grid){ return grid.n2; })
+        .def("__repr__", [](const GridGraph &g){
+                             return std::string("GridGraph(") +
+                                 std::to_string(g.n1) + ", " + std::to_string(g.n2) + ")";
+                         })
+        ;
+
     py::class_<BiAdjacent> (m, "BiAdjacent", PyAdjacencyIndex_int, py::module_local())
         .def(py::init([](const py::array_i32 &head,
                          const py::array_i32 &tail)
@@ -58,6 +70,9 @@ reg_idx(py::module &m)
                       }),
              py::arg("head"),
              py::arg("tail"))
+        .def(py::init([](const GridGraph &grid)
+                      { return new BiAdjacentIndex<int>(grid); }),
+             py::arg("grid"))
         .def("__repr__",
              [](const BiAdjacent &b) -> std::string
              {
