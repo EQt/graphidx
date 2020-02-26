@@ -4,9 +4,6 @@ from graphidx import io as gio
 from graphidx.tree import ChildrenIndex
 import graphidx
 
-if not gio.__have_bzip2__:
-    exit(0)
-
 
 def test_belgium():
     url = "https://www.cc.gatech.edu/dimacs10/archive/data/streets/" + \
@@ -15,7 +12,6 @@ def test_belgium():
     if not path.exists(fname):
         print("downloading", url)
         urlretrieve(url, fname)
-
 
     idx = gio.parse_dimacs10(fname)
     parent = graphidx.random_spanning_tree(idx, seed=2020)
