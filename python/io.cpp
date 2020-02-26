@@ -3,6 +3,7 @@
 #include <pybind11/pybind11.h>
 #include "py_np.hpp"
 
+#include "../cxx/graphidx/io/magic.hpp"
 #include "../cxx/graphidx/io/dimacs10.hpp"
 #if __has_include(<bzlib.h>)
 #  define HAVE_BZIP2 1
@@ -80,4 +81,16 @@ reg_io(py::module &m)
           py::arg("buf_size") = 8192
         );
 
+    mo.def("is_bzip2", &is_bzip2,
+          R"pbdoc(
+              Test whether a f file is BZIP2 compressed
+          )pbdoc",
+           py::arg("fname")
+        );
+    mo.def("is_gzip", &is_gzip,
+          R"pbdoc(
+              Test whether a f file is GZIP compressed
+          )pbdoc",
+           py::arg("fname")
+        );
 }
