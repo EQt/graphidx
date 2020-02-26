@@ -33,7 +33,9 @@ class BuildExt(build_ext):
         if ct == 'unix':
             opts.append('-std=c++17')
             opts.append('-fvisibility=hidden')
+            links.append('-fvisibility=hidden')
             links.append('-lbz2')
+            links.append('-flto')
         elif ct == 'msvc':
             opts.append('/EHsc')
             opts.append('/std:c++17')
