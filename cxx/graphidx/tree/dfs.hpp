@@ -13,6 +13,28 @@
 
 template <typename int_ = int>
 void
+reversed_dfs_discover_pi(int_ *dfs, const ChildrenIndex &cidx, stack<int_> &s, int_ *pi)
+{
+    s.reserve(2*cidx.size());
+
+    s.push_back(cidx.root_node());
+    s.push_back(cidx.root_node());    
+    int_ d = int_(cidx.size()-1);
+    while (!s.empty()) {
+        auto u = s.back(); s.pop_back();
+        auto pi_u = s.back(); s.pop_back();
+        dfs[d] = u;
+        pi[d--] = pi_u;
+        for (auto v : cidx[u]) {
+            s.push_back(u);
+            s.push_back(v);
+        }
+    }
+}
+
+
+template <typename int_ = int>
+void
 reversed_dfs_discover(int_ *dfs, const ChildrenIndex &cidx, stack<int_> &s)
 {
     s.reserve(cidx.size());
