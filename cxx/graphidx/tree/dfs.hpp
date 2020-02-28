@@ -13,6 +13,46 @@
 
 template <typename int_ = int>
 void
+reversed_dfs_discover(int_ *dfs, const ChildrenIndex &cidx, stack<int_> &s)
+{
+    s.reserve(cidx.size());
+
+    s.push_back(cidx.root_node());
+    int_ d = int_(cidx.size()-1);
+    while (!s.empty()) {
+        auto u = s.back(); s.pop_back();
+        dfs[d--] = u;
+        for (auto v : cidx[u])
+            s.push_back(v);
+    }
+}
+
+
+template <typename int_ = int>
+void
+reversed_dfs_discover(std::vector<int_> &dfs, const ChildrenIndex &cidx, stack<int_> &s)
+{
+    dfs.resize(cidx.size());
+    reversed_dfs_discover(dfs.data(), cidx, s);
+}
+
+
+template <typename int_ = int>
+inline std::vector<int>
+reversed_dfs_discover(const std::vector<int_> &parent, const int_ root = int_(-1))
+{
+    if (root < 0)
+        return reversed_dfs_discover(parent, find_root(parent));
+    ChildrenIndex cidx (parent, root);
+    stack<int_> s;
+    std::vector<int_> dfs;
+    reversed_dfs_discover(dfs, cidx, s);
+    return dfs;
+}
+
+
+template <typename int_ = int>
+void
 dfs_discover(std::vector<int_> &dfs, const ChildrenIndex &cidx, stack<int_> &s)
 {
     s.reserve(cidx.size());
