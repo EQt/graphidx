@@ -28,5 +28,5 @@ TEST_CASE("reversed_bfs_pi: tree.mini")
     reversed_bfs_pi(bfs.data(), cidx, pi.data());
     CHECK(bfs == std::vector<int>({6, 9, 7, 8, 4, 3, 2, 5, 1, 0}));
     CHECK(pi  == std::vector<int>({2, 3, 3, 5, 5, 6, 8, 9, 9, 9}));
-    // compare to ../../python/test/test_bfs.py
+    // compare to ../../python/test/test_reorder.py
 }

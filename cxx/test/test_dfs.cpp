@@ -32,4 +32,5 @@ TEST_CASE("reversed_dfs_pi: tree.mini")
     reversed_dfs_discover_pi(dfs.data(), cidx, s, pi.data());
     CHECK(dfs == std::vector<int>({4, 6, 7, 9, 8, 3, 2, 1, 5, 0}));
     CHECK(pi  == std::vector<int>({5, 2, 4, 4, 5, 6, 7, 9, 9, 9}));
+    // compare to ../../python/test/test_reorder.py    
 }
