@@ -17,18 +17,19 @@ reversed_dfs_discover_pi(int_ *dfs, const ChildrenIndex &cidx, stack<int_> &s, i
 {
     s.reserve(2*cidx.size());
 
-    s.push_back(cidx.root_node());
-    s.push_back(cidx.root_node());    
     int_ d = int_(cidx.size()-1);
+    s.push_back(d);
+    s.push_back(cidx.root_node());
     while (!s.empty()) {
         auto u = s.back(); s.pop_back();
         auto pi_u = s.back(); s.pop_back();
         dfs[d] = u;
-        pi[d--] = pi_u;
+        pi[d] = pi_u;
         for (auto v : cidx[u]) {
-            s.push_back(u);
+            s.push_back(d);
             s.push_back(v);
         }
+        d--;
     }
 }
 
