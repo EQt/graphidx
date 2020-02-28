@@ -73,6 +73,7 @@ if (BUILD_TEST)
         cxx/test/test_partition.cpp
         cxx/test/test_postorder.cpp
         cxx/test/test_bfs.cpp
+        cxx/test/test_dfs.cpp
         cxx/test/test_prufer.cpp
         cxx/test/test_queue.cpp
         cxx/test/test_shift.cpp
