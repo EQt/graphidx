@@ -81,6 +81,7 @@ if (BUILD_TEST)
         cxx/test/test_timer.cpp
         cxx/test/test_unionfind.cpp
         cxx/test/test_connected.cpp
+        cxx/test/test_string.cpp
         cxx/test/test_van_emde_boas.cpp
         cxx/test/test_vecalloc.cpp
         cxx/test/test_viostream.cpp
