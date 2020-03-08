@@ -4,7 +4,14 @@
 #include <algorithm>        // std::max_element
 #include <string>
 
-#include "../utils/timer.hpp"
+#if !defined(ENABLE_TIMER) || !ENABLE_TIMER
+    struct Timer_ {
+        Timer_(const char*) { }
+    };
+#  define Timer Timer_
+#else
+#  include "../utils/timer.hpp"
+#endif
 
 
 /** Group the elements in `parent`, stored in `value`, group index `index`.
@@ -76,3 +83,8 @@ groupby(vector_t &value,
     }
 
 }
+
+
+#if !defined(ENABLE_TIMER) || !ENABLE_TIMER
+#  undef Timer
+#endif
