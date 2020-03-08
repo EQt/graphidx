@@ -2,7 +2,7 @@
 #include <vector>
 #include <stdexcept>
 #include <algorithm>        // std::max_element
-#include <sstream>
+#include <string>
 
 
 /** Group the elements in `parent`, stored in `value`, group index `index`.
@@ -54,13 +54,11 @@ groupby(vector_t &value,
     }
 
     if (index[k] != int_(n)) {
-        std::ostringstream msg;
-        msg << "\n" << __FILE__ << ":" <<__LINE__
-            << ": Severe Bug:\n  index[k] = " << index[k]
-            << " != " << n << " = n   ";
-        if (k <= 10)
-            msg << std::endl
-                << "  index = " << index << std::endl;
-        throw std::runtime_error(msg.str());
+        throw std::runtime_error(std::string("\n") +
+                                 __FILE__ + ":" + std::to_string(__LINE__) +
+                                 ": Severe Bug:\n  index[k] = " +
+                                 std::to_string(index[k]) + " != " +
+                                 std::to_string(n) + " = n   "
+            );
     }
 }
