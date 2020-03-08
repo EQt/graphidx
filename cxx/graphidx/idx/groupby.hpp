@@ -4,6 +4,8 @@
 #include <algorithm>        // std::max_element
 #include <string>
 
+#include "../utils/timer.hpp"
+
 
 /** Group the elements in `parent`, stored in `value`, group index `index`.
 
@@ -22,19 +24,28 @@ groupby(vector_t &value,
         const int_ *parent,
         const int_ root = -1)
 {
+    Timer _ ("\ngroupby\n");
     value.resize(n);
-    size_t k = root >= 0 ? n : size_t(*std::max_element(parent, parent + n) + 1);
+    size_t k = n;
+    if (root < 0) {
+        Timer _ ("max_element");
+        k = size_t(*std::max_element(parent, parent + n) + 1);
+    }
 
-    index.assign(k+1, 0);           // compute histogram, i.e. number of children
-    for (size_t i = 0; i < n; i++)
-        index[parent[i]]++;
+    {   Timer _ ("assign = 0");
+        index.assign(k+1, 0);        // compute histogram, i.e. number of children
+    }
+    {   Timer _ ("count parents");
+        for (size_t i = 0; i < n; i++)
+            index[parent[i]]++;
+    }
 
     if (root >= 0) {
         index[root]--;              // root isn't child of itself
         value[0] = root;
     }
 
-    {                               // accumulate prefix sums
+    {   Timer _ ("prefix sums");    // accumulate prefix sums
         int_ acc = root >= 0 ? 1 : 0,
              deg_i = 0,
              deg_ii = index[0];
@@ -47,10 +58,12 @@ groupby(vector_t &value,
         index[k] = acc;
     }
 
-    for (int_ v = 0; v < int_(n); v++) {  // sort the values
-        const auto p = parent[v];
-        if (v == root) continue;          // skip root
-        value[index[p+1]++] = v;
+    {   Timer _ ("values");          // sort the values
+        for (int_ v = 0; v < int_(n); v++) {
+            const auto p = parent[v];
+            if (v == root) continue;      // skip root
+            value[index[p+1]++] = v;
+        }
     }
 
     if (index[k] != int_(n)) {
@@ -61,4 +74,5 @@ groupby(vector_t &value,
                                  std::to_string(n) + " = n   "
             );
     }
+
 }
