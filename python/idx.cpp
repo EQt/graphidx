@@ -132,6 +132,20 @@ reg_idx(py::module &m)
              )pbdoc",
              py::arg("d") = py::array_i32()
             )
+        .def("reset",
+             [](ChildrenIndex &self, const py::array_i32 &parent, int32_t root)
+                -> ChildrenIndex&
+             {
+                 const size_t n = check_1d_len(parent);
+                 self.reset(n, parent.data(), root);
+                 return self;
+             },
+             R"pbdoc(
+                Reset this children index to a new tree given by `parent`.
+             )pbdoc",
+             py::arg("parent"),
+             py::arg("root") = -1
+            )
         ;
 
     py::class_<PartitionIndex_int> (m, "PartitionIndex", PyAdjacencyIndex_int,
@@ -194,6 +208,52 @@ reg_idx(py::module &m)
           py::arg("neighidx"),
           py::arg("eps") = 1e-5,
           py::arg("seed") = 42)
+        ;
+
+    m.def("groupby",
+          [](const py::array_i32 &parent,
+             int32_t root,
+             py::array_i32 &idx,
+             py::array_i32 &value,
+             const bool verbose) -> py::tuple
+          {
+              TimerQuiet tq (verbose);
+              Timer _ ("groupby\n");
+              const size_t n = check_1d_len(parent);
+              {
+                  Timer _ ("allocation");
+                  if (is_empty(idx))
+                      idx = py::array_t<int32_t>({n+1}, {sizeof(int32_t)});
+                  check_len(n+1, idx, "idx");
+                  
+                  if (is_empty(value))
+                      value = py::array_t<int32_t>({n}, {sizeof(int32_t)});
+                  check_len(n, value, "value");
+              }
+              int32_t *idx_data = idx.mutable_data();
+              {   Timer _ ("assign = 0");
+                  for (size_t i = 0; i < n+1; i++)
+                      idx_data[i] = 0;
+              }
+
+              if (root < 0) {
+                  Timer _ ("find root");
+                  root = find_root(n, parent.data());
+              }
+              groupby<int32_t, Timer>(value.mutable_data(),
+                                      n,
+                                      idx_data,
+                                      n+1,
+                                      parent.data(),
+                                      root);
+              return py::make_tuple(idx, value);
+          },
+          py::arg("parent"),
+          py::arg("root") = int32_t(-1),
+          py::arg("idx") = py::array_i32(),
+          py::arg("value") = py::array_i32(),
+          py::arg("verbose") = false
+        )
         ;
 }
 
