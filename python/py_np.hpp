@@ -63,6 +63,16 @@ check_len(const ssize_t n,
 }
 
 
+inline void
+check_len(const size_t n,
+          const py::array &a,
+          const std::string &a_str = "?",
+          const ssize_t ndim = 1)
+{
+    check_len(ssize_t(n), a, a_str, ndim);
+}
+
+
 /**
    Be sure that an array is one-dimensional and return its length
  */
