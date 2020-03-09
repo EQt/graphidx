@@ -16,7 +16,9 @@ groupby(int_ *value,
         const int_ *parent,
         const int_ root)
 {
-
+    Timer::log(" n = %ld\n", n);
+    Timer::log(" k = %ld\n", k);
+    Timer::log(" int%d\n", 8*sizeof(int_));
     {   Timer _ ("count parents");
         for (size_t i = 0; i < n; i++)
             index[parent[i]]++;
