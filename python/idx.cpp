@@ -252,7 +252,7 @@ reg_idx(py::module &m)
                   value.mutable_data(),
                   n,
                   idx_data,
-                  n+1,
+                  n,
                   parent.data(),
                   root
               );
