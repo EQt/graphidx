@@ -132,15 +132,16 @@ compute_levels(const std::vector<int> &bfs,
     const auto n = bfs.size();
     std::vector<int> levels, depth(n, 0);
     levels.reserve(n);
-    int d = 0;
+    size_t d = 0;
     levels.push_back(0);   // 0th level: consists only of root = bfs[0]
-    for (unsigned i = 1; i < n; i++) {
-        const auto b = bfs[i];
-        const auto db = 1 + depth[parent[b]];
-        depth[b] = db;
+    for (size_t i = 1; i < n; i++) {
+        const size_t b = (size_t) bfs[i];
+        const size_t pb = (size_t) parent[b];
+        const size_t db = 1 + (size_t) depth[pb];
+        depth[b] = decltype(depth)::value_type(db);
         if (db > d) {
             d++;
-            levels.push_back(i);
+            levels.push_back(decltype(levels)::value_type(i));
         }
     }
     levels.push_back(int(n));
