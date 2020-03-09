@@ -165,4 +165,7 @@ struct FakeTimer {
     FakeTimer(const char *) { }
     FakeTimer(const char *, int) { }
     FakeTimer(const char *, int, const char *) { }
+
+    template<typename... Args>
+    static void log(const char *, Args...) { }
 };
