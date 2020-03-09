@@ -20,7 +20,8 @@ reg_idx(py::module &m)
     using AdjacencyIndex_int = AdjacencyIndex<int>;
     using PartitionIndex_int = PartitionIndex<int>;
 
-    py::class_<AdjacencyIndex_int> PyAdjacencyIndex_int (m, "AdjacencyIndex_int", py::module_local());
+    py::class_<AdjacencyIndex_int> PyAdjacencyIndex_int (m, "AdjacencyIndex_int",
+                                                         py::module_local());
     PyAdjacencyIndex_int
         .def("__getitem__",
              [](const AdjacencyIndex_int &b, const int i) -> IndexIter_int
@@ -57,10 +58,11 @@ reg_idx(py::module &m)
         .def_property_readonly("shape", [](const GridGraph &g){
                                             return py::make_tuple(g.n1, g.n2);
                                         })
-        .def("__repr__", [](const GridGraph &g){
-                             return std::string("GridGraph(") +
-                                 std::to_string(g.n1) + ", " + std::to_string(g.n2) + ")";
-                         })
+        .def("__repr__",
+             [](const GridGraph &g) {
+                 return std::string("GridGraph(") +
+                     std::to_string(g.n1) + ", " + std::to_string(g.n2) + ")";
+             })
         ;
 
     py::class_<BiAdjacent> (m, "BiAdjacent", PyAdjacencyIndex_int, py::module_local())
@@ -95,17 +97,17 @@ reg_idx(py::module &m)
              })
         ;
 
-    py::class_<ChildrenIndex> (m, "ChildrenIndex", PyAdjacencyIndex_int, py::module_local())
-        .def(py::init([](const py::array_i32 &parent,
-                         const int root_)
-                      {
-                          const auto n = check_1d_len(parent);
-                          const int root = root_ < 0 ? find_root(n, parent.data()) :
-                              root_;
-                          if (root < 0)
-                              throw std::runtime_error("root not found");
-                          return ChildrenIndex(n, parent.data(), root);
-                      }),
+    py::class_<ChildrenIndex> (m, "ChildrenIndex", PyAdjacencyIndex_int,
+                               py::module_local())
+        .def(py::init(
+                 [](const py::array_i32 &parent, const int root_) {
+                     const auto n = check_1d_len(parent);
+                     const int root = root_ < 0 ? find_root(n, parent.data()) :
+                         root_;
+                     if (root < 0)
+                         throw std::runtime_error("root not found");
+                     return ChildrenIndex(n, parent.data(), root);
+                 }),
              py::arg("parent"),
              py::arg("root") = -1)
         .def("__repr__",
@@ -132,12 +134,14 @@ reg_idx(py::module &m)
             )
         ;
 
-    py::class_<PartitionIndex_int> (m, "PartitionIndex", PyAdjacencyIndex_int, py::module_local())
-        .def(py::init([](const py::array_i32 &ungrouped) {
-                          const size_t n = check_1d_len(ungrouped);
-                          return PartitionIndex_int(n, ungrouped.data());
-                      }),
-            py::arg("ungrouped"))
+    py::class_<PartitionIndex_int> (m, "PartitionIndex", PyAdjacencyIndex_int,
+                                    py::module_local())
+        .def(py::init(
+                 [](const py::array_i32 &ungrouped) {
+                     const size_t n = check_1d_len(ungrouped);
+                     return PartitionIndex_int(n, ungrouped.data());
+                 }),
+             py::arg("ungrouped"))
         .def("__repr__",
              [](const PartitionIndex_int &self) -> std::string
              {
