@@ -73,7 +73,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
     BiAdjacentIndex(const std::vector<int> &head,
                     const std::vector<int> &tail,
                     const size_t n = 0)
-        : BiAdjacentIndex(int(head.size()), head.data(), tail.data(), n) {
+        : BiAdjacentIndex(head.size(), head.data(), tail.data(), n) {
         if (head.size() != tail.size()) {
             throw std::invalid_argument(std::string("len(head) = ") +
                                         std::to_string(head.size()) + " != " +
