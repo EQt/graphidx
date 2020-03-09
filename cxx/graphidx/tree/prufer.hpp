@@ -20,16 +20,16 @@ prufer2parent(const size_t n,
     std::vector<int_> degree (n, 1);
     for (size_t i = 0; i < n-2; i++) {
         const auto pi = prufer[i];
-        if (pi < 0 || pi >= n)
+        if (pi < 0 || pi >= int_(n))
             throw std::invalid_argument(std::string("prufer[") +
                                         std::to_string(i) + "] = " +
                                         std::to_string(pi) + "; n = " +
                                         std::to_string(n));
-        degree[pi]++;
+        degree[size_t(pi)]++;
     } // degree[v] is now the degree of node v
 
-    int_ index = 0, u = 0;
-    auto find_min = [&](int_ start) { // index = minimal k with degree[k] == 1
+    size_t index = 0, u = 0;
+    auto find_min = [&](size_t start) { // index = minimal k with degree[k] == 1
         index = start;
         while (index < n && degree[index] > 1) 
             index++;
@@ -42,9 +42,9 @@ prufer2parent(const size_t n,
     };
 
     find_min(0);
-    for (int_ i = 0; i < n-2; i++) {
-        const auto v = prufer[i];
-        parent[u] = v;
+    for (size_t i = 0; i < n-2; i++) {
+        const size_t v = size_t(prufer[i]);
+        parent[u] = decltype(parent[0])(v);
         degree[v]--;
         if (v < index && degree[v] == 1)
             u = v;
@@ -67,9 +67,9 @@ prufer2parent(const size_t n,
                                  std::to_string(index) + "; n = " +
                                  std::to_string(n));
 
-    parent[u] = index;
-    parent[index] = index;
-    return index;
+    parent[u] = (decltype(parent[0])) index;
+    parent[index] = (decltype(parent[0])) index;
+    return int_(index);
 }
 
 
