@@ -26,9 +26,11 @@ struct ChildrenIndex : public AdjacencyIndex<int>
     }
 
 
-    ChildrenIndex(const size_t n, const int *parent, const int root = -1) {
-        reset(n, parent, root);
-    }
+    ChildrenIndex(const size_t n,
+                  const int *parent,
+                  const int root = -1,
+                  const bool verbose = false)
+        {  reset(n, parent, root, verbose); }
 
 
     ChildrenIndex(const std::vector<int> &parent, const int root = -1) :
@@ -36,9 +38,19 @@ struct ChildrenIndex : public AdjacencyIndex<int>
 
 
     /** Update the index values to the tree given by `parent`. */
-    void reset(const size_t n, const int *parent, int root = -1) {
-        if (root < 0)
-            root = find_root(n, parent);
+    void reset(
+        const size_t n,
+        const int *parent,
+        int root = -1,
+        const bool verbose = false)
+    {
+        if (root < 0) {
+            if (verbose) {
+                Timer _ ("find root");
+                root = find_root(n, parent);
+            } else
+                root = find_root(n, parent);
+        }
 
         if (root < 0 || parent[root] != root)
             throw std::invalid_argument(std::string("\n" __FILE__) + ":" +
@@ -47,7 +59,10 @@ struct ChildrenIndex : public AdjacencyIndex<int>
                                         " != " + std::to_string(parent[root]) +
                                         " = parent[root];  n = " +
                                         std::to_string(n));
-        groupby(value, index, n, parent, root);
+        if (verbose)
+            groupby<Timer>(value, index, n, parent, root);
+        else
+            groupby<FakeTimer>(value, index, n, parent, root);
     }
 
 

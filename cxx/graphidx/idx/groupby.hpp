@@ -7,7 +7,7 @@
 #include "../utils/timer.hpp"
 
 
-template <typename int_ = int, typename Timer = FakeTimer>
+template <typename Timer = FakeTimer, typename int_ = int>
 inline void
 groupby(int_ *value,
         const size_t n,
@@ -69,9 +69,9 @@ groupby(int_ *value,
 
     [c]: https://en.wikipedia.org/wiki/Counting_sort
 */
-template <typename int_ = int,
-          typename vector_t = std::vector<int_>,
-          typename Timer = FakeTimer>
+template <typename Timer = FakeTimer,
+          typename int_ = int,
+          typename vector_t = std::vector<int_>>
 inline void
 groupby(vector_t &value,
         std::vector<int_> &index,
@@ -79,7 +79,7 @@ groupby(vector_t &value,
         const int_ *parent,
         const int_ root = -1)
 {
-    Timer _ ("\ngroupby\n");
+    Timer _ ("groupby\n");
     value.resize(n);
     size_t k = n;
     if (root < 0) {
@@ -91,5 +91,5 @@ groupby(vector_t &value,
         index.assign(k+1, 0);        // compute histogram, i.e. number of children
     }
 
-    groupby<int_, Timer>(value.data(), n, index.data(), k, parent, root);
+    groupby<Timer>(value.data(), n, index.data(), k, parent, root);
 }

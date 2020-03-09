@@ -100,16 +100,20 @@ reg_idx(py::module &m)
     py::class_<ChildrenIndex> (m, "ChildrenIndex", PyAdjacencyIndex_int,
                                py::module_local())
         .def(py::init(
-                 [](const py::array_i32 &parent, const int root_) {
-                     const auto n = check_1d_len(parent);
-                     const int root = root_ < 0 ? find_root(n, parent.data()) :
-                         root_;
-                     if (root < 0)
-                         throw std::runtime_error("root not found");
-                     return ChildrenIndex(n, parent.data(), root);
-                 }),
+             [](const py::array_i32 &parent,
+                const int root_,
+                const bool verbose)
+              {
+                  const auto n = check_1d_len(parent);
+                  const int root = root_ < 0 ? find_root(n, parent.data()) :
+                      root_;
+                  if (root < 0)
+                      throw std::runtime_error("root not found");
+                  return ChildrenIndex(n, parent.data(), root, verbose);
+              }),
              py::arg("parent"),
-             py::arg("root") = -1)
+             py::arg("root") = -1,
+             py::arg("verbose") = false)
         .def("__repr__",
              [](const ChildrenIndex &cidx) -> std::string
              {
@@ -133,18 +137,22 @@ reg_idx(py::module &m)
              py::arg("d") = py::array_i32()
             )
         .def("reset",
-             [](ChildrenIndex &self, const py::array_i32 &parent, int32_t root)
+             [](ChildrenIndex &self,
+                const py::array_i32 &parent,
+                int32_t root,
+                const bool verbose)
                 -> ChildrenIndex&
              {
                  const size_t n = check_1d_len(parent);
-                 self.reset(n, parent.data(), root);
+                 self.reset(n, parent.data(), root, verbose);
                  return self;
              },
              R"pbdoc(
                 Reset this children index to a new tree given by `parent`.
              )pbdoc",
              py::arg("parent"),
-             py::arg("root") = -1
+             py::arg("root") = -1,
+             py::arg("verbose") = false
             )
         ;
 
@@ -240,12 +248,14 @@ reg_idx(py::module &m)
                   Timer _ ("find root");
                   root = find_root(n, parent.data());
               }
-              groupby<int32_t, Timer>(value.mutable_data(),
-                                      n,
-                                      idx_data,
-                                      n+1,
-                                      parent.data(),
-                                      root);
+              groupby<Timer>(
+                  value.mutable_data(),
+                  n,
+                  idx_data,
+                  n+1,
+                  parent.data(),
+                  root
+              );
               return py::make_tuple(idx, value);
           },
           py::arg("parent"),
