@@ -68,7 +68,7 @@ parse_uints(std::istream &io, std::function<void(uint64_t, bool)> f)
                 }
                 first = false;
                 i *= 10;
-                i += c - '0';
+                i += decltype(i)(c - '0');
             } else {
                 throw std::runtime_error(
                     std::string("Unknown character: '") + c + "'");
