@@ -48,6 +48,17 @@ reg_idx(py::module &m)
              )pbdoc",
              py::arg("d") = py::array_i32()
             )
+        .def("__ptr__",
+             [](const AdjacencyIndex_int &self, const bool verbose) -> py::tuple
+             {
+                 if (verbose) {
+                     printf(" idx = %p\n", (void*) self.index.data());
+                     printf(" val = %p\n", (void*) self.value.data());
+                 }
+                 return py::make_tuple(size_t(self.index.data()),
+                                       size_t(self.value.data()));
+             },
+             py::arg("verbose") = false)
         ;
 
     py::class_<GridGraph> (m, "GridGraph", py::module_local())
