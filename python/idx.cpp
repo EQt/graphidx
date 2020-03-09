@@ -154,8 +154,12 @@ reg_idx(py::module &m)
                 const bool verbose)
                 -> ChildrenIndex&
              {
+                 TimerQuiet _ (verbose);
                  const size_t n = check_1d_len(parent);
-                 self.reset(n, parent.data(), root, verbose);
+                 {
+                     Timer _ ("ChildrenIndex::reset\n");
+                     self.reset(n, parent.data(), root, verbose);
+                 }
                  return self;
              },
              R"pbdoc(
