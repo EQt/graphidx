@@ -14,7 +14,7 @@ cluster(const size_t n,
         const double *x,
         const BiAdjacent &neighidx,
         const double eps,
-        const int seed)
+        const size_t seed)
 {
     stack<int_> s {n};
     std::vector<int_> parts (n, -1);
@@ -24,18 +24,18 @@ cluster(const size_t n,
     // compute the rank operation efficiently.
     std::vector<int_> randperm;
     randperm.resize(n);
-    for (int_ i = 0; i < int_(n); i++)
-        randperm[i] = i;
+    for (size_t i = 0; i < n; i++)
+        randperm[i] = (int_) i;
     std::shuffle(randperm.begin(), randperm.end(),
                  std::default_random_engine(seed));
 
-    int_ nextp = 0;
-    for (const int_ i : randperm) {
+    size_t nextp = 0;
+    for (const auto i : randperm) {
         if (parts[i] < 0) {         // unexplored?
             s.push_back(i);         // DFS starting at i
             while (!s.empty()) {
-                const auto v = s.pop_back();
-                parts[v] = nextp;
+                const size_t v = (size_t) s.pop_back();
+                parts[v] = (decltype(parts[0])) nextp;
                 for (const auto u : neighidx[v]) {
                     if (std::abs(x[v] - x[u]) <= eps && parts[u] < 0)
                         s.push_back(u);

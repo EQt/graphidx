@@ -21,7 +21,7 @@ struct IndexIter
 
     const int_* end() const { return stop; }
 
-    size_t size() const { return stop - start; }
+    size_t size() const { return size_t(stop - start); }
 
     operator std::set<int_>() const {
         return std::set<int_>(this->begin(), this->end());

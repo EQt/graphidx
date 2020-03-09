@@ -216,7 +216,7 @@ reg_idx(py::module &m)
           [](const py::array_f64 &x,
              const BiAdjacent &neighidx,
              const double eps,
-             const int seed) -> PartitionIndex_int {
+             const size_t seed) -> PartitionIndex_int {
               return cluster<int, BiAdjacent>(
                   size_t(x.size()),
                   x.data(),
