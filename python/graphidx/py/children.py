@@ -1,6 +1,7 @@
 import numpy as np
 from ._numba import njit
 
+
 class PyChildrenIndex:
     """Similar to the C++ code"""
     def __init__(self, idx, pi):
