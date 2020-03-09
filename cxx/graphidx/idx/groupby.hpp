@@ -4,15 +4,7 @@
 #include <algorithm>        // std::max_element
 #include <string>
 
-#if !defined(ENABLE_TIMER) || !ENABLE_TIMER
-    struct Timer_ {
-        Timer_(const char*) { }
-    };
-#  define Timer Timer_
-#else
 #  include "../utils/timer.hpp"
-#endif
-
 
 /** Group the elements in `parent`, stored in `value`, group index `index`.
 
@@ -23,7 +15,9 @@
 
     [c]: https://en.wikipedia.org/wiki/Counting_sort
 */
-template <typename int_ = int, typename vector_t = std::vector<int_>>
+template <typename int_ = int,
+          typename vector_t = std::vector<int_>,
+          typename Timer = FakeTimer>
 inline void 
 groupby(vector_t &value,
         std::vector<int_> &index,
@@ -83,8 +77,3 @@ groupby(vector_t &value,
     }
 
 }
-
-
-#if !defined(ENABLE_TIMER) || !ENABLE_TIMER
-#  undef Timer
-#endif
