@@ -73,5 +73,5 @@ check_1d_len(const py::array &a, const std::string &a_str = "?")
         throw std::length_error(a_str +
                                 " is supposed to be 1-dimensional array");
     }
-    return a.shape(0);
+    return size_t(a.shape(0));
 }
