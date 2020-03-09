@@ -82,7 +82,7 @@ reg_idx(py::module &m)
                       {
                           const auto m = check_1d_len(head);
                           check_len(m, tail, "tail");
-                          return new BiAdjacent(int(m), head.data(), tail.data());
+                          return new BiAdjacent(m, head.data(), tail.data());
                       }),
              py::arg("head"),
              py::arg("tail"))

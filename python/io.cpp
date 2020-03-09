@@ -23,7 +23,8 @@ reg_io(py::module &m)
 
     mo.attr("__have_bzip2__") = bool(HAVE_BZIP2);
     mo.def("parse_dimacs10",
-          [](const char *fname, const bool is_bz2, const int buf_size) -> BiAdjacentIndex<int>
+          [](const char *fname, const bool is_bz2, const size_t buf_size)
+             -> BiAdjacentIndex<int>
           {
               if (is_bz2) {
 #if HAVE_BZIP2
@@ -50,7 +51,7 @@ reg_io(py::module &m)
         );
 
     mo.def("parse_dimacs10_edges",
-          [](const char *fname, const bool is_bz2, const int buf_size) -> py::tuple
+          [](const char *fname, const bool is_bz2, const size_t buf_size) -> py::tuple
           {
               std::vector<int> head, tail;
               if (is_bz2) {

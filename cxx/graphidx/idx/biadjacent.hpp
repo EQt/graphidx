@@ -32,7 +32,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
         auto &index = this->index;
 
         if (n <= 0) {                   // number of nodes
-            n = *std::max_element(head, head + m);
+            n = size_t(*std::max_element(head, head + m));
             n = std::max(n, size_t(*std::max_element(tail, tail + m)));
             n++;
         }

@@ -17,7 +17,7 @@ reg_order(py::module &m)
     m.def("prufer2parent",
           [](const py::array_i32 &prufer, py::array_i32 parent) -> py::tuple
           {
-              const int32_t n = int(check_1d_len(prufer, "prufer") + 2);
+              const size_t n = check_1d_len(prufer, "prufer") + 2;
               if (is_empty(parent))
                   parent = py::array_t<int32_t>({n}, {sizeof(int32_t)});
               else
