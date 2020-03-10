@@ -13,7 +13,7 @@ inline std::string
 bitstring(T x)
 {
     static_assert(std::is_integral<T>::value, "Integral required.");
-    const unsigned long val = (unsigned long) x;
+    const unsigned long long val = (unsigned long long) x;
     return std::bitset<8*sizeof(T)>(val).to_string();
 }
 
