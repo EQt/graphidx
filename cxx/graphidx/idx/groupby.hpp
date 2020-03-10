@@ -2,6 +2,7 @@
 #include <algorithm>        // std::max_element
 #include <stdexcept>
 #include <string>
+#include <typeinfo>
 #include <type_traits>
 #include <vector>
 
@@ -18,7 +19,8 @@ groupby(int_ *value,
         const sint_ root = sint_(-1))
 {
     static_assert(std::is_signed<sint_>::value, "root node must be signed");
-    Timer::log(" int%d\n", 8*sizeof(int_));
+    Timer::log(" int%d: %s (%s)\n",
+               8*sizeof(int_), typeid(int_).name(), typeid(sint_).name());
     Timer::log(" n = %ld\n", n);
     Timer::log(" k = %ld\n", k);
     Timer::log(" root = %ld\n", root);
