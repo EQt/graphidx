@@ -66,7 +66,7 @@ void
 UnionFind<int_>::reset()
 {
     const auto n = size();
-    for (size_t i = 0; i < n; i++) {
+    for (uint_ i = 0; i < n; i++) {
         p[i] = i;
         rank[i] = 0;
     }
@@ -105,7 +105,7 @@ UnionFind<int_>::mps()
     const auto n = this->size();
     std::vector<int_> reps;
     reps.resize(n);
-    for (size_t v = 0; v < n; v++)
+    for (uint_ v = 0; v < n; v++)
         reps[v] = (int_) find(v).i;
     return reps;
 }

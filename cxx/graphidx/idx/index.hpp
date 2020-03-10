@@ -74,6 +74,10 @@ struct AdjacencyIndex
         return {start, stop};
     }
 
+    inline IndexIter<int_> operator[](unsigned i) const {
+        return (*this)[size_t(i)];
+    }
+
     inline IndexIter<int_> operator[](int i) const {
         if (i < 0)
             return {nullptr, nullptr};
