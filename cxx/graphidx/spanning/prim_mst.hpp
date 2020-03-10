@@ -7,9 +7,9 @@
 
 void
 random_spanning_tree(const BiAdjacent &index,
-                     const int seed,
+                     const size_t seed,
                      int *parent,
-                     const int magic = 3)
+                     const size_t magic = 3)
 {
     const auto n = index.num_nodes();
     std::mt19937_64 rng (seed);
@@ -50,7 +50,7 @@ random_spanning_tree(const BiAdjacent &index,
 
 std::vector<int>
 random_spanning_tree(const BiAdjacent &index,
-                     const int seed = 2018)
+                     const size_t seed = 2018)
 {
     std::vector<int> parent (index.num_nodes());
     random_spanning_tree(index, seed, parent.data());

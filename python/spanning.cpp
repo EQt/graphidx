@@ -10,7 +10,7 @@ reg_spanning(py::module &m)
 {
     m.def("random_spanning_tree",
           [](const BiAdjacent &index,
-             const int seed,
+             const size_t seed,
              py::array_i32 &parent) -> py::array_i32
           {
               const size_t n = index.num_nodes();
