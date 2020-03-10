@@ -43,29 +43,7 @@ struct ChildrenIdx : public AdjacencyIndex<int_>
         const size_t n,
         const int_ *parent,
         int_ root = -1,
-        const bool verbose = false)
-    {
-        if (root < 0) {
-            if (verbose) {
-                Timer _ ("find root");
-                root = find_root(n, parent);
-            } else
-                root = find_root(n, parent);
-        }
-
-        if (root < 0 || parent[root] != root)
-            throw std::invalid_argument(std::string("\n" __FILE__) + ":" +
-                                        std::to_string(__LINE__) +
-                                        ":\n  root = " + std::to_string(root) +
-                                        " != " + std::to_string(parent[root]) +
-                                        " = parent[root];  n = " +
-                                        std::to_string(n));
-        if (verbose)
-            groupby<Timer>(this->value, this->index, n, parent, root);
-        else
-            groupby<FakeTimer>(this->value, this->index, n, parent, root);
-    }
-
+        const bool verbose = false);
 
     /** @return the index of the root node */
     int_ root_node() const { return this->value[0]; }
@@ -77,6 +55,36 @@ struct ChildrenIdx : public AdjacencyIndex<int_>
         deg[root_node()] -= 1;
     }
 };
+
+
+template <typename int_>
+void
+ChildrenIdx<int_>::reset(
+    const size_t n,
+    const int_ *parent,
+    int_ root,
+    const bool verbose)
+{
+    if (root < 0) {
+        if (verbose) {
+            Timer _ ("find root");
+            root = find_root(n, parent);
+        } else
+            root = find_root(n, parent);
+    }
+
+    if (root < 0 || parent[root] != root)
+        throw std::invalid_argument(std::string("\n" __FILE__) + ":" +
+                                    std::to_string(__LINE__) +
+                                    ":\n  root = " + std::to_string(root) +
+                                    " != " + std::to_string(parent[root]) +
+                                    " = parent[root];  n = " +
+                                    std::to_string(n));
+    if (verbose)
+        groupby<Timer>(this->value, this->index, n, parent, root);
+    else
+        groupby<FakeTimer>(this->value, this->index, n, parent, root);
+}
 
 
 using ChildrenIndex = ChildrenIdx<int>;
