@@ -10,7 +10,7 @@
 
 
 template <typename Timer = FakeTimer, typename int_ = int, typename sint_ = int>
-inline void
+void
 groupby(int_ *value,
         const size_t n,
         int_ *index,
@@ -21,6 +21,11 @@ groupby(int_ *value,
     static_assert(std::is_signed<sint_>::value, "root node must be signed");
     Timer::log(" int%d: %s (%s)\n",
                8*sizeof(int_), typeid(int_).name(), typeid(sint_).name());
+#ifdef __GNUC__
+    Timer::log(" &_return_addr = %p\n", __builtin_return_address(0));
+#endif
+    void (*gb)(int*, const size_t, int*, const size_t, const int*, const int) = groupby;
+    Timer::log(" &groupby = %p\n", gb);
     Timer::log(" n = %ld\n", n);
     Timer::log(" k = %ld\n", k);
     Timer::log(" root = %ld\n", root);
