@@ -7,7 +7,7 @@ std::vector<I>
 binary_inorder(const size_t height)
 {
     std::vector<I> out;
-    size_t n = (1 << height) -1;
+    size_t n = size_t((1 << height) -1);
     if (n <= 0)
         return std::vector<I>();
     out.resize(n);
@@ -17,10 +17,8 @@ binary_inorder(const size_t height)
             t = s >> 1,
             a = n >> 1,
             b = n - 1;
-        for (size_t i = 1, j = a; j <= b; i++, j++) {
-            // printf("out[%d] = %d\n", i*s - t - 1, j);
+        for (size_t i = 1, j = a; j <= b; i++, j++)
             out[i*s - t - 1] = I(j);
-        }
     }
 
     return out;
