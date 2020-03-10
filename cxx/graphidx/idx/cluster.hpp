@@ -14,7 +14,7 @@ cluster(const size_t n,
         const double *x,
         const BiAdjacent &neighidx,
         const double eps,
-        const size_t seed)
+        const unsigned seed)
 {
     stack<int_> s {n};
     std::vector<int_> parts (n, -1);

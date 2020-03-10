@@ -106,7 +106,7 @@ prufer2edges(const size_t n,
     prufer2parent(n, prufer, tail);
     for (size_t i = 0, j = 0; i < n; i++) {
         if (tail[i] != int_(i)) { // skip root node
-            head[j] = j;
+            head[j] = int_(j);
             tail[j] = tail[i];
             j++;
         }
