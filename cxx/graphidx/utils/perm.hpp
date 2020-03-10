@@ -88,9 +88,9 @@ argsort(const std::vector<int> &a)
     const auto n = a.size();
     std::vector<int> order (n);
     for (unsigned i = 0; i < n; i++)
-        order[i] = i;
+        order[i] = (int) i;
     std::sort(order.begin(), order.end(),
-              [&](int i, int j) {
+              [&](size_t i, size_t j) {
                   return a[i] < a[j] || (a[i] == a[j] && i < j);
               });
     return order;
@@ -105,9 +105,9 @@ is_perm(const Iter &begin, const Iter &end)
     std::vector<bool> b (n, false);
     for (auto i = begin; i != end; i++) {
         const auto j = *i;
-        if (j < 0 || j >= decltype(j)(n) || b[j])
+        if (j < 0 || j >= decltype(j)(n) || b[(size_t) j])
             return false;
-        b[j] = true;
+        b[(size_t) j] = true;
     }
     return true;
 }
