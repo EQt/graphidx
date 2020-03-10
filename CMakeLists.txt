@@ -18,12 +18,7 @@ option(ASAN        "Use Address SANitizer"             OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    add_definitions(-pedantic -ansi -Wall -Wextra)
-    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-        add_definitions(-Wno-sign-conversion)
-    else()
-        add_definitions(-Wsign-conversion)
-    endif()
+    add_definitions(-pedantic -ansi -Wall -Wextra -Wsign-conversion)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
     if (ASAN)
