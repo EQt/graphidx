@@ -59,7 +59,7 @@ TEST_CASE("DeQue: initializer list")
 {
     DeQue<int> q {1, 2, 3, 4, 5};
     std::vector<int> p {1, 2, 3, 4, 5};
-    auto i = 0;
+    size_t i = 0;
     for (const auto qi : q) {
         INFO(i);
         REQUIRE(qi == p[i++]);
