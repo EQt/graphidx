@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cstdint>
+#include <type_traits>
 #include <vector>
+
 #include "../idx/partition.hpp"
 
 /**
@@ -12,18 +14,19 @@
 template <typename int_ = uint32_t>
 class UnionFind
 {
-    std::vector<int_> p;
-    std::vector<int_> rank;
+    using uint_ = typename std::make_unsigned<int_>::type;
+    std::vector<uint_> p;
+    std::vector<uint_> rank;
 
 public:
     /** Represantant of a partition */
     struct Rep
     {
-        int_ i;
+        uint_ i;
 
         bool operator!=(const Rep &other) const { return i != other.i; }
         bool operator==(const Rep &other) const { return i == other.i; }
-        bool operator==(const int_ &other) const { return i == other; }
+        bool operator==(const int_ &other) const { return i >= 0 && uint_(i) == other; }
     };
 
     /** Initialize as n singleton sets. */
@@ -61,8 +64,8 @@ template <typename int_>
 void
 UnionFind<int_>::reset()
 {
-    const auto n = int_(size());
-    for (int_ i = 0; i < n; i++) {
+    const auto n = size();
+    for (size_t i = 0; i < n; i++) {
         p[i] = i;
         rank[i] = 0;
     }
@@ -99,7 +102,7 @@ std::vector<int_>
 UnionFind<int_>::mps()
 {
     const auto n = this->size();
-    std::vector<int> reps;
+    std::vector<int_> reps;
     reps.resize(n);
     for (size_t v = 0; v < n; v++)
         reps[v] = find(v).i;
@@ -111,6 +114,6 @@ template <typename int_>
 PartitionIndex<int_>
 UnionFind<int_>::partitions()
 {
-    auto parts = PartitionIndex<int_> (this->mps());
+    auto parts = PartitionIndex<int_> {this->mps()};
     return std::move(parts.unique());
 }

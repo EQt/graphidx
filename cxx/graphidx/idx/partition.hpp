@@ -22,8 +22,7 @@ public:
         groupby(this->value,
                 this->index,
                 n,
-                ungrouped,
-                int_(-1));
+                ungrouped);
     }
 
     /** Remove empty partitions */

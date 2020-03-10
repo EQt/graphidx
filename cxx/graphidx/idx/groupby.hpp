@@ -1,21 +1,23 @@
 #pragma once
-#include <vector>
-#include <stdexcept>
 #include <algorithm>        // std::max_element
+#include <stdexcept>
 #include <string>
+#include <type_traits>
+#include <vector>
 
 #include "../utils/timer.hpp"
 
 
-template <typename Timer = FakeTimer, typename int_ = int>
+template <typename Timer = FakeTimer, typename int_ = int, typename sint_ = int>
 inline void
 groupby(int_ *value,
         const size_t n,
         int_ *index,
         const size_t k,
         const int_ *parent,
-        const int_ root)
+        const sint_ root = sint_(-1))
 {
+    static_assert(std::is_signed<sint_>::value, "root node must be signed");
     Timer::log(" n = %ld\n", n);
     Timer::log(" k = %ld\n", k);
     Timer::log(" int%d\n", 8*sizeof(int_));
@@ -26,7 +28,7 @@ groupby(int_ *value,
 
     if (root >= 0) {
         index[root]--;              // root isn't child of itself
-        value[0] = root;
+        value[0] = int_(root);
     }
 
     {   Timer _ ("prefix sums");    // accumulate prefix sums
@@ -43,10 +45,10 @@ groupby(int_ *value,
     }
 
     {   Timer _ ("values");          // sort the values
-        for (int_ v = 0; v < int_(n); v++) {
+        for (size_t v = 0; v < n; v++) {
             const auto p = parent[v];
-            if (v == root) continue;      // skip root
-            value[index[p+1]++] = v;
+            if (root >= 0 && v == size_t(root)) continue;      // skip root
+            value[index[p+1]++] = int_(v);
         }
     }
 
@@ -73,14 +75,16 @@ groupby(int_ *value,
 */
 template <typename Timer = FakeTimer,
           typename int_ = int,
-          typename vector_t = std::vector<int_>>
+          typename vector_t = std::vector<int_>,
+          typename sint_ = int>
 inline void
 groupby(vector_t &value,
         std::vector<int_> &index,
         const size_t n,
         const int_ *parent,
-        const int_ root = -1)
+        const sint_ root = sint_(-1))
 {
+    static_assert(std::is_signed<sint_>::value, "root node must be signed");
     Timer _ ("groupby\n");
     value.resize(n);
     size_t k = n;
