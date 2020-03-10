@@ -13,35 +13,36 @@
    By convention, the root node is stored at `ChildrenIndex::value[0]`;
    it can be accessed via `ChildrenIndex::root_node()`.
 */
-struct ChildrenIndex : public AdjacencyIndex<int>
+template <typename int_ = int>
+struct ChildrenIdx : public AdjacencyIndex<int_>
 {
-    ChildrenIndex() {}
+    ChildrenIdx() {}
 
     /** Allocate enough space for a tree with `n` nodes.
      * Before it is usable you need to call `ChildrenIndex::reset`!
      */
-    ChildrenIndex(const size_t n) {
-        index.reserve(n+1);
-        value.reserve(n);
+    ChildrenIdx(const size_t n) {
+        this->index.reserve(n+1);
+        this->value.reserve(n);
     }
 
 
-    ChildrenIndex(const size_t n,
-                  const int *parent,
-                  const int root = -1,
+    ChildrenIdx(const size_t n,
+                  const int_ *parent,
+                  const int_ root = -1,
                   const bool verbose = false)
         {  reset(n, parent, root, verbose); }
 
 
-    ChildrenIndex(const std::vector<int> &parent, const int root = -1) :
-        ChildrenIndex(parent.size(), parent.data(), root) {}
+    ChildrenIdx(const std::vector<int_> &parent, const int_ root = -1) :
+        ChildrenIdx(parent.size(), parent.data(), root) {}
 
 
     /** Update the index values to the tree given by `parent`. */
     void reset(
         const size_t n,
-        const int *parent,
-        int root = -1,
+        const int_ *parent,
+        int_ root = -1,
         const bool verbose = false)
     {
         if (root < 0) {
@@ -60,19 +61,22 @@ struct ChildrenIndex : public AdjacencyIndex<int>
                                         " = parent[root];  n = " +
                                         std::to_string(n));
         if (verbose)
-            groupby<Timer>(value, index, n, parent, root);
+            groupby<Timer>(this->value, this->index, n, parent, root);
         else
-            groupby<FakeTimer>(value, index, n, parent, root);
+            groupby<FakeTimer>(this->value, this->index, n, parent, root);
     }
 
 
     /** @return the index of the root node */
-    int root_node() const { return this->value[0]; }
+    int_ root_node() const { return this->value[0]; }
 
-    void degrees(int *deg) const {
-        AdjacencyIndex<int>::degrees(deg);
-        for (size_t i = 0; i < size(); i++)
+    void degrees(int_ *deg) const {
+        AdjacencyIndex<int_>::degrees(deg);
+        for (size_t i = 0; i < this->size(); i++)
             deg[i] += 1;
         deg[root_node()] -= 1;
     }
 };
+
+
+using ChildrenIndex = ChildrenIdx<int>;
