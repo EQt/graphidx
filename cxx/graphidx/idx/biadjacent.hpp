@@ -39,8 +39,8 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
         value.resize(2*m);
         index.assign(n+1, 0);
         for (size_t i = 0; i < m; i++) {   // compute degree
-            index[head[i]+1]++;
-            index[tail[i]+1]++;
+            index[size_t(head[i]+1)]++;
+            index[size_t(tail[i]+1)]++;
         }
         {                               // shift, accumulate
             int acc = 0,
@@ -53,11 +53,11 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
             index[n] = acc;
         }
         for (size_t i = 0; i < m; i++) {
-            const auto
+            const int_
                 u = head[i],
                 v = tail[i];
-            value[index[u+1]++] = v;
-            value[index[v+1]++] = u;
+            value[size_t(index[size_t(u+1)]++)] = v;
+            value[size_t(index[size_t(v+1)]++)] = u;
         }
         if (index[n] != int_(2*m)) {
             std::cerr << index << std::endl;

@@ -44,7 +44,7 @@ prufer2parent(const size_t n,
     find_min(0);
     for (size_t i = 0; i < n-2; i++) {
         const size_t v = size_t(prufer[i]);
-        parent[u] = decltype(parent[0])(v);
+        parent[u] = (int_) v;
         degree[v]--;
         if (v < index && degree[v] == 1)
             u = v;
@@ -67,8 +67,8 @@ prufer2parent(const size_t n,
                                  std::to_string(index) + "; n = " +
                                  std::to_string(n));
 
-    parent[u] = (decltype(parent[0])) index;
-    parent[index] = (decltype(parent[0])) index;
+    parent[u] = (int_) index;
+    parent[index] = (int_) index;
     return int_(index);
 }
 

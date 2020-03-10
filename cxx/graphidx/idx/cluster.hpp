@@ -31,14 +31,15 @@ cluster(const size_t n,
 
     size_t nextp = 0;
     for (const auto i : randperm) {
-        if (parts[i] < 0) {         // unexplored?
+        if (parts[(size_t) i] < 0) {         // unexplored?
             s.push_back(i);         // DFS starting at i
             while (!s.empty()) {
                 const size_t v = (size_t) s.pop_back();
-                parts[v] = (decltype(parts[0])) nextp;
-                for (const auto u : neighidx[v]) {
+                parts[v] = (int_) nextp;
+                for (const auto ui : neighidx[v]) {
+                    const size_t u = (size_t) ui;
                     if (std::abs(x[v] - x[u]) <= eps && parts[u] < 0)
-                        s.push_back(u);
+                        s.push_back(ui);
                 }
             }                       // connected component is finished
             nextp++;
