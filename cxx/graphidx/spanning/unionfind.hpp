@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <vector>
 #include "../idx/partition.hpp"
 
@@ -8,7 +9,7 @@
  * See Cormen, Leiserson, Rivest und Stein: "Introduction to Algorithms",
  * Section 21.3, in particular pseudocode on page 571.
  */
-template <typename int_ = int>
+template <typename int_ = uint32_t>
 class UnionFind
 {
     std::vector<int_> p;
@@ -29,7 +30,7 @@ public:
     UnionFind(const size_t n);
 
     /** Find representant for x. */
-    UnionFind<int_>::Rep find(int_ x);
+    UnionFind<int_>::Rep find(size_t x);
 
     /** Unit the sets with representants fx und fy. */
     void unite(UnionFind<int_>::Rep fx, UnionFind<int_>::Rep fy);
@@ -84,7 +85,7 @@ UnionFind<int_>::unite(UnionFind<int_>::Rep fx, UnionFind<int_>::Rep fy)
 
 template <typename int_>
 typename UnionFind<int_>::Rep
-UnionFind<int_>::find(int_ x)
+UnionFind<int_>::find(size_t x)
 {
     if (p[x] != x)
         p[x] = find(p[x]).i;
@@ -99,7 +100,7 @@ UnionFind<int_>::mps()
     const auto n = this->size();
     std::vector<int> reps;
     reps.resize(n);
-    for (int_ v = 0; v < int_(n); v++)
+    for (size_t v = 0; v < n; v++)
         reps[v] = find(v).i;
     return reps;
 }
