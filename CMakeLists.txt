@@ -127,12 +127,24 @@ if (BUILD_PYEXT)
     else()
         set(_P "graphidx_")
     endif()
+    set(LD_PRELOAD "")
+    if (ASAN)
+        execute_process(
+            COMMAND ${CMAKE_CXX_COMPILER} -print-file-name=libasan${CMAKE_SHARED_LIBRARY_SUFFIX}
+            OUTPUT_VARIABLE LD_PRELOAD
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+        )
+        set(LD_PRELOAD "LD_PRELOAD=${LD_PRELOAD}")
+        message("-- ${LD_PRELOAD}")
+    endif()
     set(PYDIR ${CMAKE_CURRENT_SOURCE_DIR}/python)
     add_custom_target(${_P}pysetup DEPENDS _graphidx
         COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE:_graphidx> ${PYDIR}/graphidx)
     add_custom_target(${_P}pytest DEPENDS pysetup
-        COMMAND py.test ${PYDIR}/test VERBATIM)
+        COMMAND ${LD_PRELOAD} py.test ${PYDIR}/test
+        VERBATIM
+    )
     export(TARGETS _graphidx NAMESPACE graphidx:: FILE graphidxConfig.cmake)
 endif()
 
