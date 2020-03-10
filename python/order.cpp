@@ -53,11 +53,18 @@ reg_order(py::module &m)
               TimerQuiet _ (verbose);
               const size_t n = check_1d_len(parent, "parent");
               const int root = root_ < 0 ? find_root(n, parent.data()) : root_;
-              int *postord_buf = post_order(n,
-                                            parent.data(),
-                                            root);
-              return py::array_t<int32_t>({include_root ? n : n-1},
-                                          {sizeof(int32_t)}, postord_buf);
+              py::array_t<int32_t> arr ({n}, {sizeof(int32_t)});
+              post_order(
+                  n,
+                  parent.data(),
+                  root,
+                  arr.mutable_data()
+              );
+              if (!include_root) {
+                  const bool refcheck = false;
+                  arr.resize({n-1}, refcheck);
+              }
+              return arr;
           },
           R"pbdoc(
               Compute a post order (DFS finish time) starting at root
