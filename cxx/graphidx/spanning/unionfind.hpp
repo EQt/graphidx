@@ -30,7 +30,7 @@ public:
     UnionFind(const size_t n);
 
     /** Find representant for x. */
-    UnionFind<int_>::Rep find(size_t x);
+    UnionFind<int_>::Rep find(int_ x);
 
     /** Unit the sets with representants fx und fy. */
     void unite(UnionFind<int_>::Rep fx, UnionFind<int_>::Rep fy);
@@ -85,11 +85,12 @@ UnionFind<int_>::unite(UnionFind<int_>::Rep fx, UnionFind<int_>::Rep fy)
 
 template <typename int_>
 typename UnionFind<int_>::Rep
-UnionFind<int_>::find(size_t x)
+UnionFind<int_>::find(int_ x)
 {
-    if (p[x] != x)
-        p[x] = find(p[x]).i;
-    return Rep {p[x]};
+    auto &px = p[(size_t) x];
+    if (px != x)
+        px = find(px).i;
+    return Rep {px};
 }
 
 
