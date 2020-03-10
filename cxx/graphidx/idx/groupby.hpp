@@ -18,9 +18,13 @@ groupby(int_ *value,
         const sint_ root = sint_(-1))
 {
     static_assert(std::is_signed<sint_>::value, "root node must be signed");
+    Timer::log(" int%d\n", 8*sizeof(int_));
     Timer::log(" n = %ld\n", n);
     Timer::log(" k = %ld\n", k);
-    Timer::log(" int%d\n", 8*sizeof(int_));
+    Timer::log(" root = %ld\n", root);
+    Timer::log(" index  = %p\n", index);
+    Timer::log(" value  = %p\n", value);
+    Timer::log(" parent = %p\n", parent);
     {   Timer _ ("count parents");
         for (size_t i = 0; i < n; i++)
             index[parent[i]]++;
