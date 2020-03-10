@@ -65,7 +65,7 @@ std::vector<bool>
 random_spanning_tree(const size_t n,
                      const std::vector<int> &source,
                      const std::vector<int> &target,
-                     const int seed = 2018)
+                     const size_t seed = 2018)
 {
     const size_t m = source.size();
     if (m != target.size())
