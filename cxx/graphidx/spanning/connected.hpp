@@ -11,8 +11,9 @@ united(const AdjacencyIndex<int_> &neigh)
 {
     const size_t n = neigh.size();
     UnionFind<int_> uf (n);
-    for (int v = 0; v < int(n); v++)
-        for (const int u : neigh[v]) {
+    for (size_t v = 0; v < n; v++)
+        for (const auto ui : neigh[v]) {
+            const auto u = (typename decltype(uf)::uint_) ui;
             const auto fv = uf.find(v);
             const auto fu = uf.find(u);
             if (fv != fu)

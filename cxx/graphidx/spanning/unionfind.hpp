@@ -14,11 +14,8 @@
 template <typename int_ = uint32_t>
 class UnionFind
 {
-    using uint_ = typename std::make_unsigned<int_>::type;
-    std::vector<uint_> p;
-    std::vector<uint_> rank;
-
 public:
+    using uint_ = typename std::make_unsigned<int_>::type;
     /** Represantant of a partition */
     struct Rep
     {
@@ -33,7 +30,7 @@ public:
     UnionFind(const size_t n);
 
     /** Find representant for x. */
-    UnionFind<int_>::Rep find(int_ x);
+    UnionFind<int_>::Rep find(uint_ x);
 
     /** Unit the sets with representants fx und fy. */
     void unite(UnionFind<int_>::Rep fx, UnionFind<int_>::Rep fy);
@@ -49,6 +46,10 @@ public:
 
     /** Partitions */
     PartitionIndex<int_> partitions();
+
+private:
+    std::vector<uint_> p;
+    std::vector<uint_> rank;
 };
 
 
@@ -88,7 +89,7 @@ UnionFind<int_>::unite(UnionFind<int_>::Rep fx, UnionFind<int_>::Rep fy)
 
 template <typename int_>
 typename UnionFind<int_>::Rep
-UnionFind<int_>::find(int_ x)
+UnionFind<int_>::find(uint_ x)
 {
     auto &px = p[(size_t) x];
     if (px != x)
@@ -105,7 +106,7 @@ UnionFind<int_>::mps()
     std::vector<int_> reps;
     reps.resize(n);
     for (size_t v = 0; v < n; v++)
-        reps[v] = find(v).i;
+        reps[v] = (int_) find(v).i;
     return reps;
 }
 
