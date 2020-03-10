@@ -48,23 +48,27 @@ reg_order(py::module &m)
           [](const py::array_i32 &parent,
              const int root_,
              const bool include_root,
-             const bool verbose) -> py::array_i32
+             const bool verbose,
+             py::array_i32 &out) -> py::array_i32
           {
               TimerQuiet _ (verbose);
               const size_t n = check_1d_len(parent, "parent");
               const int root = root_ < 0 ? find_root(n, parent.data()) : root_;
-              py::array_t<int32_t> arr ({n}, {sizeof(int32_t)});
+              if (is_empty(out)) {
+                  out = py::array_t<int32_t>({n}, {sizeof(int32_t)});
+              }
+              check_len(n, out, "out");
               post_order(
                   n,
                   parent.data(),
                   root,
-                  arr.mutable_data()
+                  out.mutable_data()
               );
               if (!include_root) {
                   const bool refcheck = false;
-                  arr.resize({n-1}, refcheck);
+                  out.resize({n-1}, refcheck);
               }
-              return arr;
+              return out;
           },
           R"pbdoc(
               Compute a post order (DFS finish time) starting at root
@@ -73,5 +77,6 @@ reg_order(py::module &m)
           py::arg("parent"),
           py::arg("root") = -1,
           py::arg("include_root") = false,
-          py::arg("verbose") = false);
+          py::arg("verbose") = false,
+          py::arg("out") = py::array_i32());
 }
