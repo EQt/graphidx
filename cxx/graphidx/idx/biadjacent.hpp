@@ -100,15 +100,16 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
         {
             int_ i = 0;
             for (const auto v : sub)
-                inv[v] = i++;
+                inv[(size_t) v] = i++;
         }
         head.reserve(num_edges());
         tail.reserve(num_edges());
         auto &self = *this;
-        for (int_ v = 0; v < int_(num_nodes()); v++) {
+        for (size_t v = 0; v < num_nodes(); v++) {
             if (inv[v] < 0)
                 continue;
-            for (int_ u : self[v]) {
+            for (const int_ ui : self[v]) {
+                const size_t u = (size_t) ui;
                 if (v > u)
                     continue;
                 if (inv[u] >= 0) {
@@ -117,7 +118,7 @@ struct BiAdjacentIndex : public AdjacencyIndex<int_>
                 }
             }
         }
-        return reset(head.size(), head.data(), tail.data(), int_(sub.size()));
+        return reset(head.size(), head.data(), tail.data(), sub.size());
     }
 };
 
