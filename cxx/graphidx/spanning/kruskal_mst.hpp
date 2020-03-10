@@ -1,8 +1,9 @@
 #pragma once
 
-#include <vector>
+#include <cstdint>
 #include <algorithm>        // for std::random_shuffle, std::sort
 #include <random>
+#include <vector>
 
 #include "unionfind.hpp"
 
@@ -15,11 +16,12 @@ _spanning_tree(const size_t n,
                const std::vector<int> &edges)
 {
     std::vector<bool> included(m, false);
-    UnionFind<int> uf (n);
-    for (const auto e : edges) {
-        const int
-            u = source[e],
-            v = target[e];
+    UnionFind<uint32_t> uf (n);
+    for (const auto ei : edges) {
+        const size_t e = (size_t) ei;
+        const size_t
+            u = (size_t) source[e],
+            v = (size_t) target[e];
         const auto
             fu = uf.find(u),
             fv = uf.find(v);
@@ -53,9 +55,9 @@ minimum_spanning_tree(const size_t n,
         throw __FILE__ "source.size() != weight.size()";
     std::vector<int> edges;
     edges.resize(m);
-    for (int i = 0; i < int(m); i++)
+    for (size_t i = 0; i < m; i++)
         edges[i] = i;
-    std::sort(edges.begin(), edges.end(), [&](int i, int j)
+    std::sort(edges.begin(), edges.end(), [&](size_t i, size_t j)
               { return weight[i] < weight[j]; });
     return _spanning_tree(n, m, source, target, edges);
 }
@@ -73,7 +75,7 @@ random_spanning_tree(const size_t n,
 
     std::vector<int> edges;
     edges.resize(m);
-    for (int i = 0; i < int(m); i++)
+    for (size_t i = 0; i < m; i++)
         edges[i] = i;
 
     std::mt19937_64 generator (seed);
