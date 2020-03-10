@@ -98,14 +98,14 @@ prufer2parent(const size_t n,
 */
 template<typename int_ = int>
 inline void
-prufer2edges(const int n,
+prufer2edges(const size_t n,
              const int_ *prufer,
              int_ *head,
              int_ *tail)
 {
     prufer2parent(n, prufer, tail);
-    for (int i = 0, j = 0; i < n; i++) {
-        if (tail[i] != i) { // skip root node
+    for (size_t i = 0, j = 0; i < n; i++) {
+        if (tail[i] != int_(i)) { // skip root node
             head[j] = j;
             tail[j] = tail[i];
             j++;
