@@ -1,6 +1,7 @@
 import numpy as np
 from graphidx.idx import BiAdjacent
 
+
 def square():
     head = np.array([0, 0, 1, 2])
     tail = np.array([1, 2, 3, 3])
