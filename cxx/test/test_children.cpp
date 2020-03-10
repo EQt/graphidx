@@ -54,7 +54,7 @@ TEST_CASE("children: generate5")
     // │ 6 │ ──▶ │ 7 │
     // └───┘     └───┘
     const std::vector<int> parent = {0, 0, 1, 2, 3, 0, 7, 8, 3, 8};
-    const int n = 10;
+    const size_t n = 10;
     CHECK(n == parent.size());
 
     std::vector<std::set<int>> cidx_expect (n);
@@ -74,7 +74,7 @@ TEST_CASE("children: generate5")
             printf("c = %d\n", c);
         }
     }
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         std::set<int> children(cidx[i]);
         INFO("i = " << i);
         CHECK(children == cidx_expect[i]);
