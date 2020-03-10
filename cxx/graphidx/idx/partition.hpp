@@ -46,7 +46,7 @@ public:
         size_t max_i = 0;
         size_t max_size = 0;
         for (size_t i = 0; i < this->size(); i++) {
-            const size_t i_size = index[i+1] - index[i];
+            const size_t i_size = size_t(index[i+1] - index[i]);
             if (i_size > max_size) {
                 max_i = i;
                 max_size = i_size;
