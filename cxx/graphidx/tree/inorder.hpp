@@ -7,7 +7,7 @@ std::vector<I>
 binary_inorder(const size_t height)
 {
     std::vector<I> out;
-    size_t n = size_t((1 << height) -1);
+    size_t n = (size_t(1) << height) -1;
     if (n <= 0)
         return std::vector<I>();
     out.resize(n);

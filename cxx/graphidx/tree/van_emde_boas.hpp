@@ -22,13 +22,13 @@
 template<typename T>
 void binveb_from_inord(T *a_out,
                        const T *a_in,
-                       const int height,
-                       const int step = 1)
+                       const size_t height,
+                       const size_t step = 1)
 {
-    const int bottom_height = height == 2 ? 1 : int(hyperfloor(height-1));
-    const int top_height    = height - bottom_height;
-    const int bottom_size   = (1 << bottom_height) -1;
-    const int top_size      = (1 << top_height) -1;
+    const size_t bottom_height = height == 2 ? 1 : hyperfloor(height-1);
+    const size_t top_height    = height - bottom_height;
+    const size_t bottom_size   = (size_t(1) << bottom_height) -1;
+    const size_t top_size      = (size_t(1) << top_height) -1;
 
     if (top_height == 1 && bottom_height == 1) {
         a_out[1] = a_in[0];
@@ -44,7 +44,7 @@ void binveb_from_inord(T *a_out,
                           top_height,
                           bottom_size*step + step);
     }
-    for (int i = 0; i <= top_size; i++) {
+    for (size_t i = 0; i <= top_size; i++) {
         binveb_from_inord(a_out + top_size + i*bottom_size,
                           a_in + step * (i + i*bottom_size),
                           bottom_height,
