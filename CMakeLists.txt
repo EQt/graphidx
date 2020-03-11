@@ -43,6 +43,14 @@ if (BZIP2_FOUND)
 endif()
 
 
+find_package(ZLIB)
+if (ZLIB_FOUND)
+    add_library(gzio INTERFACE)
+    target_include_directories(gzio INTERFACE ${ZLIB_INCLUDE_DIR})
+    target_link_libraries(gzio INTERFACE ${ZLIB_LIBRARIES} graphidx)
+endif()
+
+
 if (BUILD_TEST)
     message("-- Enable unit tests")
     if (NOT EXISTS "${DOCTEST_DIR}/CMakeLists.txt")
@@ -87,11 +95,15 @@ if (BUILD_TEST)
         cxx/test/test_viostream.cpp
         cxx/test/test_weights.cpp
         cxx/test/test_bz2.cpp
+        cxx/test/test_gz.cpp
     )
     target_link_libraries(doctests PRIVATE doctest::doctest)
     target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
     if (TARGET bz2io)
         target_link_libraries(doctests PRIVATE bz2io)
+    endif()
+    if (TARGET gzio)
+        target_link_libraries(doctests PRIVATE gzio)
     endif()
 endif()
 

@@ -94,7 +94,7 @@ read_file(const char *fname)
 }
 
 
-std::string
+inline std::string
 read_string(std::istream &file, const size_t size)
 {
     std::vector<char> buffer (size, '\0');
