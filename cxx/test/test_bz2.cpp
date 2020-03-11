@@ -22,8 +22,10 @@ const char msg_txt[] = "hello graphidx\n";
 TEST_CASE("bz2istream: small msg")
 {
     WriteFile f0 ("msg.bz2", (const char *) msg_bz2, sizeof(msg_bz2));
-    // WriteFile f1 ("msg.txt", (const char *) msg_txt, sizeof(msg_txt)-1);
     BZ2IStream io ("msg.bz2");
+    auto msg_bz2_vec = read_file<char>(io, sizeof(msg_txt) - 1);
+    msg_bz2_vec.push_back('\0');
+    CHECK(std::string(msg_bz2_vec.data()) == msg_txt);
 }
 
 

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
+#include <vector>
 
 
 class path
@@ -60,3 +61,34 @@ struct WriteFile : public FileCleaner
         write_file(fname, data, n);
     }
 };
+
+
+template <typename T = char>
+std::vector<T>
+read_file(std::istream &file, const size_t size)
+{
+    std::vector<T> buffer;
+    buffer.resize(size_t(size) / sizeof(T));
+    if (file.read(reinterpret_cast<char*>(buffer.data()), std::streamsize(size)))
+        return buffer;
+    throw std::runtime_error(std::string("error in read: only ") +
+                             std::to_string(file.gcount()) + " of " +
+                             std::to_string(size) + " read");
+}
+
+
+template <typename T = char>
+std::vector<T>
+read_file(const char *fname)
+{
+    std::ifstream file (fname, std::ifstream::binary | std::ifstream::ate);
+    if (file) {
+        const std::streamsize size = file.tellg();
+        if (size <= 0)
+            throw std::runtime_error(
+                std::string("read_file: size = ") + std::to_string(size));
+        file.seekg(0, std::ios::beg);
+        return read_file(file, size_t(size));
+    }
+    throw std::runtime_error("error while opening");
+}
