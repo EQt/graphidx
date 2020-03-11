@@ -86,9 +86,13 @@ if (BUILD_TEST)
         cxx/test/test_vecalloc.cpp
         cxx/test/test_viostream.cpp
         cxx/test/test_weights.cpp
+        cxx/test/test_bz2.cpp
     )
     target_link_libraries(doctests PRIVATE doctest::doctest)
     target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
+    if (TARGET bz2io)
+        target_link_libraries(doctests PRIVATE bz2io)
+    endif()
 endif()
 
 
@@ -131,6 +135,8 @@ if (BUILD_PYEXT)
     add_custom_target(${_P}pysetup DEPENDS _graphidx
         COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE:_graphidx> ${PYDIR}/graphidx)
+    add_custom_target(${_P}pytest DEPENDS pysetup
+        COMMAND py.test ${PYDIR}/test VERBATIM)
     if (NOT ASAN)
         add_custom_target(${_P}pytest DEPENDS pysetup
             COMMAND ${LD_PRELOAD} py.test ${PYDIR}/test
