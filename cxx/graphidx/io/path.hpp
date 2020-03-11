@@ -92,3 +92,15 @@ read_file(const char *fname)
     }
     throw std::runtime_error("error while opening");
 }
+
+
+std::string
+read_string(std::istream &file, const size_t size)
+{
+    std::vector<char> buffer (size, '\0');
+    if (file.read(reinterpret_cast<char*>(buffer.data()), std::streamsize(size-1)))
+        return {buffer.data()};
+    throw std::runtime_error(std::string("error in read: only ") +
+                             std::to_string(file.gcount()) + " of " +
+                             std::to_string(size-1) + " read");
+}    
