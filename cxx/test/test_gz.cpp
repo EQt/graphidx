@@ -4,6 +4,7 @@
 #include <fstream>
 #include "../graphidx/io/path.hpp"
 #include "../graphidx/io/gzistream.hpp"
+#include "../graphidx/io/magic.hpp"
 
 
 const unsigned char msg_gz[] = {
@@ -15,9 +16,16 @@ const unsigned char msg_gz[] = {
     0x00, 0x00, 0x00,
 };
 
-
-
 constexpr char msg_txt[] = "hello graphidx\n";
+
+
+TEST_CASE("magic: gz")
+{
+    const char *fname = "msg.gz";
+    WriteFile f0 (fname, (const char *) msg_gz, sizeof(msg_gz));
+    CHECK(!is_bzip2(fname));
+    CHECK(is_gzip(fname));
+}
 
 
 TEST_CASE("gzistream: small msg")
