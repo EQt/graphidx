@@ -26,7 +26,6 @@ const test_str = """% some comments
     @test tail == [2, 4, 4]
     @test idx == GraphIdx.BiAdjacentIndex([0, 2, 3, 4, 6] .+ 1,
                                           [1, 3, 0, 3, 0, 2] .+ 1)
-
 end
 
 end
