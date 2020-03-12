@@ -32,8 +32,7 @@ size_t
 parse_snap_edges(
     std::istream &io,
     std::vector<int_> &head,
-    std::vector<int_> &tail,
-    const bool both_directions = false)
+    std::vector<int_> &tail)
 {
     size_t n = 0, m = 0;
     parse_snap_header(io, n, m);
@@ -45,7 +44,6 @@ parse_snap_edges(
         throw std::runtime_error(
             std::string("number of edges not found: pos=") +
             std::to_string(io.tellg()));
-    std::cerr << "m=" << m << " n=" << n << std::endl;
     head.reserve(m);
     tail.reserve(m);
 
@@ -54,13 +52,9 @@ parse_snap_edges(
         io,
         [&](uint64_t u, bool last) {
             u--;
-            if (odd) {
+            if (odd)
                 tail.push_back(int_(u));
-                if (both_directions) {
-                    tail.push_back(head.back());
-                    head.push_back(int_(u));
-                }
-            } else
+            else
                 head.push_back(int_(u));
             if (odd != last)
                 throw std::runtime_error("more than two number in one line");
