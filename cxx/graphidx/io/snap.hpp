@@ -1,5 +1,6 @@
 #pragma once
 #include <regex>
+#include <stdexcept>
 #include <string>
 
 #include "parse.hpp"
@@ -36,6 +37,15 @@ parse_snap_edges(
 {
     size_t n = 0, m = 0;
     parse_snap_header(io, n, m);
+    if (m == 0)
+        throw std::runtime_error(
+            std::string("number of edges not found: pos=") +
+            std::to_string(io.tellg()));
+    if (n == 0)
+        throw std::runtime_error(
+            std::string("number of edges not found: pos=") +
+            std::to_string(io.tellg()));
+    std::cerr << "m=" << m << " n=" << n << std::endl;
     head.reserve(m);
     tail.reserve(m);
 
