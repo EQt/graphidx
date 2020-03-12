@@ -57,18 +57,8 @@ end
 Parse a Dimacs10 file into a bidirectional index.
 """
 function parse_dimacs10_idx(io::IO)::BiAdjacentIndex
-    n, m = parse_dimacs10_header(io)
-    pi = Vector{Int}()
-    idx = Vector{Int}()
-    sizehint!(pi, n+1)
-    sizehint!(idx, 2m)
-    parse_uints(io) do u::UInt, last::Bool
-        push!(idx, u)
-        if last
-            push!(pi, length(idx) + 1)
-        end
-    end
-    return BiAdjacentIndex(pi, idx)
+    n, m, head, tail = parse_dimacs10_edges(io, Int)
+    return BiAdjacentIndex(n, head, tail)
 end
 
 
@@ -77,18 +67,17 @@ end
 
 Return the graph as `n, m, head, tail`.
 """
-function parse_dimacs10_edges(io::IO)
+function parse_dimacs10_edges(io::IO, ::Type{T} = Int32) where {T<:Integer}
     n, m = parse_dimacs10_header(io)
-    head = Vector{Int32}()
-    tail = Vector{Int32}()
+    head = Vector{T}()
+    tail = Vector{T}()
     sizehint!(head, m)
     sizehint!(tail, m)
-    local i::Ref{Int32} = Ref{Int32}(0)
+    local i::Ref{T} = Ref{T}(1)
     parse_uints(io) do u::UInt, last::Bool
-        u -= 1
         if i[] < u
-            push!(head, Int32(i[]))
-            push!(tail, Int32(u))
+            push!(head, T(i[]))
+            push!(tail, T(u))
         end
         if last
             i[] += 1
