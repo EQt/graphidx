@@ -45,7 +45,7 @@ public:
                    static_cast<std::size_t>(n_putback));
         }
 
-        int num = gzread(gzfile, buf.data() + 4, buf.size() - 4);
+        int num = gzread(gzfile, buf.data() + 4, (unsigned int) buf.size() - 4);
         if (num <= 0)
             return EOF;
 
