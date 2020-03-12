@@ -37,7 +37,7 @@ public:
         if (!gzfile)
             return EOF;
 
-        // Josuttis' implementation of inbuf
+        // Josuttis' implementation of inbuf: http://www.josuttis.de/cppcode/
         auto n_putback = 0l;
         if (gptr() != nullptr) {
             n_putback = (std::min)(long(gptr() - eback()), 4l);
@@ -67,6 +67,20 @@ public:
 
     ~GZIStreamBuf() { close(); }
 
+    // https://stackoverflow.com/a/44712099
+    std::streampos seekoff(
+        std::streamoff off,
+        std::ios_base::seekdir way,
+        std::ios_base::openmode
+    ) override {
+        std::cerr << " seekpos ";
+        auto dir = (way == std::ios_base::cur) ? SEEK_CUR :
+            (way == std::ios_base::beg) ? SEEK_SET : SEEK_END;
+        gzseek(gzfile, off, dir);
+        const auto base = gztell(gzfile);
+        std::cerr << " base = " << base << " ";
+        return base + (this->gptr() - this->eback());
+    }
 private:
     gzFile gzfile = nullptr;
     std::vector<char> buf = {};
