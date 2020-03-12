@@ -74,6 +74,11 @@ public:
         std::ios_base::openmode
     ) override {
         std::cerr << " seekpos ";
+        if (this->gptr() - this->eback() < -off
+            || this->egptr() - this->gptr() < off
+            || way != std::ios_base::cur) {
+            return pos_type(off_type(-1));
+        }
         auto dir = (way == std::ios_base::cur) ? SEEK_CUR :
             (way == std::ios_base::beg) ? SEEK_SET : SEEK_END;
         gzseek(gzfile, off, dir);
