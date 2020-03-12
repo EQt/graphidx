@@ -79,7 +79,17 @@ public:
         gzseek(gzfile, off, dir);
         const auto base = gztell(gzfile);
         std::cerr << " base = " << base << " ";
-        return base + (this->gptr() - this->eback());
+        if (base == 0)
+            return 0;
+        return base + (this->gptr() - this->eback()) - buf.size() + 4;
+    }
+
+    std::streampos seekpos(
+        std::streampos sp,
+        std::ios_base::openmode which
+    ) override {
+        std::cerr << " seekpos ";
+        return seekoff(sp, std::ios_base::beg, which);
     }
 private:
     gzFile gzfile = nullptr;
