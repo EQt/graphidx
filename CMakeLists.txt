@@ -65,6 +65,7 @@ if (BUILD_TEST)
         cxx/test/test_perm.cpp
         cxx/test/test_parse.cpp
         cxx/test/test_dimacs10.cpp
+        cxx/test/test_snap.cpp
         cxx/test/test_biadjacent.cpp
         cxx/test/test_bitstring.cpp
         cxx/test/test_children.cpp
