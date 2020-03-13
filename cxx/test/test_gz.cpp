@@ -2,9 +2,10 @@
 #if __has_include(<zlib.h>)
 #include <doctest/doctest.h>
 #include <fstream>
-#include "../graphidx/io/path.hpp"
+#include "../graphidx/io/autoistream.hpp"
 #include "../graphidx/io/gzistream.hpp"
 #include "../graphidx/io/magic.hpp"
+#include "../graphidx/io/path.hpp"
 
 
 const unsigned char msg_gz[] = {
@@ -35,5 +36,12 @@ TEST_CASE("gzistream: small msg")
     CHECK(read_string(io, sizeof(msg_txt)) == msg_txt);
 }
 
+
+TEST_CASE("gzistream: auto istream")
+{
+    WriteFile f0 ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
+    AutoIStream io ("msg.gz");
+    CHECK(read_string(io, sizeof(msg_txt)) == msg_txt);
+}
 
 #endif

@@ -1,9 +1,10 @@
-
 #if __has_include(<bzlib.h>)
+
 #include <doctest/doctest.h>
 #include <fstream>
 #include "../graphidx/io/path.hpp"
 #include "../graphidx/io/bz2istream.hpp"
+#include "../graphidx/io/autoistream.hpp"
 #include "../graphidx/io/magic.hpp"
 
 
@@ -36,5 +37,12 @@ TEST_CASE("bz2istream: small msg")
     CHECK(read_string(io, sizeof(msg_txt)) == msg_txt);
 }
 
+
+TEST_CASE("bz2istream: auto istream")
+{
+    WriteFile f0 ("msg.bz2", (const char *) msg_bz2, sizeof(msg_bz2));
+    AutoIStream io ("msg.bz2");
+    CHECK(read_string(io, sizeof(msg_txt)) == msg_txt);
+}
 
 #endif
