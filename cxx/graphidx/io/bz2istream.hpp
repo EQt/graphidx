@@ -46,33 +46,33 @@ public:
     }
 
 protected:
+    /* Starting point: Josuttis' implementation
+       http://www.josuttis.com/cppcode/fdstream.hpp.html
+    */
     virtual std::streambuf::int_type underflow() override {
-        if ((gptr() != nullptr) && (gptr() < egptr()))
-            return *reinterpret_cast<unsigned char*>(gptr());
+        // is read position before end of buffer?
+        if (gptr() >= egptr()) {
+            if (!bzfile) return EOF;
 
-        if (!bzfile)
-            return EOF;
-
-        // Josuttis' implementation of inbuf
-        size_t n_putback = 0l;
-        if (gptr() != nullptr) {
-            n_putback = (std::min)(long(gptr() - eback()), 4l);
+            const size_t n_putback = (size_t) (std::min)(gptr() - eback(), 4l);
             memcpy(buf.data() + (4 - n_putback), gptr() - n_putback, n_putback);
+
+            int num;
+            {   // actual decompression
+                int bzerror;
+                num = BZ2_bzRead(&bzerror, bzfile,
+                                 buf.data() + 4,
+                                 int(buf.size() - 4));
+                if (!(bzerror == BZ_OK || (bzerror == BZ_STREAM_END && num > 0)))
+                    return EOF;
+            }
+
+            // reset buffer pointers
+            setg(buf.data() + (4 - n_putback),  // beginning of putback area
+                 buf.data() + 4,                // read position
+                 buf.data() + 4 + num);         // end of buffer
         }
-
-        int bzerror;
-        int num = BZ2_bzRead(&bzerror, bzfile, buf.data() + 4,
-                             int(buf.size() - 4));
-        if (!(bzerror == BZ_OK || (bzerror == BZ_STREAM_END && num > 0)))
-            return EOF;
-
-        // reset buffer pointers
-        setg(buf.data() + (4 - n_putback),  // beginning of putback area
-             buf.data() + 4,                // read position
-             buf.data() + 4 + num);         // end of buffer
-
-        // return next character
-        return *reinterpret_cast<unsigned char*>(gptr());
+        return traits_type::to_int_type(*gptr());  // return next character
     }
 
 private:
@@ -84,8 +84,8 @@ private:
 class BZ2IStream : public std::istream
 {
 public:
-    BZ2IStream(const char *fname, size_t bs = 8192) : std::istream(&buf_), buf_(bs)
-        { buf_.open(fname); }
+    BZ2IStream(const char *fname, size_t bs = 8192) :
+        std::istream(&buf_), buf_(bs)  { buf_.open(fname); }
 
 private:
     BZ2IStreamBuf buf_;

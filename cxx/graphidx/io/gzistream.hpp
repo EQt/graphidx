@@ -30,44 +30,40 @@ public:
         return *this;
     }
 
-    virtual std::streambuf::int_type underflow() override {
-        if ((gptr() != nullptr) && (gptr() < egptr()))
-            return *reinterpret_cast<unsigned char*>(gptr());
-
-        if (!gzfile)
-            return EOF;
-
-        // Josuttis' implementation of inbuf: http://www.josuttis.de/cppcode/
-        auto n_putback = 0l;
-        if (gptr() != nullptr) {
-            n_putback = (std::min)(long(gptr() - eback()), 4l);
-            memcpy(buf.data() + (4 - n_putback), gptr() - n_putback,
-                   static_cast<std::size_t>(n_putback));
-        }
-
-        int num = gzread(gzfile, buf.data() + 4, (unsigned int) buf.size() - 4);
-        if (num <= 0)
-            return EOF;
-
-        // reset buffer pointers
-        setg(buf.data() + (4 - n_putback),  // beginning of putback area
-             buf.data() + 4,                // read position
-             buf.data() + 4 + num);         // end of buffer
-
-        // return next character
-        return *reinterpret_cast<unsigned char*>(gptr());
-    }
-
     void close() {
         if (gzfile) {
             if (gzclose(gzfile) != Z_OK)
                 throw std::runtime_error("gzclose");
+            gzfile = nullptr;
         }
     }
 
-    ~GZIStreamBuf() { close(); }
+    ~GZIStreamBuf() {
+        close();
+    }
 
 protected:
+    virtual std::streambuf::int_type underflow() override {
+        // is read position before end of buffer?
+        if (gptr() >= egptr()) {
+            if (!gzfile) return EOF;
+
+            const size_t n_putback = (size_t) (std::min)(gptr() - eback(), 4l);
+            memcpy(buf.data() + (4 - n_putback), gptr() - n_putback, n_putback);
+
+            // actual decompression
+            int num = gzread(gzfile, buf.data() + 4, (unsigned) buf.size() - 4);
+            if (num <= 0)
+                return EOF;
+
+            // reset buffer pointers
+            setg(buf.data() + (4 - n_putback),  // beginning of putback area
+                 buf.data() + 4,                // read position
+                 buf.data() + 4 + num);         // end of buffer
+        }
+        return traits_type::to_int_type(*gptr());  // return next character
+    }
+
     /*
     // https://stackoverflow.com/a/44712099
     virtual std::streampos seekoff(
