@@ -48,7 +48,7 @@ protected:
         if (gptr() >= egptr()) {
             if (!gzfile) return EOF;
 
-            const size_t n_putback = (size_t) (std::min)(gptr() - eback(), 4l);
+            const size_t n_putback = (std::min)(size_t(gptr() - eback()), size_t(4));
             memcpy(buf.data() + (4 - n_putback), gptr() - n_putback, n_putback);
 
             // actual decompression
