@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+#include "uvector.hpp"
 
 
 /***
@@ -9,7 +9,7 @@ template <typename E>
 struct DeQue
 {
 private:
-    std::vector<E> _e;
+    uvector<E> _e;
     size_t _front = 1, _back = 0;
 
 public:
