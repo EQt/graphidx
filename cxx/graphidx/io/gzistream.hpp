@@ -68,12 +68,11 @@ public:
     ~GZIStreamBuf() { close(); }
 
     // https://stackoverflow.com/a/44712099
-    std::streampos seekoff(
+    virtual std::streampos seekoff(
         std::streamoff off,
         std::ios_base::seekdir way,
         std::ios_base::openmode
     ) override {
-        std::cerr << " seekpos ";
         if (this->gptr() - this->eback() < -off
             || this->egptr() - this->gptr() < off
             || way != std::ios_base::cur) {
@@ -89,11 +88,10 @@ public:
         return base + (this->gptr() - this->eback()) - buf.size() + 4;
     }
 
-    std::streampos seekpos(
+    virtual std::streampos seekpos(
         std::streampos sp,
         std::ios_base::openmode which
     ) override {
-        std::cerr << " seekpos ";
         return seekoff(sp, std::ios_base::beg, which);
     }
 private:
