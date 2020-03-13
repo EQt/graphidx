@@ -10,21 +10,23 @@
 inline std::istream&
 parse_snap_header(std::istream &io, size_t &n, size_t &m)
 {
-    auto re = std::regex("# Nodes: (\\d+) Edges: (\\d+)");
+    auto re = std::regex(" Nodes: (\\d+) Edges: (\\d+)");
     std::string line;
-    std::streampos pos;
-    do {
-        pos = io.tellg();
-        std::cerr << "pos = " << pos << std::endl;
+    while (true) {
+        const int ci = io.get();
+        if (ci == EOF)
+            break;
+        if ((char) ci != '#') {
+            io.unget();
+            break;
+        }
         std::getline(io, line);
         std::smatch cm;
         if (std::regex_match(line, cm, re)) {
             n = size_t(std::stoll(cm[1].str()));
             m = size_t(std::stoll(cm[2].str()));
         }
-    } while (line == "" || line[0] == '#');
-    io.seekg(pos);
-    std::cerr << "pos = " << pos << " io.get(): " << (char) io.get() << std::endl; io.unget();
+    }
     return io;
 }
 
