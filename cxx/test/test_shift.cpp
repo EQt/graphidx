@@ -1,4 +1,5 @@
 #include <doctest/doctest.h>
+#include <sstream>
 #include "../graphidx/bits/bitstring.hpp"
 
 
