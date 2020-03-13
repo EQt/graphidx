@@ -12,11 +12,11 @@
 
 
 inline std::streambuf*
-make_sbuf(const char *fname)
+make_sbuf(const char *fname, const size_t buf_size)
 {
     if (is_gzip(fname)) {
 #if __has_include(<zlib.h>)
-        return &(new GZIStreamBuf())->open(fname);
+        return &(new GZIStreamBuf(buf_size))->open(fname);
 #else
         throw std::invalid_argument("Not compiled with GZIP");
 #endif
@@ -24,7 +24,7 @@ make_sbuf(const char *fname)
     }
     if (is_bzip2(fname)) {
 #if __has_include(<bzlib.h>)
-        return &(new BZ2IStreamBuf())->open(fname);
+        return &(new BZ2IStreamBuf(buf_size))->open(fname);
 #else
         throw std::invalid_argument("Not compiled with BZIP2");
 #endif
@@ -38,7 +38,6 @@ class AutoIStream : public std::istream
     std::unique_ptr<std::streambuf> io;
 
 public:
-    AutoIStream(const char *fname) : std::istream(nullptr), io(make_sbuf(fname)) {
-        rdbuf(io.get());
-    }
+    AutoIStream(const char *fname, const size_t buf_size = 8192) :
+        std::istream(nullptr), io(make_sbuf(fname, buf_size)) { rdbuf(io.get()); }
 };
