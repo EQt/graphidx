@@ -23,7 +23,7 @@ constexpr char msg_txt[] = "hello graphidx\n";
 TEST_CASE("magic: gz")
 {
     const char *fname = "msg.gz";
-    WriteFile f0 (fname, (const char *) msg_gz, sizeof(msg_gz));
+    WriteFileClean _ (fname, (const char *) msg_gz, sizeof(msg_gz));
     CHECK(!is_bzip2(fname));
     CHECK(is_gzip(fname));
 }
@@ -31,7 +31,7 @@ TEST_CASE("magic: gz")
 
 TEST_CASE("gzistream: small msg")
 {
-    WriteFile f0 ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
+    WriteFileClean _ ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
     GZIStream io ("msg.gz");
     CHECK(read_string(io, sizeof(msg_txt)) == msg_txt);
 }
@@ -39,7 +39,7 @@ TEST_CASE("gzistream: small msg")
 
 TEST_CASE("gzistream: auto istream")
 {
-    WriteFile f0 ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
+    WriteFileClean _ ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
     AutoIStream io ("msg.gz");
     CHECK(read_string(io, sizeof(msg_txt)) == msg_txt);
 }

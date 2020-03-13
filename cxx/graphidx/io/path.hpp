@@ -54,9 +54,9 @@ write_file(const char *fname, const char *data, const std::streamsize n)
 }
 
 
-struct WriteFile : public FileCleaner
+struct WriteFileClean : public FileCleaner
 {
-    WriteFile(const char *fname, const char *data, const std::streamsize n) :
+    WriteFileClean(const char *fname, const char *data, const std::streamsize n) :
         FileCleaner {fname} {
         write_file(fname, data, n);
     }
