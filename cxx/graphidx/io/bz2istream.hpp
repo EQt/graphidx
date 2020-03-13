@@ -31,6 +31,21 @@ public:
         return *this;
     }
 
+    void close() {
+        if (bzfile) {
+            int errnum;
+            BZ2_bzclose(bzfile);
+            auto msg = BZ2_bzerror(bzfile, &errnum);
+            if (errnum != BZ_OK)
+                throw std::runtime_error(std::string("bzclose: ") + msg);
+        }
+    }
+
+    ~BZ2IStreamBuf() {
+        close();
+    }
+
+protected:
     virtual std::streambuf::int_type underflow() override {
         if ((gptr() != nullptr) && (gptr() < egptr()))
             return *reinterpret_cast<unsigned char*>(gptr());
@@ -39,11 +54,10 @@ public:
             return EOF;
 
         // Josuttis' implementation of inbuf
-        auto n_putback = 0l;
+        size_t n_putback = 0l;
         if (gptr() != nullptr) {
             n_putback = (std::min)(long(gptr() - eback()), 4l);
-            memcpy(buf.data() + (4 - n_putback), gptr() - n_putback,
-                   static_cast<std::size_t>(n_putback));
+            memcpy(buf.data() + (4 - n_putback), gptr() - n_putback, n_putback);
         }
 
         int bzerror;
@@ -60,18 +74,6 @@ public:
         // return next character
         return *reinterpret_cast<unsigned char*>(gptr());
     }
-
-    void close() {
-        if (bzfile) {
-            int errnum;
-            BZ2_bzclose(bzfile);
-            auto msg = BZ2_bzerror(bzfile, &errnum);
-            if (errnum != BZ_OK)
-                throw std::runtime_error(std::string("bzclose: ") + msg);
-        }
-    }
-
-    ~BZ2IStreamBuf() { close(); }
 
 private:
     BZFILE *bzfile = nullptr;
