@@ -13,14 +13,10 @@ sources = [
     "timer.cpp",
     "io.cpp",
 ]
-
-
 includes = [
     path.join(path.dirname(__file__), "..", "deps", "pybind11", "include"),
-    path.join(sc.get_config_var('INCLUDEPY'), "..", "Library", "include"),
+    path.join(sc.get_config_var("prefix"), "Library", "include"),
 ]
-
-
 packages = ['graphidx', 'graphidx.py']
 
 
@@ -40,10 +36,10 @@ class BuildExt(build_ext):
         elif ct == 'msvc':
             opts.append('/EHsc')
             opts.append('/std:c++17')
-            libbz2 = path.join(sc.get_config_var('INCLUDEPY'),
-                               "..", "Library", "lib", "libbz2.lib")
-            if path.exists(libbz2):
-                links.append(libbz2)
+            libs = path.join(sc.get_config_var("prefix"), "Library", "lib")
+            for l in ["libbz2.lib", "zlib.lib"]:
+                if path.exists(path.join(libs, l)):
+                    links.append(path.join(libs, l))
         else:
             print('Unknown compiler type:', ct)
         for ext in self.extensions:
