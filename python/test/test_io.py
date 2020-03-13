@@ -51,27 +51,21 @@ def wheel5_err(tmpdir):
 
 def test_not_existing():
     with pytest.raises(RuntimeError):
-        gio.parse_dimacs10("doesnotexist", is_bz2=False)
-
-
-@if_bz2
-def test_not_existing_bz2():
-    with pytest.raises(RuntimeError):
-        gio.parse_dimacs10("doesnotexist", is_bz2=True)
+        gio.parse_dimacs10("doesnotexist")
 
 
 def test_parse_err(wheel5_err):
     with pytest.raises(RuntimeError):
-        gio.parse_dimacs10(wheel5_err, is_bz2=False)
+        gio.parse_dimacs10(wheel5_err)
 
 
 def test_parse_err_edges(wheel5_err):
     with pytest.raises(RuntimeError):
-        gio.parse_dimacs10_edges(wheel5_err, is_bz2=False)
+        gio.parse_dimacs10_edges(wheel5_err)
 
 
 def test_wheel5_edges(wheel5):
-    head, tail = gio.parse_dimacs10_edges(wheel5, is_bz2=False)
+    head, tail = gio.parse_dimacs10_edges(wheel5)
     assert isinstance(head, np.ndarray) 
     assert isinstance(tail, np.ndarray)
     assert head.dtype == np.int32
@@ -82,7 +76,7 @@ def test_wheel5_edges(wheel5):
 
 @if_bz2
 def test_wheel5_edges_bzip2(wheel5_bz2):
-    head, tail = gio.parse_dimacs10_edges(wheel5_bz2, is_bz2=True)
+    head, tail = gio.parse_dimacs10_edges(wheel5_bz2)
     assert isinstance(head, np.ndarray) 
     assert isinstance(tail, np.ndarray)
     assert head.dtype == np.int32
@@ -92,13 +86,13 @@ def test_wheel5_edges_bzip2(wheel5_bz2):
 
 
 def test_wheel5(wheel5):
-    idx = gio.parse_dimacs10(wheel5, is_bz2=False)
+    idx = gio.parse_dimacs10(wheel5)
     assert idx.num_nodes() == 6
     assert idx.num_edges() == 10
 
 
 @if_bz2
 def test_wheel5_bz(wheel5_bz2):
-    idx = gio.parse_dimacs10(wheel5_bz2, is_bz2=True)
+    idx = gio.parse_dimacs10(wheel5_bz2)
     assert idx.num_nodes() == 6
     assert idx.num_edges() == 10

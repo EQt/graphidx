@@ -35,6 +35,7 @@ class BuildExt(build_ext):
             opts.append('-fvisibility=hidden')
             links.append('-fvisibility=hidden')
             links.append('-lbz2')
+            links.append('-lz')
             links.append('-flto')
         elif ct == 'msvc':
             opts.append('/EHsc')
