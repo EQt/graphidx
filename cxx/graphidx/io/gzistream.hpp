@@ -67,6 +67,8 @@ public:
 
     ~GZIStreamBuf() { close(); }
 
+protected:
+    /*
     // https://stackoverflow.com/a/44712099
     virtual std::streampos seekoff(
         std::streamoff off,
@@ -82,7 +84,7 @@ public:
             (way == std::ios_base::beg) ? SEEK_SET : SEEK_END;
         gzseek(gzfile, off, dir);
         const auto base = gztell(gzfile);
-        std::cerr << " base = " << base << " ";
+        // std::cerr << " base = " << base << " ";
         if (base == 0)
             return 0;
         return base + (this->gptr() - this->eback()) - buf.size() + 4;
@@ -94,6 +96,7 @@ public:
     ) override {
         return seekoff(sp, std::ios_base::beg, which);
     }
+    */
 private:
     gzFile gzfile = nullptr;
     std::vector<char> buf = {};
