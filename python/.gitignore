@@ -1,4 +1,5 @@
 graphidx/_graphidx*.so
+graphidx/_graphidx*.pyd
 build*/
 dist/
 __pycache__/
