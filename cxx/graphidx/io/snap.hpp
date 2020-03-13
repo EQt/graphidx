@@ -10,7 +10,7 @@
 inline std::istream&
 parse_snap_header(std::istream &io, size_t &n, size_t &m)
 {
-    auto re = std::regex(" Nodes: (\\d+) Edges: (\\d+)");
+    auto re = std::regex(" ?[Nn]odes: ?(\\d+) [Ee]dges: ?(\\d+)");
     std::string line;
     while (true) {
         const int ci = io.get();
