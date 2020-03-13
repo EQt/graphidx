@@ -5,9 +5,15 @@
 #include "magic.hpp"
 #if __has_include(<bzlib.h>)
 #  include "bz2istream.hpp"
+#  define HAVE_BZIP2 1
+#else
+#  define HAVE_BZIP2 0
 #endif
 #if __has_include(<zlib.h>)
 #  include "gzistream.hpp"
+#  define HAVE_GZIP 1
+#else
+#  define HAVE_GZIP 0
 #endif
 
 
