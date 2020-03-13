@@ -15,6 +15,12 @@ git-tree-sha1 = "5db086e510c11b4c87d05067627eadb2dc079995"
 uuid = "523fee87-0ab8-5b00-afb7-3ecf72e48cfd"
 version = "0.6.0"
 
+[[CodecZlib]]
+deps = ["TranscodingStreams", "Zlib_jll"]
+git-tree-sha1 = "ded953804d019afa9a3f98981d99b33e3db7b6da"
+uuid = "944b1d66-785c-5afd-91f1-9de20f533193"
+version = "0.7.0"
+
 [[Dates]]
 deps = ["Printf"]
 uuid = "ade2ca70-3891-5945-98fb-dc099432e06a"
@@ -31,12 +37,12 @@ version = "0.8.1"
 
 [[Documenter]]
 deps = ["Base64", "Dates", "DocStringExtensions", "InteractiveUtils", "JSON", "LibGit2", "Logging", "Markdown", "REPL", "Test", "Unicode"]
-git-tree-sha1 = "d497bcc45bb98a1fbe19445a774cfafeabc6c6df"
+git-tree-sha1 = "3bacd94d853a6bccaee1d0104d8b06d29a7506ac"
 uuid = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-version = "0.24.5"
+version = "0.24.6"
 
 [[GraphIdx]]
-deps = ["CodecBzip2", "LinearAlgebra", "Mmap", "Random", "SparseArrays", "Test"]
+deps = ["CodecBzip2", "CodecZlib", "LinearAlgebra", "Mmap", "Random", "SparseArrays", "Test"]
 path = "../julia"
 uuid = "6f20e514-06e4-11e9-04c5-39592f74a46d"
 version = "0.11.1"
@@ -73,9 +79,9 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[Parsers]]
 deps = ["Dates", "Test"]
-git-tree-sha1 = "d112c19ccca00924d5d3a38b11ae2b4b268dda39"
+git-tree-sha1 = "0c16b3179190d3046c073440d94172cfc3bb0553"
 uuid = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
-version = "0.3.11"
+version = "0.3.12"
 
 [[Pkg]]
 deps = ["Dates", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Test", "UUIDs"]
@@ -122,3 +128,9 @@ uuid = "cf7118a7-6976-5b1a-9a39-7adc72f591a4"
 
 [[Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
+
+[[Zlib_jll]]
+deps = ["Libdl", "Pkg"]
+git-tree-sha1 = "fd36a6739e256527287c5444960d0266712cd49e"
+uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
+version = "1.2.11+8"
