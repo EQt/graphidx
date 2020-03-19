@@ -41,9 +41,17 @@ public:
         }
     }
 
-    ~BZ2IStreamBuf() {
+    virtual ~BZ2IStreamBuf() {
         close();
     }
+
+    BZ2IStreamBuf& operator=(BZ2IStreamBuf const &) = delete;
+
+    BZ2IStreamBuf& operator=(BZ2IStreamBuf &&) = delete;
+
+    BZ2IStreamBuf(BZ2IStreamBuf &&) = delete;
+
+    BZ2IStreamBuf(BZ2IStreamBuf const&) = delete;
 
 protected:
     /* Starting point: Josuttis' implementation

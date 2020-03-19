@@ -38,9 +38,17 @@ public:
         }
     }
 
-    ~GZIStreamBuf() {
+    virtual ~GZIStreamBuf() {
         close();
     }
+
+    GZIStreamBuf& operator=(GZIStreamBuf const &) = delete;
+
+    GZIStreamBuf& operator=(GZIStreamBuf &&) = delete;
+
+    GZIStreamBuf(GZIStreamBuf &&) = delete;
+
+    GZIStreamBuf(GZIStreamBuf const&) = delete;
 
 protected:
     virtual std::streambuf::int_type underflow() override {
