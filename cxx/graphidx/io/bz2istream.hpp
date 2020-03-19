@@ -93,7 +93,7 @@ class BZ2IStream : public std::istream
 {
 public:
     BZ2IStream(const char *fname, size_t bs = 8192) :
-        std::istream(&buf_), buf_(bs)  { buf_.open(fname); }
+        std::istream(&buf_), buf_(bs + 4)  { buf_.open(fname); }
 
 private:
     BZ2IStreamBuf buf_;

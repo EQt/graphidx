@@ -110,8 +110,8 @@ private:
 class GZIStream : public std::istream
 {
 public:
-    GZIStream(const char *fname, size_t bs = 8192) : std::istream(&buf_), buf_(bs)
-        { buf_.open(fname); }
+    GZIStream(const char *fname, size_t bs = 8192) :
+        std::istream(&buf_), buf_(bs + 4) { buf_.open(fname); }
 
 private:
     GZIStreamBuf buf_;
