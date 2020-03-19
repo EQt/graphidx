@@ -72,7 +72,7 @@ protected:
         return traits_type::to_int_type(*gptr());  // return next character
     }
 
-    /*
+
     // https://stackoverflow.com/a/44712099
     virtual std::streampos seekoff(
         std::streamoff off,
@@ -88,10 +88,7 @@ protected:
             (way == std::ios_base::beg) ? SEEK_SET : SEEK_END;
         gzseek(gzfile, off, dir);
         const auto base = gztell(gzfile);
-        // std::cerr << " base = " << base << " ";
-        if (base == 0)
-            return 0;
-        return base + (this->gptr() - this->eback()) - buf.size() + 4;
+        return base + (this->gptr() - this->egptr());
     }
 
     virtual std::streampos seekpos(
@@ -100,7 +97,7 @@ protected:
     ) override {
         return seekoff(sp, std::ios_base::beg, which);
     }
-    */
+
 private:
     gzFile gzfile = nullptr;
     std::vector<char> buf = {};
