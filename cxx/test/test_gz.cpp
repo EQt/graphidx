@@ -39,17 +39,20 @@ TEST_CASE("gzistream: small msg")
 
 TEST_CASE("gzistream: small msg tellg")
 {
-    WriteFileClean _ ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
-    GZIStream io ("msg.gz", 4);
-    CHECK(io.tellg() == 0);
-    char prefix[5] = {0};
-    CHECK(io.read(prefix, 4).good());
-    CHECK(std::string(prefix) == std::string(msg_txt, msg_txt+4));
-    CHECK(io.tellg() == 4);
-    prefix[3] = 0;
-    CHECK(io.read(prefix, 3).good());
-    CHECK(std::string(prefix) == std::string(msg_txt+4, msg_txt+7));
-    CHECK(io.tellg() == 7);
+    for (size_t block_size : {1u, 2u, 3u, 7u, 10u}) {
+        CAPTURE(block_size);
+        WriteFileClean _ ("msg.gz", (const char *) msg_gz, sizeof(msg_gz));
+        GZIStream io ("msg.gz", block_size);
+        CHECK(io.tellg() == 0);
+        char prefix[5] = {0};
+        CHECK(io.read(prefix, 4).good());
+        CHECK(std::string(prefix) == std::string(msg_txt, msg_txt+4));
+        CHECK(io.tellg() == 4);
+        prefix[3] = 0;
+        CHECK(io.read(prefix, 3).good());
+        CHECK(std::string(prefix) == std::string(msg_txt+4, msg_txt+7));
+        CHECK(io.tellg() == 7);
+    }
 }
 
 
