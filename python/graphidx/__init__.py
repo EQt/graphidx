@@ -4,7 +4,7 @@ GraphIdx
 
 Graph algorithms using an efficient indexed based array representation.
 """
-from ._graphidx import (
+from ._graphidx import (  # noqa
     __compiler__,
     __author__,
     random_spanning_tree,

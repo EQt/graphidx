@@ -1,1 +1,7 @@
-from ._graphidx import BiAdjacent, ChildrenIndex, PartitionIndex, cluster, groupby
+from ._graphidx import (  # noqa
+    BiAdjacent,
+    ChildrenIndex,
+    PartitionIndex,
+    cluster,
+    groupby,
+)

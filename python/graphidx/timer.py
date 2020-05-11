@@ -5,7 +5,7 @@ import sys
 from time import perf_counter_ns as now
 from math import isnan, isinf
 
-from ._graphidx.timer import TimerQuiet
+from ._graphidx.timer import TimerQuiet  # noqa
 
 
 class Timer:

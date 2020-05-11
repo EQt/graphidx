@@ -2,6 +2,7 @@
 Determine the lowest common ancestor
 """
 
+
 def lca_networkx(G, root, pairs):
     """
     [`networkx.algorithms.lowest_common_ancestor`][nx]

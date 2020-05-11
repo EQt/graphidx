@@ -1,8 +1,6 @@
 import bz2
-from os import path
 
 from ._graphidx import io as gio
-from ._graphidx.io import __have_bzip2__
 
 
 def _decompress(fname: str, CHUNK_SIZE: int = 16384):

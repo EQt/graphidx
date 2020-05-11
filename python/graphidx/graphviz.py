@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """
 Load edges/{head,tail} and show the graph structure
-using the `dot` (https://www.graphviz.org/) program 
+using the `dot` (https://www.graphviz.org/) program
 """
 import os
 import sys
