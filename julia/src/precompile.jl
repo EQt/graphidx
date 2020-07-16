@@ -1,0 +1,16 @@
+function _precompile_()
+    ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
+    precompile(Tuple{typeof(GraphIdx.Grid.compute_dirs), Int64})
+    precompile(Tuple{Type{GraphIdx.Grid.GridGraph}, Int64, Int64, Int64})
+    precompile(Tuple{typeof(GraphIdx.Utils.setlocale), String})
+    precompile(Tuple{typeof(GraphIdx.Utils.fmt_thousands), Int64})
+    precompile(Tuple{Type{GraphIdx.PrimMstMem}, GraphIdx.IncidenceIndex})
+    precompile(Tuple{typeof(GraphIdx.prim_mst_edges), Array{Float64, 1}, Int64, GraphIdx.PrimMstMem})
+    precompile(Tuple{typeof(GraphIdx.Tree.reset!), GraphIdx.Tree.ChildrenIndex, Array{Int64, 1}, Int64})
+    precompile(Tuple{typeof(Base.sizehint!), GraphIdx.Utils.Heap.PriorityQueue{Int64, Float64, Base.Order.ForwardOrdering}, Int64})
+    precompile(Tuple{typeof(GraphIdx.Utils.Heap.percolate_down!), GraphIdx.Utils.Heap.PriorityQueue{Int64, Float64, Base.Order.ForwardOrdering}, Int64})
+    precompile(Tuple{typeof(GraphIdx.Utils.Heap.dequeue!), GraphIdx.Utils.Heap.PriorityQueue{Int64, Float64, Base.Order.ForwardOrdering}})
+    precompile(Tuple{typeof(GraphIdx.Utils.Heap.percolate_up!), GraphIdx.Utils.Heap.PriorityQueue{Int64, Float64, Base.Order.ForwardOrdering}, Int64})
+    precompile(Tuple{typeof(GraphIdx.Utils.Heap.enqueue!), GraphIdx.Utils.Heap.PriorityQueue{Int64, Float64, Base.Order.ForwardOrdering}, Base.Pair{Int64, Float64}})
+    precompile(Tuple{typeof(GraphIdx.prim_mst_edges), Array{Float64, 1}, Array{Bool, 1}, Array{Float64, 1}, Array{Int64, 1}, GraphIdx.IncidenceIndex, Array{Int64, 1}, GraphIdx.Utils.Heap.PriorityQueue{Int64, Float64, Base.Order.ForwardOrdering}, Int64})
+end
