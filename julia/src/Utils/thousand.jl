@@ -61,5 +61,10 @@ function fmt_thousands(d::Integer)
     i = ccall(:snprintf, Cint,
               (Ptr{UInt8}, Csize_t, Cstring, Cint), str, len+1, "%'d", d)
     @assert i == len "i=$i, len=$len"
+    for (i, c) in enumerate(str)
+        if c == UInt8(',')
+            str[i] = UInt8('_')
+        end
+    end
     return String(str[1:len])
 end
