@@ -1,10 +1,39 @@
+const LC_CTYPE = 0
+const LC_NUMERIC = 1
 const LC_ALL = 6
 
 
-function setlocale(l="")
+function setlocale(l="en_US", lc=LC_NUMERIC)
     path = ccall(:setlocale, Cstring, (Cint, Cstring), LC_ALL, l)
+    @assert path != C_NULL
     unsafe_string(path)
 end
+
+
+struct Lconv
+    decimal_point::Ptr{Cchar}
+    thousands_sep::Ptr{Cchar}
+    grouping::Ptr{Cchar}
+end
+
+
+function localeconv()
+    lc = ccall(:localeconv, Ptr{Lconv}, ())
+    unsafe_load(lc)
+end
+
+
+function Base.show(io::IO, l::Lconv)
+    indent = 2
+    println(io, "struct lconv {")
+    for fn in fieldnames(Lconv)
+        println(io, " "^indent, String(fn), " = ",  '"',
+                unsafe_string(getfield(l, fn)),
+                '"', ",")
+    end
+    println(io, "}")
+end
+
 
 
 function fmt_thousands(d::Integer)
@@ -14,7 +43,7 @@ function fmt_thousands(d::Integer)
     end
     str = Vector{UInt8}(undef, len+1)
     i = ccall(:snprintf, Cint,
-              (Ptr{UInt8}, Csize_t, Cstring, Cint), str, len+1, "%'d\n", d)
-    @assert i == len+1
+              (Ptr{UInt8}, Csize_t, Cstring, Cint), str, len+1, "%'d", d)
+    @assert i == len "i=$i, len=$len"
     return String(str[1:len])
 end
