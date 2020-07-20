@@ -133,7 +133,7 @@ function iter_edges_pixel(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
 end
 
 
-function enumerate_edges(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
+@inline function enumerate_edges(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
     pix2ind(i, j) = i + (j-1)*n1
 
     local no::Int = 0
@@ -155,7 +155,7 @@ function enumerate_edges(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
 end
 
 
-enumerate_edges(f::Function, g::GridGraph) =
+@inline enumerate_edges(f::Function, g::GridGraph) =
     enumerate_edges(f, g.n1, g.n2, g.dirs)
 
 """
