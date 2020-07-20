@@ -159,7 +159,7 @@ end
 end
 
 
-enumerate_edges(f::F, g::GridGraph) where {F<:Function} =
+@inline enumerate_edges(f::F, g::GridGraph) where {F<:Function} =
     enumerate_edges(f, g.n1, g.n2, g.dirs)
 
 """
