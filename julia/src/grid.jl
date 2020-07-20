@@ -116,7 +116,9 @@ num_nodes(g::GridGraph) = g.n1 * g.n2
 Call `proc(i1, j1, i2, j2, len)` for every grid edge
 `(i1, j1) -- (i2, j2)` having `len`gth.
 """
-function iter_edges_pixel(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
+@inline function iter_edges_pixel(
+    proc::F, n1::Int, n2::Int, dirs::Vector{Pixel}
+) where {F<:Function}
     for d::Pixel in dirs
         local len::Float64 = 1/norm(d)
         for i = 1:(n1-d.x)
@@ -133,7 +135,9 @@ function iter_edges_pixel(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
 end
 
 
-@inline function enumerate_edges(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
+@inline function enumerate_edges(
+    proc::F, n1::Int, n2::Int, dirs::Vector{Pixel}
+) where {F<:Function}
     pix2ind(i, j) = i + (j-1)*n1
 
     local no::Int = 0
@@ -155,7 +159,7 @@ end
 end
 
 
-@inline enumerate_edges(f::Function, g::GridGraph) =
+enumerate_edges(f::F, g::GridGraph) where {F<:Function} =
     enumerate_edges(f, g.n1, g.n2, g.dirs)
 
 """
@@ -183,7 +187,7 @@ julia> iter_edges_pixel(GridGraph(2, 3)) do i1, j1, i2, j2, len
 
 ```
 """
-iter_edges_pixel(f::Function, g::GridGraph) = 
+iter_edges_pixel(f::F, g::GridGraph) where {F<:Function} =
     iter_edges_pixel(f, g.n1, g.n2, g.dirs)
 
 
@@ -194,7 +198,7 @@ Call `proc(u::Int, v::Int, len::Float64)` for every grid
 edge `u -- v` having `len`gth.
 Hereby `u` and `v` are the index of the corresponding grid-nodes.
 """
-function iter_edges(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
+function iter_edges(proc::F, n1::Int, n2::Int, dirs::Vector{Pixel}) where {F<:Function}
     """Fortran index of the matrix entry `(i,j)`"""
     pix2ind(i, j) = i + (j-1)*n1
 
@@ -204,7 +208,7 @@ function iter_edges(proc::Function, n1::Int, n2::Int, dirs::Vector{Pixel})
 end
 
 
-iter_edges(f::Function, g::GridGraph) =
+iter_edges(f::F, g::GridGraph) where {F<:Function} =
     iter_edges(f, g.n1, g.n2, g.dirs)
 
 
@@ -425,7 +429,7 @@ Pixel(p::Complex{Int}) =
     Pixel(real(p), imag(p))
 
 
-num_edges(bt::BorderType) = 
+num_edges(bt::BorderType) =
     if bt == Middle
         4
     elseif bt == South || bt == North || bt == West || bt == East

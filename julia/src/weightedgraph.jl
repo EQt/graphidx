@@ -13,7 +13,7 @@ end
 @inline num_edges(g::WeightedGraph) =
     num_edges(g.idx)
 
-@inline function enumerate_edges(f::Function, g::WeightedGraph)
+@inline function enumerate_edges(f::F, g::WeightedGraph) where {F<:Function}
     for u in 1:num_nodes(g)
         for (v, ei) in g.idx[u]
             if u < v
@@ -24,7 +24,7 @@ end
 end
 
 
-@inline function enumerate_edges(f::Function, t::Tree.WeightedTree{W}) where {W}
+@inline function enumerate_edges(f::F, t::Tree.WeightedTree{W}) where {F<:Function, W}
     for (u, v) in enumerate(t.tree.parent)
         if u == t.tree.root
             continue

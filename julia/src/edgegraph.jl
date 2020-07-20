@@ -16,7 +16,7 @@ end
     length(g.edges)
 
 
-@inline function enumerate_edges(f::Function, g::EdgeGraph)
+@inline function enumerate_edges(f::F, g::EdgeGraph) where {F<:Function}
     for (i, (u, v)) in enumerate(g.edges)
         f(i, u, v)
     end

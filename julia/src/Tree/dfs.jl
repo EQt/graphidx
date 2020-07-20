@@ -42,7 +42,9 @@ finished   1
 ```
 
 """
-function dfs_walk(f::Function, tree::ChildrenIndex, stack::Vector{Int} = Int[])
+@inline function dfs_walk(
+    f::F, tree::ChildrenIndex, stack::Vector{Int} = Int[]
+) where {F<:Function}
     @assert isempty(stack)
     sizehint!(stack, length(tree))
     push!(stack, -root_node(tree))
@@ -60,7 +62,7 @@ function dfs_walk(f::Function, tree::ChildrenIndex, stack::Vector{Int} = Int[])
 end
 
 
-dfs_walk(f::Function, parent::Vector{Int}, stack::Vector{Int} = Int[]) =
+dfs_walk(f::F, parent::Vector{Int}, stack::Vector{Int} = Int[]) where {F<:Function} =
     dfs_walk(f, ChildrenIndex(parent), stack)
 
 
@@ -98,7 +100,9 @@ finished   1
 
 ```
 """
-function dfs_walk_rev(f::Function, tree::ChildrenIndex, stack::Vector{Int} = Int[])
+@inline function dfs_walk_rev(
+    f::F, tree::ChildrenIndex, stack::Vector{Int} = Int[]
+) where {F<:Function}
     @assert isempty(stack)
     sizehint!(stack, length(tree))
     push!(stack, -root_node(tree))
@@ -147,7 +151,7 @@ dfs_finish(parent::Vector{Int}, stack::Vector{Int} = Int[])::Vector{Int} =
     dfs_finish(ChildrenIndex(parent), stack)
 
 
-function dfs_finish(cidx::ChildrenIndex, stack::Vector{Int} = Int[])::Vector{Int}
+@inline function dfs_finish(cidx::ChildrenIndex, stack::Vector{Int} = Int[])::Vector{Int}
     local n = num_nodes(cidx)
     local dfs::Vector{Int} = zeros(Int, n)
     local time::Ref{Int} = Ref{Int}(0)
