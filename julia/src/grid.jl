@@ -96,11 +96,14 @@ struct GridGraph <: Graph
 
     """Neighbors (in positive direction) of an inner node"""
     dirs::Vector{Pixel}
+
+    """Include weights in `enumerate_edges`?"""
+    weighted::Bool
 end
 
 
-GridGraph(n1, n2, dn::Int = Int(1)) =
-    GridGraph(n1, n2, compute_dirs(dn))
+GridGraph(n1, n2, dn::Int = Int(1), weighted::Bool = false) =
+    GridGraph(n1, n2, compute_dirs(dn), weighted)
 
 
 num_edges(g::GridGraph) =
@@ -176,8 +179,9 @@ end
 
 
 @inline enumerate_edges(
-    f::F, g::GridGraph; weighted::Bool = true
-) where {F<:Function} = enumerate_edges(f, g.n1, g.n2, g.dirs, weighted=weighted)
+    f::F, g::GridGraph; weighted::Bool = false
+) where {F<:Function} =
+    enumerate_edges(f, g.n1, g.n2, g.dirs, weighted=g.weighted || weighted)
 
 """
     iter_edges_pixel(proc, g::GridGraph)
@@ -257,7 +261,7 @@ function incmat(n1::Int, n2::Int, dn::Int = 1)
     local J::Vector{Int} = Vector{Int}(undef, 2m)
     local W::Vector{Float64} = zeros(Float64, 2m)
 
-    enumerate_edges(n1, n2, dirs) do k::Int, u::Int, v::Int, l::Float64
+    enumerate_edges(n1, n2, dirs, weighted=true) do k::Int, u::Int, v::Int, l::Float64
         I[2k-1] = k
         J[2k-1] = u
         W[2k-1] = +l
@@ -275,10 +279,10 @@ function adjlist(n1::Int, n2::Int, dirs::Vector{Pixel})
     local tail::Vector{Int} = Vector{Int}(undef, m)
     local lam::Vector{Float64} =  Vector{Float64}(undef, m)
 
-    enumerate_edges(n1, n2, dirs) do k::Int, u::Int, v::Int, len::Float64
+    enumerate_edges(n1, n2, dirs, weighted=true) do k::Int, u::Int, v::Int, l::Float64
         head[k] = u
         tail[k] = v
-        lam[k] = len
+        lam[k] = l
     end
     head, tail, lam
 end
@@ -359,7 +363,7 @@ function neighboridx_lambda(g::Grid.GridGraph)
             "idx[$(length(idx))]: $(idx[end] + deg_i) != $(2m + 1)")
     local pi::Vector{Tuple{Int,Int}} = Vector{Tuple{Int,Int}}(undef, 2m)
     local lam::Vector{Float64} = Vector{Float64}(undef, m)
-    enumerate_edges(g) do i::Int, u::Int, v::Int, lam_i::Float64
+    enumerate_edges(g, weighted=true) do i::Int, u::Int, v::Int, lam_i::Float64
         lam[i] = lam_i
         pi[idx[u+1]] = (v, i)
         idx[u+1] += 1
@@ -503,7 +507,7 @@ function collect_edges(graph::GridGraph)
     local n = num_nodes(graph)
     edges = Vector{Tuple{Int,Int}}(undef, m)
     lam = Vector{Float64}(undef, m)
-    enumerate_edges(graph) do ei::Int, u::Int, v::Int, l::Float64
+    enumerate_edges(graph, weighted=true) do ei::Int, u::Int, v::Int, l::Float64
         edges[ei] = (u, v)
         lam[ei] = l
     end
