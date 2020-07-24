@@ -72,7 +72,8 @@ end
 
 @inline Base.getindex(v::Vec{F}, i::Integer) where {F} = v.a[i]
 @inline Base.setindex!(v::Vec{F}, c::W, i::Integer) where {F, W} = (v.a[i] = F(c))
-@inline Base.collect(w::Vec{F}, n::Integer) where {F} = (@assert n == length(w.a); a)
+@inline Base.collect(w::Vec{F}, n::Integer) where {F} =
+    (@assert n == length(w.a); w.a)
 
 Weights(::Type{F}) where {F<:Real} = Ones{F}()
 Weights(w::F) where {F<:Real} = Const(w)
