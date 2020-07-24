@@ -16,7 +16,7 @@ struct Pixel
     y::Int
 end
 
-Base.convert(::Type{Pixel}, p::Tuple{Int,Int}) = Pixel(p...)
+Base.convert(::Type{Pixel}, p::Tuple{Int,Int}) = Pixel(p[1], p[2])
 
 Base.convert(::Type{Tuple{Int,Int}}, p::Pixel) = (p.x, p.y)
 
