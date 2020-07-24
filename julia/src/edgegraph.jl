@@ -22,3 +22,15 @@ end
     end
 end
 
+
+function Base.collect(g::Graph)::EdgeGraph
+    m = num_edges(g)
+    n = num_nodes(g)
+    edges = Vector{Edge{Int}}(undef, m)
+    enumerate_edges(g) do i::Int, u::Int, v::Int
+        edges[i] = Edge((u, v))
+    end
+    EdgeGraph(n, edges)
+end
+
+Base.collect(g::EdgeGraph)::EdgeGraph = g

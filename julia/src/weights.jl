@@ -78,4 +78,15 @@ Weights(::Type{F}) where {F<:Real} = Ones{F}()
 Weights(w::F) where {F<:Real} = Const(w)
 Weights(w::Vector{F}) where {F<:Real} = Vec(w)
 
+
+Base.similar(::Vec{F}, n::Integer) where {F} =
+    Vec(Vector{F}(undef, n))
+
+Base.similar(w::Const{F}, n::Integer) where {F} =
+    Const(w.w)
+
+Base.similar(::Ones{F}, n::Integer) where {F} =
+    Ones{F}()
+
+
 @deprecate create_weights(x) Weights(x)
