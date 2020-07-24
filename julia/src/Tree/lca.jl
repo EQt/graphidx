@@ -24,14 +24,18 @@ function lowest_common_ancestors(
 )::Vector{Int}
     @assert parent[root_node(tree)] == root_node(tree)
 
-    local k = num_edges(pairs)
+    local k = num_edges(pairs)      # number of pairs
     local n = num_nodes(tree)
     local uf = UnionFind(n)
     local colors = fill(false, n)
-    local ancestors = collect(Int, 1:n)
-    lcas = fill(-1, k)
+    local ancestors = Vector{Int}(undef, n)
+    local stack = Vector{Int}()
+    lcas = Vector{Int}(undef, k)
+    sizehint!(stack, n)
 
-    dfs_walk(tree) do v::Int
+    lcas .= -1
+    ancestors .= 1:n
+    dfs_walk(tree, stack) do v::Int
         if v >= 0   # v just finished
             for (u, ei) in pairs[v]
                 if colors[u]
