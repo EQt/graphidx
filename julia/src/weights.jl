@@ -19,6 +19,7 @@ end
 
 @inline Base.getindex(::Ones{F}, ::Integer) where {F} = one(F)
 @inline Base.setindex!(::Ones{F}, ::F, ::Integer) where {F} = one(F)
+Base.collect(w::Ones{F}, n::Integer) where {F} = ones(F, n)
 
 
 """
@@ -43,6 +44,7 @@ end
 
 @inline Base.getindex(c::Const{F}, ::Integer) where {F} = c.w
 @inline Base.setindex!(c::Const{F}, ::F, ::Integer) where {F} = c.w
+Base.collect(w::Const{F}, n::Integer) where {F} = fill(w.w, n)
 
 
 """
@@ -69,8 +71,8 @@ end
 
 
 @inline Base.getindex(v::Vec{F}, i::Integer) where {F} = v.a[i]
-@inline Base.setindex!(v::Vec{F}, c::W, i::Integer) where {F, W} =
-    (v.a[i] = F(c))
+@inline Base.setindex!(v::Vec{F}, c::W, i::Integer) where {F, W} = (v.a[i] = F(c))
+@inline Base.collect(w::Vec{F}, n::Integer) where {F} = (@assert n == length(w.a); a)
 
 create_weights(::Type{F}) where {F<:Real} = Ones{F}()
 create_weights(w::F) where {F<:Real} = Const(w)
