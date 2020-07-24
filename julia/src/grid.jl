@@ -136,31 +136,48 @@ end
 
 
 @inline function enumerate_edges(
-    proc::F, n1::Int, n2::Int, dirs::Vector{Pixel}
+    proc::F, n1::Int, n2::Int, dirs::Vector{Pixel}; weighted::Bool = false
 ) where {F<:Function}
-    pix2ind(i, j) = i + (j-1)*n1
-
+    @inline pix2ind(i, j) = i + (j-1)*n1
     local no::Int = 0
-    for d::Pixel in dirs
-        local len::Float64 = 1/norm(d)
-        for i = 1:(n1-d.x)
-            for j = 1:(n2-d.y)
-                no += 1
-                proc(no, pix2ind(i, j), pix2ind(i+d.x, j+d.y), len)
+    if weighted
+        for d::Pixel in dirs
+            local len::Float64 = 1/norm(d)
+            for i = 1:(n1-d.x)
+                for j = 1:(n2-d.y)
+                    no += 1
+                    proc(no, pix2ind(i, j), pix2ind(i+d.x, j+d.y), len)
+                end
+            end
+            for i = 1+d.y:n1
+                for j = 1:(n2-d.x)
+                    no += 1
+                    proc(no, pix2ind(i, j), pix2ind(i-d.y, j+d.x), len)
+                end
             end
         end
-        for i = 1+d.y:n1
-            for j = 1:(n2-d.x)
-                no += 1
-                proc(no, pix2ind(i, j), pix2ind(i-d.y, j+d.x), len)
+    else
+        for d::Pixel in dirs
+            for i = 1:(n1-d.x)
+                for j = 1:(n2-d.y)
+                    no += 1
+                    proc(no, pix2ind(i, j), pix2ind(i+d.x, j+d.y))
+                end
+            end
+            for i = 1+d.y:n1
+                for j = 1:(n2-d.x)
+                    no += 1
+                    proc(no, pix2ind(i, j), pix2ind(i-d.y, j+d.x))
+                end
             end
         end
     end
 end
 
 
-@inline enumerate_edges(f::F, g::GridGraph) where {F<:Function} =
-    enumerate_edges(f, g.n1, g.n2, g.dirs)
+@inline enumerate_edges(
+    f::F, g::GridGraph; weighted::Bool = false
+) where {F<:Function} = enumerate_edges(f, g.n1, g.n2, g.dirs, weighted=weighted)
 
 """
     iter_edges_pixel(proc, g::GridGraph)
@@ -240,13 +257,13 @@ function incmat(n1::Int, n2::Int, dn::Int = 1)
     local J::Vector{Int} = Vector{Int}(undef, 2m)
     local W::Vector{Float64} = zeros(Float64, 2m)
 
-    enumerate_edges(n1, n2, dirs) do k::Int, u::Int, v::Int, len::Float64
+    enumerate_edges(n1, n2, dirs, weighted=true) do k::Int, u::Int, v::Int, l::Float64
         I[2k-1] = k
         J[2k-1] = u
-        W[2k-1] = +len
+        W[2k-1] = +l
         I[2k-0] = k
         J[2k-0] = v
-        W[2k-0] = -len
+        W[2k-0] = -l
     end
     D = sparse(I, J, W, m, n)
 end
@@ -486,7 +503,7 @@ function collect_edges(graph::GridGraph)
     local n = num_nodes(graph)
     edges = Vector{Tuple{Int,Int}}(undef, m)
     lam = Vector{Float64}(undef, m)
-    enumerate_edges(graph) do ei::Int, u::Int, v::Int, l::Float64
+    enumerate_edges(graph, weighted=true) do ei::Int, u::Int, v::Int, l::Float64
         edges[ei] = (u, v)
         lam[ei] = l
     end
