@@ -64,11 +64,14 @@ reg_idx(py::module &m)
     py::class_<GridGraph> (m, "GridGraph", py::module_local())
         .def(py::init([](size_t n1, size_t n2){ return GridGraph(n1, n2); }))
         .def("num_nodes", &GridGraph::num_nodes)
+        .def("num_edges", &GridGraph::num_edges)
         .def_property_readonly("n1", [](const GridGraph &grid){ return grid.n1; })
         .def_property_readonly("n2", [](const GridGraph &grid){ return grid.n2; })
-        .def_property_readonly("shape", [](const GridGraph &g){
-                                            return py::make_tuple(g.n1, g.n2);
-                                        })
+        .def_property_readonly(
+            "shape",
+            [](const GridGraph &g){
+                return py::make_tuple(g.n1, g.n2);
+            })
         .def("__repr__",
              [](const GridGraph &g) {
                  return std::string("GridGraph(") +
