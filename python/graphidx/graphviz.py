@@ -77,13 +77,15 @@ def show_tree(parent, prg="dot -Tx11", wait=True, out=DEVNULL, **kwargs):
     show_dot(buf.getvalue(), prg=prg, wait=wait, out=out)
 
 
-def print_grid(g: GridGraph, out=sys.stdout, width=0.3):
+def print_grid(g: GridGraph, out=sys.stdout, width=0.3, g_attrs=["splines=ortho"]):
     from graphidx.idx import BiAdjacent
 
     n1, n2 = g.shape
     indent = "  "
     neighs = BiAdjacent(g)
     print("graph {", file=out)
+    for attr in g_attrs:
+        print(f"{indent}{attr};", file=out)
     print(f"{indent}node [shape=circle, width={width}, fixedsize=true];", file=out)
     for i1 in range(n1):
         for i2 in range(n2):
