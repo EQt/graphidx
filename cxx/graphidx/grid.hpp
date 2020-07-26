@@ -44,6 +44,8 @@ struct GridGraph
 
     size_t num_nodes() const { return n1 * n2; }
 
+    size_t num_edges() const { return n1 * (n2 - 1) + (n1 - 1) * n2; }
+
     template <typename int_ = int>
     operator BiAdjacentIndex<int_>() const {
         std::vector<int_> head, tail;

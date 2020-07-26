@@ -8,6 +8,8 @@ import sys
 import subprocess as sp
 from io import StringIO
 
+from . import GridGraph
+
 
 DEVNULL = open(os.devnull, "w")
 
@@ -73,6 +75,32 @@ def show_tree(parent, prg="dot -Tx11", wait=True, out=DEVNULL, **kwargs):
     buf = StringIO()
     print_tree(parent, out=buf, **kwargs)
     show_dot(buf.getvalue(), prg=prg, wait=wait, out=out)
+
+
+def print_grid(g: GridGraph, out=sys.stdout, width=0.3):
+    from graphidx.idx import BiAdjacent
+
+    n1, n2 = g.shape
+    indent = "  "
+    neighs = BiAdjacent(g)
+    print("graph {", file=out)
+    print(f"{indent}node [shape=circle, width={width}, fixedsize=true];", file=out)
+    for i1 in range(n1):
+        for i2 in range(n2):
+            i = i1 + i2 * n1
+            print(f'{indent}n{i} [label="{i}", pos="{i2},-{i1}!"];', file=out)
+    for i in range(n1 * n2):
+        for j in neighs[i]:
+            if i < j:
+                print(f"{indent}n{i} -- n{j};", file=out)
+    print("}", file=out)
+
+
+def show_grid(g: GridGraph, prg="neato -Tx11"):
+    buf = StringIO()
+    print_grid(g, out=buf)
+    print(buf.getvalue())
+    show_dot(buf.getvalue(), prg=prg)
 
 
 def main(args=None):
