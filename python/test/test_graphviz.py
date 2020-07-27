@@ -1,5 +1,4 @@
 from io import StringIO
-from graphidx.graphviz import print_tree
 
 
 mini_dot =  """digraph tree {
@@ -18,6 +17,8 @@ def test_import():
 
 
 def test_print_tree():
+    from graphidx.graphviz import print_tree
+
     parent = [0, 0, 1, 0, 1, 2]
     buf = StringIO()
     print_tree(parent, out=buf)
