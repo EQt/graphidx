@@ -26,8 +26,8 @@ Example
 -------
 
 ```julia
-julia> open(`dot  -Tx11`, "w") do io
-           dot(io, GraphIdx.Grid.GridGraph(3, 5))
+julia> open(`dot -Tx11`, "w") do io
+           GraphIdx.GraphViz.dot(io, GraphIdx.Grid.GridGraph(3, 5))
        end
 
 ```

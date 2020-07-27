@@ -58,6 +58,8 @@ include("grididx.jl")
 include("stats.jl")
 include("Io.jl")
 
+include("graphviz.jl")
+
 include("precompile.jl")
 _precompile_()
 
