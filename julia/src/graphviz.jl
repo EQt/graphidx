@@ -5,8 +5,9 @@ Helper functions to visualize graphs in [dot language][dot].
 """
 module GraphViz
 
-import GraphIdx: Graph
+import GraphIdx: Graph, Tree
 import GraphIdx.Grid: GridGraph
+
 
 const INDENT = " "^4
 
@@ -56,6 +57,19 @@ function dot(io::IO, g::GridGraph, print_edges::F = io -> nothing) where {F<:Fun
     println(io)
     println(io, INDENT, "}")
     println(io, "}")
+end
+
+
+function dot(graph::Graph, tree::Tree.RootedTree)
+    open(`dot -Tx11 -Kneato`, "w") do io::IO
+        dot(io, graph) do io::IO
+            for (i, v) in enumerate(tree.parent)
+                if i != v
+                    println(io, i, " -> ", v)
+                end
+            end
+        end
+    end
 end
 
 
