@@ -71,26 +71,49 @@ struct Vec{F<:Real} <: Weights{F}
     a::Vector{F}
 end
 
-
 @inline Base.getindex(v::Vec{F}, i::Integer) where {F} = v.a[i]
 @inline Base.getindex(v::Vec{F}, i::Integer, ::Bool) where {F} = v.a[i]
 @inline Base.setindex!(v::Vec{F}, c::W, i::Integer) where {F, W} = (v.a[i] = F(c))
 @inline Base.collect(w::Vec{F}, n::Integer) where {F} =
     (@assert n == length(w.a); w.a)
 
+
+"""
+Signed vector (e.g. for directed edge weights)
+"""
+struct SVec{F<:Real} <: Weights{F}
+    a::Array{F, 2}
+end
+
+SVec(v1::Vector{F}, v2::Vector{F}) where {F} = SVec(cat(v1, v2, dims=2))
+SVec(v::NTuple{2, Vector{F}}) where {F} = SVec(cat(v..., dims=2))
+
+@inline Base.getindex(v::SVec{F}, i::Integer) where {F} = v.a[i, 1]
+@inline Base.getindex(v::SVec{F}, i::Integer, b::Bool) where {F} = v.a[i, Int(b) + 1]
+@inline Base.setindex!(v::SVec{F}, c::W, i::Integer, b::Bool) where {F, W} =
+    (v.a[i, Int(b) + 1] = F(c))
+@inline Base.collect(w::SVec{F}, n::Integer) where {F} =
+    (@assert n == size(w.a, 1); w.a)
+
+
 Weights(::Type{F}) where {F<:Real} = Ones{F}()
 Weights(w::F) where {F<:Real} = Const(w)
 Weights(w::Vector{F}) where {F<:Real} = Vec(w)
+Weights(w::Array{F, 2}) where {F<:Real} = SVec(w)
+Weights(w::NTuple{2, Vector{F}}) where {F<:Real} = SVec(cat(w..., dims=2))
 
 
-Base.similar(::Vec{F}, n::Integer) where {F} =
-    Vec(Vector{F}(undef, n))
+Base.similar(::Ones{F}, n::Integer) where {F} =
+    Ones{F}()
 
 Base.similar(w::Const{F}, n::Integer) where {F} =
     Const(w.w)
 
-Base.similar(::Ones{F}, n::Integer) where {F} =
-    Ones{F}()
+Base.similar(::Vec{F}, n::Integer) where {F} =
+    Vec(Vector{F}(undef, n))
+
+Base.similar(::SVec{F}, n::Integer) where {F} =
+    Vec(Array{F, 2}(undef, n, 2))
 
 
 @deprecate create_weights(x) Weights(x)
