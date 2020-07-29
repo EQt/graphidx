@@ -1,6 +1,6 @@
-abstract type Weights{F<:Real} end
+abstract type Weights{F<:Real} <: AbstractVector{F} end
 
-# (u::W)(i::Integer) where {W<:Weights} = u[i]
+@inline (u::Weights{F})(i::I) where {F, I<:Integer} = u[i]
 
 """
 Uniform one weights.
