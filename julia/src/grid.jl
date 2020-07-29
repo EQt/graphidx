@@ -113,6 +113,9 @@ num_edges(g::GridGraph) =
 num_nodes(g::GridGraph) = g.n1 * g.n2
 
 
+Base.size(g::GridGraph) = (g.n1, g.n2)
+
+
 """
     iter_edges_pixel(proc, n1, n2, dirs)
 
