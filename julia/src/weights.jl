@@ -75,7 +75,7 @@ end
 @inline Base.getindex(v::Vec{F}, i::Integer, ::Bool) where {F} = v.a[i]
 @inline Base.setindex!(v::Vec{F}, c::W, i::Integer) where {F, W} = (v.a[i] = F(c))
 @inline Base.collect(w::Vec{F}, n::Integer) where {F} =
-    (@assert n == length(w.a); w.a)
+    (@assert n == length(w.a) "n=$n != $(length(w.a))"; w.a)
 
 
 """
@@ -92,8 +92,11 @@ SVec(v::NTuple{2, Vector{F}}) where {F} = SVec(cat(v..., dims=2))
 @inline Base.getindex(v::SVec{F}, i::Integer, b::Bool) where {F} = v.a[i, Int(b) + 1]
 @inline Base.setindex!(v::SVec{F}, c::W, i::Integer, b::Bool) where {F, W} =
     (v.a[i, Int(b) + 1] = F(c))
-@inline Base.collect(w::SVec{F}, n::Integer) where {F} =
-    (@assert n == size(w.a, 1); w.a)
+@inline function Base.collect(w::SVec{F}, n::Integer) where {F}
+    @assert n == size(w.a, 1) "n=$n != $(size(w.a, 1))"
+    @assert 2 == size(w.a, 2) "$(size(w.a, 2))"
+    w.a
+end
 
 
 Weights(::Type{F}) where {F<:Real} = Ones{F}()
