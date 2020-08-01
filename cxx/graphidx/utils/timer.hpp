@@ -161,6 +161,9 @@ struct TimerQuiet
 };
 
 
+/**
+   Provide the same interface like Timer but actually do nothing
+*/
 struct FakeTimer {
     FakeTimer(const char *) { }
     FakeTimer(const char *, int) { }
