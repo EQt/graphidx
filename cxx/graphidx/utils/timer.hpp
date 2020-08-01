@@ -19,6 +19,22 @@ endsnewline(const char *s)
 }
 
 
+class BareTimer
+{
+public:
+    BareTimer& start() { time0 = std::chrono::high_resolution_clock::now(); return *this; }
+    BareTimer& stop() { time1 = std::chrono::high_resolution_clock::now(); return *this; }
+
+    operator double() const {
+        return std::chrono::duration_cast<std::chrono::duration<double>>
+            (time1 - time0).count();
+    }
+
+private:
+    std::chrono::high_resolution_clock::time_point time0, time1;
+};
+
+
 class Timer
 {
 public:
@@ -43,7 +59,7 @@ public:
                 fprintf(Timer::stream(), "%-*s", indent, msg);
             }
             fflush(Timer::stream());
-            time0 = std::chrono::high_resolution_clock::now();
+            timer.start();
         }
         running = true;
     }
@@ -62,13 +78,12 @@ public:
     }
 
     operator double() const {
-        return std::chrono::duration_cast<std::chrono::duration<double>>
-            (time1 - time0).count();
+        return double(timer);
     }
 
     void stop() {
         if (!_Timer_disable() && running) {
-            time1 = std::chrono::high_resolution_clock::now();
+            timer.stop();
             const double sec = double(*this);
             if (newline)
                 fprintf(Timer::stream(), "%-*s", indent, " --> ");
@@ -125,7 +140,7 @@ private:
     int indent = 20;
     bool newline = false;
     bool running = false;
-    std::chrono::high_resolution_clock::time_point time0, time1;
+    BareTimer timer;
     friend struct TimerQuiet;
     friend void _timer_disable();
 };
