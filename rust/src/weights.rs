@@ -50,11 +50,17 @@ impl Index<usize> for Ones<f32> {
     }
 }
 
-impl<T> Ones<T> {
-    pub fn new() -> Self {
+impl<T> Default for Ones<T> {
+    fn default() -> Ones<T> {
         Ones {
             _c: Default::default(),
         }
+    }
+}
+
+impl<T> Ones<T> {
+    pub fn new() -> Self {
+        Self::default()
     }
 }
 
