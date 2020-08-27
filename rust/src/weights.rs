@@ -89,6 +89,12 @@ impl<T> Const<T> {
     }
 }
 
+impl<T> From<T> for Const<T> {
+    fn from(c: T) -> Const<T> {
+        Const::new(c)
+    }
+}
+
 /// Weights stored in a `Vec`tor.
 #[derive(PartialEq, Debug)]
 pub struct Array<T> {
@@ -114,10 +120,16 @@ impl<T> Array<T> {
     }
 }
 
+impl<T> From<Vec<T>> for Array<T> {
+    fn from(c: Vec<T>) -> Self {
+        Self::new(c)
+    }
+}
+
 /// Weights stored in a referenced `Vec`tor.
 #[derive(PartialEq, Debug)]
 pub struct ArrayRef<'a, T> {
-    a: &'a Vec<T>,
+    a: &'a [T],
 }
 
 impl<'a, T> Index<usize> for ArrayRef<'a, T> {
@@ -134,8 +146,14 @@ impl<'a, T> Weighted<T> for ArrayRef<'a, T> {
 }
 
 impl<'a, T> ArrayRef<'a, T> {
-    pub fn new(a: &'a Vec<T>) -> Self {
+    pub fn new(a: &'a [T]) -> Self {
         ArrayRef { a: a }
+    }
+}
+
+impl<'a, T> From<&'a [T]> for ArrayRef<'a, T> {
+    fn from(c: &'a [T]) -> Self {
+        Self::new(c)
     }
 }
 
@@ -149,6 +167,26 @@ mod tests {
         assert_eq!(w[5], 13.5);
         assert_eq!(w[0], 13.5);
         assert_eq!(w[13], 13.5);
+    }
+
+    #[test]
+    fn const_from() {
+        assert_eq!(Const::new(42), 42.into());
+        assert_eq!(Const::new(42.1), 42.1.into());
+    }
+
+    #[test]
+    fn array_from() {
+        let vals = vec![1, 2, 5];
+        let weights: Array<_> = vals.clone().into();
+        assert_eq!(weights, Array::new(vals));
+    }
+
+    #[test]
+    fn arrayref_from() {
+        let vals: [u8; 3] = [1, 2, 5];
+        let weights: ArrayRef<_> = vals[..].into();
+        assert_eq!(weights, ArrayRef::new(&vals));
     }
 
     #[test]
