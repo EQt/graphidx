@@ -95,6 +95,12 @@ impl<T> From<T> for Const<T> {
     }
 }
 
+impl<T: Clone> From<&T> for Const<T> {
+    fn from(c: &T) -> Const<T> {
+        Const::new(c.clone())
+    }
+}
+
 /// Weights stored in a `Vec`tor.
 #[derive(PartialEq, Debug)]
 pub struct Array<T> {
@@ -154,6 +160,12 @@ impl<'a, T> ArrayRef<'a, T> {
 impl<'a, T> From<&'a [T]> for ArrayRef<'a, T> {
     fn from(c: &'a [T]) -> Self {
         Self::new(c)
+    }
+}
+
+impl<'a, T> From<&'a Vec<T>> for ArrayRef<'a, T> {
+    fn from(c: &'a Vec<T>) -> Self {
+        c[..].into()
     }
 }
 
