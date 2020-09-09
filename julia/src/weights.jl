@@ -119,4 +119,22 @@ Base.similar(::SVec{F}, n::Integer) where {F} =
     Vec(Array{F, 2}(undef, n, 2))
 
 
+@inline is_const(::Type{SVec}) = false
+@inline is_const(::Type{SVec{F}}) where {F} = false
+
+@inline is_const(::Type{Vec}) = false
+@inline is_const(::Type{Vec{F}}) where {F} = false
+
+@inline is_const(::Type{Ones}) = true
+@inline is_const(::Type{Ones{F}}) where {F} = true
+
+@inline is_const(::Type{Const}) = true
+@inline is_const(::Type{Const{F}}) where {F} = true
+
+@inline is_const(t::Weights{F}) where {F} = is_const(typeof(t))
+
+@inline is_const(::Type{T}) where {T<:Weights} = error("not implemented for $T)")
+@inline is_const(::Type{T}) where {F, T<:Weights{F}} =
+    error("not implemented for $T)")
+
 @deprecate create_weights(x) Weights(x)
