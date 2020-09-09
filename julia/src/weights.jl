@@ -100,7 +100,7 @@ end
 
 
 Weights(::Type{F}) where {F<:Real} = Ones{F}()
-Weights(w::F) where {F<:Real} = Const(w)
+Weights(w::F) where {F<:Real} = w == F(1.0) ? Ones{F}() : Const(w)
 Weights(w::Vector{F}) where {F<:Real} = Vec(w)
 Weights(w::Array{F, 2}) where {F<:Real} = SVec(w)
 Weights(w::NTuple{2, Vector{F}}) where {F<:Real} = SVec(cat(w..., dims=2))
@@ -138,3 +138,9 @@ Base.similar(::SVec{F}, n::Integer) where {F} =
     error("not implemented for $T)")
 
 @deprecate create_weights(x) Weights(x)
+
+
+Base.size(::Ones{F}) where {F} = (0,)
+Base.size(::Const{F}) where {F} = (0,)
+Base.size(a::Vec{F}) where {F} = size(a.a)
+Base.size(a::SVec{F}) where {F} = size(a.a)
