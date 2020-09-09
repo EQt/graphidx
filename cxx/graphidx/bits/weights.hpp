@@ -21,7 +21,6 @@ operator==(const T b, const Ignore<T> a)
 }
 
 
-
 template <typename T = double>
 struct Weights
 {
@@ -34,6 +33,7 @@ struct Ones : public Weights<T>
 {
     constexpr T operator[](size_t) const { return T(1); }
     constexpr Ignore<T> operator[](size_t) { return Ignore<T>{T(1)}; }
+    static constexpr bool is_const() { return true; }
 };
 
 
@@ -46,6 +46,7 @@ struct Const : public Weights<T>
 
     const T operator[](size_t) const { return c; }
     const Ignore<T> operator[](size_t) { return Ignore<T>{c}; }
+    static constexpr bool is_const() { return true; }
 };
 
 
@@ -57,6 +58,7 @@ struct Array : public Weights<T>
     Array(T *a) : a(a) { }
     const T operator[](size_t i) const { return a[i]; }
     T& operator[](size_t i) { return a[i]; }
+    static constexpr bool is_const() { return false; }
 };
 
 

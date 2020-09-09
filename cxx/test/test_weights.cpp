@@ -44,6 +44,7 @@ TEST_CASE("weights: is_const<Const>")
 {
     const Const<float> c (2.0);
     REQUIRE(is_const(c));
+    REQUIRE(Const<float>::is_const());
 }
 
 
@@ -51,6 +52,7 @@ TEST_CASE("weights: is_const<Ones>")
 {
     const Ones<float> c;
     REQUIRE(is_const(c));
+    REQUIRE(Ones<float>::is_const());
 }
 
 
@@ -59,4 +61,5 @@ TEST_CASE("weights: is_const<Ones>")
     int a[] = {1, 2, 5};
     auto w = create_weight(a);
     REQUIRE(!is_const(w));
+    REQUIRE(!Array<float>::is_const());
 }
