@@ -14,6 +14,7 @@
 use std::ops::Index;
 // use num_traits::identities::{One, one};
 
+#[allow(clippy::len_without_is_empty)]
 pub trait Weighted<T>: Index<usize, Output = T> {
     fn len(&self) -> usize;
     fn is_const() -> bool;
@@ -98,7 +99,7 @@ impl<T> Weighted<T> for Const<T> {
 
 impl<T> Const<T> {
     pub fn new(c: T) -> Self {
-        Const { c: c }
+        Const { c }
     }
 }
 
@@ -139,7 +140,7 @@ impl<T> Weighted<T> for Array<T> {
 
 impl<T> Array<T> {
     pub fn new(a: Vec<T>) -> Self {
-        Array { a: a }
+        Array { a }
     }
 }
 
@@ -174,7 +175,7 @@ impl<'a, T> Weighted<T> for ArrayRef<'a, T> {
 
 impl<'a, T> ArrayRef<'a, T> {
     pub fn new(a: &'a [T]) -> Self {
-        ArrayRef { a: a }
+        ArrayRef { a }
     }
 }
 

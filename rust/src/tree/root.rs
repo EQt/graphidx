@@ -7,9 +7,8 @@
 /// assert_eq!(find_root(&[1, 0, 0]), None);
 /// ```
 pub fn find_root(parent: &[usize]) -> Option<usize> {
-    let n = parent.len();
-    for i in 0..n {
-        if parent[i] == i {
+    for (i, &pi) in parent.iter().enumerate() {
+        if pi == i {
             return Some(i);
         }
     }

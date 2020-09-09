@@ -23,6 +23,7 @@ pub struct ChildrenIndex {
     child: Vec<usize>,
 }
 
+#[allow(clippy::len_without_is_empty)]
 impl ChildrenIndex {
     /// Build a new `Children Index`.
     pub fn from_tree(parent: &[usize], root: usize) -> Self {
@@ -62,8 +63,7 @@ impl ChildrenIndex {
         child.resize(n, std::usize::MAX);
         child[0] = root;
 
-        for v in 0..n {
-            let p = parent[v];
+        for (v, p) in parent.iter().enumerate() {
             if v == root {
                 continue;
             }
@@ -71,25 +71,22 @@ impl ChildrenIndex {
             idx[p + 1] += 1;
         }
         assert!(idx[n] == n);
-        Self {
-            idx: idx,
-            child: child,
-        }
+        Self { idx, child }
     }
 
     /// Construct a new `ChildrenIndex` by first finding the `root` node.
     pub fn from_parent(parent: &[usize]) -> Option<Self> {
-        return Some(Self::from_tree(parent, find_root(parent)?));
+        Some(Self::from_tree(parent, find_root(parent)?))
     }
 
     /// The root node of the underlying tree.
     pub fn root_node(self: &Self) -> usize {
-        return self.child[0];
+        self.child[0]
     }
 
     /// Number of nodes in the underlying tree.
     pub fn len(self: &Self) -> usize {
-        return self.child.len();
+        self.child.len()
     }
 }
 
