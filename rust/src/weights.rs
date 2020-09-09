@@ -16,6 +16,7 @@ use std::ops::Index;
 
 pub trait Weighted<T>: Index<usize, Output = T> {
     fn len(&self) -> usize;
+    fn is_const() -> bool;
 }
 
 /// Weight 1.0 for every element
@@ -27,6 +28,10 @@ pub struct Ones<T> {
 impl Weighted<f64> for Ones<f64> {
     fn len(&self) -> usize {
         std::usize::MAX
+    }
+
+    fn is_const() -> bool {
+        true
     }
 }
 
@@ -40,6 +45,10 @@ impl Index<usize> for Ones<f64> {
 impl Weighted<f32> for Ones<f32> {
     fn len(&self) -> usize {
         std::usize::MAX
+    }
+
+    fn is_const() -> bool {
+        true
     }
 }
 
@@ -81,6 +90,10 @@ impl<T> Weighted<T> for Const<T> {
     fn len(&self) -> usize {
         std::usize::MAX
     }
+
+    fn is_const() -> bool {
+        true
+    }
 }
 
 impl<T> Const<T> {
@@ -118,6 +131,10 @@ impl<T> Weighted<T> for Array<T> {
     fn len(&self) -> usize {
         self.a.len()
     }
+
+    fn is_const() -> bool {
+        false
+    }
 }
 
 impl<T> Array<T> {
@@ -148,6 +165,10 @@ impl<'a, T> Index<usize> for ArrayRef<'a, T> {
 impl<'a, T> Weighted<T> for ArrayRef<'a, T> {
     fn len(&self) -> usize {
         self.a.len()
+    }
+
+    fn is_const() -> bool {
+        false
     }
 }
 
