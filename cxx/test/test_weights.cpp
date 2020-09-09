@@ -38,3 +38,25 @@ TEST_CASE("weights: modify")
     REQUIRE(5 == (w[1] = 5));
     REQUIRE(w[1] == 5);
 }
+
+
+TEST_CASE("weights: is_const<Const>")
+{
+    const Const<float> c (2.0);
+    REQUIRE(is_const(c));
+}
+
+
+TEST_CASE("weights: is_const<Ones>")
+{
+    const Ones<float> c;
+    REQUIRE(is_const(c));
+}
+
+
+TEST_CASE("weights: is_const<Ones>")
+{
+    int a[] = {1, 2, 5};
+    auto w = create_weight(a);
+    REQUIRE(!is_const(w));
+}

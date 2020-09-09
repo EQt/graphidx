@@ -87,3 +87,24 @@ create_weight(T *a)
 {
     return Array<T>(a);
 }
+
+
+template <typename T>
+inline constexpr bool is_const(const Const<T>&)
+{
+    return true;
+}
+
+
+template <typename T>
+inline constexpr bool is_const(const Ones<T>&)
+{
+    return true;
+}
+
+
+template <typename T>
+inline constexpr bool is_const(const Array<T>&)
+{
+    return false;
+}
