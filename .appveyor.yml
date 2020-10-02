@@ -17,7 +17,7 @@ image: Visual Studio 2017
 environment:
   matrix:
     - lang: Rust
-    - lang: Python3.7
+    - lang: Python3.8
     - lang: Julia 1.5
     - lang: C++
 
@@ -48,7 +48,7 @@ for:
   -
     matrix:
       only:
-        - lang: Python3.7
+        - lang: Python3.8
     only_commits:
       files:
         - .appveyor.yml

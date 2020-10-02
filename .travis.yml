@@ -29,7 +29,7 @@ matrix:
 
     - language: python
       os: linux
-      python: "3.7"
+      python: "3.8"
       install:
         - pip install
             -r python/requirements.txt 
@@ -40,7 +40,7 @@ matrix:
     - language: minimal
       os: osx
       osx_image: xcode10.2
-      name: "Python 3.7"
+      name: "Python 3.8"
       install:
         - python --version
         - python3 --version
@@ -52,7 +52,7 @@ matrix:
 
     - language: julia
       os: linux
-      julia: 1.4
+      julia: 1.5
       script:
         - julia --project=julia --color=yes -e "using Pkg; Pkg.instantiate();"
         - julia --project=julia --color=yes -e "using Pkg; Pkg.build();"
