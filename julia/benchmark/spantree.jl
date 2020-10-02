@@ -1,4 +1,5 @@
 module BenchSpanTree
+import Random
 import GraphIdx
 
 
@@ -9,13 +10,17 @@ function grid_tree(
     root::Integer = 1
 )
     if length(weights) < 2 * n1 * n2
-        weights = randn(2 * n1 * n2)
+        @time weights = randn(2 * n1 * n2)
     end
     graph = GraphIdx.Grid.GridGraph(n1, n2)
     @assert GraphIdx.num_edges(graph) <= length(weights)
-    mem = GraphIdx.PrimMstMem(graph)
-    tree = GraphIdx.prim_mst_edges(weights, root, mem)
+    @time mem = GraphIdx.PrimMstMem(graph)
+    @time tree = GraphIdx.prim_mst_edges(weights, root, mem)
 end
 
 
 end
+
+
+w = randn(Random.MersenneTwister(42), 4_000_000)
+@time BenchSpanTree.grid_tree(1000, 1000, w)
