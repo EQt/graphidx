@@ -35,6 +35,9 @@ struct PrimMstMem
     PrimMstMem(g::EdgeGraph) =
         PrimMstMem(IncidenceIndex(num_nodes(g), g.edges))
 
+    PrimMstMem(g::Graph) =
+        PrimMstMem(EdgeGraph(g))
+
     PrimMstMem(edges::Vector{E}, n::Integer) where {E} =
         PrimMstMem(IncidenceIndex(n, edges))
 

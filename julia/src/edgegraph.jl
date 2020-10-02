@@ -34,3 +34,7 @@ function Base.collect(g::Graph)::EdgeGraph
 end
 
 Base.collect(g::EdgeGraph)::EdgeGraph = g
+
+
+EdgeGraph(g::Graph) =
+    collect(g)
