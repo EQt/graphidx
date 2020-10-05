@@ -63,14 +63,16 @@ prim_mst_edges(
 
 
 prim_mst_edges(weights::Vector{Float64}, root::Int, mem::PrimMstMem) = 
-    prim_mst_edges(weights,
-                   mem.finished,
-                   mem.dist,
-                   mem.parent,
-                   mem.neighbors,
-                   mem.selected,
-                   mem.pq,
-                   root)
+    prim_mst_edges(
+        weights,
+        mem.finished,
+        mem.dist,
+        mem.parent,
+        mem.neighbors,
+        mem.selected,
+        mem.pq,
+        root
+    )
 
 
 function prim_mst_edges(
