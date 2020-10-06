@@ -86,10 +86,10 @@ function prim_mst_edges(
     sizehint!(pq, length(parent))
 
     # see CLRS page 572 (2nd edition)
+    dist .= typemax(Float64)
     parent .= 0
     parent[root] = root
     selected[root] = -1
-    dist .= typemax(Float64)
     dist[root] = typemin(Float64)
     parent[root] = -root
     pq[root] = dist[root]
@@ -97,7 +97,7 @@ function prim_mst_edges(
         u = dequeue!(pq)
         for (v, eidx) in neighbors[u]
             v == u && continue
-            if parent[v] <= 0 && edge_weight[eidx] < dist[v]
+            if parent[v] < 0 && edge_weight[eidx] < dist[v]
                 dist[v] = edge_weight[eidx]
                 pq[v] = dist[v]    # decrease_key!(v)
                 parent[v] = -u
