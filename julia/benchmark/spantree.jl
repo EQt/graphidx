@@ -22,5 +22,7 @@ end
 end
 
 
+import Random
+
 w = randn(Random.MersenneTwister(42), 4_000_000)
 @time BenchSpanTree.grid_tree(1000, 1000, w)
