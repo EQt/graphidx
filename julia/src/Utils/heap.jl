@@ -5,7 +5,7 @@ Code copied from DataStructures.jl (long time ago)
 module Heap
 import Base.Order: Ordering, Forward, lt
 
-struct PriorityQueue{K,V,O<:Ordering}
+struct PriorityQueue{K, V, O<:Ordering}
     xs::Vector{Pair{K,V}}
     index::Vector{Int}    # Map elements to their index in xs
     o::O
@@ -13,10 +13,13 @@ struct PriorityQueue{K,V,O<:Ordering}
     function PriorityQueue{K,V}(o::O=Forward) where {K,V, O<:Ordering}
         new{K,V,O}(Vector{Pair{K,V}}(), Vector{Int}(), o)
     end
-    function PriorityQueue{K,V}(n::Integer, o::O=Forward) where {K,V, O<:Ordering}
+
+    function PriorityQueue{K,V}(n::Integer, o::O=Forward) where {K, V, O<:Ordering}
         xs = Vector{Pair{K,V}}()
-        sizehint!(xs, n)
-        new{K,V,O}(xs, Vector{Int}(undef, n), o)
+        index = Vector{Int}()
+        q = new{K,V,O}(xs, index, o)
+        sizehint!(q, n)
+        q
     end
 end
 

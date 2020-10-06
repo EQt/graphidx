@@ -82,7 +82,7 @@ function prim_mst_edges(
     root::Int = 1,
 )::Vector{Int}
     @assert length(selected) == length(parent)
-    @assert isempty(pq)
+    @assert isempty(pq) "length(pq) = $(length(pq))"
     sizehint!(pq, length(parent))
 
     # see CLRS page 572 (2nd edition)
