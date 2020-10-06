@@ -97,7 +97,7 @@ function prim_mst_edges(
         u = dequeue!(pq)
         for (v, eidx) in neighbors[u]
             v == u && continue
-            if parent[v] < 0 && edge_weight[eidx] < dist[v]
+            if parent[v] <= 0 && edge_weight[eidx] < dist[v]
                 dist[v] = edge_weight[eidx]
                 pq[v] = dist[v]    # decrease_key!(v)
                 parent[v] = -u
