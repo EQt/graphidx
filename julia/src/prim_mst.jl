@@ -25,7 +25,6 @@ end
 
 
 struct PrimMstMem
-    finished::Vector{Bool}
     dist::Vector{Float64}
     parent::Vector{Int}
     neighbors::IncidenceIndex
@@ -46,12 +45,11 @@ struct PrimMstMem
 
     function PrimMstMem(neighbors::IncidenceIndex)
         local n = num_nodes(neighbors)
-        finished = Vector{Bool}(undef, n)
         dist = Vector{Float64}(undef, n)
         parent = Vector{Int}(undef, n)
         selected = Vector{Int}(undef, n)
         pq = PriorityQueue{Int, Float64}(n)
-        return new(finished, dist, parent, neighbors, selected, pq)
+        return new(dist, parent, neighbors, selected, pq)
     end
 end
 
@@ -65,7 +63,6 @@ prim_mst_edges(
 prim_mst_edges(weights::Vector{Float64}, root::Int, mem::PrimMstMem) = 
     prim_mst_edges(
         weights,
-        mem.finished,
         mem.dist,
         mem.parent,
         mem.neighbors,
@@ -77,7 +74,6 @@ prim_mst_edges(weights::Vector{Float64}, root::Int, mem::PrimMstMem) =
 
 function prim_mst_edges(
     edge_weight::Vector{Float64},
-    finished::Vector{Bool},
     dist::Vector{Float64},
     parent::Vector{Int},
     neighbors::IncidenceIndex,
@@ -90,25 +86,25 @@ function prim_mst_edges(
     sizehint!(pq, length(parent))
 
     # see CLRS page 572 (2nd edition)
-    finished .= false
-    finished[root] = true
+    parent .= 0
+    parent[root] = root
     selected[root] = -1
     dist .= typemax(Float64)
     dist[root] = typemin(Float64)
-    parent[root] = root
+    parent[root] = -root
     pq[root] = dist[root]
     while !isempty(pq)
         u = dequeue!(pq)
         for (v, eidx) in neighbors[u]
             v == u && continue
-            if !finished[v] && edge_weight[eidx] < dist[v]
+            if parent[v] <= 0 && edge_weight[eidx] < dist[v]
                 dist[v] = edge_weight[eidx]
                 pq[v] = dist[v]    # decrease_key!(v)
-                parent[v] = u
+                parent[v] = -u
                 selected[v] = eidx
             end
         end
-        finished[u] = true
+        parent[u] *= -1
     end
     return parent
 end
