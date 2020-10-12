@@ -47,12 +47,13 @@ public:
             pclose(f);
     }
 
-    std::vector<uint8_t> read(std::size_t delta = 4096) {
-        // http://stackoverflow.com/a/37236189
-        std::vector<uint8_t> buf (delta);
+
+    template <typename T = uint8_t>
+    size_t
+    readinto(std::vector<T> &buf, const std::size_t delta = 4096) {
         std::size_t cursor = 0;
         std::size_t n;
-        while ((n = fread(buf.data()+cursor, 1, buf.size()-cursor, f)) > 0) {
+        while ((n = fread(buf.data()+cursor, sizeof(T), buf.size()-cursor, f)) > 0) {
             cursor += n;
             
             if (cursor == buf.size()) {
@@ -76,6 +77,14 @@ public:
                                      + std::to_string(errno));
         }
         buf.resize(cursor);
+        return buf.size();
+    }
+
+
+    std::vector<uint8_t> read(const std::size_t delta = 4096) {
+        // http://stackoverflow.com/a/37236189
+        std::vector<uint8_t> buf (delta);
+        this->readinto(buf, delta);
         return buf;
     }
 
@@ -106,4 +115,3 @@ public:
 private:
     std::FILE* f = nullptr;
 };
-
