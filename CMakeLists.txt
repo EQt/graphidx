@@ -14,6 +14,7 @@ set(DOCTEST_DIR    "${CMAKE_CURRENT_SOURCE_DIR}/deps/doctest"
     CACHE PATH     "Which DOCTEST to be used")
 option(BUILD_PYEXT "Build python extension module"     ON)
 option(BUILD_TEST  "Compile unit tests"                ${_MASTER_PROJECT})
+option(BENCHMARK   "Compile benchmarks"                ${_MASTER_PROJECT})
 option(ASAN        "Use Address SANitizer"             OFF)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -148,6 +149,9 @@ if (BUILD_PYEXT)
     export(TARGETS _graphidx NAMESPACE graphidx:: FILE graphidxConfig.cmake)
 endif()
 
+if (BENCHMARK)
+    add_subdirectory(cxx/benchmark)
+endif()
 
 # Local Variables:
 # cmake-tab-width: 4
