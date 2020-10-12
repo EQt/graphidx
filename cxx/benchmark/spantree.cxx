@@ -7,6 +7,8 @@
 #include <graphidx/utils/thousand.hpp>
 #include <graphidx/utils/timer.hpp>
 
+#include "prim_mst.hpp"
+
 
 std::vector<double>
 julia_randn(
@@ -50,10 +52,13 @@ main(int argc, char *argv[])
     const auto weights = julia_randn(graph.num_edges(), seed, distribution);
     tim.stop();
 
-    std::cout << "spantree"
-              << " n = " << graph.num_nodes()
-              << " m = " << graph.num_edges()
-              << std::endl;
+    std::cout << "graph:" << std::endl
+              << " n = " << graph.num_nodes() << std::endl
+              << " m = " << graph.num_edges() << std::endl;
+    {
+        Timer _ ("prim_mst\n");
+        const auto parent = prim_mst_edges(weights.data(), idx);
+    }
 
     return 0;
 }
