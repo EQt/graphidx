@@ -4,6 +4,7 @@
 
 #include "heap.hpp"
 
+
 template <typename int_t = int>
 std::vector<int_t>
 prim_mst_edges(
@@ -11,14 +12,12 @@ prim_mst_edges(
     BiAdjacentIndex<int_t> &idx,
     int_t root = int_t(0))
 {
-    using pq_v = pq_element<int_t, double>;
-    using pq_t = __gnu_pbds::priority_queue<pq_v, std::less<pq_v>>;
     constexpr auto INF = std::numeric_limits<double>::max();
     const size_t n = idx.num_nodes();
 
-    pq_t queue;
+    priority_queue<int_t, double> queue;
     std::vector<int_t> parent (n, ~0);
-    std::vector<typename pq_t::point_iterator> pnode;
+    std::vector<typename decltype(queue)::point_iterator> pnode;
     pnode.reserve(idx.num_nodes());
     for (int_t i = 0; i < (int_t) idx.num_nodes(); i++)
         pnode.push_back(queue.push({i, INF}));
