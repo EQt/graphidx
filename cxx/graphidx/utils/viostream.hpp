@@ -16,10 +16,10 @@
 
 template <typename B, typename E>
 inline std::ostream&
-_print_list(std::ostream &o, const B &begin, const E &end)
+_print_list(std::ostream &o, const B &begin, const E &end, const bool curly = false)
 {
     bool first = true;
-    o << "[";
+    o << (curly ? "{" : "[");
     for (auto it = begin; it != end; it++) {
         auto x = *it;
         if (first) {
@@ -28,7 +28,7 @@ _print_list(std::ostream &o, const B &begin, const E &end)
             o << ", ";
         o << x;
     }
-    return o << "]";
+    return o << (curly ? "}" : "]");
 }
 
 
@@ -111,6 +111,14 @@ inline ostream&
 operator<<(ostream &o, const _Printer<E> &v)
 {
     return ::_print_list(o, begin(v.c), end(v.c));
+}
+
+
+template <typename E>
+inline std::ostream&
+operator<<(std::ostream &o, const std::set<E> &v)
+{
+    return ::_print_list(o, std::begin(v), std::end(v), true);
 }
 
 
