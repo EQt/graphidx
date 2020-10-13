@@ -59,13 +59,13 @@ operator<<(std::ostream &o, const IndexIter<int_> &it)
 }
 
 
-template <typename int_ = int>
+template <typename int_ = int, typename val_t = int_>
 struct Index
 {
-    uvector<int_> value;
+    uvector<val_t> value;
     std::vector<int_> index;
 
-    inline IndexIter<int_> operator[](size_t i) const {
+    inline IndexIter<val_t> operator[](size_t i) const {
         if (i >= index.size())
             return {nullptr, nullptr};
         const int_
@@ -74,17 +74,17 @@ struct Index
         return {start, stop};
     }
 
-    inline IndexIter<int_> operator[](int64_t i) const {
+    inline IndexIter<val_t> operator[](int64_t i) const {
         if (i < 0)
             return {nullptr, nullptr};
         return (*this)[size_t(i)];
     }
 
-    inline IndexIter<int_> operator[](unsigned i) const {
+    inline IndexIter<val_t> operator[](unsigned i) const {
         return (*this)[size_t(i)];
     }
 
-    inline IndexIter<int_> operator[](int i) const {
+    inline IndexIter<val_t> operator[](int i) const {
         return (*this)[int64_t(i)];
     }
 
