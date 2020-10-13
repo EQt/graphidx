@@ -1,4 +1,5 @@
 #pragma once
+#include <type_traits>
 #include <vector>
 
 #include "heap.hpp"
@@ -11,6 +12,8 @@ prim_mst_edges(
     IncidenceIndex<int_t> &idx,
     int_t root = int_t(0))
 {
+    static_assert(std::is_integral<int_t>::value, "need integers");
+    static_assert(std::is_signed<int_t>::value, "need the sign bit");
     const size_t n = idx.num_nodes();
 
     queue_t queue;
