@@ -23,7 +23,8 @@ function benchmark(n1)
     n = n1^2
     @info "normal" n
     w = randn(Random.MersenneTwister(42), 2n)
-    @time BenchSpanTree.grid_tree(n1, n1, w)
+    @time pi = BenchSpanTree.grid_tree(n1, n1, w)
+    println(pi[1:5] .- 1, "…", pi[end-4:end] .- 1)
 end
 
 
