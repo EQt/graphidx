@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>
 #include <string>   // std::stoul
 #include <vector>
@@ -34,6 +35,24 @@ julia_randn(
 }
 
 
+template <typename int_>
+void
+print_arr(
+    std::vector<int_> const &a, const size_t limit = 4, const char *prefix = "",
+    const char *suffix = "")
+{
+    std::cout << prefix << "[";
+    for (size_t i = 0; i < std::min(a.size(), limit); i++)
+        std::cout << a[i] << (i == a.size() - 1 ? "" : ", ");
+    if (a.size() > limit) {
+        std::cout << "…, ";
+        for (size_t i = std::max(limit, a.size() - limit); i < a.size(); i++)
+            std::cout << a[i] << (i == a.size() - 1 ? "" : ",");
+    }
+    std::cout << "]" << suffix;
+}
+
+
 int
 main(int argc, char *argv[])
 {
@@ -64,21 +83,25 @@ main(int argc, char *argv[])
         Timer _ ("prim_mst<thin_heap>\n");
         using tag_t = __gnu_pbds::thin_heap_tag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<binomial_heap>\n");
         using tag_t = __gnu_pbds::binomial_heap_tag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<rc_binomial_heap>\n");
         using tag_t = __gnu_pbds::rc_binomial_heap_tag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<pairing_heap>\n");
         using tag_t = __gnu_pbds::pairing_heap_tag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        print_arr(parent, 5, "pi = ", "\n");
     }
 
     return 0;
