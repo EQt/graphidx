@@ -1,28 +1,23 @@
 #pragma once
-#include <limits>
 #include <vector>
 
 #include "heap.hpp"
 
 
-template <typename int_t = int>
+template <typename int_t = int, typename queue_t = priority_queue<int_t, double>>
 std::vector<int_t>
 prim_mst_edges(
     const double *edge_weight,
     IncidenceIndex<int_t> &idx,
     int_t root = int_t(0))
 {
-    constexpr auto INF = std::numeric_limits<double>::max();
     const size_t n = idx.num_nodes();
 
-    priority_queue<int_t, double> queue;
+    queue_t queue;
     std::vector<int_t> parent (n, ~0);
-    std::vector<typename decltype(queue)::point_iterator> pnode;
-    pnode.reserve(idx.num_nodes());
-    for (int_t i = 0; i < (int_t) idx.num_nodes(); i++)
-        pnode.push_back(queue.push({i, INF}));
+    std::vector<typename decltype(queue)::point_iterator> pnode (idx.num_nodes(), nullptr);
 
-    queue.modify(pnode[(size_t) root], {root, 0.0});
+    pnode[(size_t) root] = queue.push({root, 0.0});
     parent[(size_t) root] = -root;
     while (!queue.empty()) {
         const auto u = queue.top().id;
@@ -31,8 +26,11 @@ prim_mst_edges(
         for (const auto [v, eidx] : idx[u]) {
             if (parent[(size_t) v] >= 0)
                 continue;
-            // std::cout << u << " " << v << std::endl;
-            if (edge_weight[eidx] < pnode[(size_t) v]->dist) {
+            const auto node = pnode[(size_t) v];
+            if (node == nullptr) {
+                parent[(size_t) v] = -u;
+                pnode[(size_t) v] = queue.push({v, edge_weight[eidx]});
+            } else if (edge_weight[eidx] < node->dist) {
                 parent[(size_t) v] = -u;
                 queue.modify(pnode[(size_t) v], {v, edge_weight[eidx]});
             }
