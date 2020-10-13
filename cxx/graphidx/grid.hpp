@@ -8,7 +8,7 @@
 
 /** Call `proc` for all neighbored grid pixels `(i1, j1, i2, j2)` */
 template <typename int_ = int>
-void
+inline void
 iter_grid_edges_pixel(const int_ n1,
                       const int_ n2,
                       std::function<void(int_, int_, int_, int_)> proc)
@@ -25,7 +25,7 @@ iter_grid_edges_pixel(const int_ n1,
 
 /** Call `proc` for all neihbored pixels `(u, v)` */
 template <typename int_ = int>
-void
+inline void
 iter_grid_edges(const int_ n1,
                 const int_ n2,
                 std::function<void(int_, int_)> proc)
@@ -70,8 +70,6 @@ GridGraph::operator IncidenceIndex<int_>() const
 {
     const size_t n = num_nodes();
     uvector<std::tuple<int_, int_>> value;
-
-    value.resize(2 * num_edges());
     std::vector<int_> index (n + 1, 0);
 
                                     // compute degrees
@@ -90,6 +88,8 @@ GridGraph::operator IncidenceIndex<int_>() const
         }
         index[n] = acc;
     }
+
+    value.resize(2 * num_edges());
     {
         int_ e = 0;   // current edge index
         iter_grid_edges<int_>(int_(n1), int_(n2), [&](int_ u, int_ v) {
