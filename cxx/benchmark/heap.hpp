@@ -8,6 +8,12 @@ struct pq_element
 {
     int_t id;
     float_t dist;
+
+#if 0
+    inline pq_element swap(pq_element other) {
+        return *this = other;
+    }
+#endif
 };
 
 
@@ -18,9 +24,9 @@ operator<(const pq_element<int_t, float_t> &a, const pq_element<int_t, float_t> 
 }
 
 
-template <typename int_t = int,
-          typename float_t = double,
-          typename tag_t = __gnu_pbds::pairing_heap_tag>
+template <typename tag_t = __gnu_pbds::pairing_heap_tag,
+          typename int_t = int,
+          typename float_t = double>
 using priority_queue = __gnu_pbds::priority_queue<
     pq_element<int_t, float_t>,
     std::less<pq_element<int_t, float_t>>,
