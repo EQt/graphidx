@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "./idx/biadjacent.hpp"
+#include "./idx/incidence.hpp"
 
 
 /** Call `proc` for all neighbored grid pixels `(i1, j1, i2, j2)` */
@@ -58,4 +59,45 @@ struct GridGraph
                               });
         return {std::move(head), std::move(tail), num_nodes()};
     }
+
+    template <typename int_ = int>
+    operator IncidenceIndex<int_>() const;
 };
+
+
+template <typename int_ = int>
+GridGraph::operator IncidenceIndex<int_>() const
+{
+    const size_t n = num_nodes();
+    uvector<std::tuple<int_, int_>> value;
+
+    value.resize(2 * num_edges());
+    std::vector<int_> index (n + 1, 0);
+
+                                    // compute degrees
+    iter_grid_edges<int_>(int_(n1), int_(n2), [&](int_ u, int_ v) {
+        index[size_t(u + 1)]++;
+        index[size_t(v + 1)]++;
+    });
+
+    {                               // shift, accumulate
+        int_ acc = 0,
+            deg_i = 0;
+        for (size_t i = 0; i < n; i++) {
+                index[i] = acc;
+                acc += deg_i;
+                deg_i = index[i+1];
+        }
+        index[n] = acc;
+    }
+    {
+        int_ e = 0;   // current edge index
+        iter_grid_edges<int_>(int_(n1), int_(n2), [&](int_ u, int_ v) {
+            value[size_t(index[size_t(u+1)]++)] = {v, e};
+            value[size_t(index[size_t(v+1)]++)] = {u, e};
+            e++;
+        });
+    }
+
+    return {std::move(value), std::move(index)};
+}

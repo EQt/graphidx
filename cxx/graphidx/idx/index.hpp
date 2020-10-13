@@ -68,7 +68,7 @@ struct Index
     inline IndexIter<val_t> operator[](size_t i) const {
         if (i >= index.size())
             return {nullptr, nullptr};
-        const int_
+        const val_t
             *start = value.data() + index[i+0],
             *stop  = value.data() + index[i+1];
         return {start, stop};
