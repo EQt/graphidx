@@ -43,7 +43,7 @@ struct BiAdjacentIndex : public Index<int_>
             index[size_t(tail[i]+1)]++;
         }
         {                               // shift, accumulate
-            int acc = 0,
+            int_ acc = 0,
                 deg_i = 0;
             for (size_t i = 0; i < n; i++) {
                 index[i] = acc;
