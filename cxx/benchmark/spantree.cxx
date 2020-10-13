@@ -55,9 +55,30 @@ main(int argc, char *argv[])
     std::cout << "graph:" << std::endl
               << " n = " << graph.num_nodes() << std::endl
               << " m = " << graph.num_edges() << std::endl;
+    // {
+    //     Timer _ ("prim_mst<binary_heap>\n");
+    //     using tag_t = __gnu_pbds::binary_heap_tag;
+    //     const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+    // }
     {
-        Timer _ ("prim_mst\n");
-        const auto parent = prim_mst_edges(weights.data(), idx);
+        Timer _ ("prim_mst<thin_heap>\n");
+        using tag_t = __gnu_pbds::thin_heap_tag;
+        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+    }
+    {
+        Timer _ ("prim_mst<binomial_heap>\n");
+        using tag_t = __gnu_pbds::binomial_heap_tag;
+        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+    }
+    {
+        Timer _ ("prim_mst<rc_binomial_heap>\n");
+        using tag_t = __gnu_pbds::rc_binomial_heap_tag;
+        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+    }
+    {
+        Timer _ ("prim_mst<pairing_heap>\n");
+        using tag_t = __gnu_pbds::pairing_heap_tag;
+        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
     }
 
     return 0;
