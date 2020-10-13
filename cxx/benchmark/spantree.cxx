@@ -45,7 +45,7 @@ main(int argc, char *argv[])
 
     auto graph = GridGraph(n1, n2);
     Timer tim ("index");
-    BiAdjacentIndex<int> idx (graph);
+    IncidenceIndex<int> idx (graph);
     tim.stop();
 
     tim.start(distribution);
