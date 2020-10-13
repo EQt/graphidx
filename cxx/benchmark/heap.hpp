@@ -18,8 +18,11 @@ operator<(const pq_element<int_t, float_t> &a, const pq_element<int_t, float_t> 
 }
 
 
-template <typename int_t = int, typename float_t = double>
+template <typename int_t = int,
+          typename float_t = double,
+          typename tag_t = __gnu_pbds::pairing_heap_tag>
 using priority_queue = __gnu_pbds::priority_queue<
     pq_element<int_t, float_t>,
-    std::less<pq_element<int_t, float_t>>
+    std::less<pq_element<int_t, float_t>>,
+    tag_t
 >;
