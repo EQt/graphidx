@@ -74,23 +74,21 @@ struct Index
         return {start, stop};
     }
 
-    inline IndexIter<int_> operator[](unsigned i) const {
-        return (*this)[size_t(i)];
-    }
-
-    inline IndexIter<int_> operator[](int i) const {
-        if (i < 0)
-            return {nullptr, nullptr};
-        return (*this)[size_t(i)];
-    }
-
     inline IndexIter<int_> operator[](int64_t i) const {
         if (i < 0)
             return {nullptr, nullptr};
         return (*this)[size_t(i)];
     }
 
-    size_t size() const { return index.size() -1; }
+    inline IndexIter<int_> operator[](unsigned i) const {
+        return (*this)[size_t(i)];
+    }
+
+    inline IndexIter<int_> operator[](int i) const {
+        return (*this)[int64_t(i)];
+    }
+
+    size_t size() const { return index.size() - 1; }
 
     void degrees(int_ *deg) const {
         for (size_t i = 0; i < size(); i++)
