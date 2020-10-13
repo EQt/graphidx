@@ -7,7 +7,7 @@
 
 template <typename int_ = int>
 UnionFind<int_>
-united(const AdjacencyIndex<int_> &neigh)
+united(const Index<int_> &neigh)
 {
     const size_t n = neigh.size();
     UnionFind<int_> uf (n);

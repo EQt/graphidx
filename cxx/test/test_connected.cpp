@@ -54,7 +54,7 @@ TEST_CASE("Connected: 4-2b")
         CHECK(degs == std::vector<int>({0, 0, 1, 1}));
     }
     {
-        AdjacencyIndex<int> aidx {idx_value.copy(), idx_index};
+        Index<int> aidx {idx_value.copy(), idx_index};
         bool found = false;
         for (int v : aidx[2]) {
             CHECK(v == 3);
@@ -66,7 +66,7 @@ TEST_CASE("Connected: 4-2b")
     CHECK(idx[0] == std::set<int>({}));
     CHECK(idx[1] == std::set<int>({}));
     {
-        AdjacencyIndex<int> &idX = idx;
+        Index<int> &idX = idx;
         CHECK(idX[2] == std::set<int>({3}));
         CHECK(idX[3] == std::set<int>({2}));
     }

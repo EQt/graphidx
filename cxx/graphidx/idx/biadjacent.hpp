@@ -10,10 +10,10 @@
    Bidirected adjacency vectors
  **/
 template <typename int_ = int>
-struct BiAdjacentIndex : public AdjacencyIndex<int_>
+struct BiAdjacentIndex : public Index<int_>
 {
     BiAdjacentIndex(uvector<int_> &&value, std::vector<int_> &&index)
-        : AdjacencyIndex<int_> {std::forward<uvector<int_>>(value),
+        : Index<int_> {std::forward<uvector<int_>>(value),
                                 std::forward<std::vector<int_>>(index) } { }
 
     BiAdjacentIndex(const size_t m, const int_ *head, const int_ *tail, size_t n = 0)

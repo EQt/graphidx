@@ -7,7 +7,7 @@ struct PartitionIter;           // forward declaration
 
 
 template <typename int_ = int>
-class PartitionIndex : public AdjacencyIndex<int_>
+class PartitionIndex : public Index<int_>
 {
 public:
     PartitionIndex(PartitionIndex &&) = default;

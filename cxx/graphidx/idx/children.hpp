@@ -14,7 +14,7 @@
    it can be accessed via `ChildrenIndex::root_node()`.
 */
 template <typename int_ = int>
-struct ChildrenIdx : public AdjacencyIndex<int_>
+struct ChildrenIdx : public Index<int_>
 {
     ChildrenIdx() {}
 
@@ -49,7 +49,7 @@ struct ChildrenIdx : public AdjacencyIndex<int_>
     int_ root_node() const { return this->value[0]; }
 
     void degrees(int_ *deg) const {
-        AdjacencyIndex<int_>::degrees(deg);
+        Index<int_>::degrees(deg);
         for (size_t i = 0; i < this->size(); i++)
             deg[i] += 1;
         deg[root_node()] -= 1;

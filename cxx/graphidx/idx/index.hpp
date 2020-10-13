@@ -60,7 +60,7 @@ operator<<(std::ostream &o, const IndexIter<int_> &it)
 
 
 template <typename int_ = int>
-struct AdjacencyIndex
+struct Index
 {
     uvector<int_> value;
     std::vector<int_> index;
