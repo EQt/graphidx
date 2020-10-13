@@ -8,7 +8,7 @@
 #include "../utils/viostream.hpp"   // for printer
 
 
-template<typename int_ = int>
+template <typename int_ = int>
 struct IndexIter
 {
     const int_ *start;
@@ -44,14 +44,14 @@ struct IndexIter
 
 
 namespace std {
-    template<typename int_ = int>
+    template <typename int_ = int>
     bool operator==(const std::set<int_> &a, const IndexIter<int_> &b) {
         return b == a;
     }
 }
 
 
-template<typename int_ = int>
+template <typename int_ = int>
 inline std::ostream&
 operator<<(std::ostream &o, const IndexIter<int_> &it)
 {
@@ -59,7 +59,7 @@ operator<<(std::ostream &o, const IndexIter<int_> &it)
 }
 
 
-template<typename int_ = int>
+template <typename int_ = int>
 struct AdjacencyIndex
 {
     uvector<int_> value;
