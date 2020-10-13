@@ -27,9 +27,17 @@ import Random
 @info "precompile"
 @time BenchSpanTree.grid_tree(2, 2)
 
-@info "normal"
-w = randn(Random.MersenneTwister(42), 4_000_000)
-@time BenchSpanTree.grid_tree(1000, 1000, w)
+let n1 = 1000
+    @info "normal" n = n1^2
+    w = randn(Random.MersenneTwister(42), 4_000_000)
+    @time BenchSpanTree.grid_tree(n1, n1, w)
+end
+
+let n1 = 2000
+    @info "normal" n = n1^2
+    w = randn(Random.MersenneTwister(42), 4_000_000)
+    @time BenchSpanTree.grid_tree(n1, n1, w)
+end
 
 @info "uniform"
 w = rand(Random.MersenneTwister(42), 4_000_000)
