@@ -1,6 +1,6 @@
 #include <doctest/doctest.h>
 
-#include "../graphidx/idx/grid.hpp"
+#include "../graphidx/experimental/idx/grid.hpp"
 
 
 TEST_CASE("GridIndex: grid_3x2")
@@ -9,7 +9,7 @@ TEST_CASE("GridIndex: grid_3x2")
 }
 
 
-TEST_CASE("GridIndex: binnotation")
+TEST_CASE("GridIndex: binary_notation")
 {
     REQUIRE(9 == 0b1001);
     REQUIRE(8 == 0b1000);
