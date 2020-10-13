@@ -7,8 +7,11 @@
 #pragma once
 #include <cstdio>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <vector>
+
+#include "../std/uvector.hpp"
 
 
 template <typename B, typename E>
@@ -113,7 +116,15 @@ operator<<(ostream &o, const _Printer<E> &v)
 
 template <typename E>
 inline ostream&
-operator<<(ostream &o, const vector<E> &v)
+operator<<(ostream &o, const std::vector<E> &v)
+{
+    return o << ::printer(v);
+}
+
+
+template <typename E>
+inline ostream&
+operator<<(ostream &o, const uvector<E> &v)
 {
     return o << ::printer(v);
 }
@@ -121,11 +132,21 @@ operator<<(ostream &o, const vector<E> &v)
 
 template<typename E>
 std::string
-to_string(const vector<E> &v) {
+to_string(const std::vector<E> &v) {
     ostringstream s;
     s << v;
     return s.str();
 }
+
+
+template<typename E>
+std::string
+to_string(const uvector<E> &v) {
+    ostringstream s;
+    s << v;
+    return s.str();
+}
+
 
 template<typename E>
 std::string
