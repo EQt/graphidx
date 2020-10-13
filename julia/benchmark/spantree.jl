@@ -19,6 +19,14 @@ function grid_tree(
 end
 
 
+function benchmark(n1)
+    n = n1^2
+    @info "normal" n
+    w = randn(Random.MersenneTwister(42), 2n)
+    @time BenchSpanTree.grid_tree(n1, n1, w)
+end
+
+
 end
 
 
@@ -27,18 +35,10 @@ import Random
 @info "precompile"
 @time BenchSpanTree.grid_tree(2, 2)
 
-let n1 = 1000
-    @info "normal" n = n1^2
-    w = randn(Random.MersenneTwister(42), 4_000_000)
-    @time BenchSpanTree.grid_tree(n1, n1, w)
-end
-
-let n1 = 2000
-    @info "normal" n = n1^2
-    w = randn(Random.MersenneTwister(42), 4_000_000)
-    @time BenchSpanTree.grid_tree(n1, n1, w)
-end
-
 @info "uniform"
 w = rand(Random.MersenneTwister(42), 4_000_000)
 @time BenchSpanTree.grid_tree(1000, 1000, w)
+
+for n1 in [1000, 2000, 3000]
+    BenchSpanTree.benchmark(n1)
+end
