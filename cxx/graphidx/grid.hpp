@@ -65,7 +65,7 @@ struct GridGraph
 };
 
 
-template <typename int_ = int>
+template <typename int_>
 GridGraph::operator IncidenceIndex<int_>() const
 {
     const size_t n = num_nodes();
