@@ -16,12 +16,16 @@ option(BUILD_PYEXT "Build python extension module"     ON)
 option(BUILD_TEST  "Compile unit tests"                ${_MASTER_PROJECT})
 option(BENCHMARK   "Compile benchmarks"                ${_MASTER_PROJECT})
 option(ASAN        "Use Address SANitizer"             OFF)
+option(TUNE_NATIVE "Optimize for this CPU"             OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     add_definitions(-pedantic -ansi -Wall -Wextra -Wsign-conversion)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
+    if (TUNE_NATIVE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mtune=native")
+    endif()
     if (ASAN)
         message("-- Enable Address Sanitizer")
         set(CMAKE_CXX_FLAGS
