@@ -74,11 +74,13 @@ main(int argc, char *argv[])
     std::cout << "graph:" << std::endl
               << " n = " << graph.num_nodes() << std::endl
               << " m = " << graph.num_edges() << std::endl;
-    // {
-    //     Timer _ ("prim_mst<binary_heap>\n");
-    //     using tag_t = __gnu_pbds::binary_heap_tag;
-    //     const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
-    // }
+#ifdef BINARY_HEAP_FIX
+    {
+        Timer _ ("prim_mst<binary_heap>\n");
+        using tag_t = __gnu_pbds::binary_heap_tag;
+        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+    }
+#endif
     {
         Timer _ ("prim_mst<thin_heap>\n");
         using tag_t = __gnu_pbds::thin_heap_tag;
