@@ -17,6 +17,7 @@ option(BUILD_TEST  "Compile unit tests"                ${_MASTER_PROJECT})
 option(BENCHMARK   "Compile benchmarks"                ${_MASTER_PROJECT})
 option(ASAN        "Use Address SANitizer"             OFF)
 option(TUNE_NATIVE "Optimize for this CPU"             OFF)
+option(WITH_LEMON  "Include algorithms using LEMON"    OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
@@ -34,9 +35,12 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
 endif()
 
 
+if (WITH_LEMON)
+    add_subdirectory(deps/lemon)
+endif()
+
 add_library(graphidx INTERFACE)
-target_include_directories(graphidx
-    INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cxx)
+target_include_directories(graphidx INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cxx)
 target_compile_features(graphidx INTERFACE cxx_std_17)
 
 find_package(Python3 COMPONENTS Interpreter Development)
@@ -109,9 +113,13 @@ if (BUILD_TEST)
         cxx/test/test_weights.cpp
         cxx/test/test_bz2.cpp
         cxx/test/test_gz.cpp
+        cxx/test/test_min_cut.cpp
     )
     target_link_libraries(doctests PRIVATE doctest::doctest graphidx)
     target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
+    if (WITH_LEMON)
+        target_link_libraries(doctests PRIVATE lemon)
+    endif()
 endif()
 
 
@@ -157,6 +165,7 @@ endif()
 if (BENCHMARK)
     add_subdirectory(cxx/benchmark)
 endif()
+
 
 # Local Variables:
 # cmake-tab-width: 4
