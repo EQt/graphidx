@@ -39,7 +39,7 @@ target_include_directories(graphidx
     INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cxx)
 target_compile_features(graphidx INTERFACE cxx_std_17)
 
-find_package(Python3 COMPONENTS Development)
+find_package(Python3 COMPONENTS Interpreter Development)
 if (MSVC AND PYTHON3__Development_FOUND)
     find_package(BZip2 HINTS "${PYTHON_INCLUDE_DIRS}/../Library/lib")
     find_package(ZLIB  HINTS "${PYTHON_INCLUDE_DIRS}/../Library/lib")
