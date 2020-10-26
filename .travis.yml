@@ -18,13 +18,14 @@ matrix:
         - mkdir -p build && cd build && cmake ..
             -DCMAKE_BUILD_TYPE=Debug
             -DASAN=ON
+            -DWITH_LEMON=ON
             -DPYTHON_EXECUTABLE:FILEPATH=$(which python3)
         - make -j$(nproc) && ./doctests -s
 
     - language: cpp
       os: osx
       script:
-        - mkdir -p build && cd build &&  cmake .. -DCMAKE_BUILD_TYPE=Debug
+        - mkdir -p build && cd build &&  cmake .. -DCMAKE_BUILD_TYPE=Debug -DWITH_LEMON=ON
         - make -j$(nproc) && ./doctests -s
 
     - language: python
