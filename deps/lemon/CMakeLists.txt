@@ -30,6 +30,10 @@ if (WITH_LEMON)
             ${LEMON_DIR}/lemon/config.h
         )
     endif()
+    if (NOT EXISTS ${LEMON_DIR}/lemon/throws.hpp)
+        file(RELATIVE_PATH LT ${LEMON_DIR}/lemon ${CMAKE_CURRENT_SOURCE_DIR}/lemon_throws.hpp)
+        file(CREATE_LINK ${LT} ${LEMON_DIR}/lemon/throws.hpp SYMBOLIC)
+    endif()
 
     add_library(lemon STATIC ${LEMON_DIR}/lemon/base.cc)
     target_include_directories(lemon PUBLIC ${LEMON_DIR})

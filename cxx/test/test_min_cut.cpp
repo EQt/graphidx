@@ -3,8 +3,8 @@
 #include <iostream>
 #include <set>
 
-#include "lemon_throws.hpp"
-#include "../graphidx/min_cut.hpp"
+#include <lemon/throws.hpp>
+#include <graphidx/min_cut.hpp>
 
 #ifdef RESTORE_NDEBUG
 #  define NDEBUG
