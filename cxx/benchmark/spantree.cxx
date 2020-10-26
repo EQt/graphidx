@@ -4,11 +4,11 @@
 #include <vector>
 
 #include <graphidx/grid.hpp>
+#include <graphidx/spanning/prim_mst.hpp>
 #include <graphidx/utils/popen.hpp>
 #include <graphidx/utils/thousand.hpp>
 #include <graphidx/utils/timer.hpp>
 
-#include "prim_mst.hpp"
 
 
 std::vector<double>

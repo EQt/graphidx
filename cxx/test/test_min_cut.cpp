@@ -4,7 +4,7 @@
 #include <set>
 
 #include "lemon_throws.hpp"
-#include "../min_cut.hpp"
+#include "../graphidx/min_cut.hpp"
 
 #ifdef RESTORE_NDEBUG
 #  define NDEBUG
