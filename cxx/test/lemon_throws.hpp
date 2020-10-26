@@ -1,11 +1,10 @@
 #pragma once
 #ifdef HAVE_LEMON
-#include <stdexcept>
-
-#ifdef NDEBUG
-#  define RESTORE_NDEBUG
-#  undef NDEBUG
-#endif
+#  include <stdexcept>
+#  ifdef NDEBUG
+#    define RESTORE_NDEBUG
+#    undef NDEBUG
+#  endif
 
 
 class lemon_assert : public std::invalid_argument {
@@ -26,4 +25,4 @@ public:
 #include <lemon/assert.h>
 
 
-#endif
+#endif  /* HAVE_LEMON */
