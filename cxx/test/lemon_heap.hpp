@@ -2,6 +2,7 @@
 
 #include <lemon/concepts/graph_components.h>
 #include <lemon/fib_heap.h>
+#include <lemon/bin_heap.h>
 
 
 template <typename int_t, typename value_t = int_t>
@@ -32,6 +33,8 @@ struct HeapTag { };
 
 struct FibHeapTag : public HeapTag { };
 
+struct BinHeapTag : public HeapTag { };
+
 
 namespace detail {
 
@@ -39,11 +42,19 @@ template <typename int_t, typename priority_t, typename Tag>
 struct HeapDispatch;
 
 
-// partial specialization
+// partial specialization: Fibonacci heap
 template <typename int_t, typename priority_t>
 struct HeapDispatch<int_t, priority_t, FibHeapTag>
 {
     using type = ::lemon::FibHeap<priority_t, VecNodeMap<int_t, int_t>>;
+};
+
+
+// partial specialization: Binary heap
+template <typename int_t, typename priority_t>
+struct HeapDispatch<int_t, priority_t, BinHeapTag>
+{
+    using type = ::lemon::BinHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
 
 
@@ -52,7 +63,7 @@ struct Heap : public HeapDispatch<int_t, priority_t, Tag>::type
 {
     VecNodeMap<int_t, int_t> nmap;
     public:
-    Heap(size_t n) : HeapDispatch<int_t, priority_t, FibHeapTag>::type(nmap), nmap(n) { }
+    Heap(size_t n) : HeapDispatch<int_t, priority_t, Tag>::type(nmap), nmap(n) { }
 };
 
 }   // namespace detail
@@ -60,3 +71,6 @@ struct Heap : public HeapDispatch<int_t, priority_t, Tag>::type
 
 template <typename int_t = int, typename priority_t = double>
 using FibonacciHeap = detail::Heap<FibHeapTag, int_t, priority_t>;
+
+template <typename int_t = int, typename priority_t = double>
+using BinaryHeap = detail::Heap<BinHeapTag, int_t, priority_t>;
