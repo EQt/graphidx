@@ -3,6 +3,7 @@
 #include <lemon/concepts/graph_components.h>
 #include <lemon/fib_heap.h>
 #include <lemon/bin_heap.h>
+#include <lemon/pairing_heap.h>
 
 
 template <typename int_t, typename value_t = int_t>
@@ -35,6 +36,8 @@ struct FibHeapTag : public HeapTag { };
 
 struct BinHeapTag : public HeapTag { };
 
+struct PairingHeapTag : public HeapTag { };
+
 
 namespace detail {
 
@@ -58,6 +61,14 @@ struct HeapDispatch<int_t, priority_t, BinHeapTag>
 };
 
 
+// partial specialization: Pairing heap
+template <typename int_t, typename priority_t>
+struct HeapDispatch<int_t, priority_t, PairingHeapTag>
+{
+    using type = ::lemon::PairingHeap<priority_t, VecNodeMap<int_t, int_t>>;
+};
+
+
 template <typename Tag, typename int_t = int, typename priority_t = double>
 struct Heap : public HeapDispatch<int_t, priority_t, Tag>::type
 {
@@ -74,3 +85,6 @@ using FibonacciHeap = detail::Heap<FibHeapTag, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
 using BinaryHeap = detail::Heap<BinHeapTag, int_t, priority_t>;
+
+template <typename int_t = int, typename priority_t = double>
+using PairingHeap = detail::Heap<PairingHeapTag, int_t, priority_t>;
