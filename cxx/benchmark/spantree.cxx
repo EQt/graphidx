@@ -10,7 +10,6 @@
 #include <graphidx/utils/timer.hpp>
 
 
-
 std::vector<double>
 julia_randn(
     const std::size_t size,

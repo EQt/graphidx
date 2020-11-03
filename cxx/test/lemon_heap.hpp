@@ -28,11 +28,27 @@ struct VecNodeMap
 };
 
 
+struct HeapTag { };
+
+struct FibHeapTag : public HeapTag { };
+
+template <typename int_t, typename priority_t, typename Tag>
+struct HeapDispatch;
+
+
+// partial specialization
+template <typename int_t, typename priority_t>
+struct HeapDispatch<int_t, priority_t, FibHeapTag>
+{
+    using type = lemon::FibHeap<priority_t, VecNodeMap<int_t, int_t>>;
+};
+
+
 template <typename int_t = int, typename priority_t = double>
-struct FibonacciHeap : public lemon::FibHeap<int_t, VecNodeMap<int_t, int_t>>
+struct FibonacciHeap : public HeapDispatch<int_t, priority_t, FibHeapTag>::type
 {
     using map_t = VecNodeMap<int_t, int_t>;
-    using base_t = lemon::FibHeap<int_t, VecNodeMap<int_t, int_t>>;
+    using base_t = typename HeapDispatch<int_t, priority_t, FibHeapTag>::type;
 
     map_t nmap;
 public:
