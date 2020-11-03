@@ -33,6 +33,8 @@ struct HeapTag { };
 struct FibHeapTag : public HeapTag { };
 
 
+namespace detail {
+
 template <typename int_t, typename priority_t, typename Tag>
 struct HeapDispatch;
 
@@ -41,7 +43,7 @@ struct HeapDispatch;
 template <typename int_t, typename priority_t>
 struct HeapDispatch<int_t, priority_t, FibHeapTag>
 {
-    using type = lemon::FibHeap<priority_t, VecNodeMap<int_t, int_t>>;
+    using type = ::lemon::FibHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
 
 
@@ -53,6 +55,8 @@ struct Heap : public HeapDispatch<int_t, priority_t, Tag>::type
     Heap(size_t n) : HeapDispatch<int_t, priority_t, FibHeapTag>::type(nmap), nmap(n) { }
 };
 
+}   // namespace detail
+
 
 template <typename int_t = int, typename priority_t = double>
-using FibonacciHeap = Heap<FibHeapTag, int_t, priority_t>;
+using FibonacciHeap = detail::Heap<FibHeapTag, int_t, priority_t>;
