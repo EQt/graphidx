@@ -69,13 +69,19 @@ struct HeapDispatch<int_t, priority_t, PairingHeapTag>
 };
 
 
-template <typename Tag, typename int_t = int, typename priority_t = double>
-struct Heap : public HeapDispatch<int_t, priority_t, Tag>::type
+template <typename Tag, typename Item = int, typename Prio = double>
+struct Heap : public HeapDispatch<Item, Prio, Tag>::type
 {
-    VecNodeMap<int_t, int_t> nmap;
-    public:
-    Heap(size_t n) : HeapDispatch<int_t, priority_t, Tag>::type(nmap), nmap(n) { }
+    VecNodeMap<Item, Item> nmap;
+    using Base = typename HeapDispatch<Item, Prio, Tag>::type;
+    using Pair = typename Base::Pair;
+
+public:
+    Heap(size_t n) : HeapDispatch<Item, Prio, Tag>::type(nmap), nmap(n) { }
+
+    void push(const Pair &p) { push(p.first, p.second); }
 };
+
 
 }   // namespace detail
 
