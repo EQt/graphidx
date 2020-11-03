@@ -74,12 +74,14 @@ struct Heap : public HeapDispatch<Item, Prio, Tag>::type
 {
     VecNodeMap<Item, Item> nmap;
     using Base = typename HeapDispatch<Item, Prio, Tag>::type;
-    using Pair = typename Base::Pair;
+    using Pair = typename std::pair<Item, Prio>;
 
 public:
     Heap(size_t n) : HeapDispatch<Item, Prio, Tag>::type(nmap), nmap(n) { }
 
-    void push(const Pair &p) { push(p.first, p.second); }
+    inline void push(const Pair &p) { Base::push(p.first, p.second); }
+
+    inline void push (const Item& item, const Prio& prio) { Base::push(item, prio); }
 };
 
 
