@@ -4,7 +4,7 @@
 #include <type_traits>      // std::is_integral
 #include <vector>
 
-#include "../utils/heap.hpp"
+#include "../utils/gnu_heap.hpp"
 
 
 template <typename tag_t = __gnu_pbds::pairing_heap_tag,
