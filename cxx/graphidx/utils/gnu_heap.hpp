@@ -71,6 +71,10 @@ public:
     inline void decrease(int_t v, priority_t prio) {
         base_t::modify(pnode[(size_t) v], {v, prio});
     }
+
+    inline int_t top() const {
+        return base_t::top().id;
+    }
 };
 
 

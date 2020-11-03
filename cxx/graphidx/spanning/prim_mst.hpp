@@ -23,7 +23,7 @@ prim_mst_edges(
     queue.push({root, 0.0});
     parent[(size_t) root] = -root;
     while (!queue.empty()) {
-        const auto u = queue.top().id;
+        const auto u = queue.top();
         queue.pop();
         parent[(size_t) u] *= -1;
         for (const auto [v, eidx] : idx[u]) {
