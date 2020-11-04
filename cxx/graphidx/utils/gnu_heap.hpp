@@ -2,6 +2,7 @@
 
 #if __has_include(<ext/pb_ds/priority_queue.hpp>)
 #  include <ext/pb_ds/priority_queue.hpp>
+#  include "heap.hpp"
 
 
 template <typename int_t = int, typename float_t = double>
@@ -73,9 +74,6 @@ public:
         return Base::top().id;
     }
 };
-
-
-#include "heap.hpp"
 
 
 namespace gnux {

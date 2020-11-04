@@ -7,9 +7,9 @@
 #include "../utils/gnu_heap.hpp"
 
 
-template <typename tag_t = __gnu_pbds::pairing_heap_tag,
+template <typename Tag = gnux::PairHeapTag,
           typename int_t = int,
-          typename Queue = heap_t<tag_t, int_t, double>>
+          typename Queue = Heap<Tag, int_t, double>>
 std::vector<int_t>
 prim_mst_edges(
     const double *edge_weight,

@@ -83,10 +83,10 @@ main(int argc, char *argv[])
 #endif
     {
         Timer _ ("prim_mst<thin_heap>\n");
-        using tag_t = __gnu_pbds::thin_heap_tag;
-        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::ThinHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
+    /*
     {
         Timer _ ("prim_mst<binomial_heap>\n");
         using tag_t = __gnu_pbds::binomial_heap_tag;
@@ -99,32 +99,25 @@ main(int argc, char *argv[])
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
+    */
     {
         Timer _ ("prim_mst<pairing_heap>\n");
-        using Tag = gnux::PairHeapTag;
-        using Queue = Heap<Tag, int, double>;
-        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::PairHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<fib_heap>\n");
-        using Tag = FibHeapTag;
-        using Queue = Heap<Tag, int, double>;
-        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
+        const auto parent = prim_mst_edges<FibHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<bin_heap>\n");
-        using Tag = BinHeapTag;
-        using Queue = Heap<Tag, int, double>;
-        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
+        const auto parent = prim_mst_edges<BinHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<quad_heap>\n");
-        using Tag = QuadHeapTag;
-        using Queue = Heap<Tag, int, double>;
-        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
+        const auto parent = prim_mst_edges<QuadHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
 
