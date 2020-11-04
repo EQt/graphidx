@@ -14,7 +14,7 @@ struct VecNodeMap
 
     std::vector<int_t> items;
 
-    explicit VecNodeMap(size_t n) : items(n, -1) { }
+    explicit VecNodeMap(size_t n) : items(n, int_t(-1)) { }
 
     Value& operator[](const Key& key) {
         return items[key];
@@ -82,6 +82,8 @@ public:
     inline void push(const Pair &p) { Base::push(p.first, p.second); }
 
     inline void push (const Item& item, const Prio& prio) { Base::push(item, prio); }
+
+    inline bool contains(Item v) const { return nmap[v] >= 0; }
 };
 
 

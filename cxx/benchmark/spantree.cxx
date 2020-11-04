@@ -5,6 +5,7 @@
 
 #include <graphidx/grid.hpp>
 #include <graphidx/spanning/prim_mst.hpp>
+#include <graphidx/utils/lemon_heap.hpp>
 #include <graphidx/utils/popen.hpp>
 #include <graphidx/utils/thousand.hpp>
 #include <graphidx/utils/timer.hpp>
@@ -102,6 +103,13 @@ main(int argc, char *argv[])
         Timer _ ("prim_mst<pairing_heap>\n");
         using tag_t = __gnu_pbds::pairing_heap_tag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        print_arr(parent, 5, "pi = ", "\n");
+    }
+    {
+        Timer _ ("prim_mst<fib_heap>\n");
+        using Tag = FibHeapTag;
+        using Queue = FibonacciHeap<int, double>;
+        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
 

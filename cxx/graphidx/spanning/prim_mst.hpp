@@ -30,11 +30,10 @@ prim_mst_edges(
         for (const auto [v, eidx] : idx[u]) {
             if (parent[v] >= 0)
                 continue;
-            const auto node = queue[v];
-            if (node == nullptr) {
+            if (!queue.contains(v)) {
                 parent[v] = -u;
                 queue.push({v, edge_weight[eidx]});
-            } else if (edge_weight[eidx] < node->dist) {
+            } else if (edge_weight[eidx] < queue[v]) {
                 parent[v] = -u;
                 queue.decrease(v, edge_weight[eidx]);
             }

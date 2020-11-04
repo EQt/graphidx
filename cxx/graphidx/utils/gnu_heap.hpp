@@ -60,13 +60,11 @@ public:
         return pnode[(size_t) r_val.id] = base_t::push(r_val);
     }
 
-    inline const typename base_t::point_iterator operator[](size_t v) const {
-        return pnode[v];
-    }
+    inline bool contains(size_t v) const { return pnode[v] != nullptr; }
+    inline bool contains(int_t v) const { return contains((size_t) v); }
 
-    inline const typename base_t::point_iterator operator[](int_t v) const {
-        return (*this)[(size_t) v];
-    }
+    inline priority_t operator[](size_t v) const { return pnode[v]->dist; }
+    inline priority_t operator[](int_t v) const { return (*this)[(size_t) v]; }
 
     inline void decrease(int_t v, priority_t prio) {
         base_t::modify(pnode[(size_t) v], {v, prio});
