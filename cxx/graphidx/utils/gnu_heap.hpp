@@ -99,6 +99,16 @@ struct HeapTypedef<ThinHeapTag, Item, Prio>
 };
 
 
+struct BinomialHeapTag { };
+
+template <typename Item, typename Prio>
+struct HeapTypedef<BinomialHeapTag, Item, Prio>
+{
+    using impl = typename ::heap_t<__gnu_pbds::binomial_heap_tag, Item, Prio>;
+};
+
+
+
 } // namespace gnux
 
 

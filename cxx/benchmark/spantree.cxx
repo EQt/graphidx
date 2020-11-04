@@ -86,13 +86,13 @@ main(int argc, char *argv[])
         const auto parent = prim_mst_edges<gnux::ThinHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
-    /*
     {
         Timer _ ("prim_mst<binomial_heap>\n");
-        using tag_t = __gnu_pbds::binomial_heap_tag;
+        using tag_t = gnux::BinomialHeapTag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
+    /*
     {
         Timer _ ("prim_mst<rc_binomial_heap>\n");
         using tag_t = __gnu_pbds::rc_binomial_heap_tag;
