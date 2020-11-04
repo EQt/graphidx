@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iomanip>
 #include <iostream>
 #include <string>   // std::stoul
 #include <vector>
@@ -32,6 +33,18 @@ julia_randn(
     std::vector<double> a (size);
     Popen(cmd, "r").readinto(a, 8 * size);
     return a;
+}
+
+
+size_t
+digest(const std::vector<int> &v)
+{
+    const auto a = 13;
+    const auto b = 42;
+    size_t d = 0;
+    for (size_t i = 0; i < v.size(); i++)
+        d = (i * a + b) * d + v[i];
+    return d;
 }
 
 
@@ -75,39 +88,45 @@ main(int argc, char *argv[])
               << " n = " << graph.num_nodes() << std::endl
               << " m = " << graph.num_edges() << std::endl;
     {
-        Timer _ ("prim_mst<thin_heap>\n");
+        Timer t ("\nprim_mst<thin_heap>\n");
         const auto parent = prim_mst_edges<gnux::ThinHeapT>(weights.data(), idx);
-        print_arr(parent, 5, "pi = ", "\n");
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
     }
     {
-        Timer _ ("prim_mst<binomial_heap>\n");
+        Timer t ("\nprim_mst<binomial_heap>\n");
         const auto parent = prim_mst_edges<gnux::BinomialHeapT>(weights.data(), idx);
-        print_arr(parent, 5, "pi = ", "\n");
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
     }
     {
-        Timer _ ("prim_mst<rc_binomial_heap>\n");
+        Timer t ("\nprim_mst<rc_binomial_heap>\n");
         const auto parent = prim_mst_edges<gnux::RcBinomHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
-        Timer _ ("prim_mst<pairing_heap>\n");
+        Timer t ("\nprim_mst<pairing_heap>\n");
         const auto parent = prim_mst_edges<gnux::PairHeapT>(weights.data(), idx);
-        print_arr(parent, 5, "pi = ", "\n");
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
     }
     {
-        Timer _ ("prim_mst<fib_heap>\n");
+        Timer t ("\nprim_mst<fib_heap>\n");
         const auto parent = prim_mst_edges<FibHeapT>(weights.data(), idx);
-        print_arr(parent, 5, "pi = ", "\n");
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
     }
     {
-        Timer _ ("prim_mst<bin_heap>\n");
+        Timer t ("\nprim_mst<bin_heap>\n");
         const auto parent = prim_mst_edges<BinHeapT>(weights.data(), idx);
-        print_arr(parent, 5, "pi = ", "\n");
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
     }
     {
-        Timer _ ("prim_mst<quad_heap>\n");
+        Timer t ("\nprim_mst<quad_heap>\n");
         const auto parent = prim_mst_edges<QuadHeapT>(weights.data(), idx);
-        print_arr(parent, 5, "pi = ", "\n");
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
     }
 
     return 0;
