@@ -76,37 +76,37 @@ main(int argc, char *argv[])
               << " m = " << graph.num_edges() << std::endl;
     {
         Timer _ ("prim_mst<thin_heap>\n");
-        const auto parent = prim_mst_edges<gnux::ThinHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::ThinHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<binomial_heap>\n");
-        const auto parent = prim_mst_edges<gnux::BinomialHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::BinomialHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<rc_binomial_heap>\n");
-        const auto parent = prim_mst_edges<gnux::RcBinomHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::RcBinomHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<pairing_heap>\n");
-        const auto parent = prim_mst_edges<gnux::PairHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::PairHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<fib_heap>\n");
-        const auto parent = prim_mst_edges<FibHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<FibHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<bin_heap>\n");
-        const auto parent = prim_mst_edges<BinHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<BinHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<quad_heap>\n");
-        const auto parent = prim_mst_edges<QuadHeapTag>(weights.data(), idx);
+        const auto parent = prim_mst_edges<QuadHeapT>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
 

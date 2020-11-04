@@ -6,16 +6,16 @@
 #include <lemon/quad_heap.h>
 #include <lemon/pairing_heap.h>
 
+#include "heap.hpp"
 
-struct HeapTag { };
 
-struct FibHeapTag : public HeapTag { };
+struct FibHeapT : public HeapT { };
 
-struct BinHeapTag : public HeapTag { };
+struct BinHeapT : public HeapT { };
 
-struct PairingHeapTag : public HeapTag { };
+struct PairingHeapT : public HeapT { };
 
-struct QuadHeapTag : public HeapTag { };
+struct QuadHeapT : public HeapT { };
 
 
 namespace detail {
@@ -53,7 +53,7 @@ struct HeapDispatch;
 
 // partial specialization: Fibonacci heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, FibHeapTag>
+struct HeapDispatch<int_t, priority_t, FibHeapT>
 {
     using type = ::lemon::FibHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -61,7 +61,7 @@ struct HeapDispatch<int_t, priority_t, FibHeapTag>
 
 // partial specialization: Binary heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, BinHeapTag>
+struct HeapDispatch<int_t, priority_t, BinHeapT>
 {
     using type = ::lemon::BinHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -69,7 +69,7 @@ struct HeapDispatch<int_t, priority_t, BinHeapTag>
 
 // partial specialization: Four-ary heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, QuadHeapTag>
+struct HeapDispatch<int_t, priority_t, QuadHeapT>
 {
     using type = ::lemon::QuadHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -77,7 +77,7 @@ struct HeapDispatch<int_t, priority_t, QuadHeapTag>
 
 // partial specialization: Pairing heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, PairingHeapTag>
+struct HeapDispatch<int_t, priority_t, PairingHeapT>
 {
     using type = ::lemon::PairingHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -105,13 +105,13 @@ public:
 
 
 template <typename int_t = int, typename priority_t = double>
-using FibonacciHeap = detail::Heap<FibHeapTag, int_t, priority_t>;
+using FibonacciHeap = detail::Heap<FibHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
-using BinaryHeap = detail::Heap<BinHeapTag, int_t, priority_t>;
+using BinaryHeap = detail::Heap<BinHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
-using PairingHeap = detail::Heap<PairingHeapTag, int_t, priority_t>;
+using PairingHeap = detail::Heap<PairingHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
-using QuadHeap = detail::Heap<QuadHeapTag, int_t, priority_t>;
+using QuadHeap = detail::Heap<QuadHeapT, int_t, priority_t>;

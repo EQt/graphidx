@@ -7,7 +7,7 @@
 #include "../utils/gnu_heap.hpp"
 
 
-template <typename Tag = gnux::PairHeapTag,
+template <typename Tag = gnux::PairHeapT,
           typename int_t = int,
           typename Queue = Heap<Tag, int_t, double>>
 std::vector<int_t>

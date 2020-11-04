@@ -1,5 +1,8 @@
 #pragma once
 
+struct HeapT { };
+
+
 namespace detail {
 
 template <typename Tag, typename Item, typename Prio>

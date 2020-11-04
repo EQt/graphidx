@@ -81,37 +81,37 @@ namespace gnux {
 using ::__gnu_pbds::pairing_heap_tag;
 using ::__gnu_pbds::thin_heap_tag;
 
-struct PairHeapTag { };
+struct PairHeapT { };
 
 template <typename Item, typename Prio>
-struct HeapTypedef<PairHeapTag, Item, Prio>
+struct HeapTypedef<PairHeapT, Item, Prio>
 {
     using impl = typename ::heap_t<pairing_heap_tag, Item, Prio>;
 };
 
 
-struct ThinHeapTag { };
+struct ThinHeapT { };
 
 template <typename Item, typename Prio>
-struct HeapTypedef<ThinHeapTag, Item, Prio>
+struct HeapTypedef<ThinHeapT, Item, Prio>
 {
     using impl = typename ::heap_t<thin_heap_tag, Item, Prio>;
 };
 
 
-struct BinomialHeapTag { };
+struct BinomialHeapT { };
 
 template <typename Item, typename Prio>
-struct HeapTypedef<BinomialHeapTag, Item, Prio>
+struct HeapTypedef<BinomialHeapT, Item, Prio>
 {
     using impl = typename ::heap_t<__gnu_pbds::binomial_heap_tag, Item, Prio>;
 };
 
 
-struct RcBinomHeapTag { };
+struct RcBinomHeapT { };
 
 template <typename Item, typename Prio>
-struct HeapTypedef<RcBinomHeapTag, Item, Prio>
+struct HeapTypedef<RcBinomHeapT, Item, Prio>
 {
     using impl = typename ::heap_t<__gnu_pbds::rc_binomial_heap_tag, Item, Prio>;
 };
