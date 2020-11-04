@@ -74,13 +74,6 @@ main(int argc, char *argv[])
     std::cout << "graph:" << std::endl
               << " n = " << graph.num_nodes() << std::endl
               << " m = " << graph.num_edges() << std::endl;
-#ifdef BINARY_HEAP_FIX
-    {
-        Timer _ ("prim_mst<binary_heap>\n");
-        using tag_t = __gnu_pbds::binary_heap_tag;
-        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
-    }
-#endif
     {
         Timer _ ("prim_mst<thin_heap>\n");
         const auto parent = prim_mst_edges<gnux::ThinHeapTag>(weights.data(), idx);
@@ -88,14 +81,12 @@ main(int argc, char *argv[])
     }
     {
         Timer _ ("prim_mst<binomial_heap>\n");
-        using tag_t = gnux::BinomialHeapTag;
-        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::BinomialHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<rc_binomial_heap>\n");
-        using tag_t = gnux::RcBinomHeapTag;
-        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        const auto parent = prim_mst_edges<gnux::RcBinomHeapTag>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
