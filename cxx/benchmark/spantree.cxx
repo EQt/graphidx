@@ -109,21 +109,21 @@ main(int argc, char *argv[])
     {
         Timer _ ("prim_mst<fib_heap>\n");
         using Tag = FibHeapTag;
-        using Queue = detail::Heap<Tag, int, double>;
+        using Queue = Heap<Tag, int, double>;
         const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<bin_heap>\n");
         using Tag = BinHeapTag;
-        using Queue = detail::Heap<Tag, int, double>;
+        using Queue = Heap<Tag, int, double>;
         const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
         Timer _ ("prim_mst<quad_heap>\n");
         using Tag = QuadHeapTag;
-        using Queue = detail::Heap<Tag, int, double>;
+        using Queue = Heap<Tag, int, double>;
         const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
