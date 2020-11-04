@@ -75,8 +75,38 @@ public:
 };
 
 
-template <typename int_t, typename priority_t, typename Tag>
-struct HeapDispatch;
+namespace gnux {
+
+using ::__gnu_pbds::pairing_heap_tag;
+using ::__gnu_pbds::thin_heap_tag;
+
+template <typename Tag, typename Item = int, typename Prio = double>
+struct HeapTypedef;
+
+struct PairHeapTag { };
+
+template <typename Item, typename Prio>
+struct HeapTypedef<PairHeapTag, Item, Prio>
+{
+    using impl = typename ::heap_t<pairing_heap_tag, Item, Prio>;
+};
+
+
+struct ThinHeapTag { };
+
+template <typename Item, typename Prio>
+struct HeapTypedef<ThinHeapTag, Item, Prio>
+{
+    using impl = typename ::heap_t<thin_heap_tag, Item, Prio>;
+};
+
+
+} // namespace gnux
+
+
+template <typename Tag, typename Item = int, typename Prio = double>
+using Heap = typename gnux::HeapTypedef<Tag, Item, Prio>::impl;
+
 
 
 #else

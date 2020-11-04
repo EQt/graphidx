@@ -101,8 +101,9 @@ main(int argc, char *argv[])
     }
     {
         Timer _ ("prim_mst<pairing_heap>\n");
-        using tag_t = __gnu_pbds::pairing_heap_tag;
-        const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
+        using Tag = gnux::PairHeapTag;
+        using Queue = Heap<Tag, int, double>;
+        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
     {
