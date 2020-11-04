@@ -3,6 +3,7 @@
 #include <lemon/concepts/graph_components.h>
 #include <lemon/fib_heap.h>
 #include <lemon/bin_heap.h>
+#include <lemon/quad_heap.h>
 #include <lemon/pairing_heap.h>
 
 
@@ -38,6 +39,8 @@ struct BinHeapTag : public HeapTag { };
 
 struct PairingHeapTag : public HeapTag { };
 
+struct QuadHeapTag : public HeapTag { };
+
 
 namespace detail {
 
@@ -59,6 +62,15 @@ struct HeapDispatch<int_t, priority_t, BinHeapTag>
 {
     using type = ::lemon::BinHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
+
+
+// partial specialization: Four-ary heap
+template <typename int_t, typename priority_t>
+struct HeapDispatch<int_t, priority_t, QuadHeapTag>
+{
+    using type = ::lemon::QuadHeap<priority_t, VecNodeMap<int_t, int_t>>;
+};
+
 
 
 // partial specialization: Pairing heap
@@ -98,3 +110,6 @@ using BinaryHeap = detail::Heap<BinHeapTag, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
 using PairingHeap = detail::Heap<PairingHeapTag, int_t, priority_t>;
+
+template <typename int_t = int, typename priority_t = double>
+using QuadHeap = detail::Heap<QuadHeapTag, int_t, priority_t>;

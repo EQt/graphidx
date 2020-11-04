@@ -119,6 +119,13 @@ main(int argc, char *argv[])
         const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
+    {
+        Timer _ ("prim_mst<quad_heap>\n");
+        using Tag = QuadHeapTag;
+        using Queue = detail::Heap<Tag, int, double>;
+        const auto parent = prim_mst_edges<Tag, int, Queue>(weights.data(), idx);
+        print_arr(parent, 5, "pi = ", "\n");
+    }
 
     return 0;
 }
