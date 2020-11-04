@@ -7,6 +7,19 @@
 #include <lemon/pairing_heap.h>
 
 
+struct HeapTag { };
+
+struct FibHeapTag : public HeapTag { };
+
+struct BinHeapTag : public HeapTag { };
+
+struct PairingHeapTag : public HeapTag { };
+
+struct QuadHeapTag : public HeapTag { };
+
+
+namespace detail {
+
 template <typename int_t, typename value_t = int_t>
 struct VecNodeMap
 {
@@ -29,20 +42,6 @@ struct VecNodeMap
         (*this)[key] = val;
     }
 };
-
-
-struct HeapTag { };
-
-struct FibHeapTag : public HeapTag { };
-
-struct BinHeapTag : public HeapTag { };
-
-struct PairingHeapTag : public HeapTag { };
-
-struct QuadHeapTag : public HeapTag { };
-
-
-namespace detail {
 
 template <typename int_t, typename priority_t, typename Tag>
 struct HeapDispatch;
