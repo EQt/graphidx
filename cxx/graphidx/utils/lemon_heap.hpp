@@ -75,7 +75,6 @@ struct HeapDispatch<int_t, priority_t, QuadHeapTag>
 };
 
 
-
 // partial specialization: Pairing heap
 template <typename int_t, typename priority_t>
 struct HeapDispatch<int_t, priority_t, PairingHeapTag>
@@ -92,7 +91,7 @@ struct Heap : public HeapDispatch<Item, Prio, Tag>::type
     using Pair = typename std::pair<Item, Prio>;
 
 public:
-    Heap(size_t n) : HeapDispatch<Item, Prio, Tag>::type(nmap), nmap(n) { }
+    Heap(size_t n) : Base(nmap), nmap(n) { }
 
     inline void push(const Pair &p) { Base::push(p.first, p.second); }
 
