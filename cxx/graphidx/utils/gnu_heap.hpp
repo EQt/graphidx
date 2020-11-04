@@ -81,7 +81,7 @@ namespace gnux {
 using ::__gnu_pbds::pairing_heap_tag;
 using ::__gnu_pbds::thin_heap_tag;
 
-struct PairHeapT { };
+struct PairHeapT : public ::HeapT { };
 
 template <typename Item, typename Prio>
 struct HeapTypedef<PairHeapT, Item, Prio>
@@ -90,7 +90,7 @@ struct HeapTypedef<PairHeapT, Item, Prio>
 };
 
 
-struct ThinHeapT { };
+struct ThinHeapT : public ::HeapT { };
 
 template <typename Item, typename Prio>
 struct HeapTypedef<ThinHeapT, Item, Prio>
@@ -99,7 +99,7 @@ struct HeapTypedef<ThinHeapT, Item, Prio>
 };
 
 
-struct BinomialHeapT { };
+struct BinomialHeapT : public ::HeapT { };
 
 template <typename Item, typename Prio>
 struct HeapTypedef<BinomialHeapT, Item, Prio>
@@ -108,7 +108,7 @@ struct HeapTypedef<BinomialHeapT, Item, Prio>
 };
 
 
-struct RcBinomHeapT { };
+struct RcBinomHeapT : public ::HeapT { };
 
 template <typename Item, typename Prio>
 struct HeapTypedef<RcBinomHeapT, Item, Prio>
