@@ -5,13 +5,13 @@
 
 
 template <typename int_t = int, typename float_t = double>
-struct pq_element
+struct PqElement
 {
     int_t id;
     float_t dist;
 
 #if 0
-    inline pq_element swap(pq_element other) {
+    inline PqElement swap(PqElement other) {
         return *this = other;
     }
 #endif
@@ -20,33 +20,32 @@ struct pq_element
 
 template <typename int_t = int, typename float_t = double>
 inline bool
-operator<(const pq_element<int_t, float_t> &a, const pq_element<int_t, float_t> &b) {
+operator<(const PqElement<int_t, float_t> &a, const PqElement<int_t, float_t> &b) {
     return a.dist > b.dist;
 }
 
 
-template <typename tag_t = __gnu_pbds::pairing_heap_tag,
+template <typename Tag = __gnu_pbds::pairing_heap_tag,
           typename int_t = int,
           typename float_t = double>
-using priority_queue = __gnu_pbds::priority_queue<
-    pq_element<int_t, float_t>,
-    std::less<pq_element<int_t, float_t>>,
-    tag_t
+using PriorityQueue = __gnu_pbds::priority_queue<
+    PqElement<int_t, float_t>,
+    std::less<PqElement<int_t, float_t>>,
+    Tag
 >;
 
 
-template <typename tag_t = __gnu_pbds::pairing_heap_tag,
+template <typename Tag = __gnu_pbds::pairing_heap_tag,
           typename int_t = int,
-          typename priority_t = double,
-          typename queue_t = priority_queue<tag_t, int_t, priority_t>>
-class heap_t : public priority_queue<tag_t, int_t, priority_t>
+          typename priority_t = double>
+class heap_t : public PriorityQueue<Tag, int_t, priority_t>
 {
     static_assert(std::is_integral<int_t>::value, "need integers");
     static_assert(std::is_signed<int_t>::value, "need the sign bit");
 
-    using base_t = priority_queue<tag_t, int_t, priority_t>;
+    using Base = PriorityQueue<Tag, int_t, priority_t>;
 
-    std::vector<typename base_t::point_iterator> pnode;
+    std::vector<typename Base::point_iterator> pnode;
 
 public:
     explicit heap_t(size_t n) : pnode(n, nullptr) {
@@ -56,8 +55,8 @@ public:
                                      std::to_string(n));
     }
 
-    inline typename base_t::point_iterator push(typename base_t::const_reference r_val) {
-        return pnode[(size_t) r_val.id] = base_t::push(r_val);
+    inline typename Base::point_iterator push(typename Base::const_reference r_val) {
+        return pnode[(size_t) r_val.id] = Base::push(r_val);
     }
 
     inline bool contains(size_t v) const { return pnode[v] != nullptr; }
@@ -67,13 +66,17 @@ public:
     inline priority_t operator[](int_t v) const { return (*this)[(size_t) v]; }
 
     inline void decrease(int_t v, priority_t prio) {
-        base_t::modify(pnode[(size_t) v], {v, prio});
+        Base::modify(pnode[(size_t) v], {v, prio});
     }
 
     inline int_t top() const {
-        return base_t::top().id;
+        return Base::top().id;
     }
 };
+
+
+template <typename int_t, typename priority_t, typename Tag>
+struct HeapDispatch;
 
 
 #else
