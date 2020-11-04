@@ -92,14 +92,12 @@ main(int argc, char *argv[])
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
-    /*
     {
         Timer _ ("prim_mst<rc_binomial_heap>\n");
-        using tag_t = __gnu_pbds::rc_binomial_heap_tag;
+        using tag_t = gnux::RcBinomHeapTag;
         const auto parent = prim_mst_edges<tag_t>(weights.data(), idx);
         print_arr(parent, 5, "pi = ", "\n");
     }
-    */
     {
         Timer _ ("prim_mst<pairing_heap>\n");
         const auto parent = prim_mst_edges<gnux::PairHeapTag>(weights.data(), idx);

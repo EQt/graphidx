@@ -108,6 +108,14 @@ struct HeapTypedef<BinomialHeapTag, Item, Prio>
 };
 
 
+struct RcBinomHeapTag { };
+
+template <typename Item, typename Prio>
+struct HeapTypedef<RcBinomHeapTag, Item, Prio>
+{
+    using impl = typename ::heap_t<__gnu_pbds::rc_binomial_heap_tag, Item, Prio>;
+};
+
 
 } // namespace gnux
 
