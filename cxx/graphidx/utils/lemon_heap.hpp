@@ -23,6 +23,10 @@ namespace detail {
 template <typename int_t, typename value_t = int_t>
 struct VecNodeMap
 {
+    static_assert(std::is_integral<int_t>::value, "need integers");
+    static_assert(std::is_integral<value_t>::value, "need integers");
+    static_assert(std::is_signed<value_t>::value, "need the sign bit");
+
     using Key = int_t;
     using Value = value_t;
 
