@@ -18,28 +18,29 @@ prim_mst_edges(
 {
     const size_t n = idx.num_nodes();
     queue_t queue (idx.num_nodes());
-    std::vector<int_t> parent (n, ~0);
+    std::vector<int_t> _parent (n, ~0);
+    int_t *parent = _parent.data();
 
     queue.push({root, 0.0});
-    parent[(size_t) root] = -root;
+    parent[root] = -root;
     while (!queue.empty()) {
         const auto u = queue.top();
         queue.pop();
-        parent[(size_t) u] *= -1;
+        parent[u] *= -1;
         for (const auto [v, eidx] : idx[u]) {
-            if (parent[(size_t) v] >= 0)
+            if (parent[v] >= 0)
                 continue;
             const auto node = queue[v];
             if (node == nullptr) {
-                parent[(size_t) v] = -u;
+                parent[v] = -u;
                 queue.push({v, edge_weight[eidx]});
             } else if (edge_weight[eidx] < node->dist) {
-                parent[(size_t) v] = -u;
+                parent[v] = -u;
                 queue.decrease(v, edge_weight[eidx]);
             }
         }
     }
-    return parent;
+    return _parent;
 }
     
 
