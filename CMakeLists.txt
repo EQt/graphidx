@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.14)
 project(graphidx
     DESCRIPTION   "Simple Algorithms on Indexed Graphs"
     HOMEPAGE_URL  "https://github.com/EQt/graphidx")
