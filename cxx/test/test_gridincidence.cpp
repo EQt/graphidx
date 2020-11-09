@@ -2,7 +2,6 @@
 #include <set>
 
 #include "../graphidx/grid.hpp"
-#include "../graphidx/utils/viostream.hpp"
 
 
 TEST_CASE("GridGraph: grid_2x2")
@@ -12,15 +11,6 @@ TEST_CASE("GridGraph: grid_2x2")
 
     CHECK(graph.num_nodes() == 4);
     CHECK(graph.num_edges() == 4);
-}
-
-
-template <typename int_ = int>
-std::ostream&
-operator<<(std::ostream &out, const std::tuple<int_, int_> &t)
-{
-    out << "[" << std::get<0>(t) << ", " << std::get<1>(t) << "]";
-    return out;
 }
 
 

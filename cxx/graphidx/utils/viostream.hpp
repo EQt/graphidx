@@ -14,6 +14,15 @@
 #include "../std/uvector.hpp"
 
 
+template <typename int_ = int>
+std::ostream&
+operator<<(std::ostream &out, const std::tuple<int_, int_> &t)
+{
+    out << "[" << std::get<0>(t) << ", " << std::get<1>(t) << "]";
+    return out;
+}
+
+
 template <typename B, typename E>
 inline std::ostream&
 _print_list(std::ostream &o, const B &begin, const E &end, const bool curly = false)
