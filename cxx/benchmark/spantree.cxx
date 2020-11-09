@@ -87,6 +87,7 @@ main(int argc, char *argv[])
     std::cout << "graph:" << std::endl
               << " n = " << graph.num_nodes() << std::endl
               << " m = " << graph.num_edges() << std::endl;
+    #ifdef HAVE_GNUX
     {
         Timer t ("\nprim_mst<thin_heap>\n");
         const auto parent = prim_mst_edges<gnux::ThinHeapT>(weights.data(), idx);
@@ -110,6 +111,11 @@ main(int argc, char *argv[])
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
+    #else
+    {
+        Timer::log("<not compiled with gnu ext/pb_ds>\n");
+    }
+    #endif
     #ifdef HAVE_LEMON
     {
         Timer t ("\nprim_mst<fib_heap>\n");

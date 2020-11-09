@@ -1,6 +1,7 @@
 #pragma once
 
 #if __has_include(<ext/pb_ds/priority_queue.hpp>)
+#  define HAVE_GNUX 1
 #  include <ext/pb_ds/priority_queue.hpp>
 #  include "heap.hpp"
 
@@ -122,5 +123,5 @@ struct HeapTypedef<RcBinomHeapT, Item, Prio>
 
 
 #else
-#  error "need GNU ext/pb_ds"
+#  undef HAVE_GNUX
 #endif
