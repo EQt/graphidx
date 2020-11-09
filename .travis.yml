@@ -1,5 +1,3 @@
-dist: focal
-
 branches:
   only:
     - master
@@ -14,6 +12,7 @@ matrix:
   include:
     - language: cpp
       os: linux
+      dist: focal
       script:
         - mkdir -p build && cd build && cmake ..
             -DCMAKE_BUILD_TYPE=Debug
