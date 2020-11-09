@@ -1,5 +1,6 @@
 #pragma once
 #include <chrono>
+#include <cmath>    // for std::nan
 
 
 /**
