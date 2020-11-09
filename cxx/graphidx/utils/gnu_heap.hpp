@@ -1,9 +1,7 @@
 #pragma once
-
 #if __has_include(<ext/pb_ds/priority_queue.hpp>)
 #  define HAVE_GNUX 1
 #  include <ext/pb_ds/priority_queue.hpp>
-#  include "heap.hpp"
 
 
 template <typename int_t = int, typename float_t = double>
@@ -119,7 +117,6 @@ struct HeapTypedef<RcBinomHeapT, Item, Prio>
 
 
 } // namespace gnux
-
 
 
 #else

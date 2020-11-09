@@ -4,7 +4,7 @@
 #include <type_traits>      // std::is_integral
 #include <vector>
 
-#include "../utils/gnu_heap.hpp"
+#include "../utils/heap.hpp"    // for Heap<...>
 
 
 template <typename Tag,
