@@ -1,3 +1,4 @@
+#ifdef HAVE_LEMON
 #pragma once
 
 #include <lemon/concepts/graph_components.h>
@@ -115,3 +116,6 @@ using PairingHeap = detail::Heap<PairingHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
 using QuadHeap = detail::Heap<QuadHeapT, int_t, priority_t>;
+
+
+#endif  /* HAVE_LEMON */

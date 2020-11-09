@@ -43,7 +43,7 @@ digest(const std::vector<int> &v)
     const auto b = 42;
     size_t d = 0;
     for (size_t i = 0; i < v.size(); i++)
-        d = (i * a + b) * d + v[i];
+        d = (i * a + b) * d + (size_t) v[i];
     return d;
 }
 
@@ -110,6 +110,7 @@ main(int argc, char *argv[])
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
+    #ifdef HAVE_LEMON
     {
         Timer t ("\nprim_mst<fib_heap>\n");
         const auto parent = prim_mst_edges<FibHeapT>(weights.data(), idx);
@@ -128,6 +129,11 @@ main(int argc, char *argv[])
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
+    #else
+    {
+        Timer::log("<not compiled with lemon>\n");
+    }
+    #endif
 
     return 0;
 }
