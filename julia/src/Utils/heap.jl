@@ -73,7 +73,7 @@ end
 
 
 """
-Change the priority of an existing element, or equeue it if it isn't present.
+Change the priority of an existing element, or enqueue it if it isn't present.
 """
 function Base.setindex!(pq::PriorityQueue{K, V}, value::V, key::K) where {K,V}
     if haskey(pq, key)
