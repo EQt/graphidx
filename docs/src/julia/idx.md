@@ -2,11 +2,13 @@ Indexes
 =======
 
 General Graphs
--------------
+--------------
 
 ```@docs
 GraphIdx.IncidenceIndex
+GraphIdx.BiAdjacentIndex
 GraphIdx.num_edges(::GraphIdx.IncidenceIndex)
+GraphIdx.num_edges(::GraphIdx.BiAdjacentIndex)
 ```
 
 Weights
@@ -19,10 +21,11 @@ To give the optimizer the possibility to distinguish constant weights (all weigh
 GraphIdx.Ones
 GraphIdx.Const
 GraphIdx.Vec
+GraphIdx.SVec
 ```
 
 Graph Partition
---------------
+---------------
 
 ```@autodocs
 Modules = [GraphIdx.Cluster]
@@ -30,7 +33,7 @@ Modules = [GraphIdx.Cluster]
 
 
 Tree Graphs
-----------
+-----------
 
 ```@docs
 GraphIdx.Tree.ChildrenIndex

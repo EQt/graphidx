@@ -1,5 +1,7 @@
 """
-Mutable array ref
+Mutable reference to an array element.
+In Julia v1.4 we had some performance regressions problems that could be solved using
+a `MutRef`.
 """
 mutable struct MutRef{T} <: Ref{T}
     x::Vector{T}

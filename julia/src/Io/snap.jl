@@ -1,3 +1,6 @@
+"""
+Parse files provided by the Stanford Network Analysis Project (SNAP).
+"""
 module Snap
 
 import CodecZlib: GzipDecompressorStream
@@ -11,8 +14,7 @@ Open file `fname` to perform reading with function `f`.
 If `fname` ends with `".bz2"`, start a corresponding decompressor.
 If `fname == "-"`, read from `stdin`.
 """
-function open_snap(f::Function, fname::String;
-                        as_process::Bool=false)
+function open_snap(f::Function, fname::String; as_process::Bool=false)
     if endswith(fname, ".gz")
         if as_process
             open(`gunzip -d -c $fname`) do io

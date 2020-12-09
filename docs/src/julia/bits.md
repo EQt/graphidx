@@ -1,10 +1,14 @@
 Bit Manipulations
-================
+=================
 
 ```@autodocs
-Modules = [GraphIdx.Bits, GraphIdx.Io, GraphIdx.Io.Dimacs]
+Modules = [GraphIdx.Bits]
 ```
 
 ```@meta
 CurrentModule = GraphIdx
+```
+
+```@docs
+GraphIdx.Utils.MutRef
 ```

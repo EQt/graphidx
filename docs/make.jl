@@ -23,6 +23,8 @@ makedocs(
         "Linear Algebra" => "lina.md",
         "Order Statistics" => "stats.md",
         "Bits and Bytes" => "bits.md",
+        "File IO" => "io.md",
+        "Utils" => "utils.md",
     ],
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true"

@@ -1,5 +1,5 @@
 GraphIdx.jl
-==========
+===========
 
 This is the Julia part of GraphIdx, a framework for index-based graphs.
 Some parts are also implemented in
@@ -9,14 +9,16 @@ Some parts are also implemented in
 ```@meta
 CurrentModule = GraphIdx
 ```
-The main module is
+
 ```@docs
 GraphIdx
+GraphIdx.Graph
+GraphIdx.EdgeGraph
 ```
 
 
 Example
-------
+-------
 
 Generate a random spanning tree on a `20×32` grid graph:
 
