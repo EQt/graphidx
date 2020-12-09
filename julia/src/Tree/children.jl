@@ -20,7 +20,7 @@ julia> collect(cidx[1])  # root node 1 has children 2 and 4
  4
 
 julia> collect(cidx[3])  # node 3 has no children
-0-element Array{Int64,1}
+Int64[]
 
 ```
 """
