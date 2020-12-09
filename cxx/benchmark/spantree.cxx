@@ -1,3 +1,6 @@
+/**
+   Compare different priority queues in Prim's minimum spanning tree algorithm
+ */
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
@@ -13,7 +16,7 @@
 #include <graphidx/utils/thousand.hpp>
 #include <graphidx/utils/timer.hpp>
 
-
+/** Call julia to generate random numbers (for the sake of comparability) */
 std::vector<double>
 julia_randn(
     const std::size_t size,
@@ -38,6 +41,7 @@ julia_randn(
 }
 
 
+/** Compute a number to compare vectors */
 size_t
 digest(const std::vector<int> &v)
 {
