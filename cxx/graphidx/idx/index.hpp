@@ -94,4 +94,17 @@ struct Index
         for (size_t i = 0; i < size(); i++)
             deg[i] = index[i+1] - index[i];
     }
+
+protected:
+    void shift_acc() {
+	int_ acc = 0,
+	    deg_i = 0;
+	const auto n = index.size() - 1;
+	for (size_t i = 0; i < n; i++) {
+	    index[i] = acc;
+	    acc += deg_i;
+	    deg_i = index[i+1];
+	}
+	index[n] = acc;
+    }
 };

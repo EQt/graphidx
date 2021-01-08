@@ -13,8 +13,8 @@ template <typename int_ = int>
 struct BiAdjacentIndex : public Index<int_>
 {
     BiAdjacentIndex(uvector<int_> &&value, std::vector<int_> &&index)
-        : Index<int_> {std::forward<uvector<int_>>(value),
-                                std::forward<std::vector<int_>>(index) } { }
+        : Index<int_> {
+            std::forward<uvector<int_>>(value), std::forward<std::vector<int_>>(index)} { }
 
     BiAdjacentIndex(const size_t m, const int_ *head, const int_ *tail, size_t n = 0)
         { reset(m, head, tail, n); }
@@ -42,16 +42,7 @@ struct BiAdjacentIndex : public Index<int_>
             index[size_t(head[i]+1)]++;
             index[size_t(tail[i]+1)]++;
         }
-        {                               // shift, accumulate
-            int_ acc = 0,
-                deg_i = 0;
-            for (size_t i = 0; i < n; i++) {
-                index[i] = acc;
-                acc += deg_i;
-                deg_i = index[i+1];
-            }
-            index[n] = acc;
-        }
+	Index<int_>::shift_acc();
         for (size_t i = 0; i < m; i++) {
             const int_
                 u = head[i],

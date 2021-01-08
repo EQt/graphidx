@@ -88,6 +88,7 @@ if (BUILD_TEST)
         cxx/test/test_csc.cpp
         cxx/test/test_deque.cpp
         cxx/test/test_grid.cpp
+        cxx/test/test_incidence.cpp
         cxx/test/test_grididx.cpp
         cxx/test/test_gridincidence.cpp
         cxx/test/test_hex.cpp

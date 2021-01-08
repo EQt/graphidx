@@ -99,5 +99,5 @@ GridGraph::operator IncidenceIndex<int_>() const
         });
     }
 
-    return {{std::move(value), std::move(index)}};
+    return {std::move(value), std::move(index)};
 }
