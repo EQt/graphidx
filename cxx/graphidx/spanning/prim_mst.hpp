@@ -11,16 +11,16 @@
 template <typename Tag,
           typename int_t = int,
           typename Queue = Heap<Tag, int_t, double>>
-std::vector<int_t>
+void
 prim_mst_edges(
+    int_t *parent,
     const double *edge_weight,
     const IncidenceIndex<int_t> &idx,
     const int_t root = int_t(0))
 {
-    const size_t n = idx.num_nodes();
     Queue queue (idx.num_nodes());
-    std::vector<int_t> _parent (n, ~0);
-    int_t *parent = _parent.data();
+    for (size_t i = 0; i < idx.num_nodes(); i++)
+	parent[i] = ~0;
 
     queue.push({root, 0.0});
     parent[root] = -root;
@@ -40,7 +40,23 @@ prim_mst_edges(
             }
         }
     }
-    return _parent;
+}
+
+
+template <typename Tag,
+          typename int_t = int,
+          typename Queue = Heap<Tag, int_t, double>>
+std::vector<int_t>
+prim_mst_edges(
+    const double *edge_weight,
+    const IncidenceIndex<int_t> &idx,
+    const int_t root = int_t(0))
+{
+    const size_t n = idx.num_nodes();
+    std::vector<int_t> parent;
+    parent.resize(n);
+    prim_mst_edges<Tag, int_t, Queue>(parent.data(), edge_weight, idx, root);
+    return parent;
 }
     
 
