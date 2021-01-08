@@ -4,6 +4,7 @@
 #include <type_traits>      // std::is_integral
 #include <vector>
 
+#include "../idx/incidence.hpp"
 #include "../utils/heap.hpp"    // for Heap<...>
 
 
