@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include <graphidx/grid.hpp>
+#include <graphidx/idx/biadjacent.hpp>
+#include <graphidx/idx/incidence.hpp>
 #include <graphidx/utils/thousand.hpp>
 #include <graphidx/utils/timer.hpp>
 
@@ -17,12 +19,12 @@ main(int argc, char *argv[])
               << " n = " << graph.num_nodes() << std::endl
               << " m = " << graph.num_edges() << std::endl;
     {
-        Timer _ ("adjidx");
-        BiAdjacentIndex<int> idx (graph);
+        Timer _("adjidx");
+        BiAdjacentIndex<int> idx(graph);
     }
     {
-        Timer _ ("incidx");
-        IncidenceIndex<int> idx (graph);
+        Timer _("incidx");
+        IncidenceIndex<int> idx(graph);
     }
 
     return 0;
