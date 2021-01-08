@@ -1,11 +1,14 @@
 #ifdef HAVE_LEMON
 #pragma once
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
 #include <lemon/concepts/graph_components.h>
 #include <lemon/fib_heap.h>
 #include <lemon/bin_heap.h>
 #include <lemon/quad_heap.h>
 #include <lemon/pairing_heap.h>
+#pragma GCC diagnostic pop
 
 #include "heap.hpp"
 
