@@ -45,7 +45,9 @@ end
     n = 6
     @test num_nodes(g) == n
     @test num_edges(g) == m
-
+    @test (g |> collect).edges == [
+        (1, 2), (3, 4), (5, 6), (1, 3), (3, 5), (2, 4), (4, 6)
+    ]
     begin
         local k = 0
         iter_edges_pixel(g) do i1, j1, i2, j2, lam::Float64

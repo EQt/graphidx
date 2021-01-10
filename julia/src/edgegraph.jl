@@ -1,4 +1,3 @@
-
 """
 Graph represanted by an explicit vector of edges
 """
@@ -7,21 +6,15 @@ struct EdgeGraph <: Graph
     edges::Vector{Edge{Int}}
 end
 
+@inline num_nodes(g::EdgeGraph) = g.n
 
-@inline num_nodes(g::EdgeGraph) =
-    g.n
-
-
-@inline num_edges(g::EdgeGraph) =
-    length(g.edges)
-
+@inline num_edges(g::EdgeGraph) = length(g.edges)
 
 @inline function enumerate_edges(f::F, g::EdgeGraph) where {F<:Function}
     for (i, (u, v)) in enumerate(g.edges)
         f(i, u, v)
     end
 end
-
 
 function Base.collect(g::Graph)::EdgeGraph
     m = num_edges(g)
@@ -36,5 +29,4 @@ end
 Base.collect(g::EdgeGraph)::EdgeGraph = g
 
 
-EdgeGraph(g::Graph) =
-    collect(g)
+EdgeGraph(g::Graph) = collect(g)

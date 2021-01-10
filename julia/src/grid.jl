@@ -105,15 +105,14 @@ end
 GridGraph(n1, n2, dn::Int = Int(1), weighted::Bool = false) =
     GridGraph(n1, n2, compute_dirs(dn), weighted)
 
-
 num_edges(g::GridGraph) =
     num_edges(g.n1, g.n2, g.dirs)
 
-
 num_nodes(g::GridGraph) = g.n1 * g.n2
 
-
 Base.size(g::GridGraph) = (g.n1, g.n2)
+
+Base.adjoint(g::GridGraph) = GridGraph(g.n2, g.n1, g.dirs, g.weighted)
 
 
 """
