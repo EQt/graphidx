@@ -48,7 +48,7 @@ end
     @test (g |> collect).edges == [
         (1, 2), (3, 4), (5, 6), (1, 3), (3, 5), (2, 4), (4, 6)
     ]
-    begin
+    @testset "iter edge pixels" begin
         local k = 0
         iter_edges_pixel(g) do i1, j1, i2, j2, lam::Float64
             k += 1
@@ -67,7 +67,7 @@ end
         @test k == m
     end
 
-    if false
+    @testset "iter edges" begin
         local k = 0
         iter_edges(g) do u, v, lam::Float64
             k += 1
@@ -76,9 +76,9 @@ end
                 @test v == 2
             elseif k == 4
                 @test u == 1
-                @test v == 4
+                @test v == 3
             elseif k == 5
-                @test u == 2
+                @test u == 3
                 @test v == 5
             else
                 @test u < v

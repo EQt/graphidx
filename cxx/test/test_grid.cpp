@@ -1,4 +1,5 @@
 #include <doctest/doctest.h>
+#include <map>
 #include <set>
 #include <tuple>
 #include <vector>
@@ -36,7 +37,7 @@ TEST_CASE("GridGraph: 3x2")
     CHECK(graph.num_nodes() == 6);
     CHECK(graph.num_edges() == 7);
     {
-        std::vector<int> deg (6, -1);
+        std::vector<int> deg(6, -1);
         graph.degrees(deg.data());
         CHECK(deg == decltype(deg)({2, 3, 2, 2, 3, 2}));
     }
@@ -49,7 +50,6 @@ TEST_CASE("GridGraph: 3x2")
     CHECK(graph[4] == inc_t({{1, 5}, {3, 1}, {5, 3}}));
     CHECK(graph[5] == inc_t({{2, 6}, {4, 3}}));
 }
-
 
 
 TEST_CASE("GridGraph: 3x2")
@@ -89,16 +89,25 @@ TEST_CASE("GridGraph: 3x2")
         SUBCASE("capture edge ordering: is not linear")
         {
             std::vector<int> ei;
-            edges<int>(graph, [&](int u, int v, int e) { if (u < v) ei.push_back(e); });
+            edges<int>(graph, [&](int u, int v, int e) {
+                if (u < v)
+                    ei.push_back(e);
+            });
             REQUIRE(ei == decltype(ei)({0, 4, 2, 5, 6, 1, 3}));
         }
-        SUBCASE("compare edge vector")
+        SUBCASE("compare edge dict")
         {
-            std::vector<std::tuple<int, int>> E(graph.num_edges());
-            edges<int>(graph, [&](int u, int v, int e) { if (u < v) E[e] = {u, v}; });
-            REQUIRE(
-                E ==
-                decltype(E)({{0, 1}, {2, 3}, {4, 5}, {0, 2}, {2, 4}, {1, 3}, {3, 5}}));
+            std::map<int, std::tuple<int, int>> E;
+            edges<int>(graph, [&](int u, int v, int e) {
+                if (u < v)
+                    E[e] = {u, v};
+            });
+            const int x[7][2] = {{0, 1}, {2, 3}, {4, 5}, {0, 2}, {2, 4}, {1, 3}, {3, 5}};
+            for (int i = 0; i < 7; i++) {
+                CAPTURE(i);
+                CHECK(std::get<0>(E[i]) == x[i][0]);
+                CHECK(std::get<1>(E[i]) == x[i][1]);
+            }
         }
     }
 }
