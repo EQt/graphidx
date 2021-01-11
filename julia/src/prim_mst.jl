@@ -89,10 +89,9 @@ function prim_mst_edges(
     # see CLRS page 572 (2nd edition)
     dist .= typemax(Float64)
     parent .= 0
-    parent[root] = root
-    selected[root] = -1
     dist[root] = typemin(Float64)
     parent[root] = -root
+    selected[root] = -1
     pq[root] = dist[root]
     while !isempty(pq)
         u = dequeue!(pq)
@@ -106,6 +105,45 @@ function prim_mst_edges(
             end
         end
         parent[u] *= -1
+    end
+    return parent
+end
+
+
+function _prim_mst_dbg(
+    edge_weight::Vector{Float64},
+    dist::Vector{Float64},
+    parent::Vector{Int},
+    neighbors::IncidenceIndex,
+    pq::PriorityQueue{Int, Float64},
+    root::Int = 1,
+)::Vector{Int}
+    @assert root >= 1 "root = $root"
+    @assert isempty(pq) "length(pq) = $(length(pq))"
+    sizehint!(pq, length(parent))
+
+    dist .= typemax(Float64)
+    parent .= 0
+    dist[root] = typemin(Float64)
+    parent[root] = -root
+    pq[root] = dist[root]
+    while !isempty(pq)
+        u = dequeue!(pq)
+        println("fin: ", u - 1, " pi = ", -parent[u] - 1, " was ", dist[u])
+        parent[u] *= -1
+        for (v, eidx) in neighbors[u]
+            v == u && continue
+            if parent[v] <= 0 && edge_weight[eidx] < dist[v]
+                if isinf(dist[v])
+                    println("new: ", v - 1, " --> ", edge_weight[eidx])
+                else
+                    println("upd: ", v - 1, " --> ", edge_weight[eidx], " was ", dist[v])
+                end
+                dist[v] = edge_weight[eidx]
+                pq[v] = dist[v]
+                parent[v] = -u
+            end
+        end
     end
     return parent
 end

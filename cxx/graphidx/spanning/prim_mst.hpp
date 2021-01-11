@@ -1,5 +1,6 @@
 #pragma once
 #include <limits>
+#include <stdexcept>
 #include <vector>
 
 #include "../idx/incidence.hpp"
@@ -26,17 +27,23 @@ prim_mst_edges(
     parent[root] = -root;
     while (!queue.empty()) {
         const auto u = queue.top();
+        std::cerr << "fin: " << u << " pi = " << -parent[u] << " was " << queue[u]
+                  << std::endl;
         queue.pop();
         parent[u] *= -1;
         for (const auto [v, eidx] : idx[u]) {
             if (parent[v] >= 0)
-                continue;
+                continue; // already finished?
             if (!queue.contains(v)) {
                 parent[v] = -u;
                 queue.push({v, edge_weight[eidx]});
+                std::cerr << "new: " << v << " --> " << edge_weight[eidx] << std::endl;
             } else if (edge_weight[eidx] < queue[v]) {
+                const auto was = queue[v];
                 parent[v] = -u;
                 queue.decrease(v, edge_weight[eidx]);
+                std::cerr << "upd: " << v << " --> " << edge_weight[eidx] << " was "
+                          << was << std::endl;
             }
         }
     }
