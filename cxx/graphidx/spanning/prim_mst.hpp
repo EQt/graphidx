@@ -1,8 +1,5 @@
 #pragma once
 #include <limits>
-#include <stdexcept> // std::runtime_error
-#include <string>
-#include <type_traits> // std::is_integral
 #include <vector>
 
 #include "../idx/incidence.hpp"
