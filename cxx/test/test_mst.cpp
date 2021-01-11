@@ -1,3 +1,4 @@
+#ifdef HAVE_LEMON  // Can't test without lemon library
 #include <doctest/doctest.h>
 #include <sstream>
 
@@ -148,3 +149,5 @@ TEST_CASE("Prim MST on a 3x7 Grid")
         }
     }
 }
+
+#endif
