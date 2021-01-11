@@ -1,4 +1,5 @@
 #pragma once
+#include <limits>
 #include <stdexcept>        // std::runtime_error
 #include <string>
 #include <type_traits>      // std::is_integral
@@ -9,12 +10,13 @@
 
 
 template <typename Tag,
+          typename float_t,
           typename int_t = int,
-          typename Queue = Heap<Tag, int_t, double>>
+          typename Queue = Heap<Tag, int_t, float_t>>
 void
 prim_mst_edges(
     int_t *parent,
-    const double *edge_weight,
+    const float_t *edge_weight,
     const IncidenceIndex<int_t> &idx,
     const int_t root = int_t(0))
 {
@@ -22,7 +24,7 @@ prim_mst_edges(
     for (size_t i = 0; i < idx.num_nodes(); i++)
 	parent[i] = ~0;
 
-    queue.push({root, 0.0});
+    queue.push({root, std::numeric_limits<float_t>::min()});
     parent[root] = -root;
     while (!queue.empty()) {
         const auto u = queue.top();
@@ -44,18 +46,19 @@ prim_mst_edges(
 
 
 template <typename Tag,
+          typename float_t,
           typename int_t = int,
           typename Queue = Heap<Tag, int_t, double>>
 std::vector<int_t>
 prim_mst_edges(
-    const double *edge_weight,
+    const float_t *edge_weight,
     const IncidenceIndex<int_t> &idx,
     const int_t root = int_t(0))
 {
     const size_t n = idx.num_nodes();
     std::vector<int_t> parent;
     parent.resize(n);
-    prim_mst_edges<Tag, int_t, Queue>(parent.data(), edge_weight, idx, root);
+    prim_mst_edges<Tag, float_t, int_t, Queue>(parent.data(), edge_weight, idx, root);
     return parent;
 }
     
