@@ -121,6 +121,7 @@ TEST_CASE("Prim MST on a 3x7 Grid")
         -0.0,  -1.0,  -0.24, -0.04, -0.43, -0.73, -0.7,  -0.28, -1.41, -1.43, -0.51,
         -0.52, -1.14, -0.02, -0.11, -0.02, -0.79, -0.33, -0.74, -0.65, -1.11, -0.78,
         -0.51, -0.14, -0.44, -0.78, -0.58, -0.80, -1.43, -0.13, -1.06, -0.38};
+    SUBCASE("Debuggin version")
     {
         std::ostringstream buf;
         prim_mst_dbg<Queue>(parent.data(), weights, idx, root, buf);
@@ -135,5 +136,15 @@ TEST_CASE("Prim MST on a 3x7 Grid")
         CHECK(
             doctest::Approx(tree_costs(parent.data(), weights, idx)) ==
             tree_costs(expect, weights, idx));
+    }
+    SUBCASE("No output version")
+    {
+        prim_mst_edges<Queue>(parent.data(), weights, idx, root);
+        const int expect[21] = {0, 4, 5,  0,  3,  4,  7,  8,  5,  6, 7,
+                                8, 9, 14, 17, 12, 15, 16, 19, 16, 17};
+        for (size_t i = 0; i < g.num_nodes(); i++) {
+            CAPTURE(i);
+            CHECK(parent[i] == expect[i]);
+        }
     }
 }

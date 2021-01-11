@@ -75,19 +75,19 @@ prim_mst_edges(
         parent[i] = ~0;
 
     queue.push({root, std::numeric_limits<float_t>::min()});
-    parent[root] = -root;
+    parent[root] = ~root;
     while (!queue.empty()) {
         const auto u = queue.top();
         queue.pop();
-        parent[u] *= -1;
+        parent[u] = ~parent[u];
         for (const auto [v, eidx] : idx[u]) {
             if (parent[v] >= 0)
                 continue; // already finished?
             if (!queue.contains(v)) {
-                parent[v] = -u;
+                parent[v] = ~u;
                 queue.push({v, edge_weight[eidx]});
             } else if (edge_weight[eidx] < queue[v]) {
-                parent[v] = -u;
+                parent[v] = ~u;
                 queue.decrease(v, edge_weight[eidx]);
             }
         }
