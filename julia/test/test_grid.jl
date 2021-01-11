@@ -2,6 +2,7 @@ module TestGrid
 
 using Test
 import LinearAlgebra: norm, norm2
+import GraphIdx
 import GraphIdx.Grid: Pixel, line_D, incmat
 import GraphIdx.Grid: GridGraph, iter_edges, iter_edges_pixel
 import GraphIdx: num_edges, num_nodes
@@ -103,8 +104,8 @@ end
      3  6  9  12  15  18  21
     """
     g = GridGraph(3, 7)
-    Incidence
-    @test idx.edges == [
+    edge_graph = g |> collect 
+    @test edge_graph.edges == [
         (1, 2),
         (4, 5),
         (7, 8),
@@ -138,7 +139,7 @@ end
         (15, 18),
         (18, 21)
     ]
-    idx = g |> collect |> e -> GraphIdx.IncidenceIndex(GraphIdx.num_nodes(g), e.edges)
+    idx = edge_graph |> e -> GraphIdx.IncidenceIndex(GraphIdx.num_nodes(g), e.edges)
     @test idx[1] == [(2, 1), (4, 15)]
     @test idx[5] == [(4, 2), (6, 9), (2, 21), (8, 22)]
 end
