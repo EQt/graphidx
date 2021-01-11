@@ -127,7 +127,7 @@ TEST_CASE("GridGraph: 3x7")
     REQUIRE(graph.num_edges() == 32);
 
     {
-        using vec = std::vector<std::tuple<int,int>>;
+        using vec = std::vector<std::tuple<int, int>>;
         CHECK(vec(graph[0]) == vec({{1, 0}, {3, 14}}));
         CHECK(vec(graph[4]) == vec({{3, 1}, {5, 8}, {1, 20}, {7, 21}}));
     }
@@ -147,6 +147,4 @@ TEST_CASE("GridGraph: 3x7")
         CHECK(std::get<0>(E[i]) == x[i][0]);
         CHECK(std::get<1>(E[i]) == x[i][1]);
     }
-
-
 }
