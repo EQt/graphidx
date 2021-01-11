@@ -116,11 +116,21 @@ TEST_CASE("GridGraph: 3x2")
 
 TEST_CASE("GridGraph: 3x7")
 {
+    /*
+       0  3  6   9  12  15  18
+       1  4  7  10  13  16  19
+       2  5  8  11  14  17  20
+    */
     GridGraph grid(3, 7);
     IncidenceIndex<int> graph = grid;
     REQUIRE(graph.num_nodes() == 21);
     REQUIRE(graph.num_edges() == 32);
 
+    {
+        using vec = std::vector<std::tuple<int,int>>;
+        CHECK(vec(graph[0]) == vec({{1, 0}, {3, 14}}));
+        CHECK(vec(graph[4]) == vec({{3, 1}, {5, 8}, {1, 20}, {7, 21}}));
+    }
     std::map<int, std::tuple<int, int>> E;
     edges<int>(graph, [&](int u, int v, int e) {
         if (u < v)
@@ -137,4 +147,6 @@ TEST_CASE("GridGraph: 3x7")
         CHECK(std::get<0>(E[i]) == x[i][0]);
         CHECK(std::get<1>(E[i]) == x[i][1]);
     }
+
+
 }
