@@ -102,7 +102,7 @@ TEST_CASE("GridGraph: 3x2")
                 if (u < v)
                     E[e] = {u, v};
             });
-            const int x[7][2] = {{0, 1}, {2, 3}, {4, 5}, {0, 2}, {2, 4}, {1, 3}, {3, 5}};
+            const int x[7][2] = {{0, 1}, {3, 4}, {1, 2}, {4, 5}, {0, 3}, {1, 4}, {2, 5}};
             for (int i = 0; i < 7; i++) {
                 CAPTURE(i);
                 CHECK(std::get<0>(E[i]) == x[i][0]);

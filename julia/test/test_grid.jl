@@ -39,6 +39,12 @@ end
 end
 
 
+@testset "GridGraph: 3x2                 " begin
+    g = GridGraph(3, 2)
+    @test (g |> collect).edges == [(1, 2), (4, 5), (2, 3), (5, 6), (1, 4), (2, 5), (3, 6)]
+end
+
+
 @testset "GridGraph: 2x3                 " begin
     g = GridGraph(2, 3)
     m = 2*2 + 3
