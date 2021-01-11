@@ -9,6 +9,49 @@
 #include "../graphidx/idx/incidence.hpp"
 
 
+TEST_CASE("GridGraph: 2x2")
+{
+    GridGraph grid(2, 2);
+    IncidenceIndex<int> graph = grid;
+
+    CHECK(graph.num_nodes() == 4);
+    CHECK(graph.num_edges() == 4);
+}
+
+
+/*  4
+  0---3
+ 0| 5 |1
+  1---4
+ 2|   |3
+  2---5
+    6
+*/
+TEST_CASE("GridGraph: 3x2")
+{
+    GridGraph grid(3, 2);
+    IncidenceIndex<int> graph = grid;
+    INFO("graph = {" << graph.index << ", " << graph.value << "}");
+
+    CHECK(graph.num_nodes() == 6);
+    CHECK(graph.num_edges() == 7);
+    {
+        std::vector<int> deg (6, -1);
+        graph.degrees(deg.data());
+        CHECK(deg == decltype(deg)({2, 3, 2, 2, 3, 2}));
+    }
+
+    using inc_t = std::set<std::tuple<int, int>>;
+    CHECK(graph[0] == inc_t({{1, 0}, {3, 4}}));
+    CHECK(graph[1] == inc_t({{0, 0}, {2, 2}, {4, 5}}));
+    CHECK(graph[2] == inc_t({{1, 2}, {5, 6}}));
+    CHECK(graph[3] == inc_t({{0, 4}, {4, 1}}));
+    CHECK(graph[4] == inc_t({{1, 5}, {3, 1}, {5, 3}}));
+    CHECK(graph[5] == inc_t({{2, 6}, {4, 3}}));
+}
+
+
+
 TEST_CASE("GridGraph: 3x2")
 {
     /*
@@ -42,6 +85,12 @@ TEST_CASE("GridGraph: 3x2")
             REQUIRE(
                 E ==
                 decltype(E)({{0, 1}, {3, 4}, {1, 2}, {4, 5}, {0, 3}, {1, 4}, {2, 5}}));
+        }
+        SUBCASE("capture edge ordering: is not linear")
+        {
+            std::vector<int> ei;
+            edges<int>(graph, [&](int u, int v, int e) { if (u < v) ei.push_back(e); });
+            REQUIRE(ei == decltype(ei)({0, 4, 2, 5, 6, 1, 3}));
         }
         SUBCASE("compare edge vector")
         {

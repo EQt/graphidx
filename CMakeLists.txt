@@ -90,7 +90,6 @@ if (BUILD_TEST)
         cxx/test/test_grid.cpp
         cxx/test/test_incidence.cpp
         cxx/test/test_grididx.cpp
-        cxx/test/test_gridincidence.cpp
         cxx/test/test_hex.cpp
         cxx/test/test_inorder.cpp
         cxx/test/test_kruskal_mst.cpp
