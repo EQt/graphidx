@@ -136,7 +136,7 @@ TEST_CASE("GridGraph: 3x7")
         if (u < v)
             E[e] = {u, v};
     });
-    const int x[32][2] = {
+    const int edges_3x7[32][2] = {
         {0, 1},   {3, 4},   {6, 7},   {9, 10},  {12, 13}, {15, 16}, {18, 19}, {1, 2},
         {4, 5},   {7, 8},   {10, 11}, {13, 14}, {16, 17}, {19, 20}, {0, 3},   {3, 6},
         {6, 9},   {9, 12},  {12, 15}, {15, 18}, {1, 4},   {4, 7},   {7, 10},  {10, 13},
@@ -144,7 +144,7 @@ TEST_CASE("GridGraph: 3x7")
     REQUIRE(E.size() == 32);
     for (int i = 0; i < 32; i++) {
         CAPTURE(i);
-        CHECK(std::get<0>(E[i]) == x[i][0]);
-        CHECK(std::get<1>(E[i]) == x[i][1]);
+        CHECK(std::get<0>(E[i]) == edges_3x7[i][0]);
+        CHECK(std::get<1>(E[i]) == edges_3x7[i][1]);
     }
 }
