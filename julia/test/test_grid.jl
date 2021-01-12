@@ -142,8 +142,14 @@ end
     idx = edge_graph |> e -> GraphIdx.IncidenceIndex(GraphIdx.num_nodes(g), e.edges)
     @test idx[1] == [(2, 1), (4, 15)]
     @test idx[5] == [(4, 2), (6, 9), (2, 21), (8, 22)]
+    @testset "compare to enumerate(GridGraph)" begin
+        edges = Set{NTuple{2,Int}}()
+        GraphIdx.enumerate_edges(g) do e::Int, u::Int, v::Int
+            push!(edges, (u, v))
+        end
+        @test edges == Set(edge_graph.edges)
+    end
 end
-
 
 
 end
