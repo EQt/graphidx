@@ -13,6 +13,8 @@
 #include "../heap.hpp"
 
 
+namespace lemo {
+
 struct FibHeapT : public HeapT { };
 
 struct BinHeapT : public HeapT { };
@@ -20,6 +22,8 @@ struct BinHeapT : public HeapT { };
 struct PairingHeapT : public HeapT { };
 
 struct QuadHeapT : public HeapT { };
+
+}
 
 
 namespace detail {
@@ -57,7 +61,7 @@ struct HeapDispatch;
 
 // partial specialization: Fibonacci heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, FibHeapT>
+struct HeapDispatch<int_t, priority_t, lemo::FibHeapT>
 {
     using type = ::lemon::FibHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -65,7 +69,7 @@ struct HeapDispatch<int_t, priority_t, FibHeapT>
 
 // partial specialization: Binary heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, BinHeapT>
+struct HeapDispatch<int_t, priority_t, lemo::BinHeapT>
 {
     using type = ::lemon::BinHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -73,7 +77,7 @@ struct HeapDispatch<int_t, priority_t, BinHeapT>
 
 // partial specialization: Four-ary heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, QuadHeapT>
+struct HeapDispatch<int_t, priority_t, lemo::QuadHeapT>
 {
     using type = ::lemon::QuadHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -81,7 +85,7 @@ struct HeapDispatch<int_t, priority_t, QuadHeapT>
 
 // partial specialization: Pairing heap
 template <typename int_t, typename priority_t>
-struct HeapDispatch<int_t, priority_t, PairingHeapT>
+struct HeapDispatch<int_t, priority_t, lemo::PairingHeapT>
 {
     using type = ::lemon::PairingHeap<priority_t, VecNodeMap<int_t, int_t>>;
 };
@@ -109,16 +113,16 @@ public:
 
 
 template <typename int_t = int, typename priority_t = double>
-using FibonacciHeap = detail::Heap<FibHeapT, int_t, priority_t>;
+using FibonacciHeap = detail::Heap<lemo::FibHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
-using BinaryHeap = detail::Heap<BinHeapT, int_t, priority_t>;
+using BinaryHeap = detail::Heap<lemo::BinHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
-using PairingHeap = detail::Heap<PairingHeapT, int_t, priority_t>;
+using PairingHeap = detail::Heap<lemo::PairingHeapT, int_t, priority_t>;
 
 template <typename int_t = int, typename priority_t = double>
-using QuadHeap = detail::Heap<QuadHeapT, int_t, priority_t>;
+using QuadHeap = detail::Heap<lemo::QuadHeapT, int_t, priority_t>;
 
 
 #endif  /* HAVE_LEMON */

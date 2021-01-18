@@ -111,7 +111,7 @@ chk: 17 finished
 
 TEST_CASE("Prim MST on a 3x7 Grid")
 {
-    using Queue = QuadHeapT;
+    using Queue = lemo::QuadHeapT;
     const GridGraph g(3, 7);
     const IncidenceIndex<int> idx(g);
     const int root = 0;

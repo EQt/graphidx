@@ -125,19 +125,19 @@ main(int argc, char *argv[])
     #ifdef HAVE_LEMON
     {
         Timer t ("\nprim_mst<fib_heap>\n");
-        const auto parent = prim_mst_edges<FibHeapT>(weights.data(), idx);
+        const auto parent = prim_mst_edges<lemo::FibHeapT>(weights.data(), idx);
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
     {
         Timer t ("\nprim_mst<bin_heap>\n");
-        const auto parent = prim_mst_edges<BinHeapT>(weights.data(), idx);
+        const auto parent = prim_mst_edges<lemo::BinHeapT>(weights.data(), idx);
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
     {
         Timer t ("\nprim_mst<quad_heap>\n");
-        const auto parent = prim_mst_edges<QuadHeapT>(weights.data(), idx);
+        const auto parent = prim_mst_edges<lemo::QuadHeapT>(weights.data(), idx);
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
