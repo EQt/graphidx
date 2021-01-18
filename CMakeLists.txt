@@ -114,7 +114,7 @@ if (BUILD_TEST)
         cxx/test/test_bz2.cpp
         cxx/test/test_gz.cpp
         cxx/test/test_min_cut.cpp
-        cxx/test/test_lemon_fib.cpp
+        cxx/test/test_heap.cpp
         cxx/test/test_mst.cpp
     )
     target_link_libraries(doctests PRIVATE doctest::doctest graphidx)

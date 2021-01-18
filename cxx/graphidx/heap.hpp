@@ -1,5 +1,7 @@
 #pragma once
 
+
+/** Tag denoting type of Heap, e.g. FibHeapT */
 struct HeapT { };
 
 
