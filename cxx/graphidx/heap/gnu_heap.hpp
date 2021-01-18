@@ -1,4 +1,5 @@
 #pragma once
+#include "../heap.hpp"
 #if __has_include(<ext/pb_ds/priority_queue.hpp>)
 #  define HAVE_GNUX 1
 #  include <ext/pb_ds/priority_queue.hpp>
@@ -55,9 +56,10 @@ public:
                                      std::to_string(n));
     }
 
-    inline typename Base::point_iterator push(typename Base::const_reference r_val) {
-        return pnode[(size_t) r_val.id] = Base::push(r_val);
-    }
+    inline typename Base::point_iterator push(typename Base::const_reference r_val)
+        { return pnode[(size_t) r_val.id] = Base::push(r_val); }
+    inline typename Base::point_iterator push (const int_t& item, const priority_t& prio)
+        { return Base::push({item, prio}); }
 
     inline bool contains(size_t v) const { return pnode[v] != nullptr; }
     inline bool contains(int_t v) const { return contains((size_t) v); }
@@ -65,13 +67,10 @@ public:
     inline priority_t operator[](size_t v) const { return pnode[v]->dist; }
     inline priority_t operator[](int_t v) const { return (*this)[(size_t) v]; }
 
-    inline void decrease(int_t v, priority_t prio) {
-        Base::modify(pnode[(size_t) v], {v, prio});
-    }
+    inline void decrease(int_t v, priority_t prio)
+        { Base::modify(pnode[(size_t) v], {v, prio}); }
 
-    inline int_t top() const {
-        return Base::top().id;
-    }
+    inline int_t top() const { return Base::top().id; }
 };
 
 
