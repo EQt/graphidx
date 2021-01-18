@@ -31,3 +31,16 @@ TEST_CASE_TEMPLATE_INVOKE(
     Heap<lemo::QuadHeapT, int, int>);
 
 #endif
+
+
+#include <graphidx/heap/gnu_heap.hpp>
+#ifdef HAVE_GNUX
+
+TEST_CASE_TEMPLATE_INVOKE(
+    test_heap_sort,
+    Heap<gnux::ThinHeapT, int, int>,
+    Heap<gnux::RcBinomHeapT, int, int>,
+    Heap<gnux::PairHeapT, int, int>,
+    Heap<gnux::BinomialHeapT, int, int>);
+
+#endif
