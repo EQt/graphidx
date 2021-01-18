@@ -1,6 +1,6 @@
 #ifdef HAVE_LEMON
 #include <doctest/doctest.h>
-#include <graphidx/utils/lemon_heap.hpp>
+#include <graphidx/heap/lemon_heap.hpp>
 
 
 

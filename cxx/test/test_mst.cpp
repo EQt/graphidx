@@ -5,7 +5,7 @@
 #include <graphidx/edges.hpp>
 #include <graphidx/grid.hpp>
 #include <graphidx/spanning/prim_mst.hpp>
-#include <graphidx/utils/lemon_heap.hpp>
+#include <graphidx/heap/lemon_heap.hpp>
 
 
 double

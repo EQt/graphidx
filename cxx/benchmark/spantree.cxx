@@ -9,9 +9,9 @@
 
 #include <graphidx/grid.hpp>
 #include <graphidx/spanning/prim_mst.hpp>
-#include <graphidx/utils/heap.hpp>
-#include <graphidx/utils/gnu_heap.hpp>
-#include <graphidx/utils/lemon_heap.hpp>
+#include <graphidx/heap.hpp>
+#include <graphidx/heap/gnu_heap.hpp>
+#include <graphidx/heap/lemon_heap.hpp>
 #include <graphidx/utils/popen.hpp>
 #include <graphidx/utils/thousand.hpp>
 #include <graphidx/utils/timer.hpp>

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "../idx/incidence.hpp"
-#include "../utils/heap.hpp" // for Heap<...>
+#include "../heap.hpp" // for Heap<...>
 
 
 template <

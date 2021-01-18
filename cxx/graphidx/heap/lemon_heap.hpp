@@ -10,7 +10,7 @@
 #include <lemon/pairing_heap.h>
 #pragma GCC diagnostic pop
 
-#include "heap.hpp"
+#include "../heap.hpp"
 
 
 struct FibHeapT : public HeapT { };
