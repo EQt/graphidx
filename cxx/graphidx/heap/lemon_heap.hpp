@@ -23,6 +23,18 @@ struct PairingHeapT : public HeapT { };
 
 struct QuadHeapT : public HeapT { };
 
+template <typename int_t = int, typename priority_t = double>
+using FibonacciHeap = detail::Heap<::lemo::FibHeapT, int_t, priority_t>;
+
+template <typename int_t = int, typename priority_t = double>
+using BinaryHeap = detail::Heap<::lemo::BinHeapT, int_t, priority_t>;
+
+template <typename int_t = int, typename priority_t = double>
+using PairingHeap = detail::Heap<::lemo::PairingHeapT, int_t, priority_t>;
+
+template <typename int_t = int, typename priority_t = double>
+using QuadHeap = detail::Heap<::lemo::QuadHeapT, int_t, priority_t>;
+
 }
 
 
@@ -110,19 +122,6 @@ public:
 
 
 }   // namespace detail
-
-
-template <typename int_t = int, typename priority_t = double>
-using FibonacciHeap = detail::Heap<lemo::FibHeapT, int_t, priority_t>;
-
-template <typename int_t = int, typename priority_t = double>
-using BinaryHeap = detail::Heap<lemo::BinHeapT, int_t, priority_t>;
-
-template <typename int_t = int, typename priority_t = double>
-using PairingHeap = detail::Heap<lemo::PairingHeapT, int_t, priority_t>;
-
-template <typename int_t = int, typename priority_t = double>
-using QuadHeap = detail::Heap<lemo::QuadHeapT, int_t, priority_t>;
 
 
 #endif  /* HAVE_LEMON */

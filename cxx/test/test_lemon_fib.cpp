@@ -7,7 +7,7 @@
 TEST_CASE("Fib_Heap::sort")
 {
     std::vector<int> perm {5, 2, 3, 4, 0, 1};
-    FibonacciHeap<int, int> heap (perm.size());
+    lemo::FibonacciHeap<int, int> heap (perm.size());
 
     for (auto i : perm)
         heap.push(i, i);
@@ -24,7 +24,7 @@ TEST_CASE("Fib_Heap::sort")
 TEST_CASE("Bin_Heap::sort")
 {
     std::vector<int> perm {5, 2, 3, 4, 0, 1};
-    BinaryHeap<int, int> heap (perm.size());
+    lemo::BinaryHeap<int, int> heap (perm.size());
 
     for (auto i : perm)
         heap.push(i, i);
@@ -41,7 +41,7 @@ TEST_CASE("Bin_Heap::sort")
 TEST_CASE("Pairing_Heap::sort")
 {
     std::vector<int> perm {5, 2, 3, 4, 0, 1};
-    PairingHeap<int, int> heap (perm.size());
+    lemo::PairingHeap<int, int> heap (perm.size());
 
     for (auto i : perm)
         heap.push(i, i);
