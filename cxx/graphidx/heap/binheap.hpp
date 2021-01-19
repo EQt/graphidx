@@ -38,23 +38,21 @@ struct BinaryHeap
         idx.resize(n, 0);
     }
 
-    inline Prio operator[](Item v) const { return (*this)[(size_t)v]; }
+    Prio &operator[](const Item &key) { return xs[idx[key] - 1].second; }
+
+    const Prio &operator[](const Item &key) const { return xs[idx[key] - 1].second; }
 
     inline void push(const Item &item, const Prio &prio) { push({item, prio}); }
 
-    inline void push(const Pair p) {
+    inline void push(const Pair p)
+    {
         const auto key = p.first;
         xs.push_back(p);
         idx[key] = xs.size();
         perculate_up(xs.size());
     }
 
-    inline void pop() {
-        const auto y = xs.back();
-        if (!empty()) {
-            
-        }
-    }
+    inline void pop();
 
     inline void decrease(Item v, Prio prio);
 
@@ -67,7 +65,13 @@ struct BinaryHeap
     inline Item top() const { return 0; }
 
   private:
-    void perculate_down(size_t i) { auto x = xs[i - 1]; }
+    void swap(size_t i, size_t j)
+    {
+        std::swap(xs[i], xs[j]);
+        std::swap(idx[i], idx[j]);
+    }
+
+    void perculate_down(size_t i);
 
     void perculate_up(size_t) {}
 };
