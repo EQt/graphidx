@@ -5,30 +5,27 @@ Code copied from DataStructures.jl (long time ago)
 module Heap
 import Base.Order: Ordering, Forward, lt
 
-struct PriorityQueue{K, V, O<:Ordering}
+struct PriorityQueue{K,V,O <: Ordering}
     xs::Vector{Pair{K,V}}
     index::Vector{Int}    # Map elements to their index in xs
     o::O
 
-    function PriorityQueue{K,V}(o::O=Forward) where {K,V, O<:Ordering}
+    function PriorityQueue{K,V}(o::O=Forward) where {K,V,O <: Ordering}
         new{K,V,O}(Vector{Pair{K,V}}(), Vector{Int}(), o)
     end
 
-    function PriorityQueue{K,V}(n::Integer, o::O=Forward) where {K, V, O<:Ordering}
+    function PriorityQueue{K,V}(n::Integer, o::O=Forward) where {K,V,O <: Ordering}
         q = PriorityQueue{K,V}(o)
         sizehint!(q, n)
         q
     end
 end
 
-heapleft(i::Integer) = 2i
-heapright(i::Integer) = 2i + 1
-heapparent(i::Integer) = div(i, 2)
+@inline Base.length(pq::PriorityQueue) = length(pq.xs)
 
-Base.length(pq::PriorityQueue) = length(pq.xs)
-Base.isempty(pq::PriorityQueue) = isempty(pq.xs)
-Base.haskey(pq::PriorityQueue, key) = pq.index[key] > 0
+@inline Base.isempty(pq::PriorityQueue) = isempty(pq.xs)
 
+@inline Base.haskey(pq::PriorityQueue, key) = pq.index[key] > 0
 
 function Base.sizehint!(pq::PriorityQueue, n::Integer)
     sizehint!(pq.xs, n)
@@ -36,8 +33,10 @@ function Base.sizehint!(pq::PriorityQueue, n::Integer)
     pq.index .= 0
 end
 
+@inline function percolate_down!(pq::PriorityQueue{K,V}, i::Integer) where {K,V}
+    heapleft(i::Integer) = 2i
+    heapright(i::Integer) = 2i + 1
 
-function percolate_down!(pq::PriorityQueue, i::Integer)
     x = pq.xs[i]
     @inbounds while (l = heapleft(i)) <= length(pq)
         r = heapright(i)
@@ -54,8 +53,9 @@ function percolate_down!(pq::PriorityQueue, i::Integer)
     pq.xs[i] = x
 end
 
+@inline function percolate_up!(pq::PriorityQueue{K,V}, i::Integer) where {K,V}
+    heapparent(i::Integer) = div(i, 2)
 
-function percolate_up!(pq::PriorityQueue, i::Integer)
     x = pq.xs[i]
     @inbounds while i > 1
         j = heapparent(i)
@@ -71,11 +71,10 @@ function percolate_up!(pq::PriorityQueue, i::Integer)
     pq.xs[i] = x
 end
 
-
 """
 Change the priority of an existing element, or enqueue it if it isn't present.
 """
-function Base.setindex!(pq::PriorityQueue{K, V}, value::V, key::K) where {K,V}
+function Base.setindex!(pq::PriorityQueue{K,V}, value::V, key::K) where {K,V}
     if haskey(pq, key)
         i = pq.index[key]
         oldvalue = pq.xs[i].second
@@ -91,8 +90,8 @@ function Base.setindex!(pq::PriorityQueue{K, V}, value::V, key::K) where {K,V}
     value
 end
 
-
-enqueue!(pq::PriorityQueue, key, value) = enqueue!(pq, key=>value)
+enqueue!(pq::PriorityQueue, key::K, value::V) where {K,V} =
+    enqueue!(pq, key => value)
 
 function enqueue!(pq::PriorityQueue{K,V}, pair::Pair{K,V}) where {K,V}
     key = pair.first
@@ -106,8 +105,7 @@ function enqueue!(pq::PriorityQueue{K,V}, pair::Pair{K,V}) where {K,V}
     return pq
 end
 
-
-function dequeue!(pq::PriorityQueue)
+function dequeue!(pq::PriorityQueue{K,V}) where {K,V}
     x = pq.xs[1]
     y = pop!(pq.xs)
     if !isempty(pq)
