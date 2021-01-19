@@ -23,6 +23,13 @@ struct HeapTypedef
 
 }   // namespace gnux
 
+namespace detail {
+
+template <typename int_t, typename priority_t, typename Tag>
+struct HeapDispatch;
+
+}
+
 
 template <typename Tag, typename Item = int, typename Prio = double>
 using Heap = typename gnux::HeapTypedef<Tag, Item, Prio>::impl;

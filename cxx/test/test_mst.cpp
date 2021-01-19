@@ -5,6 +5,7 @@
 #include <graphidx/edges.hpp>
 #include <graphidx/grid.hpp>
 #include <graphidx/heap/lemon_heap.hpp>
+#include <graphidx/heap/binheap.hpp>
 #include <graphidx/spanning/prim_mst.hpp>
 
 #include "test_mst37.hpp"
@@ -75,7 +76,7 @@ TEST_CASE_TEMPLATE_DEFINE("Prim's MST on a 3x7 Grid", Queue, test_mst37)
 }
 
 
-TEST_CASE_TEMPLATE_INVOKE(test_mst37, lemo::QuadHeapT);
+TEST_CASE_TEMPLATE_INVOKE(test_mst37, lemo::QuadHeapT, gidx::BinaryHeapT);
 
 
 #endif
