@@ -1,2 +1,3 @@
 [workspace]
-members = [ "rust"]
+members = ["rust"]
+exclude = ["./deps/*"]

@@ -3,6 +3,6 @@ name = "graphidx"
 version = "0.1.3"
 authors = ["Elias Kuthe <elias.kuthe@tu-dortmund.de>"]
 edition = "2018"
+exclude = ["../deps/**"]
 
 [dependencies]
-# num-traits = "0.2"
