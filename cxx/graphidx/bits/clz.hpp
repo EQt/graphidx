@@ -12,6 +12,9 @@
    It uses specific machine instructions as described in [Wikipedia][1].
    For C see the list of [GCC builtins][2].
 
+   In C++20, this is equivalent to [`std::countl_zero`][9]
+
+
    [1]: https://en.wikipedia.org/wiki/Find_first_set
    [2]: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html
    [3]: https://github.com/JuliaLang/julia/blob/master/src/runtime_intrinsics.c
@@ -20,6 +23,7 @@
    [6]: https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_lzcnt_u64
    [7]: https://software.intel.com/sites/landingpage/IntrinsicsGuide/#text=_tzcnt_u64
    [8]: https://docs.microsoft.com/en-us/cpp/intrinsics/lzcnt16-lzcnt-lzcnt64?view=vs-2017
+   [9]: https://en.cppreference.com/w/cpp/numeric/countl_zero
  */
 inline uint64_t
 leading_zeros(uint64_t x)
@@ -61,6 +65,11 @@ leading_zeros(int32_t x)
 }
 
 
+/**
+   See also [`std::bit_ceil`][1].
+
+   [1]: https://en.cppreference.com/w/cpp/numeric/bit_ceil
+ */
 inline uint64_t
 hyperfloor(uint64_t x)
 {
