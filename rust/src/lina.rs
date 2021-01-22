@@ -3,17 +3,32 @@
 /// Compute the ℓ₁-norm of the difference of two vectors `x` and `y`
 /// ```
 /// use graphidx::lina::l1_diff;
-/// assert!(l1_diff(&[1.0], &[1.0, 2.0]).is_nan());  // different lengths
 /// assert_eq!(l1_diff(&[1.0, -2.1], &[1.0, -2.1]), 0.0);
 /// assert_eq!(l1_diff(&[1.0, -2.1], &[1.0, 1.0]), (-2.1 - 1.0_f64).abs());
 /// ```
-pub fn l1_diff(x: &[f64], y: &[f64]) -> f64 {
-    if x.len() != y.len() {
-        std::f64::NAN
-    } else {
-        x.iter()
-            .zip(y)
-            .map(|(x, y)| (x - y).abs())
-            .fold(std::f64::NEG_INFINITY, |acc, a| acc.max(a))
-    }
+///
+/// In case of different lengths, the function panics:
+/// ```rust,should_panic
+/// graphidx::lina::l1_diff(&[1.0], &[1.0, 2.0]);  // panic!(...)
+/// ```
+pub fn l1_diff<F>(x: &[F], y: &[F]) -> F
+where
+    F: std::ops::Sub<Output = F>
+        + From<u8>
+        + std::cmp::PartialOrd
+        + std::ops::Neg<Output = F>
+        + Copy,
+{
+    assert_eq!(x.len(), y.len());
+    x.iter()
+        .zip(y)
+        .map(|(&x, &y)| {
+            let d = x - y;
+            if d < 0.into() {
+                -d
+            } else {
+                d
+            }
+        })
+        .fold(0.into(), |acc, a| if a < acc { acc } else { a })
 }
