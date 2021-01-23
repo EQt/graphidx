@@ -2,6 +2,7 @@
 #include <vector>
 
 #include <graphidx/heap/binheap.hpp>
+#include <graphidx/heap/quadheap.hpp>
 
 #include "doctestx.hpp"
 
@@ -22,7 +23,8 @@ TEST_CASE_TEMPLATE_DEFINE("heap sort", Queue, test_heap_sort)
     CHECK(sorted == std::vector<int>({0, 1, 2, 3, 4, 5}));
 }
 
-TEST_CASE_TEMPLATE_INVOKE(test_heap_sort, detail::BinaryHeap<int, int>);
+TEST_CASE_TEMPLATE_INVOKE(
+    test_heap_sort, gidx::BinaryHeap<int, int>, gidx::QuadHeap<int, int>);
 
 
 #ifdef HAVE_LEMON

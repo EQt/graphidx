@@ -1,11 +1,10 @@
-#ifdef HAVE_LEMON // Can't test without lemon library
 #include <doctest/doctest.h>
 #include <sstream>
 
 #include <graphidx/edges.hpp>
 #include <graphidx/grid.hpp>
-#include <graphidx/heap/lemon_heap.hpp>
 #include <graphidx/heap/binheap.hpp>
+#include <graphidx/heap/quadheap.hpp>
 #include <graphidx/spanning/prim_mst.hpp>
 
 #include "test_mst37.hpp"
@@ -29,9 +28,30 @@ tree_costs(const int *parent, const double *weights, const IncidenceIndex<int> &
 }
 
 
+TEST_CASE_TEMPLATE_DEFINE("Prim's MST on a 3x7 Grid", Queue, test_mst37)
+{
+    const IncidenceIndex<int> idx(GridGraph(3, 7));
+    const int root = 0;
+    std::vector<int> parent(idx.num_nodes(), -1);
+    std::vector<double> w(weights37, weights37 + idx.num_edges());
+    const auto weights = w.data();
+
+    prim_mst_edges<Queue>(parent.data(), weights, idx, root);
+    const int expect[21] = {0, 4, 5,  0,  3,  4,  7,  8,  5,  6, 7,
+                            8, 9, 14, 17, 12, 15, 16, 19, 16, 17};
+    for (size_t i = 0; i < idx.num_nodes(); i++) {
+        CAPTURE(i);
+        CHECK(parent[i] == expect[i]);
+    }
+}
+
+
+TEST_CASE_TEMPLATE_INVOKE(test_mst37, gidx::BinaryHeapT, gidx::QuadHeapT);
+
+
 TEST_CASE("Prim MST on a 3x7 Grid")
 {
-    using Queue = lemo::QuadHeapT;
+    using Queue = gidx::QuadHeapT;
     const GridGraph g(3, 7);
     const IncidenceIndex<int> idx(g);
     const int root = 0;
@@ -59,25 +79,9 @@ TEST_CASE("Prim MST on a 3x7 Grid")
 }
 
 
-TEST_CASE_TEMPLATE_DEFINE("Prim's MST on a 3x7 Grid", Queue, test_mst37)
-{
-    const IncidenceIndex<int> idx(GridGraph(3, 7));
-    const int root = 0;
-    std::vector<int> parent(idx.num_nodes(), -1);
-    std::vector<double> w(weights37, weights37 + idx.num_edges());
-    const auto weights = w.data();
+#ifdef HAVE_LEMON // Can't test without lemon library
+#include <graphidx/heap/lemon_heap.hpp>
 
-    prim_mst_edges<Queue>(parent.data(), weights, idx, root);
-    const int expect[21] = {0, 4, 5,  0,  3,  4,  7,  8,  5,  6, 7,
-                            8, 9, 14, 17, 12, 15, 16, 19, 16, 17};
-    for (size_t i = 0; i < idx.num_nodes(); i++) {
-        CAPTURE(i);
-        CHECK(parent[i] == expect[i]);
-    }
-}
-
-
-TEST_CASE_TEMPLATE_INVOKE(test_mst37, lemo::QuadHeapT, gidx::BinaryHeapT);
-
+TEST_CASE_TEMPLATE_INVOKE(test_mst37, lemo::QuadHeapT);
 
 #endif

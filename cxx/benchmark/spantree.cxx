@@ -11,6 +11,7 @@
 #include <graphidx/spanning/prim_mst.hpp>
 #include <graphidx/heap.hpp>
 #include <graphidx/heap/gnu_heap.hpp>
+#include <graphidx/heap/quadheap.hpp>
 #include <graphidx/heap/lemon_heap.hpp>
 #include <graphidx/utils/popen.hpp>
 #include <graphidx/utils/thousand.hpp>
@@ -136,8 +137,14 @@ main(int argc, char *argv[])
         std::cout << std::hex << digest(parent) << std::endl;
     }
     {
-        Timer t ("\nprim_mst<quad_heap>\n");
+        Timer t ("\nprim_mst<l::quad_heap>\n");
         const auto parent = prim_mst_edges<lemo::QuadHeapT>(weights.data(), idx);
+        t.stop();
+        std::cout << std::hex << digest(parent) << std::endl;
+    }
+    {
+        Timer t ("\nprim_mst<quad_heap>\n");
+        const auto parent = prim_mst_edges<gidx::QuadHeapT>(weights.data(), idx);
         t.stop();
         std::cout << std::hex << digest(parent) << std::endl;
     }
