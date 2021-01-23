@@ -29,25 +29,25 @@ struct AryHeap
         idx.resize(n, 0);
     }
 
-    Prio &operator[](const Item &key) { return arr[idx[key] - 1].second; }
+    Prio &operator[](const Item &key) { return arr[at(key)].second; }
 
-    const Prio &operator[](const Item &key) const { return arr[idx[key] - 1].second; }
+    const Prio &operator[](const Item &key) const { return arr[at(key)].second; }
 
     inline void push(const Item &item, const Prio &prio) { push({item, prio}); }
 
     inline void push(const Pair p)
     {
         arr.push_back(p);
-        idx[p.first] = arr.size();
+        idx[size_t(p.first)] = arr.size();
         percolate_up(arr.size() - 1);
     }
 
     inline void pop()
     {
         const size_t last = size() - 1;
-        idx[arr[0].first] = 0; // xs[0] will be removed
-        arr[0] = arr[last];    // fill the hole with last element
-        idx[arr[0].first] = 1;
+        idx[size_t(arr[0].first)] = 0; // xs[0] will be removed
+        arr[0] = arr[last];            // fill the hole with last element
+        idx[size_t(arr[0].first)] = 1;
         arr.pop_back(); // actually remove
         percolate_down(0);
     }
@@ -55,7 +55,7 @@ struct AryHeap
     inline void decrease(Item v, Prio prio)
     {
         if (contains(v)) {
-            const auto i = idx[v] - 1;
+            const size_t i = at(v);
             const Prio old_prio = arr[i].second;
             arr[i].second = prio;
             if (old_prio < prio)
@@ -67,7 +67,7 @@ struct AryHeap
         }
     }
 
-    inline bool contains(Item v) const { return idx[v] > 0; }
+    inline bool contains(Item v) const { return idx[size_t(v)] > 0; }
 
     size_t size() const { return arr.size(); }
 
@@ -76,6 +76,8 @@ struct AryHeap
     inline Item top() const { return arr[0].first; }
 
   protected:
+    inline size_t at(Item v) const { return idx[size_t(v)] - 1; }
+
     static inline size_t heapleft(size_t i) { return K * i + 1; }
 
     static inline size_t heapright(size_t i) { return K * i + K; }
@@ -92,13 +94,13 @@ struct AryHeap
                 if (arr[j].second < arr[c].second)
                     c = j;
             if (arr[c].second < x.second) {
-                idx[arr[c].first] = i + 1;
+                idx[size_t(arr[c].first)] = i + 1;
                 arr[i] = arr[c];
             } else {
                 break;
             }
         }
-        idx[x.first] = i + 1;
+        idx[size_t(x.first)] = i + 1;
         arr[i] = x;
     }
 
@@ -108,13 +110,13 @@ struct AryHeap
         for (size_t p; i > 0; i = p) {
             p = heapparent(i);
             if (x.second < arr[p].second) {
-                idx[arr[p].first] = i + 1;
+                idx[size_t(arr[p].first)] = i + 1;
                 arr[i] = arr[p];
             } else {
                 break;
             }
         }
-        idx[x.first] = i + 1;
+        idx[size_t(x.first)] = i + 1;
         arr[i] = x;
     }
 };
