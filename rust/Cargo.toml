@@ -5,5 +5,5 @@ authors = ["Elias Kuthe <elias.kuthe@tu-dortmund.de>"]
 edition = "2018"
 exclude = ["../deps/**"]
 keywords = ["algorithm", "graph", "data-structure", "unionfind", "index"]
-
-[dependencies]
+license = "MIT"
+description = "Fast indices and algorithms on static graphs"
