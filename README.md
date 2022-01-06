@@ -5,7 +5,6 @@ Index-Based Graphs
 
 [![julia](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml/badge.svg)](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml)
 [![rust](https://github.com/EQt/graphidx/actions/workflows/RustCI.yml/badge.svg)](https://github.com/EQt/graphidx/actions/workflows/RustCI.yml)
-[![Build status][appveyor]](https://ci.appveyor.com/project/EQt/graphidx)
 [![License: MIT][license-img]](LICENSE.md)
       
 [![Documentation: c++][docs-cxx]](https://eqt.github.io/graphidx/cxx)
@@ -62,8 +61,6 @@ Parts are rewritten in
 [Rust Crate](https://eqt.github.io/graphidx/rust).
 
 
-[travis]: https://app.travis-ci.com/EQt/graphidx.svg?branch=main
-[appveyor]: https://ci.appveyor.com/api/projects/status/2km8vnder45ws2mx?svg=true
 [docs-julia]: https://img.shields.io/badge/docs-julia-blue.svg
 [docs-cxx]: https://img.shields.io/badge/docs-cxx-0298c3.svg
 [docs-python]: https://img.shields.io/badge/docs-python-0298c3.svg
