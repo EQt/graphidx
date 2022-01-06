@@ -61,7 +61,7 @@ Parts are rewritten in
 [Rust Crate](https://eqt.github.io/graphidx/rust).
 
 
-[travis]: https://travis-ci.com/EQt/graphidx.svg?branch=master
+[travis]: https://app.travis-ci.com/EQt/graphidx.svg?branch=main
 [appveyor]: https://ci.appveyor.com/api/projects/status/2km8vnder45ws2mx?svg=true
 [docs-julia]: https://img.shields.io/badge/docs-julia-blue.svg
 [docs-cxx]: https://img.shields.io/badge/docs-cxx-0298c3.svg
