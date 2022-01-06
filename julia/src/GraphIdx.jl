@@ -61,6 +61,5 @@ include("Io.jl")
 include("graphviz.jl")
 
 include("precompile.jl")
-_precompile_()
 
 end
