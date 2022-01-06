@@ -3,7 +3,8 @@
 Index-Based Graphs
 ==================
 
-[![JuliaCI](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml/badge.svg)](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml)
+[![julia](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml/badge.svg)](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml)
+[![rust](https://github.com/EQt/graphidx/actions/workflows/RustCI.yml/badge.svg)](https://github.com/EQt/graphidx/actions/workflows/RustCI.yml)
 [![Build status][appveyor]](https://ci.appveyor.com/project/EQt/graphidx)
 [![License: MIT][license-img]](LICENSE.md)
       
