@@ -3,7 +3,7 @@
 Index-Based Graphs
 ==================
 
-[![Build Status][travis]](https://travis-ci.com/EQt/graphidx)
+[![JuliaCI](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml/badge.svg)](https://github.com/EQt/graphidx/actions/workflows/JuliaCI.yml)
 [![Build status][appveyor]](https://ci.appveyor.com/project/EQt/graphidx)
 [![License: MIT][license-img]](LICENSE.md)
       
