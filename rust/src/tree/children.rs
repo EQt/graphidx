@@ -80,12 +80,12 @@ impl ChildrenIndex {
     }
 
     /// The root node of the underlying tree.
-    pub fn root_node(self: &Self) -> usize {
+    pub fn root_node(&self) -> usize {
         self.child[0]
     }
 
     /// Number of nodes in the underlying tree.
-    pub fn len(self: &Self) -> usize {
+    pub fn len(&self) -> usize {
         self.child.len()
     }
 }
