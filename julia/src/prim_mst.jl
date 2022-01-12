@@ -6,9 +6,11 @@ import .Utils.Heap: PriorityQueue, dequeue!
 
 [Prim's algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm)
 for minimum spanning tree.
-Start from node `root` (will become the root node of the spanning
-tree).  Return the parent vector and a Boolean vector indicating for
-each edge whether the edge is part of the spanning tree.
+
+Start from node `root` (will become the root node of the spanning tree).
+
+Return the parent vector and a Boolean vector indicating for each edge whether
+the edge is part of the spanning tree.
 """
 function prim_mst_edges(
     n::Integer,
