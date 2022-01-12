@@ -112,6 +112,8 @@ num_nodes(g::GridGraph) = g.n1 * g.n2
 
 Base.size(g::GridGraph) = (g.n1, g.n2)
 
+Base.length(g::GridGraph) = prod(size(g))
+
 Base.adjoint(g::GridGraph) = GridGraph(g.n2, g.n1, g.dirs, g.weighted)
 
 
