@@ -29,7 +29,7 @@ impl ChildrenIndex {
     pub fn from_tree(parent: &[usize], root: usize) -> Self {
         let n = parent.len();
         assert!(n > 0);
-        assert!(parent[root] == root);
+        assert_eq!(parent[root], root);
         let mut idx: Vec<usize> = Vec::new();
         idx.resize(n + 1, 0);
         for p in parent {
@@ -70,7 +70,7 @@ impl ChildrenIndex {
             child[idx[p + 1]] = v;
             idx[p + 1] += 1;
         }
-        assert!(idx[n] == n);
+        assert_eq!(idx[n], n);
         Self { idx, child }
     }
 
