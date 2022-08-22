@@ -21,7 +21,7 @@ pub trait Weighted<T>: Index<usize, Output = T> {
 }
 
 /// Weight 1.0 for every element
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Ones<T> {
     _c: std::marker::PhantomData<T>,
 }
@@ -75,7 +75,7 @@ impl<T> Ones<T> {
 }
 
 /// Same weight for every element.
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Const<T> {
     c: T,
 }
@@ -116,7 +116,7 @@ impl<T: Clone> From<&T> for Const<T> {
 }
 
 /// Weights stored in a `Vec`tor.
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct Array<T> {
     a: Vec<T>,
 }
@@ -151,7 +151,7 @@ impl<T> From<Vec<T>> for Array<T> {
 }
 
 /// Weights stored in a referenced `Vec`tor.
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct ArrayRef<'a, T> {
     a: &'a [T],
 }

@@ -17,7 +17,7 @@ use std::ops::Index;
 /// assert_eq!(cidx[1], []);
 /// assert_eq!(cidx[2], [3]);
 /// ```
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 pub struct ChildrenIndex {
     idx: Vec<usize>,
     child: Vec<usize>,
