@@ -20,8 +20,9 @@ option(TUNE_NATIVE "Optimize for this CPU"             OFF)
 option(WITH_LEMON  "Include algorithms using LEMON"    OFF)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    add_definitions(-pedantic -ansi -Wall -Wextra -Wsign-conversion)
+    add_definitions(-pedantic -Wall -Wextra -Wsign-conversion)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mlzcnt")
     if (TUNE_NATIVE)
@@ -118,7 +119,7 @@ if (BUILD_TEST)
         cxx/test/test_heap.cpp
         cxx/test/test_mst.cpp
     )
-    target_link_libraries(doctests PRIVATE doctest::doctest graphidx)
+    target_link_libraries(doctests PUBLIC doctest::doctest graphidx)
     target_compile_definitions(doctests PUBLIC _STACK_DEBUG=1)
     if (WITH_LEMON)
         target_link_libraries(doctests PRIVATE lemon)
