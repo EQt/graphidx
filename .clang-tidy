@@ -1,0 +1,28 @@
+# -*- mode: yaml; -*-
+# yaml-language-server: $schema=https://json.schemastore.org/clang-tidy.json
+---
+HeaderFileExtensions: ["h", "hpp"]
+ImplementationFileExtensions: ["cpp"]
+Checks: >
+  bugprone-*,
+  google-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -*-braces-around-statements,
+  -*readability-identifier-length,
+  -*modernize-use-trailing-return-type,
+  -*modernize-avoid-c-arrays,
+  -*misc-use-anonymous-namespace,
+CheckOptions:
+  google-readability-braces-around-statements.ShortStatementLines: 1
+  google-readability-function-size.StatementThreshold: 800
+  google-readability-namespace-comments.ShortNamespaceLines: 10
+  google-readability-namespace-comments.SpacesBeforeComments: 2
+  llvm-else-after-return.WarnOnConditionVariables: false
+  llvm-else-after-return.WarnOnUnfixable: false
+  llvm-qualified-auto.AddConstToQualified: "true"
+SystemHeaders: false
+...
