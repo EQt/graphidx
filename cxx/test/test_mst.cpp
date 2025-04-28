@@ -33,8 +33,8 @@ TEST_CASE_TEMPLATE_DEFINE("Prim's MST on a 3x7 Grid", Queue, test_mst37)
     const IncidenceIndex<int> idx(GridGraph(3, 7));
     const int root = 0;
     std::vector<int> parent(idx.num_nodes(), -1);
-    std::vector<double> w(weights37, weights37 + idx.num_edges());
-    const auto weights = w.data();
+    const std::vector<double> w(weights37, weights37 + idx.num_edges());
+    const auto* weights = w.data();
 
     prim_mst_edges<Queue>(parent.data(), weights, idx, root);
     const int expect[21] = {0, 4, 5,  0,  3,  4,  7,  8,  5,  6, 7,
@@ -49,14 +49,14 @@ TEST_CASE_TEMPLATE_DEFINE("Prim's MST on a 3x7 Grid", Queue, test_mst37)
 TEST_CASE_TEMPLATE_INVOKE(test_mst37, gidx::BinaryHeapT, gidx::QuadHeapT);
 
 
-TEST_CASE("Prim MST on a 3x7 Grid")
+TEST_CASE("Prim MST on a 3x7 Grid") // NOLINT(*complexity*)
 {
     using Queue = gidx::QuadHeapT;
     const GridGraph g(3, 7);
     const IncidenceIndex<int> idx(g);
     const int root = 0;
-    std::vector<double> w(weights37, weights37 + idx.num_edges());
-    const auto weights = w.data();
+    const std::vector<double> w(weights37, weights37 + idx.num_edges());
+    const auto* weights = w.data();
 
     REQUIRE(g.num_edges() == 32);
     std::vector<int> parent(g.num_nodes(), -1);
@@ -67,11 +67,12 @@ TEST_CASE("Prim MST on a 3x7 Grid")
         CHECK(buf.str() == MST_37);
         const int expect[21] = {0, 4, 5,  0,  3,  4,  7,  8,  5,  6, 7,
                                 8, 9, 14, 17, 12, 15, 16, 19, 16, 17};
+        const auto expected_cost = -15.79;
         for (size_t i = 0; i < g.num_nodes(); i++) {
             CAPTURE(i);
             CHECK(parent[i] == expect[i]);
         }
-        CHECK(doctest::Approx(tree_costs(expect, weights, idx)) == -15.79);
+        CHECK(doctest::Approx(tree_costs(expect, weights, idx)) == expected_cost);
         CHECK(
             doctest::Approx(tree_costs(parent.data(), weights, idx)) ==
             tree_costs(expect, weights, idx));

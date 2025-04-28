@@ -1,10 +1,9 @@
 #pragma once
 #include <limits>
-#include <stdexcept>
 #include <vector>
 
-#include "../idx/incidence.hpp"
 #include "../heap.hpp" // for Heap<...>
+#include "../idx/incidence.hpp"
 
 
 template <
@@ -32,7 +31,7 @@ prim_mst_dbg(
              << std::endl;
         queue.pop();
         parent[u] = ~parent[u];
-        for (const auto [v, eidx] : idx[u]) {
+        for (const auto &[v, eidx] : idx[u]) {
             if (parent[v] >= 0) {
                 cerr << "chk: " << v << " finished" << std::endl;
                 continue; // already finished?
@@ -80,7 +79,7 @@ prim_mst_edges(
         const auto u = queue.top();
         queue.pop();
         parent[u] = ~parent[u];
-        for (const auto [v, eidx] : idx[u]) {
+        for (const auto &[v, eidx] : idx[u]) {
             if (parent[v] >= 0)
                 continue; // already finished?
             if (!queue.contains(v)) {
